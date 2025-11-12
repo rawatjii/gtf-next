@@ -111,7 +111,7 @@ const HeroSection = () => {
         }
       );
     }
-  }, []);
+  }, []); 
 
   useEffect(() => {
     let isMounted = true;
