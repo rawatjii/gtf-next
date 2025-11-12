@@ -3,14 +3,16 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { TextPlugin } from 'gsap/TextPlugin';
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { useSelector } from "react-redux";
 
 gsap.registerPlugin(TextPlugin);
-
 
 const Header = () => {
   const textRef = useRef(null);
   const tlRef = useRef(null);
   const openHamenu = () => {};
+
+  const isVideoHidden = useSelector((state)=>state.home.isVideoHidden)
 
   useEffect(()=>{
     const ctx = gsap.context(()=>{
@@ -62,14 +64,13 @@ const Header = () => {
   return (
     <>
       <header className="fixed site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[9]">
-        <img src="/assets/logo_white.svg" className="h-[60px]" alt="logo" />
+        <img src={isVideoHidden ? '/assets/logo.svg' : '/assets/logo_white.svg'} className="h-[60px]" alt="logo" />
 
         <h4 className="text-white text-[16px] uppercase tracking-[2px]">We Are <span ref={textRef} className="inline-block font-bold" /> Agency</h4>
-        
 
         <div className="hamburger_menu cursor-pointer"  onClick={() => openHamenu()}>
-          <span className="bg-white w-[40px] h-[2px] block my-2.5"></span>
-          <span className="bg-white w-[25px] h-[2px] block my-2.5"></span>
+          <span className={`${isVideoHidden ? 'bg-black' : 'bg-white'} w-[40px] h-[2px] block my-2.5`}></span>
+          <span className={`${isVideoHidden ? 'bg-black' : 'bg-white'} w-[25px] h-[2px] block my-2.5`}></span>
         </div>
         {/* <RxHamburgerMenu className="text-[40px] font-light text-white" onClick={() => openHamenu()} /> */}
       </header>

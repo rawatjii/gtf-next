@@ -16,6 +16,8 @@ import SparkleBackground from "../SparkleBackground";
 import { HERO_DATA } from "./hero/heroData";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { robotoCondensed } from "@/app/utils/font";
+import { useDispatch } from "react-redux";
+import { hideVideo } from "@/slices/homeSlice";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -53,6 +55,8 @@ const HeroSection = () => {
   const marqueeRef = useRef(null);
   const skipBtnRef = useRef(null);
   const headerBounds = useRef({ top: 0, bottom: 0, isInside: false });
+
+  const dispatch =  useDispatch();
 
   const dotsConfig = [
     { top: "29%", left: "65%", color: "bg-gtf-blue" },
@@ -239,6 +243,9 @@ const HeroSection = () => {
   );
 
   const handleVideoEnd = () => {
+    dispatch(hideVideo())
+
+
     document.documentElement.style.overflow = "auto";
     document.body.style.overflow = "auto";
 
