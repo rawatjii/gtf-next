@@ -158,6 +158,9 @@ const HeroSection = () => {
         anticipatePin: 1,
         pinSpacing: true,
         pin: true,
+        onEnter:()=>{
+          document.body.style.overflow = 'hidden'
+        }
         // onEnter: () => {
         //   if (!videoRef.current) return;
         //   videoRef.current.style.display = "block";
@@ -236,14 +239,17 @@ const HeroSection = () => {
   );
 
   const handleVideoEnd = () => {
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "auto";
+    document.body.style.overflow = "auto";
 
-    introPinRef.current?.kill();
-    introPinRef.current = null;
+    if (introPinRef.current) {
+      introPinRef.current.kill();
+      introPinRef.current = null;
+    }
+
     document.querySelector(".hide_screen").style.display = "none";
-
     document.querySelector(".slider_content").style.display = "flex";
+    
     setVideoCompleted(true);
 
     const tl = gsap.timeline({
@@ -598,7 +604,7 @@ const HeroSection = () => {
             src="/assets/home/hero/video1.mp4"
             className="w-full h-full object-cover transition-opacity duration-500"
             autoPlay
-            loop
+            // loop
             playsInline
             muted
             onEnded={handleVideoEnd}
