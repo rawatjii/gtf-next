@@ -9,7 +9,7 @@ import Footer from "./components/Home/Footer";
 import { usePathname } from "next/navigation";
 import MainLoader from "./components/Loader/Index";
 
-gsap.registerPlugin(ScrollTrigger,ScrollSmoother );
+gsap.registerPlugin(ScrollSmoother, ScrollTrigger );
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -31,26 +31,26 @@ export default function RootLayout({ children }) {
       // smoothTouch: 0.1, // uncomment for mobile touch smoothing
     });
 
-    smootherRef.current = smoother;
+    // smootherRef.current = smoother;
     
     // Refresh on resize
-    let resizeTimer;
-    const onResize = ()=>{
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(()=>{
-        ScrollTrigger.refresh();
-      }, 150)
-    }
+    // let resizeTimer;
+    // const onResize = ()=>{
+    //   clearTimeout(resizeTimer);
+    //   resizeTimer = setTimeout(()=>{
+    //     ScrollTrigger.refresh();
+    //   }, 150)
+    // }
 
-    window.addEventListener('resize', onResize);
+    // window.addEventListener('resize', onResize);
 
-    return()=>{
-      window.removeEventListener("resize", onResize);
-      if(smootherRef.current){
-        smootherRef.current.kill();
-        smootherRef.current = null;
-      }
-    }
+    // return()=>{
+    //   window.removeEventListener("resize", onResize);
+    //   if(smootherRef.current){
+    //     smootherRef.current.kill();
+    //     smootherRef.current = null;
+    //   }
+    // }
     
   }, []);
 
