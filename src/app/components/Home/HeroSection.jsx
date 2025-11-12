@@ -118,7 +118,7 @@ const HeroSection = () => {
     const blinkDots = (indexes, blinks = 2, delay = 1000) => {
       return new Promise((resolve) => {
         let count = 0;
-        let on = true;
+        let on = true;  
         const interval = setInterval(() => {
           if (!isMounted) {
             clearInterval(interval);
