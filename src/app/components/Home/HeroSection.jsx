@@ -18,6 +18,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { robotoCondensed } from "@/app/utils/font";
 import { useDispatch } from "react-redux";
 import { hideVideo } from "@/slices/homeSlice";
+import SlideTxtAn from "@/app/utils/SlideTxtAn";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -616,6 +617,7 @@ const HeroSection = () => {
             muted
             onEnded={handleVideoEnd}
           />
+          
           {/*infite loop text animation*/}
           <div
             className="pointer-events-none left-0 w-full overflow-hidden z-[9]"
@@ -657,7 +659,9 @@ const HeroSection = () => {
       </div>
 
       <div className="relative md:pt-0 z-[4] mt-[120px]">
-        <div
+        
+      <SlideTxtAn className="text-center text-[70px] bartino-outline font-medium uppercase text-global-color" spanClass="bartino" />
+        {/* <div
           className={`flex justify-center ${
             videoCompleted ? "2xl:mb-[20px]" : "2xl:mb-[80px]"
           } mb-8 heading-container`}
@@ -674,7 +678,7 @@ const HeroSection = () => {
               and Double-Digit Growth
             </span>
           </h1>
-        </div>
+        </div> */}
 
         <div className="flex hidden overflow-hidden slider_content justify-between flex-wrap items-stretch pt-[80px]  2xl:h-[calc(100vh-300px)] lg:h-[calc(100vh-200px)]">
           <div className="flex-[1] md:block hidden 2xl:mt-[150px] lg:mt-[80px] leading-[1px] translate-x-[-200%] right_line mb-[auto]">
