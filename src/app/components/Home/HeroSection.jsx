@@ -652,8 +652,8 @@ const HeroSection = () => {
             ref={skipBtnRef}
             className="absolute z-[99] top-0 left-0  text-white uppercase tracking-[1px] text-[14px] font-medium bg-[#e24397] px-[30px] py-[14px] rounded-full"
             onClick={handleVideoEnd}
-          >
-            Skip Video
+          >   
+            Skip Video1
           </button>
         </div>
       </div>
