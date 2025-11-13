@@ -11,6 +11,7 @@ import Line from "../Line";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { AiOutlineYoutube } from "react-icons/ai";
+import Link from "next/link";
 
 const dotsConfig = [
   { top: "29%", left: "41%", color: "bg-gtf-blue" },
@@ -20,16 +21,53 @@ const dotsConfig = [
   { bottom: "27.5%", left: "37.5%", color: "bg-[green]" },
 ];
 
-const sequence = [
-  [1, 3],
-  [0, 4],
-  [2],
+const locations = [
+  {
+    location: "Noida (Delhi NCR)",
+    address: "3rd Floor, Plot No. D5-6, Sector 3, Noida, Uttar Pradesh 201301",
+    number: "(+91) 9953 91 7978",
+  },
+  {
+    location: "Gurgaon (Delhi NCR)",
+    address:
+      "715-713 DLF Galleria Towers, DLF Phase- IV, Gurugram, Haryana, India- 122001",
+    number: "(+91) 9953 91 7978",
+  },
+  {
+    location: "Mumbai",
+    address:
+      "Teloz spaces Techniplex 2, 3rd Floor, SV Road, Malad West, Mumbai. 400104",
+    number: "(+91) 9582 53 2488",
+  },
+  {
+    location: "Pune",
+    address:
+      "9th floor office no. 11.16 Sadanand Business centre (SBC), Pashan Hwy Side Rd, Baner, Pune, Maharashtra 411045",
+    number: "(+91) 9953 60 5303",
+  },
+  {
+    location: "Bangalore",
+    address:
+      "91 Springboard indiranagar, George Thangaiah Complex, 4th Floor, Kalyan Nagar, Indira Nagar 1st Stage, Bengaluru, Karnataka 560038",
+    number: "(+91) 7838 80 0248",
+  },
+  {
+    location: "Hyderabad",
+    address:
+      "Awfis Vasavi MPM Ameerpet. 4th Floor, Vasavi MPM Grand, Ameerpet, Yella Reddy Guda, Hyderabad, Telangana 500073",
+    number: "(+91) 7838 500 356",
+  },
 ];
+
+const sequence = [[1, 3], [0, 4], [2]];
 
 const Footer = () => {
   const circleRef = useRef(null);
   const coloredLineRef = useRef(null);
   const [activeIndexes, setActiveIndexes] = useState([]);
+
+  const footerTxtRef = useRef(null);
+  const footerRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -100,9 +138,40 @@ const Footer = () => {
     },
     { dependencies: [] }
   );
+
+  useGSAP(()=>{
+    const img = footerTxtRef.current;
+    if (!img) return;
+
+    // Start with image fully clipped (hidden from bottom)
+    gsap.set(img, {
+      clipPath: "inset(100% 0 0 0)",
+    })
+
+    const tl = gsap.timeline({
+      scrollTrigger:{
+        trigger: footerTxtRef.current,
+        start: "top 80%",
+        once: true,
+      }
+    })
+
+    tl.to(img, {
+      clipPath: "inset(0% 0 0% 0%)",  // Reveal from bottom to top
+      duration: 0.8,
+      ease: "power3.out",
+    })
+
+    return () => {
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
+    };
+
+  }, {dependencies:[]})
+
+
   return (
     <>
-      <section className="new_letter_sec  mix-blend-multiply px-[15px] lg:py-0  py-[60px]">
+      {/* <section className="new_letter_sec  mix-blend-multiply px-[15px] lg:py-0  py-[60px]">
         <h2 className="uppercase text-[30px] inline-block font-medium  2xl:text-[65px] mb-[25px] xl:text-[40px] md:text-start lg:text-[55px] font-[Oswald]  relative md:leading-[70px]">
           subscribe to newsletter
           <Line
@@ -128,9 +197,73 @@ const Footer = () => {
             Submit
           </button>
         </div>
-      </section>
-      <footer className="md:px-[35px] px-[15px] z-[2] relative pb-[25px] ">
-        <div className="border-y-solid mdLmt-[50px] py-[20px] lg:py-0  border-dashed flex flex-wrap md:justify-between justify-center items-center border-y-[1px] border-black">
+      </section> */}
+      <footer ref={footerRef} className="md:px-[35px] px-[15px] z-[2] relative pb-[25px] pt-[100px]">
+
+        <div className="grid grid-cols-12">
+          <div className="col-span-3">
+            <div className="logo">
+              <div className="icons flex items-center">
+                <span className="icon pink">
+                  <img
+                    src="/assets/logos/pink_color.svg"
+                    alt="pink logo icon"
+                    className="img-fluid w-[40px]"
+                  />
+                </span>
+                <span className="icon yellow ml-[-10px]">
+                  <img
+                    src="/assets/logos/yellow_color.svg"
+                    alt="yellow logo icon"
+                    className="img-fluid w-[40px]"
+                  />
+                </span>
+                <span className="icon pink ml-[-10px]">
+                  <img
+                    src="/assets/logos/blue_color.svg"
+                    alt="blue logo icon"
+                    className="img-fluid w-[40px]"
+                  />
+                </span>
+              </div>
+              <h5 className="text-[30px] font-[Oswald] font-medium">
+                GTF Technologies
+              </h5>
+            </div>
+          </div>
+
+          <div className="col-span-9">
+            <div className="grid grid-cols-12">
+              {locations?.map((data, index) => (
+                <div key={index} className="col-span-4 px-[30px] mb-[60px]">
+                  <h4 className="font-[Oswald] text-[22px] mb-[20px]">{data.location}</h4>
+                  <p className="text-[16px] mb-[5px]">
+                    {data.address}
+                  </p>
+                  {data.number && (
+                    <p className="font-[Oswald] mt-[10px]">
+                      <Link href={data.number}>{data.number}</Link>
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+
+        </div>
+
+        <div className="footerTxt mt-[50px]">
+          <img
+            ref={footerTxtRef}
+            src="/assets/footer/footer_txt.svg"
+            alt="footer text"
+            className="img-fluid"
+            style={{clipPath: "inset(100% 0 0 0)"}}
+          />
+        </div>
+
+        {/*<div className="border-y-solid mdLmt-[50px] py-[20px] lg:py-0  border-dashed flex flex-wrap md:justify-between justify-center items-center border-y-[1px] border-black">
           <div className="basis-[33%] md:block hidden text-left">
             <h4 className="font-[Oswald] uppercase text-[24px] font-bold border-r-solid border-r-black border-r-[1px] py-[2rem] border-dashed">
               Let's Have a Conversation!
@@ -195,11 +328,11 @@ const Footer = () => {
                 className=" h-[300px] basis-[100%] md:mb-[2.5rem] mb-[20px] object-contain"
                 alt="map.png"
               />
-              {/* <img
+              /~ <img
               src="/assets/home/map.png"
               className="basis-[100%] h-[250px] mb-[2.5rem] object-contain"
               alt="map.png"
-            /> */}
+            /> ~/
               <img
                 src="/assets/gtf-logo.png"
                 className="basis-[30%] md:h-[50px] h-[35px] object-contain"
@@ -267,8 +400,8 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-        </div>
-        <div className="basis-[100%] pt-[20px] font-[Oswald] text-[17px]   flex justify-between items-center uppercase">
+        </div>*/}
+        <div className="border-t border-[#ccc] basis-[100%] pt-[20px] font-[Oswald] text-[17px] mt-[20px]  flex justify-between items-center uppercase">
           <h3 className="md:text-[15px] text-[12px]">
             privacy policy | disclaimer
           </h3>

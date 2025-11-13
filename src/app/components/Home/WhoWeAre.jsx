@@ -231,7 +231,7 @@ const WhoWeAre = () => {
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container">
-        <section className="flex flex-row  uppercase h-screen  main-container-scroll no-scrollbar min-w-[430vw] relative">
+        <section className="flex flex-row h-screen  main-container-scroll no-scrollbar min-w-[430vw] relative">
           <div
             ref={sectionRef} 
             className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
@@ -245,7 +245,7 @@ const WhoWeAre = () => {
             <div className="flex flex-row bg-gtf-pink justify-between h-full  min-w-[100vw]">
               <div className="grid grid-cols-12 items-center  gap-[40px]">
                 <div className="w-[100vw]  col-span-12 pt-[20px] px-[35PX]">
-                  <h2 className="mb-[50px] text-center bartino-outline tracking-[2px] 2xl:text-[50px] lg:text-[62px] md:text-[50px] text-[32px] block">
+                  <h2 className="mb-[50px] text-center uppercase bartino-outline tracking-[2px] 2xl:text-[50px] lg:text-[62px] md:text-[50px] text-[32px] block">
                     Who We Are?
                   </h2>
                   <div className="relative">
