@@ -652,15 +652,15 @@ const HeroSection = () => {
             ref={skipBtnRef}
             className="absolute z-[99] top-0 left-0  text-white uppercase tracking-[1px] text-[14px] font-medium bg-[#e24397] px-[30px] py-[14px] rounded-full"
             onClick={handleVideoEnd}
-          >   
-            Skip Video232333
+          >
+            Skip Video
           </button>
         </div>
       </div>
 
       <div className="relative md:pt-0 z-[4] mt-[120px]">
         
-      <SlideTxtAn className="text-center text-[70px] bartino-outline font-medium uppercase text-global-color tracking-[7px]" spanClass="bartino tracking-[14px]" />
+      <SlideTxtAn className="text-center text-[70px] bartino-outline font-medium uppercase text-global-color tracking-[7px]" spanClass="bartino tracking-[7px]" />
         {/* <div
           className={`flex justify-center ${
             videoCompleted ? "2xl:mb-[20px]" : "2xl:mb-[80px]"

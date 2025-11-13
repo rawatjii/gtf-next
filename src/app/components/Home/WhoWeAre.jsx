@@ -6,97 +6,72 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const words = [
-  "GTF",
-  " ",
-  "Technologies",
-  " ",
-  "is",
-  " ",
-  "conceptualized",
-  " ",
-  "from",
-  " ",
-  "Gurukul",
-  " ",
-  "The",
-  " ",
-  "Foundation.",
-  " ",
-  "We",
-  " ",
-  "are",
-  " ",
-  "a",
-  " ",
-  "16-year-old",
-  " ",
-  "branding",
-  " ",
-  "and",
-  " ",
-  "digital",
-  " ",
-  "media",
-  " ",
-  "planning",
-  " ",
-  "agency",
-  " ",
-  "headquartered",
-  " ",
-  "in",
-  " ",
-  "Noida,",
-  " ",
-  "Mumbai,",
-  " ",
-  "Pune,",
-  " ",
-  "and",
-  " ",
-  "an",
-  " ",
-  "upcoming",
-  " ",
-  "office",
-  " ",
-  "in",
-  " ",
-  "Bangalore.",
-  " ",
-  "GTF",
-  " ",
-  "Technologies",
-  " ",
-  "is",
-  " ",
-  "conceptualized",
-  " ",
-  "from",
-  " ",
-  "Gurukul",
-  " ",
-  "The",
-  " ",
-  "Foundation.",
-  " ",
-  "GTF",
-  " ",
-  "Technologies",
-  " ",
-  "is",
-  " ",
-  "conceptualized",
-  " ",
-  "from",
-  " ",
-  "Gurukul",
-  " ",
-  "The",
-  " ",
-  "Foundation.",
-  " ",
+
+const lines = [
+  ["Born",
+    " ",
+    "from",
+    " ",
+    "Gurukul",
+    " ",
+    "The",
+    " ",
+    "Foundation,",
+    " ",
+    "GTF",
+    " ",
+    "Technologies",
+    " ",
+    "is",
+    " ",
+    "where",
+    " ",
+    "ideas",
+    " ",
+    "move",
+    " ",
+    "and",
+    " ",
+    "brands",
+    " ",
+    "find",
+    " ",
+    "their",
+    " ",
+    "pace."],
+
+
+  ["With",
+    " ",
+    "17+",
+    " ",
+    "years",
+    " ",
+    "of",
+    " ",
+    "strategy,",
+    " ",
+    "storytelling,",
+    " ",
+    "and",
+    " ",
+    "scale,",
+    " ",
+    "we",
+    " ",
+    "make",
+    " ",
+    "brands",
+    " ",
+    "move",
+    " ",
+    "faster",
+    " ",
+    "than",
+    " ",
+    "the",
+    " ",
+    "market."],
 ];
 
 const WhoWeAre = () => {
@@ -136,7 +111,7 @@ const WhoWeAre = () => {
 
       const splitInstances = textRef.current
         .filter(Boolean)
-        .map((ref) => new SplitText(ref, { type: "chars" }));
+        .map((ref) => new SplitText(ref, { type: "chars", charsClass: "char" }));
       const allChars = splitInstances.flatMap((split) => split.chars);
 
       
@@ -151,7 +126,7 @@ const WhoWeAre = () => {
           id: "whoWeAreTrigger",
           trigger: container,
           start: "top top",
-          end: () => `+=${maxTranslateX * 8 + 100}`,
+          end: () => `+=${maxTranslateX * 5 + 100}`,
           pin: true,
           markers:false,
           scrub: 1,
@@ -164,26 +139,26 @@ const WhoWeAre = () => {
         duration:0.2,
         stagger:0.05,
         ease:"power2"
-      }, "+=0.5").
+      }, "+=0.2").
       to(hides, {
         width: 0,
         marginRight:0,
         duration: 0.3,
         ease:"power2"
-      },  "+=0.2").
-      to(otherText, { marginLeft:'25px', opacity: 1, width: "auto", duration: 0.2 }, "+=0.5").
+      },  "+=0.1").
+      to(otherText, { marginLeft:'25px', opacity: 1, width: "auto", duration: 0.2 }, "+=0.1").
       // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
-      to(ov_data, {height:'auto', duration:0.2, ease:"power2"}, "+=0.3").
-      to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
-      to(heading, {autoAlpha:0, duration:0.2, ease:"power2"}).
-      to(allChars, {opacity:0.2, duration:0.2, ease:"power2"}, "-=0.3").
-      to(allChars, {opacity: 1, scrub: 0.5, stagger: 0.08, ease: "none"}, "+=0.5")
+      to(ov_data, {height:'auto', duration:0.2, ease:"power2"}, "+=0.1").
+      // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
+      to(heading, {autoAlpha:0, duration:0.1, ease:"power2"}).
+      to(allChars, {opacity:0.2, duration:0.2, ease:"power2"}, "-=0.1").
+      to(allChars, {opacity: 1, duration: 0.1, stagger: 0.008, ease: "power2.out", immediateRender: false,})
       .to(
         section,
         {
           x: -maxTranslateX,
           ease: "power1.out",
-          duration: 6, 
+          duration: 4, 
           onUpdate: function () {
             images.forEach((image, index) => {
               if (animatedIndices.includes(index)) return;
@@ -210,7 +185,7 @@ const WhoWeAre = () => {
           },
           onComplete: () => ScrollTrigger.refresh(),
         },
-        "-=1.5"
+        
       );
 
       // gsap.to("body", {
@@ -277,16 +252,23 @@ const WhoWeAre = () => {
 
                   <h4 ref={headingRef} className="font-[Oswald] js-title text-center text-[70px] font-bold absolute left-[50%] -translate-x-[50%] w-[max-content]">G<span className="hide">urukul </span>T<span className="hide">he </span>F<span className="hide" >oundation </span><span className="other_txt">Technologies</span></h4>
 
-                  <div ref={overviewData}>
-                  {words.map((word, index) => (
-                    <p
-                      ref={(el) => (textRef.current[index] = el)}
-                      key={index}
-                      className="font-[Oswald] pr-[8px] 2xl:leading-[1.2] lg:leading-[1.4] tracking-[-2.5px] font-[700] 2xl:text-[60px] xl:text-[48px] text-[32px] inline-block"
-                    >
-                      {word}
-                    </p>
-                  ))}
+                  <div ref={overviewData} className="flex flex-col items-center space-y-2 gap-[25px]">
+                    {lines.map((line, lineIndex) => (
+                      <div
+                        key={lineIndex}
+                        ref={(el) => (textRef.current[lineIndex] = el)} // One ref per line
+                        className="flex flex-wrap justify-center"
+                      >
+                        {line.map((word, wordIndex) => (
+                          <span
+                            key={wordIndex}
+                            className="font-[Oswald] pr-[8px] 2xl:leading-[1.2] lg:leading-[1.4] tracking-[-2.5px] font-[700] 2xl:text-[50px] xl:text-[48px] text-[32px] inline-block"
+                          >
+                            {word}
+                          </span>
+                        ))}
+                      </div>
+                    ))}
                   </div>
                   </div>
                 </div>
