@@ -711,7 +711,13 @@ const HeroSection = () => {
           </h1>
         </div> */}
 
-        <div className="flex hidden overflow-hidden slider_content justify-between flex-wrap items-stretch pt-[80px]  2xl:h-[calc(100vh-300px)] lg:h-[calc(100vh-200px)]">
+
+
+
+              {/* use layer */}
+
+
+        {/* <div className="flex hidden overflow-hidden slider_content justify-between flex-wrap items-stretch pt-[80px]  2xl:h-[calc(100vh-300px)] lg:h-[calc(100vh-200px)]">
           <div className="flex-[1] md:block hidden 2xl:mt-[150px] lg:mt-[80px] leading-[1px] translate-x-[-200%] right_line mb-[auto]">
             {HERO_DATA.map((_, index) => (
               <span
@@ -917,7 +923,9 @@ const HeroSection = () => {
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
+
+        {/* use later */}
       </div>
       <button className="bg-[#1E251F] md:hidden block flex gap-[5px] font-[700] relative z-[999] justify-center mt-[15px] place-items-center text-white px-4 py-[2px] font-[500] w-[calc(100%-74px)]  font-[oswald] m-auto before:content-[''] before:absolute before:h-[166px] before:w-[100%] before:bottom-[148px] before:bg-[transparent] ">
         MEET NOW
