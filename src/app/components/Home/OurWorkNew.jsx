@@ -162,7 +162,7 @@ const OurWork = () => {
             </span>
           </div>
 
-          <h3 ref={headingTxtRef} className="text-[150px] bartino uppercase text-center">Our Work</h3>
+          <h3 ref={headingTxtRef} className="text-[150px] bartino-outline uppercase text-center">Our Work</h3>
         </div>
 
         <div ref={projectsRef} className="relative projects mt-[50vh]">

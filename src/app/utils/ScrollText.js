@@ -30,7 +30,7 @@ const ScrollText = ({scrolltext, position, className, color="white"}) => {
   return (
     <h2
       ref={marqueeRef}
-      className={`inline-block whitespace-nowrap uppercase  font-semibold leading-none ${className}`}
+      className={`inline-block whitespace-nowrap uppercase leading-none ${className}`}
       style={{color}}
     >
       {Array.from({ length: 4 }).map((_, i) => (
