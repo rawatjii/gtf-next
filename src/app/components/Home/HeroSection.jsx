@@ -156,6 +156,9 @@ const HeroSection = () => {
   useEffect(() => {
     if (!sectionRef.current || !mounted) return;
 
+    let hasScrolledPastHero = window.scrollY > window.innerHeight * 0.5;
+    let initialLoad = true;
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -164,8 +167,24 @@ const HeroSection = () => {
         pinSpacing: true,
         pin: true,
         onEnter:()=>{
-          document.body.style.overflow = 'hidden'
-        }
+          // Only lock scroll on initial load AND if user hasn't scrolled past
+          if(initialLoad && !hasScrolledPastHero){
+            document.body.style.overflow = 'hidden'
+          }
+          initialLoad = false;
+        },
+        onLeave:()=>{
+          document.body.style.overflow = '';
+        },
+        onEnterBack: () => {
+          // If user scrolls back up, re-lock (optional)
+          if (!hasScrolledPastHero) {
+            document.body.style.overflow = 'hidden';
+          }
+        },
+        onLeaveBack: () => {
+          document.body.style.overflow = '';
+        },
         // onEnter: () => {
         //   if (!videoRef.current) return;
         //   videoRef.current.style.display = "block";
@@ -180,10 +199,22 @@ const HeroSection = () => {
       },
     });
     introPinRef.current = tl.scrollTrigger;
+
+    const handleScroll = () => {
+      if (window.scrollY > window.innerHeight * 0.8) {
+        hasScrolledPastHero = true;
+        document.body.style.overflow = 'auto';
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+
     return () => {
       tl.scrollTrigger?.kill();
       introPinRef.current?.kill();
-      // ScrollTrigger.refresh();
+      window.removeEventListener('scroll', handleScroll);
+      document.body.style.overflow = 'auto';
     };
   }, [mounted, videoCompleted, isMobile]);
 

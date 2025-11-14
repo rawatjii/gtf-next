@@ -67,7 +67,7 @@ const Contact = () => {
         onEnterBack: () => tl.progress(1),
         onLeave: () => tl.progress(1),
         onLeaveBack: () => tl.reverse(),
-        markers:true,
+        // markers:true,
       })
 
       return () => ctx.revert();
