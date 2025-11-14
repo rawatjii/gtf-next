@@ -9,6 +9,7 @@ import Solutions from "./components/Home/Solutions";
 import Contact from "./components/Home/Contact";
 import OurWork from "./components/Home/OurWork";
 import LocationMap from "./components/Home/LocationMap";
+import WhoWeAreNew from "./components/Home/WhoWeAreNew";
 
 const Home = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
@@ -22,6 +23,7 @@ const Home = () => {
       <Clients />
       <OurWork />
       <Solutions />
+      <WhoWeAreNew />
       <LocationMap />
       <Contact />
     </div>

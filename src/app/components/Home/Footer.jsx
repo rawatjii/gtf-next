@@ -401,7 +401,7 @@ const Footer = () => {
             </div>
           </div>
         </div>*/}
-        <div className="border-t border-[#ccc] basis-[100%] pt-[20px] font-[Oswald] text-[17px] mt-[20px]  flex justify-between items-center uppercase">
+        <div className="border-t-2 border-[#ccc] basis-[100%] pt-[20px] font-[Oswald] text-[17px] mt-[20px]  flex justify-between items-center uppercase">
           <h3 className="md:text-[15px] text-[12px]">
             privacy policy | disclaimer
           </h3>

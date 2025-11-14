@@ -257,7 +257,7 @@ const WhoWeAre = () => {
                       <div
                         key={lineIndex}
                         ref={(el) => (textRef.current[lineIndex] = el)} // One ref per line
-                        className="flex flex-wrap justify-center"
+                        className="flex flex-wrap justify-center uppercase"
                       >
                         {line.map((word, wordIndex) => (
                           <span
