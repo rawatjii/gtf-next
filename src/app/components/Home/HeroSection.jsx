@@ -206,7 +206,7 @@ const HeroSection = () => {
         document.body.style.overflow = 'auto';
       }
     };
-
+ 
     window.addEventListener('scroll', handleScroll);
 
 
