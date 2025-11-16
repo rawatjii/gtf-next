@@ -30,6 +30,18 @@ const debounce = (func, wait) => {
   };
 };
 
+const data = [
+  "300 Minds",
+  "06 LOCATIONS",
+  "One Team"
+];
+
+const colors = [
+  "#e24397",
+  "#fde93d",
+  "#2aaee4"
+]
+
 const HeroSection = () => {
   const [swiperReady, setSwiperReady] = useState(false);
   const [videoCompleted, setVideoCompleted] = useState(false);
@@ -621,19 +633,19 @@ const HeroSection = () => {
           <span className="font-medium"> Gurukul The Foundation</span>
         </p>
       </div>
-      <div
+      {/* <div
         ref={line1Ref}
         className="mix-blend-multiply h-[10px] md:block hidden md:h-[25px] w-[80%] absolute top-[calc(56%)] bg-gtf-pink opacity-0"
       ></div>
       <div
         ref={line2Ref}
         className="mix-blend-multiply h-[10px] md:block hidden md:h-[25px] w-[80%] absolute 2xl:bottom-[135px] bottom-[85px] md:right-[-196px] bg-gtf-yellow opacity-0"
-      ></div>
-      <img
+      ></div> */}
+      {/* <img
         src="/assets/home/hero/circle.svg"
         className="2xl:h-[450px] md:h-[300px] h-[300px] rotate-plus absolute rotation_circle 2xl:top-[40%] lg:top-[40%] bottom-[0] opacity-0 lg:left-[15%]"
         alt="Decorative circle"
-      />
+      /> */}
 
       <div ref={sectionRef} className="h-screen hide_screen">
         {/* {mounted && !videoCompleted && ( */}
@@ -691,7 +703,7 @@ const HeroSection = () => {
 
       <div className="relative md:pt-0 z-[4] mt-[120px]">
         
-      <SlideTxtAn className="text-center text-[70px] bartino-outline font-medium uppercase text-global-color tracking-[7px]" spanClass="bartino tracking-[7px]" />
+        <SlideTxtAn className="text-center text-[70px] bartino-outline font-medium uppercase text-global-color tracking-[7px]" spanClass="bartino tracking-[7px]" />
         {/* <div
           className={`flex justify-center ${
             videoCompleted ? "2xl:mb-[20px]" : "2xl:mb-[80px]"
@@ -711,14 +723,22 @@ const HeroSection = () => {
           </h1>
         </div> */}
 
+        <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center">
 
+          <div className="map h-full w-full flex items-center justify-center top-0 left-0 w-full h-full opacity-50 z-[-1]">
+            <img
+              src="/assets/map/map.png"
+              className="max-w-[700px]"
+            />
+          </div>
 
+          <div className="absolute content grid gap-[30px]">
+            {data.map((item, index)=>(
+              <h3 key={index} className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[1px]`} style={{ color: colors[index] }}>{item}</h3>
+            ))}
+          </div>
 
-              {/* use layer */}
-
-
-        {/* <div className="flex hidden overflow-hidden slider_content justify-between flex-wrap items-stretch pt-[80px]  2xl:h-[calc(100vh-300px)] lg:h-[calc(100vh-200px)]">
-          <div className="flex-[1] md:block hidden 2xl:mt-[150px] lg:mt-[80px] leading-[1px] translate-x-[-200%] right_line mb-[auto]">
+          {/* <div className="flex-[1] md:block hidden 2xl:mt-[150px] lg:mt-[80px] leading-[1px] translate-x-[-200%] right_line mb-[auto]">
             {HERO_DATA.map((_, index) => (
               <span
                 key={index}
@@ -727,9 +747,9 @@ const HeroSection = () => {
                 }`}
               />
             ))}
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             className="md:basis-[40%] basis-[90%] m-auto md:h-[calc(100vh)] h-[calc(80vh-200px)] xl:pb-[150px] relative swiper_container"
             ref={containerRef}
           >
@@ -906,8 +926,8 @@ const HeroSection = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-          <div className="flex-[1] z-[7] flex flex-col md:block hidden relative justify-between h-[100%] translate-x-[200%] option_listing mb-[auto] 2xl:mt-[80px] text-right">
+          </div> */}
+          {/* <div className="flex-[1] z-[7] flex flex-col md:block hidden relative justify-between h-[100%] translate-x-[200%] option_listing mb-[auto] 2xl:mt-[80px] text-right">
             <ul className="w-auto inline-block">
               {HERO_DATA.map((info, index) => (
                 <li
@@ -922,10 +942,8 @@ const HeroSection = () => {
                 </li>
               ))}
             </ul>
-          </div>
-        </div> */}
-
-        {/* use later */}
+          </div> */}
+        </div>
       </div>
       <button className="bg-[#1E251F] md:hidden block flex gap-[5px] font-[700] relative z-[999] justify-center mt-[15px] place-items-center text-white px-4 py-[2px] font-[500] w-[calc(100%-74px)]  font-[oswald] m-auto before:content-[''] before:absolute before:h-[166px] before:w-[100%] before:bottom-[148px] before:bg-[transparent] ">
         MEET NOW
