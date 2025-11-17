@@ -26,6 +26,16 @@ const Clients = () => {
     { id: 8, src: "/assets/home/clients/ska-orion.png", alt: "SKA Orion" },
     { id: 9, src: "/assets/home/clients/aipl.png", alt: "AIPL" },
     { id: 10, src: "/assets/home/clients/eldeco.png", alt: "Eldeco" },
+    { id: 1, src: "/assets/home/clients/ambience.png", alt: "Ambience" },
+    { id: 2, src: "/assets/home/clients/ats.png", alt: "ATS" },
+    { id: 3, src: "/assets/home/clients/jindal-realty.png", alt: "Jindal Realty" },
+    { id: 4, src: "/assets/home/clients/homekraft.png", alt: "Homekraft" },
+    { id: 5, src: "/assets/home/clients/parx-laureate.png", alt: "Parx Laureate" },
+    { id: 6, src: "/assets/home/clients/raheja.png", alt: "Raheja" },
+    { id: 7, src: "/assets/home/clients/tarc.png", alt: "Tarc" },
+    { id: 8, src: "/assets/home/clients/ska-orion.png", alt: "SKA Orion" },
+    { id: 9, src: "/assets/home/clients/aipl.png", alt: "AIPL" },
+    { id: 10, src: "/assets/home/clients/eldeco.png", alt: "Eldeco" },
   ];
 
   // Duplicate logos for seamless infinite loop
@@ -48,8 +58,8 @@ const Clients = () => {
 
   return (
     <section>
-      <div className="md:px-[35px] px-[15px]">
-        <div className="md:flex justify-start items-end md:mb-[0] mb-[30px] md:text-start">
+      <div className="">
+        <div className="md:px-[35px] px-[15px] md:flex justify-start items-end md:mb-[0] mb-[30px] md:text-start">
           <h3 className="uppercase relative md:leading-[70px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px]">
             <span className="bartino-outline tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px] block">
               Amazing brands,
@@ -71,11 +81,11 @@ const Clients = () => {
         </div>
 
         {/* Dual Infinite Swiper Sliders */}
-        <div className="overflow-hidden relative w-full md:mt-[100px] main_border_cmp border-black py-12 ">
+        <div className="overflow-hidden relative w-full md:mt-[140px] main_border_cmp border-black pb-[120px]">
           {/* First Row - Slides Left */}
           <Swiper
             modules={[Autoplay]}
-            spaceBetween={40}
+            spaceBetween={30}
             slidesPerView={2}
             breakpoints={{
               640: { slidesPerView: 3 },
@@ -84,21 +94,25 @@ const Clients = () => {
               1280: { slidesPerView: 6 },
             }}
             loop={true}
+            loopedSlides={duplicatedLogos.length}
             autoplay={{
               delay: 0,
               disableOnInteraction: false,
+              reverseDirection: false,
             }}
-            speed={5000} // Smooth continuous scroll
+            speed={8000} // Smooth continuous scroll
             allowTouchMove={false}
-            className="w-full"
+            freeMode={{ enabled: true, momentum: false }}
+            centeredSlides={true}
+            className="w-full infinite_swiper"
           >
             {duplicatedLogos.map((logo, index) => (
               <SwiperSlide key={`${logo.id}-${index}`}>
-                <div className="flex items-center justify-center h-32 px-6  hover:grayscale transition-all duration-300">
+                <div className="flex items-center justify-center h-[150px] px-6 hover:grayscale transition-all duration-300 bg-[#0000000f]">
                   <Image
                     src={logo.src}
                     alt={logo.alt}
-                    width={180}
+                    width={130}
                     height={100}
                     className="max-w-full max-h-full object-contain"
                   />
@@ -110,7 +124,7 @@ const Clients = () => {
           {/* Second Row - Slides Right (opposite direction) */}
           <Swiper
             modules={[Autoplay]}
-            spaceBetween={40}
+            spaceBetween={30}
             slidesPerView={2}
             breakpoints={{
               640: { slidesPerView: 3 },
@@ -118,23 +132,25 @@ const Clients = () => {
               1024: { slidesPerView: 5 },
               1280: { slidesPerView: 6 },
             }}
-            loop={true}
+            loop="true"
             autoplay={{
               delay: 0,
-              disableOnInteraction: false,
-              reverseDirection: true, // This makes it go right ←
+              // disableOnInteraction: false,
+              reverseDirection: true,
             }}
-            speed={5000}
+            speed={8000}
             allowTouchMove={false}
-            className="w-full mt-8"
+            // freeMode={{ enabled: true, }}
+            centeredSlides={true}
+            className="w-full mt-[30px] infinite_swiper"
           >
             {duplicatedLogos.map((logo, index) => (
               <SwiperSlide key={`${logo.id}-reverse-${index}`}>
-                <div className="flex items-center justify-center h-32 px-6  hover:grayscale transition-all duration-300">
+                <div className="flex items-center justify-center h-[150px] px-6  hover:grayscale transition-all duration-300 bg-[#0000000f]">
                   <Image
                     src={logo.src}
                     alt={logo.alt}
-                    width={180}
+                    width={130}
                     height={100}
                     className="max-w-full max-h-full object-contain"
                   />

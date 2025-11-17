@@ -292,6 +292,13 @@ canvas {
 .listing_card {
   border: 1px dashed #000;
 }
+
+.infinite_swiper .swiper-wrapper{
+  transition-timing-function: linear;
+}
+
+/* start responsive */
+
 @media (max-width: 1440px) {
   .hero_section ul li {
     font-size: 16px;
