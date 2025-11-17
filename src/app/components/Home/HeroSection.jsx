@@ -594,67 +594,50 @@ const HeroSection = () => {
     if (!dataRef.current || !videoCompleted) return;
   
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startCounters();
-            observer.unobserve(entry.target); // Run only once
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startCounters();
+          observer.unobserve(entry.target);
+        }
       },
-      {
-        threshold: 0.6, // Trigger when 60% of dataRef is visible
-        rootMargin: "0px 0px -10% 0px",
-      }
+      { threshold: 0.5 }
     );
   
-    if (dataRef.current) {
-      observer.observe(dataRef.current);
-    }
+    if (dataRef.current) observer.observe(dataRef.current);
   
     const startCounters = () => {
       const counters = dataRef.current.querySelectorAll(".counter");
   
       counters.forEach((counterEl) => {
-        const targetText = counterEl.getAttribute("data-target");
-        const isNumber = !isNaN(targetText);
-        const finalValue = isNumber ? parseInt(targetText, 10) : targetText;
+        const target = parseInt(counterEl.getAttribute("data-target") || "0", 10);
+        const hasLeadingZero = target < 10;
   
-        let current = 0;
-        const duration = 2.2; // Total animation time
-        const frameRate = 60;
-        const totalFrames = duration * frameRate;
-        let frame = 0;
-  
-        const timer = setInterval(() => {
-          frame++;
-          const progress = frame / totalFrames;
-  
-          if (progress >= 1) {
-            counterEl.textContent = isNumber
-              ? finalValue < 10 && targetText.length > 1
-                ? finalValue.toString().padStart(2, "0")
-                : finalValue.toString()
-              : finalValue;
-            clearInterval(timer);
-          } else {
-            current = Math.floor(progress * finalValue);
-  
-            counterEl.textContent = isNumber
-              ? current < 10 && targetText.length > 1
-                ? current.toString().padStart(2, "0")
-                : current.toString()
-              : "";
-          }
-        }, 1000 / frameRate);
+        gsap.to(counterEl, {
+          innerText: target,
+          duration: 2.2,
+          ease: "power2.out",
+          snap: { innerText: 1 }, // Snap to whole numbers
+          onUpdate: function () {
+            const value = Math.round(this.targets()[0].innerText);
+            counterEl.innerText = hasLeadingZero 
+              ? value.toString().padStart(2, "0")
+              : value;
+          },
+          onComplete: () => {
+            // Show suffix with fade-in
+            const suffixEl = counterEl.parentElement.querySelector(".animate-fadeIn");
+            if (suffixEl) {
+              gsap.to(suffixEl, { opacity: 1, duration: 0.6, ease: "power2.out" });
+            }
+          },
+        });
       });
     };
   
-    return () => {
-      if (dataRef.current) observer.unobserve(dataRef.current);
-    };
+    return () => observer.disconnect();
   }, [videoCompleted]);
 
+  
   return (
     <section
       className={`relative hero_section overflow-hidden mb-[100px] ${
@@ -800,23 +783,31 @@ const HeroSection = () => {
           </div>
 
           <div ref={dataRef} className="absolute content grid gap-[30px] opacity-0">
-  {data.map((item, index) => {
-    const cleanNumber = item.replace(/\D/g, ""); // Extract number part
-    const isNumber = cleanNumber !== "";
-    const numberValue = isNumber ? parseInt(cleanNumber, 10) : null;
+            {data.map((item, index) => {
+              const match = item.match(/^(\d+)\s*(.+)?$/); // Extract number + suffix
+              const hasNumber = match && match[1];
+              const numberValue = hasNumber ? parseInt(match[1], 10) : null;
+              const suffix = match && match[2] ? match[2].trim() : item; // "Minds", "Locations", or full "One Team"
 
-    return (
-      <h3
-        key={index}
-        className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[1px] counter font-bold`}
-        style={{ color: colors[index] }}
-        data-target={isNumber ? numberValue : item}
-      >
-        {isNumber ? "00" : ""}
-      </h3>
-    );
-  })}
-</div>
+              return (
+                <h3
+                  key={index}
+                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[1px] font-bold`}
+                  style={{ color: colors[index] }}
+                >
+                  <span className="counter" data-target={numberValue}>
+                    {hasNumber ? "00" : ""} {/* Start from 00 or empty */}
+                  </span>
+                  {hasNumber && suffix && (
+                    <span className="ml-4 opacity-0 animate-fadeIn"> {suffix}</span>
+                  )}
+                  {!hasNumber && (
+                    <span className="opacity-0 animate-fadeIn">{suffix}</span>
+                  )}
+                </h3>
+              );
+            })}
+          </div>
 
           
         </div>
