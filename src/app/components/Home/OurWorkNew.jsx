@@ -120,8 +120,9 @@ const OurWork = () => {
       // end: () => `+=${projectsContainer.offsetHeight}`,
       pin: heading,
       pinSpacing: false,
-      // markers: true,
-      id: "pin-heading",
+      markers: true,
+      id: "section-pin",
+      immediateRender:true,
     });
 
 
