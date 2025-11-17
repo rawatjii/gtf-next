@@ -1,7 +1,7 @@
 import gsap from 'gsap';
-import React, { useEffect, useRef } from 'react'
+import React, { forwardRef, useEffect, useRef } from 'react'
 
-const SlideTxtAn = ({className, spanClass}) => {
+const SlideTxtAn = forwardRef(({className, spanClass}, ref) => {
   const textRef = useRef(null);
   const tlRef = useRef(null);
 
@@ -53,10 +53,10 @@ const SlideTxtAn = ({className, spanClass}) => {
   }, [])
 
   return (
-    <h4 className={`text-[16px] tracking-[2px] ${className}`}>
+    <h4 ref={ref} className={`text-[16px] tracking-[2px] ${className}`}>
       We Are <span ref={textRef} className={`inline-block font-bold ${spanClass}`} /> Agency
     </h4>
   )
-}
+})
 
 export default SlideTxtAn
