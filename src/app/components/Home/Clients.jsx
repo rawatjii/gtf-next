@@ -1,50 +1,35 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import Line from "../Line";
-import StaggeredLogoSwitcher from "./Client_sec";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import Image from "next/image";
+
+// Import Swiper styles
+import "swiper/css";
 
 const Clients = () => {
   const imageRef = useRef(null);
   const coloredLineRef = useRef(null);
   const coloredLineRef2 = useRef(null);
   const containerRef = useRef(null);
-  const logoGridRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isLogoGridVisible, setIsLogoGridVisible] = useState(false);
 
   const logoSets = [
-  { id: 1, src: "/assets/home/clients/ambience.png" },
-  { id: 2, src: "/assets/home/clients/ats.png" },
-  { id: 3, src: "/assets/home/clients/jindal-realty.png" },
-  { id: 4, src: "/assets/home/clients/homekraft.png" },
-  { id: 5, src: "/assets/home/clients/parx-laureate.png" },
-  { id: 6, src: "/assets/home/clients/raheja.png" },
-  { id: 7, src: "/assets/home/clients/tarc.png" },
-  { id: 8, src: "/assets/home/clients/ska-orion.png" },
-  { id: 9, src: "/assets/home/clients/aipl.png" },
-  { id: 10, src: "/assets/home/clients/eldeco.png" },
-];
-    
+    { id: 1, src: "/assets/home/clients/ambience.png", alt: "Ambience" },
+    { id: 2, src: "/assets/home/clients/ats.png", alt: "ATS" },
+    { id: 3, src: "/assets/home/clients/jindal-realty.png", alt: "Jindal Realty" },
+    { id: 4, src: "/assets/home/clients/homekraft.png", alt: "Homekraft" },
+    { id: 5, src: "/assets/home/clients/parx-laureate.png", alt: "Parx Laureate" },
+    { id: 6, src: "/assets/home/clients/raheja.png", alt: "Raheja" },
+    { id: 7, src: "/assets/home/clients/tarc.png", alt: "Tarc" },
+    { id: 8, src: "/assets/home/clients/ska-orion.png", alt: "SKA Orion" },
+    { id: 9, src: "/assets/home/clients/aipl.png", alt: "AIPL" },
+    { id: 10, src: "/assets/home/clients/eldeco.png", alt: "Eldeco" },
+  ];
 
-
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsLogoGridVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (logoGridRef.current) {
-      observer.observe(logoGridRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  // Duplicate logos for seamless infinite loop
+  const duplicatedLogos = [...logoSets, ...logoSets];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,17 +46,15 @@ const Clients = () => {
     return () => observer.disconnect();
   }, []);
 
- 
-
   return (
     <section>
-      <div className="md:pt-[50px] md:px-[35px] px-[15px] py-[60px]">
-        <div className="md:flex justify-start items-end md:mb-[0]  mb-[30px] md:text-start">
-          <h3 className="uppercase relative md:leading-[70px] md:text-start text-center max-h-fit leading-[normal]  md:mb-[0] mb-[15px]">
+      <div className="md:px-[35px] px-[15px]">
+        <div className="md:flex justify-start items-end md:mb-[0] mb-[30px] md:text-start">
+          <h3 className="uppercase relative md:leading-[70px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px]">
             <span className="bartino-outline tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px] block">
               Amazing brands,
             </span>
-            <span className="font-[Oswald] md:pl-[7.5rem] block font-medium 2xl:text-[65px] text-[32px]  md:text-[50px] lg:text-[52px]">
+            <span className="font-[Oswald] md:pl-[7.5rem] block font-medium 2xl:text-[65px] text-[32px] md:text-[50px] lg:text-[52px]">
               Amazed Clients.
               <Line
                 ref={coloredLineRef}
@@ -87,16 +70,82 @@ const Clients = () => {
           </p>
         </div>
 
-        <div className="overflow-hidden relative w-full md:mt-[70px] main_border_cmp border-black">
-          <ul
-            ref={logoGridRef}
-            className="grid grid-cols-2 border-none sm:grid-cols-3 md:grid-cols-5 w-full border-[2px]"
+        {/* Dual Infinite Swiper Sliders */}
+        <div className="overflow-hidden relative w-full md:mt-[100px] main_border_cmp border-black py-12 ">
+          {/* First Row - Slides Left */}
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={40}
+            slidesPerView={2}
+            breakpoints={{
+              640: { slidesPerView: 3 },
+              768: { slidesPerView: 4 },
+              1024: { slidesPerView: 5 },
+              1280: { slidesPerView: 6 },
+            }}
+            loop={true}
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false,
+            }}
+            speed={5000} // Smooth continuous scroll
+            allowTouchMove={false}
+            className="w-full"
           >
-            <StaggeredLogoSwitcher logoSets={logoSets}/>
-          </ul>
+            {duplicatedLogos.map((logo, index) => (
+              <SwiperSlide key={`${logo.id}-${index}`}>
+                <div className="flex items-center justify-center h-32 px-6  hover:grayscale transition-all duration-300">
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={180}
+                    height={100}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {/* Second Row - Slides Right (opposite direction) */}
+          <Swiper
+            modules={[Autoplay]}
+            spaceBetween={40}
+            slidesPerView={2}
+            breakpoints={{
+              640: { slidesPerView: 3 },
+              768: { slidesPerView: 4 },
+              1024: { slidesPerView: 5 },
+              1280: { slidesPerView: 6 },
+            }}
+            loop={true}
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false,
+              reverseDirection: true, // This makes it go right ←
+            }}
+            speed={5000}
+            allowTouchMove={false}
+            className="w-full mt-8"
+          >
+            {duplicatedLogos.map((logo, index) => (
+              <SwiperSlide key={`${logo.id}-reverse-${index}`}>
+                <div className="flex items-center justify-center h-32 px-6  hover:grayscale transition-all duration-300">
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={180}
+                    height={100}
+                    className="max-w-full max-h-full object-contain"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
 
+      {/* Rest of your section (Why GTF, reveal image, etc.) */}
       <div
         style={{
           backgroundImage: `url("/assets/home/clients/bg.png")`,
@@ -104,9 +153,9 @@ const Clients = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="relative md:text-start text-center   md:py-[0] py-[60px]"
+        className="relative md:text-start text-center md:py-[0] py-[60px]"
       >
-        <h3 className="uppercase md:text-start mb-[1.5rem] text-center max-h-content max-w-content inline-block relative md:pt-[5rem] md:pl-[35px]  px-5  text-[40px] md:leading-[70px]">
+        <h3 className="uppercase md:text-start mb-[1.5rem] text-center max-h-content inline-block relative md:pt-[5rem] md:pl-[35px] px-5 text-[40px] md:leading-[70px]">
           <span className="bartino-outline tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px]">
             {"WHY ? "}
           </span>
@@ -132,29 +181,12 @@ const Clients = () => {
             }}
             src="/assets/home/clients/bg_of_client.png"
             alt="Background of client"
-            className={`w-full h-[84px]   md:pb-[70px] lg:h-auto xl:object-cover transition-clip-path duration-[2000ms] ease-out ${
+            className={`w-full h-[84px] md:pb-[70px] lg:h-auto xl:object-cover transition-clip-path duration-[2000ms] ease-out ${
               isVisible ? "animate-reveal" : ""
             }`}
           />
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes pulse {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
-        .animated-logo {
-          animation: pulse 700ms ease-in-out;
-        }
-      `}</style>
     </section>
   );
 };

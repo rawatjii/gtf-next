@@ -6,9 +6,9 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-
 const lines = [
-  ["Born",
+  [
+    "Born",
     " ",
     "from",
     " ",
@@ -18,60 +18,50 @@ const lines = [
     " ",
     "Foundation,",
     " ",
-    "GTF",
+    "We",
     " ",
-    "Technologies",
+    "are",
     " ",
-    "is",
+    "a",
     " ",
-    "where",
+    "Made-in-India",
+    " ",
+    "company",
+    " ",
+    "shaping",
+    " ",
+    "brands",
+    " ",
+    "for",
+    " ",
+    "a",
+    " ",
+    "world",
+    " ",
+    "that",
+    " ",
+    "never",
+    " ",
+    "stands",
+    " ",
+    "still.",
+    " ",
+    "We",
+    " ",
+    "create",
     " ",
     "ideas",
     " ",
-    "move",
-    " ",
-    "and",
-    " ",
-    "brands",
-    " ",
-    "find",
-    " ",
-    "their",
-    " ",
-    "pace."],
-
-
-  ["With",
-    " ",
-    "17+",
-    " ",
-    "years",
-    " ",
-    "of",
-    " ",
-    "strategy,",
-    " ",
-    "storytelling,",
-    " ",
-    "and",
-    " ",
-    "scale,",
-    " ",
-    "we",
-    " ",
-    "make",
-    " ",
-    "brands",
+    "that",
     " ",
     "move",
     " ",
-    "faster",
+    "people",
     " ",
-    "than",
+    "and",
     " ",
-    "the",
-    " ",
-    "market."],
+    "markets.",
+]
 ];
 
 const WhoWeAre = () => {
@@ -84,14 +74,13 @@ const WhoWeAre = () => {
   const backgroundColorRef = useRef(null);
 
   useEffect(() => {
-
     const ctx = gsap.context(() => {
       const section = sectionRef.current;
       const container = containerRef.current;
       const images = imagesRef.current;
       const ov_data = overviewData.current;
       const bgColorRef = backgroundColorRef.current;
-      
+
       const otherText = section.querySelector(".other_txt");
 
       if (!section || !container || !images) return;
@@ -106,18 +95,17 @@ const WhoWeAre = () => {
 
       gsap.set(hides, { display: "inline-block", marginRight: "30px" });
       gsap.set(otherText, { width: 0, opacity: 0, display: "inline-block" });
-      gsap.set(images, {opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)",});
-      
+      gsap.set(images, { opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)" });
 
       const splitInstances = textRef.current
         .filter(Boolean)
-        .map((ref) => new SplitText(ref, { type: "chars", charsClass: "char" }));
+        .map(
+          (ref) => new SplitText(ref, { type: "chars", charsClass: "char" })
+        );
       const allChars = splitInstances.flatMap((split) => split.chars);
 
-      
-      gsap.set(allChars, {opacity:0});
-      gsap.set(ov_data, {height:0});
-      
+      gsap.set(allChars, { opacity: 0 });
+      gsap.set(ov_data, { height: 0 });
 
       const animatedIndices = [];
 
@@ -128,37 +116,53 @@ const WhoWeAre = () => {
           start: "top top",
           end: () => `+=${maxTranslateX * 5 + 100}`,
           pin: true,
-          markers:false,
+          markers: false,
           scrub: 1,
           pinSpacing: true,
-        },  
+        },
       });
 
-      tl.to(hides, {
-        autoAlpha:0,
-        duration:0.2,
-        stagger:0.05,
-        ease:"power2"
-      }, "+=0.2").
-      to(hides, {
-        width: 0,
-        marginRight:0,
-        duration: 0.3,
-        ease:"power2"
-      },  "+=0.1").
-      to(otherText, { marginLeft:'25px', opacity: 1, width: "auto", duration: 0.2 }, "+=0.1").
-      // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
-      to(ov_data, {height:'auto', duration:0.2, ease:"power2"}, "+=0.1").
-      // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
-      to(heading, {autoAlpha:0, duration:0.1, ease:"power2"}).
-      to(allChars, {opacity:0.2, duration:0.2, ease:"power2"}, "-=0.1").
-      to(allChars, {opacity: 1, duration: 0.1, stagger: 0.008, ease: "power2.out", immediateRender: false,})
-      .to(
-        section,
+      tl.to(
+        hides,
         {
+          autoAlpha: 0,
+          duration: 0.2,
+          stagger: 0.05,
+          ease: "power2",
+        },
+        "+=0.2"
+      )
+        .to(
+          hides,
+          {
+            width: 0,
+            marginRight: 0,
+            duration: 0.3,
+            ease: "power2",
+          },
+          "+=0.1"
+        )
+        .to(
+          otherText,
+          { marginLeft: "25px", opacity: 1, width: "auto", duration: 0.2 },
+          "+=0.1"
+        )
+        // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
+        .to(ov_data, { height: "auto", duration: 0.2, ease: "power2" }, "+=0.1")
+        // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
+        .to(heading, { autoAlpha: 0, duration: 0.1, ease: "power2" })
+        .to(allChars, { opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
+        .to(allChars, {
+          opacity: 1,
+          duration: 0.1,
+          stagger: 0.008,
+          ease: "power2.out",
+          immediateRender: false,
+        })
+        .to(section, {
           x: -maxTranslateX,
           ease: "power1.out",
-          duration: 4, 
+          duration: 4,
           onUpdate: function () {
             images.forEach((image, index) => {
               if (animatedIndices.includes(index)) return;
@@ -184,9 +188,7 @@ const WhoWeAre = () => {
             });
           },
           onComplete: () => ScrollTrigger.refresh(),
-        },
-        
-      );
+        });
 
       // gsap.to("body", {
 
@@ -210,9 +212,8 @@ const WhoWeAre = () => {
       ScrollTrigger.refresh();
     }, containerRef);
 
-
     return () => ctx.revert();
-    
+
     // Cleanup function
     // return () => {
     //   ScrollTrigger.refresh();
@@ -225,15 +226,14 @@ const WhoWeAre = () => {
     //     if (image.parentNode) image.parentNode.style.overflow = "";
     //   });
     // };
-  }, []); 
+  }, []);
 
-  
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container">
         <section className="flex flex-row h-screen  main-container-scroll no-scrollbar min-w-[430vw] relative">
           <div
-            ref={sectionRef} 
+            ref={sectionRef}
             className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
             style={{
               display: "flex",
@@ -248,33 +248,62 @@ const WhoWeAre = () => {
                   <h2 className="mb-[50px] text-center uppercase bartino-outline tracking-[2px] 2xl:text-[50px] lg:text-[62px] md:text-[50px] text-[32px] block">
                     Who We Are?
                   </h2>
-                  <div className="relative">
+                  <div className="relative max-w-[70%] mx-auto">
+                    <h4
+                      ref={headingRef}
+                      className="font-[Oswald] js-title text-center text-[70px] font-bold absolute left-[50%] -translate-x-[50%] w-[max-content]"
+                    >
+                      G<span className="hide">urukul </span>T
+                      <span className="hide">he </span>F
+                      <span className="hide">oundation </span>
+                      <span className="other_txt">Technologies</span>
+                    </h4>
 
-                  <h4 ref={headingRef} className="font-[Oswald] js-title text-center text-[70px] font-bold absolute left-[50%] -translate-x-[50%] w-[max-content]">G<span className="hide">urukul </span>T<span className="hide">he </span>F<span className="hide" >oundation </span><span className="other_txt">Technologies</span></h4>
-
-                  <div ref={overviewData} className="flex flex-col items-center space-y-2 gap-[25px]">
-                    {lines.map((line, lineIndex) => (
-                      <div
-                        key={lineIndex}
-                        ref={(el) => (textRef.current[lineIndex] = el)} // One ref per line
-                        className="flex flex-wrap justify-center uppercase"
-                      >
-                        {line.map((word, wordIndex) => (
-                          <span
-                            key={wordIndex}
-                            className="font-[Oswald] pr-[8px] 2xl:leading-[1.2] lg:leading-[1.4] tracking-[-2.5px] font-[700] 2xl:text-[50px] xl:text-[48px] text-[32px] inline-block"
-                          >
-                            {word}
-                          </span>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
+                    <div
+                      ref={overviewData}
+                      className="flex flex-col items-center space-y-2 gap-[25px]"
+                    >
+                      {lines.map((line, lineIndex) => (
+                        <div
+                          key={lineIndex}
+                          ref={(el) => (textRef.current[lineIndex] = el)} // One ref per line
+                          className="flex flex-wrap justify-left text-left"
+                        >
+                          {line.map((word, wordIndex) => (
+                            <span
+                              key={wordIndex}
+                              className="font-[Oswald] pr-[8px] 2xl:leading-[1.2] lg:leading-[1.4] tracking-[-2.5px] font-[500] 2xl:text-[50px] xl:text-[48px] text-[32px] inline-block text-left"
+                            >
+                              {word}
+                            </span>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             {/* First Image Section */}
+
+            <div className="flex flex-row items-center relative pl-[13rem]">
+              <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <h3 className="font-[Oswald] text-[70px] mb-[1rem] font-[600]">
+                Built to Disrupt the Ordinary
+                </h3>
+              </div>
+            </div>
+
+            <div className="flex flex-row items-center relative pl-[13rem]">
+              <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <h5 className="text-[40px] mb-[1rem] font-[600]">
+                Not a team. A task force 
+                <br />
+                Wired to help brands move ahead of the market.
+                </h5>
+              </div>
+            </div>
+
             <div className="flex flex-row items-center relative pl-[13rem]">
               <img
                 ref={(el) => (imagesRef.current[0] = el)}

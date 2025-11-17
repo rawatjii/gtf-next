@@ -188,7 +188,7 @@ const OurWork = () => {
           <h3 ref={headingTxtRef} className="text-[150px] bartino-outline uppercase text-center">Our Work</h3>
         </div>
 
-        <div ref={projectsRef} className="relative projects mt-[50vh]">
+        <div ref={projectsRef} className="relative projects mt-[20vh]">
           {projects?.map((project, idx)=>(
             <div key={idx}>
               <img
