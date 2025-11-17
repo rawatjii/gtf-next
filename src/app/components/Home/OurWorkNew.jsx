@@ -72,63 +72,85 @@ const OurWork = () => {
 
     // === FADE IN ANIMATION (Fast, only at start) ===
 
-    gsap.fromTo(
-      heading,
-      { 
-        opacity: 0,
-        // transform:translateY(0),
-      },
-      {
-        opacity: 1,
-        // transform:translateY(0),
-        duration: 0.6,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heading,
-          pin:true,
-          start: "top 40%", // Start fade earlier for snappier feel
-          end: "top 0%",   // Complete fade quickly
-          scrub: 1,     // Immediate, not scrubbed
-          // markers: true,
+    // gsap.fromTo(
+    //   heading,
+    //   { 
+    //     opacity: 0,
+    //     // transform:translateY(0),
+    //   },
+    //   {
+    //     opacity: 1,
+    //     // transform:translateY(0),
+    //     duration: 0.6,
+    //     ease: "none",
+    //     scrollTrigger: {
+    //       trigger: section,
+    //       pin:heading,
+    //       start: "top 50%", // Start fade earlier for snappier feel
+    //       end: "top -5%",   // Complete fade quickly
+    //       scrub: 1,     // Immediate, not scrubbed
+          
+    //     },
+    //   }
+    // );
 
-          // onLeave:()=>{
-          //   gsap.to(
-          //     headingTxt,
-          //     {
-          //       fontSize:"250px",
-          //       duration:2,
-          //       ease:"power2.out"
-          //     }
-          //   )
-          // },
+    const tl = gsap.timeline({
+      scrollTrigger:{
+        trigger:section,
+        start: "top 50%",
+        end:"bottom bottom",
+        // end: () => `+=${projectsContainer.offsetHeight + window.innerHeight}`,
+        pin: heading,
+        pinSpacing: false,
+        scrub: false,               // Keep fade snappy
+        markers: false,              // remove in production
+        id: "our-work-pin",
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
 
-          // onEnterBack: () => {
-          //   gsap.to(headingTxt, {
-          //     fontSize: "150px",   // Original size
-          //     duration: 0.3,
-          //     ease: "power2.in",
-          //   });
-          // },
+        onEnter: () => {
+          // Scrolling DOWN → entering the section for the first time
+          gsap.to(heading, { opacity: 1, duration: 0.6, ease: "none" });
         },
-      }
-    );
 
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end:"bottom bottom",
-      // end: () => `+=${projectsContainer.offsetHeight}`,
-      pin: heading,
-      pinSpacing: false,
-      markers: true,
-      id: "section-pin",
-      immediateRender:true,
+        onLeave: () => {
+          // Scrolling DOWN → leaving the section at the bottom (onEnd)
+          gsap.to(heading, { opacity: 0, duration: 0.6, ease: "none" });
+        },
+
+        onEnterBack: () => {
+          // Scrolling UP → re-entering from the bottom
+          gsap.to(heading, { opacity: 1, duration: 0.6, ease: "none" });
+        },
+    
+        onLeaveBack: () => {
+          // Scrolling UP → leaving towards the top
+          gsap.to(heading, { opacity: 0, duration: 0.5, ease: "none" });
+        },
+
+        onRefresh: () => {
+          if (ScrollTrigger.isInViewport(section)) {
+            gsap.set(heading, { opacity: 1 });
+          } else {
+            gsap.set(heading, { opacity: 0 });
+          }
+        },
+
+      }
+
+      
     });
 
+    // tl.fromTo(heading, 
+    //   { opacity: 0 },
+    //   { opacity: 1, duration: 0.6, ease: "none" }
+    // );
 
-    return ()=> {
-      ScrollTrigger.getAll().forEach((st)=>st.kill());
-    }
+    gsap.set(heading, { opacity: 0 });
+
+    return () => {
+      ScrollTrigger.getById("our-work-pin")?.kill();
+    };
   }, [])
 
   return (

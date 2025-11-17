@@ -128,7 +128,7 @@ const WhoWeAre = () => {
           start: "top top",
           end: () => `+=${maxTranslateX * 5 + 100}`,
           pin: true,
-          markers:true,
+          markers:false,
           scrub: 1,
           pinSpacing: true,
         },  
