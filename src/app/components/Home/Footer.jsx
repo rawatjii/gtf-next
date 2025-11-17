@@ -151,7 +151,7 @@ const Footer = () => {
     const tl = gsap.timeline({
       scrollTrigger:{
         trigger: footerTxtRef.current,
-        start: "top 80%",
+        start: "top bottom",
         once: true,
       }
     })
