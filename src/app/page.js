@@ -20,10 +20,10 @@ const Home = () => {
       {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
       {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
       <Expertise />
+      <OurWorkNew />
       <Clients />
       <OurWork />
       {/* <Solutions /> */}
-      {/* <OurWorkNew /> */}
       <LocationMap />
       <Contact />
     </div>

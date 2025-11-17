@@ -601,7 +601,7 @@ const HeroSection = () => {
         videoCompleted ? "md:px-[50px]" : "md:px-0"
       }`}
     >
-      <div className="right-[20px] bottom-[30px] md:block hidden absolute ml-auto">
+      {/* <div className="right-[20px] bottom-[30px] md:block hidden absolute ml-auto">
         <div className="flex justify-end relative">
           {dotsConfig.map((dot, index) => {
             const isActive = activeIndexes.includes(index);
@@ -632,7 +632,11 @@ const HeroSection = () => {
           conceptualized from <span className="lg:block"></span>
           <span className="font-medium"> Gurukul The Foundation</span>
         </p>
-      </div>
+      </div> */}
+
+
+
+
       {/* <div
         ref={line1Ref}
         className="mix-blend-multiply h-[10px] md:block hidden md:h-[25px] w-[80%] absolute top-[calc(56%)] bg-gtf-pink opacity-0"
@@ -1065,12 +1069,12 @@ const HeroSection = () => {
           </div>,
           document.body
         )}
-      <div className="">
+      {/* <div className="">
         <div
           ref={line3Ref}
           className="w-[calc(35%)] m-auto h-[2px] md:block hidden z-[99] relative bg-gtf-blue opacity-1"
         ></div>
-      </div>
+      </div> */}
     </section>
   );
 };
