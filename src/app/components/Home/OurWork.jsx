@@ -110,7 +110,7 @@ const   OurWork = () => {
   };
 
   return (
-    <section className="z-[2] relative pt-[100px] pb-[150px] bg-[#FDE93D] ">
+    <section className="z-[2] relative pt-[100px] pb-[150px] bg-[#2aaee4] ">
       <div className="md:px-[25px] px-[15px]">
         <ScrollText scrolltext={scrollText} position="toLeft" className="mb-[80px] text-[100px] bartino-outline tracking-[13px] " color="#000" />
 

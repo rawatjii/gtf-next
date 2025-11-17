@@ -58,7 +58,7 @@ const Clients = () => {
 
   return (
     <section>
-      <div className="">
+      <div  className="bg-[#fde93d] pt-[100px]">
         <div className="md:px-[35px] px-[15px] md:flex justify-start items-end md:mb-[0] mb-[30px] md:text-start">
           <h3 className="uppercase relative md:leading-[70px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px]">
             <span className="bartino-outline tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px] block">
@@ -108,7 +108,7 @@ const Clients = () => {
           >
             {duplicatedLogos.map((logo, index) => (
               <SwiperSlide key={`${logo.id}-${index}`}>
-                <div className="flex items-center justify-center h-[150px] px-6 hover:grayscale transition-all duration-300 bg-[#0000000f]">
+                <div className="flex items-center justify-center h-[150px] px-6 hover:grayscale transition-all duration-300 bg-[#fff]">
                   <Image
                     src={logo.src}
                     alt={logo.alt}
@@ -146,7 +146,7 @@ const Clients = () => {
           >
             {duplicatedLogos.map((logo, index) => (
               <SwiperSlide key={`${logo.id}-reverse-${index}`}>
-                <div className="flex items-center justify-center h-[150px] px-6  hover:grayscale transition-all duration-300 bg-[#0000000f]">
+                <div className="flex items-center justify-center h-[150px] px-6  hover:grayscale transition-all duration-300 bg-[#fff]">
                   <Image
                     src={logo.src}
                     alt={logo.alt}
