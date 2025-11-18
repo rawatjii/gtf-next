@@ -129,7 +129,7 @@ const WhoWeAre = () => {
       tl.to(
         mainHeading,
         {
-          fontSize:"50px",
+          fontSize:"80px",
           left:'0',
           transform:'translateX(0)',
           duration:0.1,
@@ -272,15 +272,15 @@ const WhoWeAre = () => {
             <div className="flex flex-row justify-between h-full bg-gtf-pink min-w-[100vw]"> 
               <div className="grid grid-cols-12 items-center  gap-[40px]">
 
-                <div className="w-[100vw] md:px-[50px] px-[15px] col-span-12 pt-[20px] max-w-[70%] mx-auto">
-                  <h2 ref={mainHeadingRef} className="relative mb-[50px] uppercase bartino-outline tracking-[2px] 2xl:text-[100px] md:text-[50px] text-[32px] inline-block left-[50%] -translate-x-1/2">
+                <div className="w-[100vw] md:px-[50px] px-[15px] col-span-12 pt-[20px] max-w-[80%] mx-auto">
+                  <h2 ref={mainHeadingRef} className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block left-[50%] -translate-x-1/2">
                     Who We Are?
                   </h2>
 
                   <div className="relative mx-auto">
                     <h4
                       ref={headingRef}
-                      className="font-[Oswald] js-title text-[70px] font-bold absolute w-[max-content]"
+                      className="montserrat uppercase js-title text-[40px] font-bold absolute w-[max-content]"
                       style={{
                         opacity:0,
                       }}
@@ -304,7 +304,7 @@ const WhoWeAre = () => {
                           {line.map((word, wordIndex) => (
                             <span
                               key={wordIndex}
-                              className="font-[Oswald] pr-[8px] 2xl:leading-[1.2] lg:leading-[1.4] tracking-[-2.5px] font-[500] 2xl:text-[50px] xl:text-[48px] text-[32px] inline-block text-left"
+                              className="montserrat font-medium pr-[8px] 2xl:leading-[1.2] lg:leading-[1.4] tracking-[-2.5px] 2xl:text-[40px] xl:text-[48px] text-[32px] inline-block text-left"
                             >
                               {word}
                             </span>
@@ -321,7 +321,7 @@ const WhoWeAre = () => {
 
             <div className="flex items-center relative pl-[13rem] min-w-[fit-content]">
               <div className="pr-[50px] pl-[20px]">
-                <h3 className="font-[Oswald] text-[70px] mb-[1rem] font-[600] w-[max-content]">
+                <h3 className="montserrrat uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                 Built to Disrupt <span className="block">the Ordinary</span>
                 </h3>
               </div>
@@ -344,8 +344,8 @@ const WhoWeAre = () => {
 
             <div className="flex flex-row items-center relative pl-[13rem] min-w-[fit-content]">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h5 className="text-[22px] mb-[1rem] font-[600]">
-                Not a team. <span className="block text-[40px] capitalize font-bold">A task force </span>
+                <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                Not a Team. <span className="block text-[50px] uppercase font-bold">A task force </span>
                 </h5>
               </div>
 
@@ -366,7 +366,7 @@ const WhoWeAre = () => {
 
             <div className="flex flex-row items-center relative pl-[13rem] min-w-[fit-content]">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h5 className="text-[40px] mb-[1rem] font-[600]">
+                <h5 className="text-[50px] mb-[1rem]  text-[50px] font-semibold">
                 Wired to help brands <span className="block">move ahead of the market.</span>
                 </h5>
               </div>

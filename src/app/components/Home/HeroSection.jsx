@@ -726,7 +726,7 @@ const HeroSection = () => {
         
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[70px] bartino-outline font-medium uppercase text-global-color tracking-[7px]" spanClass="bartino tracking-[7px]" />
+          className="text-center text-[80px] bebas font-medium text-global-color tracking-[7px]" spanClass="font-bold tracking-[7px]" />
         {/* <div
           className={`flex justify-center ${
             videoCompleted ? "2xl:mb-[20px]" : "2xl:mb-[80px]"

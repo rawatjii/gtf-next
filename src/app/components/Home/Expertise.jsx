@@ -162,11 +162,11 @@ const Expertise = () => {
   return (
     <section ref={sectionRef} className="md:pt-[100px] md:pb-[100px] py-[60px] px-[15px] lg:px-[50px] border-t" id="experties_sec">
       <div className="flex justify-between flex-wrap">
-        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit">
-          <span className="bartino-outline tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] block">
+        <h2 className="bebas relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[50px] md:text-[50px] 2xl:text-[72px] tracking-[2px] ">
+          <span className="block">
             Boutique concepts
           </span>
-          <span className="font-[Oswald] block font-medium text-[30px] xl:text-[48px] md:text-[50px] 2xl:text-[65px]">
+          <span className="block ">
             innovation market
           </span>
           <Line
@@ -175,16 +175,16 @@ const Expertise = () => {
             bgColor="bg-gtf-pink"
           />
         </h2>
-        <div className="md:basis-[35%] border-b-[1px] border-b-solid border-b-[#666666] md:pb-[50px] pb-[35px]">
-          <p className="text-[14px] font-[400] md:mt-0 mt-[20px]">
+        <div className="md:basis-[35%] border-b-[1px] border-b-solid border-b-[#666666] md:pb-[50px] pb-[35px] montserrat">
+          <p className="text-[16px] font-[400] md:mt-0 mt-[20px] tracking-[0.5px]">
             GTF Technologies is conceptualized from Gurukul The Foundation. We
-            are a 16-year-old branding and digital media planning agency
+            are a 17-year-old branding and digital media planning agency
             headquartered in Noida, Mumbai, Pune, and an upcoming office in
             Bangalore. We create innovative brands, attract customers, and offer
             comprehensive solutions.
           </p>
           <div className="flex mt-[20px] items-center">
-            <p className=" mr-[10px] uppercase font-[Oswald]">meet now</p>
+            <p className=" mr-[10px] uppercase bebas tracking-[0.5px]">meet now</p>
             <MdArrowOutward className="bg-[#ddd]" />
           </div>
         </div>
@@ -215,11 +215,11 @@ const Expertise = () => {
             className="absolute md:w-[70%] md:h-[auto] h-[250px] w-[100%] opacity-[.9] md:translate-y-[-50%] md:top-[55%] md:left-[-10%] left-[70%]  md:block hidden left-[0%] md:translate-x-0  top-[-52px] "
           />
           <p className="md:absolute bottom-[50px] left-[0]  md:text-start ">
-            <span className="font-[Oswald] text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
-              16 +
+            <span className="bebas text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
+              17 +
             </span>
             <br />
-            <span className="bartino-outline lading-[normal] md:leading-[76px] 2xl:text-[70px] text-[35px] lg:text-[60px] tracking-[2px] uppercase">
+            <span className="bebas md:leading-[76px] 2xl:text-[70px] text-[35px] lg:text-[60px] tracking-[2px] uppercase">
               Years Of <br className="md:block hidden" /> Expertise
             </span>
           </p>
@@ -228,27 +228,27 @@ const Expertise = () => {
           <p className="uppercase flex flex-col md:justify-start justify-center mb-[30px] md:mb-[65px]">
             <span
               ref={counterRef}
-              className="font-[Oswald] text-[30px] md:text-start 2xl:text-[40px] lg:text-[36px] font-[600]"
+              className="bebas text-[30px] md:text-start 2xl:text-[40px] lg:text-[36px] "
             >
               {counts.projects} +
             </span>
-            <span className="text-[14px] font-[400] tracking-wide">
+            <span className="text-[14px] font-[400] tracking-wide montserrat font-medium">
               PROJECTS DONE
             </span>
           </p>
           <p className="uppercase flex flex-col md:justify-start justify-center mb-[30px] md:mb-[65px]">
-            <span className="font-[Oswald] text-[30px] md:text-start 2xl:text-[40px] lg:text-[36px] font-[600]">
-              {counts.googleQueries}k +
+            <span className="bebas text-[30px] md:text-start 2xl:text-[40px] lg:text-[36px] ">
+              {counts.googleQueries} k +
             </span>
-            <span className="text-[14px] font-[400] tracking-wide">
+            <span className="text-[14px] font-[400] tracking-wide montserrat font-medium">
               Queries generated from Google per month
             </span>
           </p>
           <p className="uppercase flex flex-col md:justify-start justify-center mb-[30px] md:mb-[65px]">
-            <span className="font-[Oswald] text-[30px] md:text-start 2xl:text-[40px] lg:text-[36px] font-[600]">
-              {counts.facebookQueries}k +
+            <span className="bebas text-[30px] md:text-start 2xl:text-[40px] lg:text-[36px] ">
+              {counts.facebookQueries} k +
             </span>
-            <span className="text-[14px] font-[400] tracking-wide">
+            <span className="text-[14px] font-[400] tracking-wide montserrat font-medium">
               Queries generated from Facebook & Instagram per month
             </span>
           </p>

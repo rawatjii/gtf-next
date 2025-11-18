@@ -60,11 +60,11 @@ const Clients = () => {
     <section>
       <div  className="bg-[#fde93d] pt-[100px]">
         <div className="md:px-[35px] px-[15px] md:flex justify-start items-end md:mb-[0] mb-[30px] md:text-start">
-          <h3 className="uppercase relative md:leading-[70px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px]">
-            <span className="bartino-outline tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px] block">
+          <h3 className="bebas uppercase relative md:leading-[70px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px] ">
+            <span className="block">
               Amazing brands,
             </span>
-            <span className="font-[Oswald] md:pl-[7.5rem] block font-medium 2xl:text-[65px] text-[32px] md:text-[50px] lg:text-[52px]">
+            <span className="md:pl-[7.5rem] block mt-[10px]">
               Amazed Clients.
               <Line
                 ref={coloredLineRef}
@@ -74,7 +74,7 @@ const Clients = () => {
               />
             </span>
           </h3>
-          <p className="uppercase italic pt-[16px] md:ml-[3rem] text-center lg:text-left font-[500]">
+          <p className="uppercase italic pt-[16px] md:ml-[3rem] text-center lg:text-left font-[500] montserrat">
             <span className="block">They choose to work with us.</span>
             <span className="block">We chased the WOWasaS with them.</span>
           </p>
@@ -171,11 +171,11 @@ const Clients = () => {
         }}
         className="relative md:text-start text-center md:py-[0] py-[60px]"
       >
-        <h3 className="uppercase md:text-start mb-[1.5rem] text-center max-h-content inline-block relative md:pt-[5rem] md:pl-[35px] px-5 text-[40px] md:leading-[70px]">
-          <span className="bartino-outline tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px]">
+        <h3 className="bebas uppercase md:text-start mb-[1.5rem] text-center max-h-content inline-block relative md:pt-[5rem] md:pl-[35px] px-5 md:leading-[70px] tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px]">
+          <span className="">
             {"WHY ? "}
           </span>
-          <span className="font-[Oswald] font-medium 2xl:text-[72px] lg:text-[52px] md:text-[40px] text-[32px]">
+          <span className="block">
             {"gtf technologies"}
           </span>
           <Line

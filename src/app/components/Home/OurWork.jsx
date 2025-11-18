@@ -152,12 +152,12 @@ const   OurWork = () => {
                     }}
                     className="cursor-pointer py-[30px]"
                   >
-                    <p className="2xl:text-[60px] xl:leading-[50px] lg:text-[50px] text-[30px] uppercase font-[600] font-[Oswald]">
+                    <p className="2xl:text-[60px] xl:leading-[50px] lg:text-[50px] text-[30px] uppercase font-[600] bebas tracking-[2px]">
                       {info.heading}
                     </p>
 
                     <div
-                      className={`overflow-hidden transition-all duration-[1.5s] ease-in-out ${
+                      className={`overflow-hidden transition-all duration-[1.5s] ease-in-out montserrat text-[16px] ${
                         isActive
                           ? "max-h-[300px] opacity-100"
                           : "max-h-0 opacity-0 mb-0 pb-0"

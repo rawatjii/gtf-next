@@ -127,26 +127,26 @@ const OurWork = () => {
               <img
                 src="/assets/logos/pink_color.svg"
                 alt="pink logo icon"
-                className="img-fluid w-[40px]"
+                className="img-fluid w-[60px]"
               />
             </span>
             <span className="icon yellow ml-[-10px]">
               <img
                 src="/assets/logos/yellow_color.svg"
                 alt="yellow logo icon"
-                className="img-fluid w-[40px]"
+                className="img-fluid w-[60px]"
               />
             </span>
             <span className="icon pink ml-[-10px]">
               <img
                 src="/assets/logos/blue_color.svg"
                 alt="blue logo icon"
-                className="img-fluid w-[40px]"
+                className="img-fluid w-[60px]"
               />
             </span>
           </div>
 
-          <h3 ref={headingTxtRef} className="text-[250px] bartino-outline uppercase text-center" style={{
+          <h3 ref={headingTxtRef} className="text-[250px] bebas uppercase text-center" style={{
             clipPath:"inset(100% 0% 0% 0%)"
           }}>Our Work</h3>
         </div>

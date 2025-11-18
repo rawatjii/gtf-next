@@ -182,10 +182,10 @@ const Locationmap = () => {
           ))}
           <img src="/assets/home/map-1.png" className="h-[110px] mb-[5px]" alt="map" />
         </div> */}
-        <p className="font-[Oswald] text-end text-[15px] mr-[12px] mt-2">
-          <span className="font-medium">GTF Technologies</span> is conceptualized from{" "}
-          <span className="font-medium block">Gurukul The Foundation</span>
-        </p>
+        {/* <p className="bebas text-end text-[18px] mr-[12px] mt-2">
+          <span className="">GTF Technologies</span> is conceptualized from{" "}
+          <span className=" block">Gurukul The Foundation</span>
+        </p> */}
       </div>
 
       {/* Lines */}
@@ -199,11 +199,11 @@ const Locationmap = () => {
         alt="circle"
       />
 
-        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px]">
-          <span className="bartino-outline tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] block">
+        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px] bebas tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] ">
+          <span className="block">
             Branding, Digital Marketing
           </span>
-          <span className="font-[Oswald] block font-medium text-[30px] xl:text-[48px] md:text-[50px] 2xl:text-[65px]">
+          <span className="block mt-[10px]">
             And Double-Digit Growth
           </span>
           <Line
@@ -290,8 +290,8 @@ const Locationmap = () => {
                 key={i}
                 onMouseEnter={() => handleHover(i)}
                 onMouseLeave={handleMouseLeave}
-                className={`font-[Oswald] uppercase  cursor-pointer transition-colors mb-[8px]  text-base ${
-                  i === activeIndex ? "text-black font-semibold 2xl:text-[22px] mb-[14px]" : "text-[#b5b6b2] 2xl:text-[18px]"
+                className={`bebas uppercase cursor-pointer transition-colors mb-[8px] text-base tracking-[0.5] ${
+                  i === activeIndex ? "text-black 2xl:text-[22px] mb-[14px] font-medium" : "text-[#b5b6b2] 2xl:text-[18px]"
                 } `}
               >
                 {info.name}

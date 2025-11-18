@@ -20,6 +20,7 @@
   font-style: normal;
 }
 
+
 body,
 html {
   margin: 0;
@@ -54,6 +55,21 @@ canvas {
 }
 .bartino {
   font-family: "Bartino", sans-serif;
+}
+.merriweather{
+  font-family: "Merriweather", serif;
+}
+.bebas{
+  font-family: "Bebas Neue", sans-serif;
+}
+.raleway{
+  font-family: "Raleway", sans-serif;
+}
+.montserrat{
+  font-family: "Montserrat", sans-serif;
+}
+.inter{
+  font-family: "Inter", sans-serif;
 }
 .hero_section .swiper-slide figure {
   transform: scale(0.866666);
