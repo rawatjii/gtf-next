@@ -98,9 +98,10 @@ const OurWork = () => {
     })
 
     tl1.to(
-      [headingTxt, icons],
+      headingTxt,
       {
-        clipPath:"inset(0% 0% 0% 0%)",
+        // clipPath:"inset(0% 0% 0% 0%)",
+        marginRight:'auto',
         duration: 1.2,
       }
     );
@@ -117,11 +118,12 @@ const OurWork = () => {
       <div>
         <div ref={headingRef} className="heading z-[-1]"
          style={{
+          
           // opacity: 0,
           // transform:`translateY(-${transformValue}px)`
         }}>
           <div ref={iconsRef} className="icons flex items-center justify-center" style={{
-            clipPath:"inset(100% 0% 0% 0%)"
+            // clipPath:"inset(100% 0% 0% 0%)"
           }}>
             <span className="icon pink">
               <img
@@ -146,8 +148,10 @@ const OurWork = () => {
             </span>
           </div>
 
-          <h3 ref={headingTxtRef} className="text-[250px] bebas uppercase text-center" style={{
-            clipPath:"inset(100% 0% 0% 0%)"
+          <h3 ref={headingTxtRef} className="text-[250px] bebas uppercase table mx-auto" style={{
+            // clipPath:"inset(100% 0% 0% 0%)"
+            marginRight:'0',
+            
           }}>Our Work</h3>
         </div>
 
