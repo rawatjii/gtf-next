@@ -37,6 +37,7 @@ const OurWork = () => {
     const heading = headingRef.current;
     const projectsContainer = projectsRef.current;
     const headingTxt = headingTxtRef.current;
+    const icons = iconsRef.current;
 
     if(!section || !heading || !projectsContainer) return;
 
@@ -70,98 +71,58 @@ const OurWork = () => {
       })
     }
 
-    // === FADE IN ANIMATION (Fast, only at start) ===
-
-    // gsap.fromTo(
-    //   heading,
-    //   { 
-    //     opacity: 0,
-    //     // transform:translateY(0),
-    //   },
-    //   {
-    //     opacity: 1,
-    //     // transform:translateY(0),
-    //     duration: 0.6,
-    //     ease: "none",
-    //     scrollTrigger: {
-    //       trigger: section,
-    //       pin:heading,
-    //       start: "top 50%", // Start fade earlier for snappier feel
-    //       end: "top -5%",   // Complete fade quickly
-    //       scrub: 1,     // Immediate, not scrubbed
-          
-    //     },
-    //   }
-    // );
 
     const tl = gsap.timeline({
       scrollTrigger:{
         trigger:section,
-        start: "top 50%",
+        start: "top 30%",
         end:"bottom bottom",
         // end: () => `+=${projectsContainer.offsetHeight + window.innerHeight}`,
         pin: heading,
         pinSpacing: false,
         scrub: false,               // Keep fade snappy
         markers: false,              // remove in production
-        id: "our-work-pin",
+        id: "our-work-pin1",
         anticipatePin: 1,
         invalidateOnRefresh: true,
 
-        onEnter: () => {
-          // Scrolling DOWN → entering the section for the first time
-          gsap.to(heading, { opacity: 1, duration: 0.6, ease: "none" });
-        },
-
-        onLeave: () => {
-          // Scrolling DOWN → leaving the section at the bottom (onEnd)
-          gsap.to(heading, { opacity: 0, duration: 0.6, ease: "none" });
-        },
-
-        onEnterBack: () => {
-          // Scrolling UP → re-entering from the bottom
-          gsap.to(heading, { opacity: 1, duration: 0.6, ease: "none" });
-        },
-    
-        onLeaveBack: () => {
-          // Scrolling UP → leaving towards the top
-          gsap.to(heading, { opacity: 0, duration: 0.5, ease: "none" });
-        },
-
-        onRefresh: () => {
-          if (ScrollTrigger.isInViewport(section)) {
-            gsap.set(heading, { opacity: 1 });
-          } else {
-            gsap.set(heading, { opacity: 0 });
-          }
-        },
-
       }
-
-      
     });
 
-    // tl.fromTo(heading, 
-    //   { opacity: 0 },
-    //   { opacity: 1, duration: 0.6, ease: "none" }
-    // );
+    const tl1 = gsap.timeline({
+      scrollTrigger:{
+        trigger:section,
+        start:"top 50%",
+        scrub:false,
+      }
+    })
 
-    gsap.set(heading, { opacity: 0 });
+    tl1.to(
+      [headingTxt, icons],
+      {
+        clipPath:"inset(0% 0% 0% 0%)",
+        duration: 1.2,
+      }
+    );
+
 
     return () => {
       ScrollTrigger.getById("our-work-pin")?.kill();
+      ScrollTrigger.getById("our-work-pin1")?.kill();
     };
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative pb-[150px]">
+    <section ref={sectionRef} className="relative pb-[150px] pt-[100px]">
       <div>
         <div ref={headingRef} className="heading z-[-1]"
          style={{
-          opacity: 0,
+          // opacity: 0,
           // transform:`translateY(-${transformValue}px)`
         }}>
-          <div ref={iconsRef} className="icons flex items-center justify-center">
+          <div ref={iconsRef} className="icons flex items-center justify-center" style={{
+            clipPath:"inset(100% 0% 0% 0%)"
+          }}>
             <span className="icon pink">
               <img
                 src="/assets/logos/pink_color.svg"
@@ -185,7 +146,9 @@ const OurWork = () => {
             </span>
           </div>
 
-          <h3 ref={headingTxtRef} className="text-[150px] bartino-outline uppercase text-center">Our Work</h3>
+          <h3 ref={headingTxtRef} className="text-[250px] bartino-outline uppercase text-center" style={{
+            clipPath:"inset(100% 0% 0% 0%)"
+          }}>Our Work</h3>
         </div>
 
         <div ref={projectsRef} className="relative projects mt-[20vh]">

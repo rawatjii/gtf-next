@@ -71,6 +71,7 @@ const HeroSection = () => {
   const slideTxtAnRef = useRef(null);
   const mapRef = useRef(null);
   const dataRef = useRef(null);
+  const countersRef = useRef([]);
 
   
 
@@ -135,40 +136,6 @@ const HeroSection = () => {
     }
   }, []); 
 
-  useEffect(() => {
-    let isMounted = true;
-    const blinkDots = (indexes, blinks = 2, delay = 1000) => {
-      return new Promise((resolve) => {
-        let count = 0;
-        let on = true;  
-        const interval = setInterval(() => {
-          if (!isMounted) {
-            clearInterval(interval);
-            return;
-          }
-          setActiveIndexes(on ? indexes : []);
-          on = !on;
-          if (!on) count++;
-          if (count >= blinks) {
-            clearInterval(interval);
-            setTimeout(resolve, delay);
-          }
-        }, delay);
-      });
-    };
-
-    const runAllDotsBlink = async () => {
-      while (isMounted) {
-        await blinkDots([0, 1, 2, 3, 4], 2, 500);
-      }
-    };
-
-    runAllDotsBlink();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   useEffect(() => {
     if (!sectionRef.current || !mounted) return;
@@ -602,37 +569,44 @@ const HeroSection = () => {
       },
       { threshold: 0.5 }
     );
+
+    observer.observe(dataRef.current);
   
-    if (dataRef.current) observer.observe(dataRef.current);
-  
-    const startCounters = () => {
-      const counters = dataRef.current.querySelectorAll(".counter");
-  
-      counters.forEach((counterEl) => {
-        const target = parseInt(counterEl.getAttribute("data-target") || "0", 10);
-        const hasLeadingZero = target < 10;
-  
-        gsap.to(counterEl, {
+    function startCounters() {
+      countersRef.current.forEach((el) => {
+        if (!el) return;
+        const target = parseInt(el.dataset.target, 10);
+        if (isNaN(target)) return; // ← Skip "One Team" completely
+
+        const pad = target < 10;
+
+        gsap.to(el, {
           innerText: target,
-          duration: 2.2,
+          duration: 4.5,
           ease: "power2.out",
-          snap: { innerText: 1 }, // Snap to whole numbers
-          onUpdate: function () {
-            const value = Math.round(this.targets()[0].innerText);
-            counterEl.innerText = hasLeadingZero 
-              ? value.toString().padStart(2, "0")
-              : value;
+          snap: { innerText: 1 },
+          onUpdate: () => {
+            const val = Math.round(el.innerText);
+            el.innerText = pad ? val.toString().padStart(2, "0") : val;
           },
           onComplete: () => {
-            // Show suffix with fade-in
-            const suffixEl = counterEl.parentElement.querySelector(".animate-fadeIn");
-            if (suffixEl) {
-              gsap.to(suffixEl, { opacity: 1, duration: 0.6, ease: "power2.out" });
+            const suffix = el.nextElementSibling;
+            if (suffix?.classList.contains("suffix")) {
+              gsap.to(suffix, { opacity: 1, duration: 0.8 });
             }
           },
         });
       });
-    };
+
+      gsap.to(".text-only", {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        stagger: 0.2,
+        delay: 0.3,
+      });
+    }
   
     return () => observer.disconnect();
   }, [videoCompleted]);
@@ -789,21 +763,33 @@ const HeroSection = () => {
               const numberValue = hasNumber ? parseInt(match[1], 10) : null;
               const suffix = match && match[2] ? match[2].trim() : item; // "Minds", "Locations", or full "One Team"
 
+              console.log('suffix',suffix);
+
               return (
                 <h3
                   key={index}
-                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[1px] font-bold`}
+                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000]`}
                   style={{ color: colors[index] }}
                 >
-                  <span className="counter" data-target={numberValue}>
-                    {hasNumber ? "00" : ""} {/* Start from 00 or empty */}
-                  </span>
-                  {hasNumber && suffix && (
-                    <span className="ml-4 opacity-0 animate-fadeIn"> {suffix}</span>
+                  {hasNumber ? (
+                    <>
+                      <span
+                        ref={(el) => (countersRef.current[index] = el)}
+                        className="counter inline-block"
+                        data-target={numberValue}
+                      >
+                        00
+                      </span>
+                      <span className="ml-4 suffix transition-opacity">
+                        {suffix}
+                      </span>
+                    </>
+                  ) : (
+                    <span className="text-only inline-block translate-y-10">
+                      {suffix}
+                    </span>
                   )}
-                  {!hasNumber && (
-                    <span className="opacity-0 animate-fadeIn">{suffix}</span>
-                  )}
+
                 </h3>
               );
             })}

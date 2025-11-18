@@ -9,6 +9,7 @@ import SparkleBackground from "../SparkleBackground";
 import { HERO_DATA } from "./hero/heroData";
 import { robotoCondensed } from "@/app/utils/font";
 import SlideTxtAn from "@/app/utils/SlideTxtAn";
+import Line from "../Line";
 
 const debounce = (func, wait) => {
   let timeout;
@@ -35,6 +36,7 @@ const Locationmap = () => {
   const line1Ref = useRef(null);
   const line2Ref = useRef(null);
   const line3Ref = useRef(null);
+  const coloredLineRef = useRef(null);
 
   const dotsConfig = [
     { top: "29%", left: "65%", color: "bg-gtf-blue" },
@@ -165,10 +167,10 @@ const Locationmap = () => {
   }, []);
 
   return (
-    <section className="relative hero_section overflow-hidden py-[100px] md:px-[50px]">
+    <section className="relative hero_section overflow-hidden pb-[100px] pt-[50px] md:px-[50px]">
       {/* Decorative Elements */}
       <div className="right-[20px] bottom-[30px] md:block hidden absolute">
-        <div className="flex justify-end relative">
+        {/* <div className="flex justify-end relative">
           {dotsConfig.map((dot, i) => (
             <span
               key={i}
@@ -179,45 +181,59 @@ const Locationmap = () => {
             />
           ))}
           <img src="/assets/home/map-1.png" className="h-[110px] mb-[5px]" alt="map" />
-        </div>
+        </div> */}
         <p className="font-[Oswald] text-end text-[15px] mr-[12px] mt-2">
           <span className="font-medium">GTF Technologies</span> is conceptualized from{" "}
-          <span className="font-medium">Gurukul The Foundation</span>
+          <span className="font-medium block">Gurukul The Foundation</span>
         </p>
       </div>
 
       {/* Lines */}
       <div ref={line1Ref} className="mix-blend-multiply h-[25px] hidden md:block w-[25%] absolute top-[56%] left-[20%] bg-gtf-pink opacity-0" />
-      <div ref={line2Ref} className="mix-blend-multiply h-[25px] hidden md:block w-[24%] absolute bottom-[85px] right-[20%] bg-gtf-yellow opacity-0" />
-      <div ref={line3Ref} className="hidden md:block w-[35%] mx-auto h-[2px] bg-gtf-blue opacity-0 mt-10" />
+      <div ref={line2Ref} className="mix-blend-multiply h-[25px] hidden md:block w-[24%] absolute bottom-[20%] right-[20%] bg-gtf-yellow opacity-0" />
+      <div ref={line3Ref} className="hidden md:block w-[35%] mx-auto h-[2px] bg-gtf-blue opacity-0 bottom-[80px] left-[50%] -translate-x-1/2 absolute" />
 
       <img
         src="/assets/home/hero/circle.svg"
-        className="rotation_circle opacity-0 absolute 2xl:h-[450px] md:h-[300px] h-[300px] lg:left-[15%] top-[40%]"
+        className="rotation_circle opacity-0 absolute 2xl:h-[450px] md:h-[300px] h-[300px] lg:left-[8%] top-[40%]"
         alt="circle"
       />
 
-
+        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px]">
+          <span className="bartino-outline tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] block">
+            Branding, Digital Marketing
+          </span>
+          <span className="font-[Oswald] block font-medium text-[30px] xl:text-[48px] md:text-[50px] 2xl:text-[65px]">
+            And Double-Digit Growth
+          </span>
+          <Line
+            ref={coloredLineRef}
+            left={"xl:left-[25%] left-[50%] 2xl:left-[37%]"}
+            bgColor="bg-gtf-pink"
+          />
+        </h2>
 
       {/* Slider + Text List */}
-      <div className="flex justify-between items-stretch pt-[80px] 2xl:h-[calc(100vh-300px)] lg:h-[calc(100vh-200px)] overflow-hidden">
+      <div className="flex justify-between items-stretch pt-[80px] pb-[60px] 2xl:h-[calc(100vh-300px)] lg:h-[calc(100vh-200px)] overflow-hidden">
         {/* Left decorative lines */}
         <div className="flex-1 hidden md:block right_line translate-x-[-200%]">
-          {HERO_DATA.map((_, i) => (
-            <span
-              key={i}
-              className={`block border-b border-[#1E251F] mb-1 transition-all duration-500 ${
-                i === activeIndex ? "w-[15%]" : "w-[10%]"
-              }`}
-            />
-          ))}
+          <div className="h-full">
+            {HERO_DATA.map((_, i) => (
+              <span
+                key={i}
+                className={`block border-b border-b-[3px] border-[#575757] mb-[6px] transition-all duration-500 ${
+                  i === activeIndex ? "w-[20%]" : "w-[10%]"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Swiper */}
-        <div ref={containerRef} className="md:basis-[40%] basis-[90%] m-auto h-[80vh] relative">
+        <div ref={containerRef} className="md:basis-[55%] basis-[90%] m-auto h-[80vh] relative h-full">
           <Swiper
             direction="vertical"
-            slidesPerView={isMobile ? 3 : 4}
+            slidesPerView={isMobile ? 3 : 2}
             spaceBetween={8}
             freeMode={{ enabled: true, sticky: true, momentumBounce: false }}
             mousewheel={{ enabled: true, forceToAxis: true }}
@@ -274,9 +290,9 @@ const Locationmap = () => {
                 key={i}
                 onMouseEnter={() => handleHover(i)}
                 onMouseLeave={handleMouseLeave}
-                className={`font-[Oswald] uppercase font-semibold cursor-pointer transition-colors ${
-                  i === activeIndex ? "text-black" : "text-[#b5b6b2]"
-                } 2xl:text-lg text-base`}
+                className={`font-[Oswald] uppercase  cursor-pointer transition-colors mb-[8px]  text-base ${
+                  i === activeIndex ? "text-black font-semibold 2xl:text-[22px] mb-[14px]" : "text-[#b5b6b2] 2xl:text-[18px]"
+                } `}
               >
                 {info.name}
               </li>

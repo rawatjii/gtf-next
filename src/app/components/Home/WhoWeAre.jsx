@@ -70,6 +70,7 @@ const WhoWeAre = () => {
   const containerRef = useRef(null);
   const imagesRef = useRef([]);
   const headingRef = useRef(null);
+  const mainHeadingRef = useRef(null);
   const overviewData = useRef(null);
   const backgroundColorRef = useRef(null);
 
@@ -92,10 +93,13 @@ const WhoWeAre = () => {
       const windowWidth = window.innerWidth;
       const maxTranslateX = scrollWidth - windowWidth;
       const heading = headingRef.current;
+      const mainHeading = mainHeadingRef.current;
 
       gsap.set(hides, { display: "inline-block", marginRight: "30px" });
       gsap.set(otherText, { width: 0, opacity: 0, display: "inline-block" });
       gsap.set(images, { opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)" });
+      gsap.set(heading, {opacity:0, })
+      
 
       const splitInstances = textRef.current
         .filter(Boolean)
@@ -123,46 +127,68 @@ const WhoWeAre = () => {
       });
 
       tl.to(
+        mainHeading,
+        {
+          fontSize:"50px",
+          left:'0',
+          transform:'translateX(0)',
+          duration:0.1,
+          // scrub:1,
+          // ease: "power2",
+        },
+        "+=0.1"
+      )
+
+      tl.to(
+        heading,
+        {
+          autoAlpha:1,
+          duration: 0.2,
+          ease: "power2",
+        }
+      )
+
+      tl.to(
         hides,
         {
           autoAlpha: 0,
-          duration: 0.2,
+          duration: 0.1,
           stagger: 0.05,
           ease: "power2",
         },
-        "+=0.2"
+        "+=0.05"
       )
         .to(
           hides,
           {
             width: 0,
             marginRight: 0,
-            duration: 0.3,
+            duration: 0.05,
             ease: "power2",
           },
-          "+=0.1"
+          "+=0.05"
         )
         .to(
           otherText,
           { marginLeft: "25px", opacity: 1, width: "auto", duration: 0.2 },
-          "+=0.1"
+          "+=0.05"
         )
         // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
-        .to(ov_data, { height: "auto", duration: 0.2, ease: "power2" }, "+=0.1")
+        .to(ov_data, { height: "auto", duration: 0.1, ease: "power2" }, "+=0.05")
         // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
         .to(heading, { autoAlpha: 0, duration: 0.1, ease: "power2" })
         .to(allChars, { opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
         .to(allChars, {
           opacity: 1,
-          duration: 0.1,
+          duration: 0.02,
           stagger: 0.008,
           ease: "power2.out",
           immediateRender: false,
         })
         .to(section, {
           x: -maxTranslateX,
-          ease: "power1.out",
-          duration: 4,
+          // ease: "power4",
+          duration: 1,
           onUpdate: function () {
             images.forEach((image, index) => {
               if (animatedIndices.includes(index)) return;
@@ -231,27 +257,33 @@ const WhoWeAre = () => {
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container">
-        <section className="flex flex-row h-screen  main-container-scroll no-scrollbar min-w-[430vw] relative">
+        <div className="flex flex-row h-screen  main-container-scroll no-scrollbar min-w-[430vw] relative">
           <div
             ref={sectionRef}
             className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
             style={{
               display: "flex",
-              width: "fit-content",
+              // width: "fit-content",
               willChange: "transform",
             }}
           >
             {/* Left Text Section */}
-            <div className="flex flex-row bg-gtf-pink justify-between h-full  min-w-[100vw]">
+            {/* bg-gtf-pink */}
+            <div className="flex flex-row justify-between h-full bg-gtf-pink min-w-[100vw]"> 
               <div className="grid grid-cols-12 items-center  gap-[40px]">
-                <div className="w-[100vw]  col-span-12 pt-[20px] px-[35PX]">
-                  <h2 className="mb-[50px] text-center uppercase bartino-outline tracking-[2px] 2xl:text-[50px] lg:text-[62px] md:text-[50px] text-[32px] block">
+
+                <div className="w-[100vw] md:px-[50px] px-[15px] col-span-12 pt-[20px] max-w-[70%] mx-auto">
+                  <h2 ref={mainHeadingRef} className="relative mb-[50px] uppercase bartino-outline tracking-[2px] 2xl:text-[100px] md:text-[50px] text-[32px] inline-block left-[50%] -translate-x-1/2">
                     Who We Are?
                   </h2>
-                  <div className="relative max-w-[70%] mx-auto">
+
+                  <div className="relative mx-auto">
                     <h4
                       ref={headingRef}
-                      className="font-[Oswald] js-title text-center text-[70px] font-bold absolute left-[50%] -translate-x-[50%] w-[max-content]"
+                      className="font-[Oswald] js-title text-[70px] font-bold absolute w-[max-content]"
+                      style={{
+                        opacity:0,
+                      }}
                     >
                       G<span className="hide">urukul </span>T
                       <span className="hide">he </span>F
@@ -282,50 +314,19 @@ const WhoWeAre = () => {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
             {/* First Image Section */}
 
-            <div className="flex flex-row items-center relative pl-[13rem]">
-              <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h3 className="font-[Oswald] text-[70px] mb-[1rem] font-[600]">
-                Built to Disrupt the Ordinary
+            <div className="flex items-center relative pl-[13rem] min-w-[fit-content]">
+              <div className="pr-[50px] pl-[20px]">
+                <h3 className="font-[Oswald] text-[70px] mb-[1rem] font-[600] w-[max-content]">
+                Built to Disrupt <span className="block">the Ordinary</span>
                 </h3>
               </div>
-            </div>
 
-            <div className="flex flex-row items-center relative pl-[13rem]">
-              <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h5 className="text-[40px] mb-[1rem] font-[600]">
-                Not a team. A task force 
-                <br />
-                Wired to help brands move ahead of the market.
-                </h5>
-              </div>
-            </div>
-
-            <div className="flex flex-row items-center relative pl-[13rem]">
-              <img
-                ref={(el) => (imagesRef.current[0] = el)}
-                className=" xl:h-[390px] 2xl:h-auto object-cover inline-block ml-[4rem] mr-[1rem] mt-[2.5rem] w-[365px] border-[4px] border-solid !rotate-[-6deg] border-black"
-                src="/assets/home/who_we_are/img1.webp"
-                alt="Team member working on a project"
-              />
-              <img
-                ref={(el) => (imagesRef.current[1] = el)}
-                className=" xl:h-[480px] 2xl:h-auto object-cover inline-block w-[365px] mr-[10rem] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/img2.webp"
-                alt="Creative brainstorming session"
-              />
-              <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h3 className="font-[Oswald] text-[70px] mb-[1rem] font-[600]">
-                  CHORDIA'S
-                </h3>
-                <p className="text-[16px] tracking-[0.5px] leading-[23px]">
-                  When an unknown printer took a gallery of type and scrambled
-                  it to
-                </p>
-              </div>
+              <div>
               <img
                 ref={(el) => (imagesRef.current[2] = el)}
                 className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
@@ -338,8 +339,34 @@ const WhoWeAre = () => {
                 src="/assets/home/who_we_are/img3.webp"
                 alt="GTF Technologies office environment"
               />
+              </div>
             </div>
-            <div className="flex flex-row lg:pl-[13rem] pr-[2rem]  items-center ">
+
+            <div className="flex flex-row items-center relative pl-[13rem] min-w-[fit-content]">
+              <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <h5 className="text-[40px] mb-[1rem] font-[600]">
+                Not a team. A task force 
+                <br />
+                Wired to help brands move ahead of the market.
+                </h5>
+              </div>
+
+              <img
+                ref={(el) => (imagesRef.current[2] = el)}
+                className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                src="/assets/home/who_we_are/absolute_img.webp"
+                alt="GTF Technologies office environment"
+              />
+              <img
+                ref={(el) => (imagesRef.current[3] = el)}
+                className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                src="/assets/home/who_we_are/img3.webp"
+                alt="GTF Technologies office environment"
+              />
+
+            </div>
+
+            <div className="flex flex-row lg:pl-[13rem] pr-[2rem]  items-center min-w-[fit-content]">
               <div className="w-[850px] mr-[11rem]">
                 <h3 className="font-[Oswald] xl:text-[35px] 2xl:text-[44px] mb-[1rem] font-bold">
                   WHEN UNKNOWN PRINTER <br /> TOOK A GALLERY
@@ -372,7 +399,7 @@ const WhoWeAre = () => {
               />
             </div>
           </div>
-        </section>
+        </div>
       </div>
       {/* <div  ref={backgroundColorRef} className="absolute top-0 left-0 w-full h-full"></div> */}
     </section>
