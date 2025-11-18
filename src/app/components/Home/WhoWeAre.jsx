@@ -344,10 +344,8 @@ const WhoWeAre = () => {
 
             <div className="flex flex-row items-center relative pl-[13rem] min-w-[fit-content]">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h5 className="text-[40px] mb-[1rem] font-[600]">
-                Not a team. A task force 
-                <br />
-                Wired to help brands move ahead of the market.
+                <h5 className="text-[22px] mb-[1rem] font-[600]">
+                Not a team. <span className="block text-[40px] capitalize font-bold">A task force </span>
                 </h5>
               </div>
 
@@ -366,38 +364,28 @@ const WhoWeAre = () => {
 
             </div>
 
-            <div className="flex flex-row lg:pl-[13rem] pr-[2rem]  items-center min-w-[fit-content]">
-              <div className="w-[850px] mr-[11rem]">
-                <h3 className="font-[Oswald] xl:text-[35px] 2xl:text-[44px] mb-[1rem] font-bold">
-                  WHEN UNKNOWN PRINTER <br /> TOOK A GALLERY
-                </h3>
-                <p className="font-[Oswald]  font-[400] xl:text-[25px] 2xl-text-[28px] mb-[1rem]">
-                  MAKE A TYPE SPECIMEN BOOK
-                </p>
-                <p className="xl:text-[13px] 2xl:text-[16px]  leading-[23px] text-right mt-[30px] ">
-                  <span className="block">
-                    When an unknown printer took a gallery of type and scrambled
-                    it to
-                  </span>
-                  <span className="block">
-                    make a type specimen book. It has survived not only five
-                    centuries
-                  </span>
-                </p>
+            <div className="flex flex-row items-center relative pl-[13rem] min-w-[fit-content]">
+              <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <h5 className="text-[40px] mb-[1rem] font-[600]">
+                Wired to help brands <span className="block">move ahead of the market.</span>
+                </h5>
               </div>
+
               <img
-                className=" object-cover inline-block 2xl:h-auto mt-[2.3rem] mr-[1.35rem] w-[365px] border-[4px] border-solid rotate-[-6deg] border-black"
+                ref={(el) => (imagesRef.current[2] = el)}
+                className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                src="/assets/home/who_we_are/absolute_img.webp"
+                alt="GTF Technologies office environment"
+              />
+              <img
                 ref={(el) => (imagesRef.current[3] = el)}
-                src="/assets/home/who_we_are/img4.webp"
-                alt="Digital media planning in action"
+                className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                src="/assets/home/who_we_are/img3.webp"
+                alt="GTF Technologies office environment"
               />
-              <img
-                ref={(el) => (imagesRef.current[4] = el)}
-                className=" object-cover inline-block 2xl:h-auto w-[365px] mr-[4rem] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/thumb1.webp"
-                alt="Branding project showcase"
-              />
+
             </div>
+
           </div>
         </div>
       </div>
