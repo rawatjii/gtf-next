@@ -250,7 +250,7 @@ const WhoWeAre = () => {
               // When left edge of imageSection is ≤ 20px from viewport left → trigger
               if (rect.left <= 20 && !hasChangedBg) {
                 gsap.to(imageSection, {
-                  
+
                   ease:"none"
                 });
                 hasChangedBg = true;
@@ -385,20 +385,7 @@ const WhoWeAre = () => {
                 </h3>
               </div>
 
-              <div ref={fixImagesRef}>
-                <img
-                  ref={(el) => (imagesRef.current[2] = el)}
-                  className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                  src="/assets/home/who_we_are/absolute_img.webp"
-                  alt="GTF Technologies office environment"
-                />
-                <img
-                  ref={(el) => (imagesRef.current[3] = el)}
-                  className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                  src="/assets/home/who_we_are/img3.webp"
-                  alt="GTF Technologies office environment"
-                />
-              </div>
+             
             </div>
 
 
@@ -449,7 +436,20 @@ const WhoWeAre = () => {
               /> */}
             </div>
 
-            
+            <div ref={fixImagesRef} className="fixed">
+                <img
+                  ref={(el) => (imagesRef.current[2] = el)}
+                  className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                  src="/assets/home/who_we_are/absolute_img.webp"
+                  alt="GTF Technologies office environment"
+                />
+                <img
+                  ref={(el) => (imagesRef.current[3] = el)}
+                  className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                  src="/assets/home/who_we_are/img3.webp"
+                  alt="GTF Technologies office environment"
+                />
+              </div>
 
           </div>
         </div>
