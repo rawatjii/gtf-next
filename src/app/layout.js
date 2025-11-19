@@ -68,7 +68,7 @@ export default function RootLayout({ children }) {
 
         <div id="smooth-wrapper" ref={wrapperRef}>
           <div id="smooth-content" ref={contentRef}>
-            <SparkleBackground />
+            {/* <SparkleBackground /> */}
             <Provider store={store}>
               {isHome && <Header />}
               {children}

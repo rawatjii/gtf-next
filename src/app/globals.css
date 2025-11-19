@@ -313,6 +313,8 @@ canvas {
   transition-timing-function: linear;
 }
 
+
+
 /* start responsive */
 
 @media (max-width: 1440px) {

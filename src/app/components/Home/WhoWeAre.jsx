@@ -61,7 +61,7 @@ const lines = [
     "and",
     " ",
     "markets.",
-]
+  ],
 ];
 
 const WhoWeAre = () => {
@@ -71,8 +71,14 @@ const WhoWeAre = () => {
   const imagesRef = useRef([]);
   const headingRef = useRef(null);
   const mainHeadingRef = useRef(null);
+  const mainContentRef = useRef(null);
+
   const overviewData = useRef(null);
   const backgroundColorRef = useRef(null);
+  const fixImagesRef = useRef(null);
+  const imageSectionRef = useRef(null);
+  
+  let hasChangedBg = false;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -80,11 +86,13 @@ const WhoWeAre = () => {
       const container = containerRef.current;
       const images = imagesRef.current;
       const ov_data = overviewData.current;
+      const fixImagesGroup = fixImagesRef.current;
       const bgColorRef = backgroundColorRef.current;
+      const imageSection = imageSectionRef.current;
 
       const otherText = section.querySelector(".other_txt");
 
-      if (!section || !container || !images) return;
+      if (!section || !container || !images || !fixImagesGroup) return;
 
       // Initial states for animations
 
@@ -94,12 +102,12 @@ const WhoWeAre = () => {
       const maxTranslateX = scrollWidth - windowWidth;
       const heading = headingRef.current;
       const mainHeading = mainHeadingRef.current;
+      const mainContent = mainContentRef.current;
 
       gsap.set(hides, { display: "inline-block", marginRight: "30px" });
       gsap.set(otherText, { width: 0, opacity: 0, display: "inline-block" });
       gsap.set(images, { opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)" });
-      gsap.set(heading, {opacity:0, })
-      
+      gsap.set(heading, { opacity: 0 });
 
       const splitInstances = textRef.current
         .filter(Boolean)
@@ -113,12 +121,32 @@ const WhoWeAre = () => {
 
       const animatedIndices = [];
 
+      
+
+      const whoWeAreTimeline = gsap.timeline({
+        scrollTrigger: {
+          id: "whoWeAreTrigger",
+          trigger: container,
+          start: "top 50%",
+          end: "top 0",
+          markers: false,
+          scrub: 1,
+        },
+      });
+
+      whoWeAreTimeline.to(mainContent, {
+        marginTop: "0",
+        // alignItems:'center',
+        // duration:'0.5',
+        scrub: 1,
+      });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           id: "whoWeAreTrigger",
           trigger: container,
           start: "top top",
-          end: () => `+=${maxTranslateX * 5 + 100}`,
+          end: () => `+=${maxTranslateX + window.innerWidth}`,
           pin: true,
           markers: false,
           scrub: 1,
@@ -129,24 +157,21 @@ const WhoWeAre = () => {
       tl.to(
         mainHeading,
         {
-          fontSize:"80px",
-          left:'0',
-          transform:'translateX(0)',
-          duration:0.1,
+          fontSize: "80px",
+          left: "0",
+          transform: "translateX(0)",
+          duration: 0.1,
           // scrub:1,
           // ease: "power2",
         },
         "+=0.1"
-      )
+      );
 
-      tl.to(
-        heading,
-        {
-          autoAlpha:1,
-          duration: 0.2,
-          ease: "power2",
-        }
-      )
+      tl.to(heading, {
+        autoAlpha: 1,
+        duration: 0.2,
+        ease: "power2",
+      });
 
       tl.to(
         hides,
@@ -174,7 +199,11 @@ const WhoWeAre = () => {
           "+=0.05"
         )
         // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
-        .to(ov_data, { height: "auto", duration: 0.1, ease: "power2" }, "+=0.05")
+        .to(
+          ov_data,
+          { height: "auto", duration: 0.1, ease: "power2" },
+          "+=0.05"
+        )
         // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
         .to(heading, { autoAlpha: 0, duration: 0.1, ease: "power2" })
         .to(allChars, { opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
@@ -188,8 +217,9 @@ const WhoWeAre = () => {
         .to(section, {
           x: -maxTranslateX,
           // ease: "power4",
+          ease: "none",
           duration: 1,
-          onUpdate: function () {
+          onUpdate: function (x) {
             images.forEach((image, index) => {
               if (animatedIndices.includes(index)) return;
               const rect = image.getBoundingClientRect();
@@ -212,9 +242,34 @@ const WhoWeAre = () => {
                 animatedIndices.push(index);
               }
             });
+
+            // Background change exactly when imageSection hits left edge
+            if (imageSection) {
+              const rect = imageSection.getBoundingClientRect();
+    
+              // When left edge of imageSection is ≤ 20px from viewport left → trigger
+              if (rect.left <= 20 && !hasChangedBg) {
+                gsap.to(imageSection, {
+                  
+                  ease:"none"
+                });
+                hasChangedBg = true;
+              }
+    
+              // When scrolling back and it leaves the left edge → revert
+              if (rect.left > 100 && hasChangedBg) {
+                gsap.to(imageSectionRef.current, {
+                  backgroundColor: "#e24397",   // original pink
+                  duration: 1,
+                  ease: "power3.inOut",
+                });
+                hasChangedBg = false;
+              }
+            }
           },
           onComplete: () => ScrollTrigger.refresh(),
         });
+
 
       // gsap.to("body", {
 
@@ -269,11 +324,16 @@ const WhoWeAre = () => {
           >
             {/* Left Text Section */}
             {/* bg-gtf-pink */}
-            <div className="flex flex-row justify-between h-full bg-gtf-pink min-w-[100vw]"> 
-              <div className="grid grid-cols-12 items-center  gap-[40px]">
-
-                <div className="w-[100vw] md:px-[50px] px-[15px] col-span-12 pt-[20px] max-w-[80%] mx-auto">
-                  <h2 ref={mainHeadingRef} className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block left-[50%] -translate-x-1/2">
+            <div className="flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
+              <div className="grid items-center grid-cols-12 gap-[40px]">
+                <div
+                  ref={mainContentRef}
+                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50%]"
+                >
+                  <h2
+                    ref={mainHeadingRef}
+                    className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block left-[50%] -translate-x-1/2 leading-[150px]"
+                  >
                     Who We Are?
                   </h2>
 
@@ -282,7 +342,7 @@ const WhoWeAre = () => {
                       ref={headingRef}
                       className="montserrat uppercase js-title text-[40px] font-bold absolute w-[max-content]"
                       style={{
-                        opacity:0,
+                        opacity: 0,
                       }}
                     >
                       G<span className="hide">urukul </span>T
@@ -314,42 +374,46 @@ const WhoWeAre = () => {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
             {/* First Image Section */}
 
-            <div className="flex items-center relative pl-[13rem] min-w-[fit-content]">
+            <div ref={imageSectionRef} className="flex items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
               <div className="pr-[50px] pl-[20px]">
                 <h3 className="montserrrat uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
-                Built to Disrupt <span className="block">the Ordinary</span>
+                  Built to Disrupt <span className="block">the Ordinary</span>
                 </h3>
               </div>
 
-              <div>
-              <img
-                ref={(el) => (imagesRef.current[2] = el)}
-                className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/absolute_img.webp"
-                alt="GTF Technologies office environment"
-              />
-              <img
-                ref={(el) => (imagesRef.current[3] = el)}
-                className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/img3.webp"
-                alt="GTF Technologies office environment"
-              />
+              <div ref={fixImagesRef}>
+                <img
+                  ref={(el) => (imagesRef.current[2] = el)}
+                  className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                  src="/assets/home/who_we_are/absolute_img.webp"
+                  alt="GTF Technologies office environment"
+                />
+                <img
+                  ref={(el) => (imagesRef.current[3] = el)}
+                  className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                  src="/assets/home/who_we_are/img3.webp"
+                  alt="GTF Technologies office environment"
+                />
               </div>
             </div>
 
-            <div className="flex flex-row items-center relative pl-[13rem] min-w-[fit-content]">
+
+
+            <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
                 <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
-                Not a Team. <span className="block text-[50px] uppercase font-bold">A task force </span>
+                  Not a Team.{" "}
+                  <span className="block text-[50px] uppercase font-bold">
+                    A task force{" "}
+                  </span>
                 </h5>
               </div>
 
-              <img
+              {/* <img
                 ref={(el) => (imagesRef.current[2] = el)}
                 className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/absolute_img.webp"
@@ -360,18 +424,18 @@ const WhoWeAre = () => {
                 className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/img3.webp"
                 alt="GTF Technologies office environment"
-              />
-
+              /> */}
             </div>
 
-            <div className="flex flex-row items-center relative pl-[13rem] min-w-[fit-content]">
+            <div className="flex flex-row items-center relative pl-[13rem] min-w-[100vw]">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
                 <h5 className="text-[50px] mb-[1rem]  text-[50px] font-semibold">
-                Wired to help brands <span className="block">move ahead of the market.</span>
+                  Wired to help brands{" "}
+                  <span className="block">move ahead of the market.</span>
                 </h5>
               </div>
 
-              <img
+              {/* <img
                 ref={(el) => (imagesRef.current[2] = el)}
                 className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/absolute_img.webp"
@@ -382,9 +446,10 @@ const WhoWeAre = () => {
                 className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/img3.webp"
                 alt="GTF Technologies office environment"
-              />
-
+              /> */}
             </div>
+
+            
 
           </div>
         </div>

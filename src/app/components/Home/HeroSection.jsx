@@ -63,6 +63,7 @@ const HeroSection = () => {
   const mediaRefs = useRef([]);
   const modalRef = useRef(null);
   const sectionRef = useRef(null);
+  const mainSectionRef = useRef(null);
   const scrollState = useRef({ locked: false, y: 0 });
   const introPinRef = useRef(null);
   const marqueeRef = useRef(null);
@@ -72,7 +73,8 @@ const HeroSection = () => {
   const mapRef = useRef(null);
   const dataRef = useRef(null);
   const countersRef = useRef([]);
-
+  const zoomTextRef = useRef(null);
+  const bgZoomColorRef = useRef(null);
   
 
   const dispatch =  useDispatch();
@@ -138,6 +140,27 @@ const HeroSection = () => {
 
 
   useEffect(() => {
+    if (!mounted) return;
+
+    const glow = document.getElementById("rotating-pink-glow");
+
+    gsap.to(glow, {
+      rotation: 360,
+      duration: 20,
+      repeat: -1,
+      ease: "none",
+    });
+  }, [mounted]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+
+
+
+
+  useEffect(() => {
     if (!sectionRef.current || !mounted) return;
 
     let hasScrolledPastHero = window.scrollY > window.innerHeight * 0.5;
@@ -182,6 +205,9 @@ const HeroSection = () => {
         // },
       },
     });
+
+
+
     introPinRef.current = tl.scrollTrigger;
 
     const handleScroll = () => {
@@ -202,17 +228,120 @@ const HeroSection = () => {
     };
   }, [mounted, videoCompleted, isMobile]);
 
-  const openModal = (content) => {
-    setModalContent(content);
-    setModalOpen(true);
-    if (modalRef.current) {
-      gsap.fromTo(
-        modalRef.current,
-        { scale: 0.8, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }
-      );
+  useEffect(()=>{
+    if(!mainSectionRef.current || !mounted || !videoCompleted) return;
+
+    // Wait until everything is rendered and video is done
+    const zoomTl = gsap.timeline({
+      scrollTrigger:{
+        trigger:mainSectionRef.current,
+        start:"top top",
+        end: "+=120%",
+        pin:true,
+        pinSpacing:true,
+        scrub:2,
+        anticipatePin:1,
+        id:"hero-zoom",
+
+      }
+    });
+
+    // start counter
+    function startCounters() {
+      countersRef.current.forEach((el) => {
+        if (!el) return;
+        const target = parseInt(el.dataset.target, 10);
+        if (isNaN(target)) return; // ← Skip "One Team" completely
+
+        const pad = target < 10;
+
+        gsap.to(el, {
+          innerText: target,
+          duration: 4.5,
+          ease: "power2.out",
+          snap: { innerText: 1 },
+          onUpdate: () => {
+            const val = Math.round(el.innerText);
+            el.innerText = pad ? val.toString().padStart(2, "0") : val;
+          },
+          onComplete: () => {
+            const suffix = el.nextElementSibling;
+            if (suffix?.classList.contains("suffix")) {
+              gsap.to(suffix, { opacity: 1, duration: 0.8 });
+            }
+          },
+        });
+      });
+
+      gsap.to(".text-only", {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease: "power3.out",
+        stagger: 0.2,
+        delay: 0.3,
+      });
+
+      
+      setTimeout(()=>{
+        document.documentElement.style.overflow = "auto";
+        document.body.style.overflow = "auto";
+      }, 5000)
     }
-  };
+
+    startCounters();
+
+    gsap.delayedCall(5.5, ()=>{
+      if(!zoomTextRef.current || !bgZoomColorRef.current) return;
+
+      zoomTl.to(
+        zoomTextRef.current,
+        {
+          scale:30,
+          ease:'none',
+        },
+      );
+
+      // zoomTl.to(
+      //   bgZoomColorRef.current,
+      //   {
+      //     opacity:1,
+      //     // transformX:'0',
+      //     // top:0,
+      //     // transform:"auto",
+      //     // left:0,
+      //   },
+      //   "-=0.51"
+      // );
+  
+      zoomTl.to(
+        bgZoomColorRef.current,
+        {
+          top:0,
+          height:"100%",
+          // transformX:'0',
+          // top:0,
+          // transform:"auto",
+          // left:0,
+        },
+        "-=0.50"
+      );
+  
+      zoomTl.to(
+        bgZoomColorRef.current,
+        {
+          transform:"translateX(0)",
+          left:"0",
+          width:"100%",
+          // scale:'10'
+        },
+        "-=0.1"
+      );
+
+      ScrollTrigger.refresh();
+    })
+
+  }, [mounted, videoCompleted])
 
   const closeModal = () => {
     if (modalRef.current) {
@@ -228,42 +357,11 @@ const HeroSection = () => {
     }
   };
 
-  const handleDotHover = useCallback(
-    debounce(() => {
-      if (headingRef.current) {
-        gsap.to(headingRef.current, {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.8,
-          ease: "back.out(1.5)",
-        });
-      }
-    }, 200),
-    []
-  );
-
-  const handleDotMouseLeave = useCallback(
-    debounce(() => {
-      if (headingRef.current) {
-        gsap.to(headingRef.current, {
-          y: 50,
-          opacity: 0,
-          scale: 0.95,
-          duration: 0.4,
-          ease: "power3.in",
-        });
-      }
-    }, 200),
-    []
-  );
 
   const handleVideoEnd = () => {
     dispatch(hideVideo())
 
 
-    document.documentElement.style.overflow = "auto";
-    document.body.style.overflow = "auto";
 
     if (introPinRef.current) {
       introPinRef.current.kill();
@@ -357,89 +455,6 @@ const HeroSection = () => {
 
 
   };
-
-  const handleSlideClick = useCallback((info, index, event) => {
-    setActiveIndex(index);
-    setLastActiveIndex(index);
-    if (swiperInstance.current) {
-      swiperInstance.current.slideTo(index);
-    }
-
-    document.querySelectorAll(".swiper-slide").forEach((slide, i) => {
-      if (slide) {
-        slide.className.toggle("swiper-slide-active", i === index);
-      }
-    });
-
-    if (!info.name) return;
-    const isVideo =
-      info.video || info.img.endsWith(".mp4") || info.img.endsWith(".webm");
-    const mediaPath = `/assets/home/hero/${info.video || info.img}`;
-
-    openModal({
-      type: isVideo ? "video" : "image",
-      path: mediaPath,
-      title: info.name,
-      index: index,
-      text: info.text,
-    });
-  }, []);
-
-  const handleSlideHover = useCallback(
-    debounce((index) => {
-      setActiveIndex(index);
-      if (swiperInstance.current) {
-        swiperInstance.current.slideTo(index);
-      }
-      document.querySelectorAll(".swiper-slide").forEach((slide, i) => {
-        if (slide) {
-          slide.className.toggle("swiper-slide-active", i === index);
-        }
-      });
-    }, 200),
-    []
-  );
-
-  const handleTextHover = useCallback(
-    debounce((index) => {
-      setActiveIndex(index);
-      if (swiperInstance.current) {
-        swiperInstance.current.slideTo(index);
-      }
-      document.querySelectorAll(".swiper-slide").forEach((slide, i) => {
-        if (slide) {
-          slide.className.toggle("swiper-slide-active", i === index);
-        }
-      });
-    }, 200),
-    []
-  );
-
-  const handleSlideMouseLeave = useCallback(
-    debounce(() => {
-      setActiveIndex(lastActiveIndex);
-      if (swiperInstance.current) {
-        swiperInstance.current.slideTo(lastActiveIndex);
-      }
-      document.querySelectorAll(".swiper-slide").forEach((slide, i) => {
-        if (slide) {
-          slide.className.toggle("swiper-slide-active", i === lastActiveIndex);
-        }
-      });
-    }, 200),
-    [lastActiveIndex]
-  );
-
-  // Throttled slide change handler
-  const handleSlideChange = useCallback(
-    debounce((swiper) => {
-      const newIndex = swiper.realIndex;
-      setActiveIndex(newIndex);
-      setLastActiveIndex(newIndex);
-      setIsLastSlide(newIndex === HERO_DATA.length - 1);
-    }, 100),
-    []
-  );
 
   useEffect(() => {
     const checkIsMobile = () => {
@@ -563,7 +578,6 @@ const HeroSection = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          startCounters();
           observer.unobserve(entry.target);
         }
       },
@@ -572,41 +586,7 @@ const HeroSection = () => {
 
     observer.observe(dataRef.current);
   
-    function startCounters() {
-      countersRef.current.forEach((el) => {
-        if (!el) return;
-        const target = parseInt(el.dataset.target, 10);
-        if (isNaN(target)) return; // ← Skip "One Team" completely
-
-        const pad = target < 10;
-
-        gsap.to(el, {
-          innerText: target,
-          duration: 4.5,
-          ease: "power2.out",
-          snap: { innerText: 1 },
-          onUpdate: () => {
-            const val = Math.round(el.innerText);
-            el.innerText = pad ? val.toString().padStart(2, "0") : val;
-          },
-          onComplete: () => {
-            const suffix = el.nextElementSibling;
-            if (suffix?.classList.contains("suffix")) {
-              gsap.to(suffix, { opacity: 1, duration: 0.8 });
-            }
-          },
-        });
-      });
-
-      gsap.to(".text-only", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        stagger: 0.2,
-        delay: 0.3,
-      });
-    }
+    
   
     return () => observer.disconnect();
   }, [videoCompleted]);
@@ -614,59 +594,34 @@ const HeroSection = () => {
   
   return (
     <section
-      className={`relative hero_section overflow-hidden mb-[100px] ${
+      ref={mainSectionRef}
+      className={`relative hero_section overflow-hidden bg-[#faf9f6] ${
         videoCompleted ? "md:px-[50px]" : "md:px-0"
       }`}
     >
-      {/* <div className="right-[20px] bottom-[30px] md:block hidden absolute ml-auto">
-        <div className="flex justify-end relative">
-          {dotsConfig.map((dot, index) => {
-            const isActive = activeIndexes.includes(index);
-            return (
-              <span
-                key={index}
-                className={`absolute h-[5px] w-[5px] transition-opacity transform duration-500 ease-in-out ${
-                  dot.color
-                } ${isActive ? "opacity-100 scale-60" : "opacity-0 scale-50"}`}
-                style={{
-                  top: dot.top,
-                  left: dot.left,
-                  bottom: dot.bottom,
-                }}
-                onMouseEnter={index === 0 ? handleDotHover : undefined}
-                onMouseLeave={index === 0 ? handleDotMouseLeave : undefined}
-              />
-            );
-          })}
-          <img
-            src="/assets/home/map-1.png"
-            className="h-[110px] mb-[5px]"
-            alt="map.png"
-          />
-        </div>
-        <p className="font-[Oswald] lg:w-[auto] w-[60%] ml-[auto] font-[400] text-end z-[2] text-[15px] mr-[12px] md:block hidden">
-          <span className="font-medium">GTF Technologies</span> is
-          conceptualized from <span className="lg:block"></span>
-          <span className="font-medium"> Gurukul The Foundation</span>
-        </p>
-      </div> */}
 
 
+      {/* Pink Edge Glow – Infinite rotation around the viewport (finally visible!) */}
+  <div 
+    className="absolute -inset-[100px] h-full animate-gradient-rotation" 
+    id="rotating-pink-glow"
+    style={{
+      background: `linear-gradient(90deg,
+        #e24397 10%,
+        transparent 50%,
+        transparent 70%,
+        transparent 100%
+      )`,
+      backgroundSize: "100% 100%",   // Large enough to move fully across screen
+      filter: "blur(90px)",
+      opacity: 0.25,
+    }}
+  />
+
+    {/* <div ref={bgZoomColorRef} className="bg_color_zoom bg-[#e24397] absolute h-full w-0 left-0 top-0 z-[9]"
+    ></div> */}
 
 
-      {/* <div
-        ref={line1Ref}
-        className="mix-blend-multiply h-[10px] md:block hidden md:h-[25px] w-[80%] absolute top-[calc(56%)] bg-gtf-pink opacity-0"
-      ></div>
-      <div
-        ref={line2Ref}
-        className="mix-blend-multiply h-[10px] md:block hidden md:h-[25px] w-[80%] absolute 2xl:bottom-[135px] bottom-[85px] md:right-[-196px] bg-gtf-yellow opacity-0"
-      ></div> */}
-      {/* <img
-        src="/assets/home/hero/circle.svg"
-        className="2xl:h-[450px] md:h-[300px] h-[300px] rotate-plus absolute rotation_circle 2xl:top-[40%] lg:top-[40%] bottom-[0] opacity-0 lg:left-[15%]"
-        alt="Decorative circle"
-      /> */}
 
       <div ref={sectionRef} className="h-screen hide_screen">
         {/* {mounted && !videoCompleted && ( */}
@@ -727,24 +682,6 @@ const HeroSection = () => {
         <SlideTxtAn
           ref={slideTxtAnRef}
           className="text-center text-[80px] bebas font-medium text-global-color tracking-[7px]" spanClass="font-bold tracking-[7px]" />
-        {/* <div
-          className={`flex justify-center ${
-            videoCompleted ? "2xl:mb-[20px]" : "2xl:mb-[80px]"
-          } mb-8 heading-container`}
-          ref={headingRef}
-          style={{ opacity: 0, transition: "transform 0.3s ease-out" }}
-        >
-          <h1
-            className={`text-center font-[500] font-robotoCondensed text-global-color tracking-[1px]`}
-          >
-            <span className="md:block 2xl:text-5xl lg:text-[35px] text-[26px] 2xl:mb-[12px]">
-              Branding, Digital Marketing
-            </span>
-            <span className="md:block 2xl:text-5xl lg:text-[35px] text-[26px]">
-              and Double-Digit Growth
-            </span>
-          </h1>
-        </div> */}
 
         <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center">
 
@@ -763,16 +700,16 @@ const HeroSection = () => {
               const numberValue = hasNumber ? parseInt(match[1], 10) : null;
               const suffix = match && match[2] ? match[2].trim() : item; // "Minds", "Locations", or full "One Team"
 
-              console.log('suffix',suffix);
 
               return (
                 <h3
                   key={index}
-                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000]`}
+                  ref={index === 0 ? zoomTextRef : null}
+                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000] ${index === 0 ? 'z-[9]' : undefined}`}
                   style={{ color: colors[index] }}
                 >
                   {hasNumber ? (
-                    <>
+                    <div className="relative">
                       <span
                         ref={(el) => (countersRef.current[index] = el)}
                         className="counter inline-block"
@@ -783,7 +720,16 @@ const HeroSection = () => {
                       <span className="ml-4 suffix transition-opacity">
                         {suffix}
                       </span>
-                    </>
+                      {index === 0 && 
+                        (
+                          <span ref={bgZoomColorRef} className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[47%] translate-x-[-50%] block"
+                            // style={{
+                            //   opacity:0,
+                            // }}
+                          ></span>
+                        )
+                      }
+                    </div>
                   ) : (
                     <span className="text-only inline-block translate-y-10">
                       {suffix}
@@ -890,12 +836,7 @@ const HeroSection = () => {
           </div>,
           document.body
         )}
-      {/* <div className="">
-        <div
-          ref={line3Ref}
-          className="w-[calc(35%)] m-auto h-[2px] md:block hidden z-[99] relative bg-gtf-blue opacity-1"
-        ></div>
-      </div> */}
+      
     </section>
   );
 };
