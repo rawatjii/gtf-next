@@ -244,30 +244,42 @@ const WhoWeAre = () => {
             });
 
             // Background change exactly when imageSection hits left edge
-            if (imageSection) {
-              const rect = imageSection.getBoundingClientRect();
+            // if (imageSection) {
+            //   const rect = imageSection.getBoundingClientRect();
 
-              // When left edge of imageSection is ≤ 20px from viewport left → trigger
-              if (rect.left <= 20 && !hasChangedBg) {
-                gsap.to(imageSection, {
+            //   // When left edge of imageSection is ≤ 20px from viewport left → trigger
+            //   if (rect.left <= 20 && !hasChangedBg) {
+            //     gsap.to(imageSection, {
+                  
+            //       ease: "none"
+            //     });
+            //     hasChangedBg = true;
+            //   }
 
-                  ease: "none"
-                });
-                hasChangedBg = true;
-              }
-
-              // When scrolling back and it leaves the left edge → revert
-              if (rect.left > 100 && hasChangedBg) {
-                gsap.to(imageSectionRef.current, {
-                  backgroundColor: "#e24397",   // original pink
-                  duration: 1,
-                  ease: "power3.inOut",
-                });
-                hasChangedBg = false;
-              }
-            }
+            //   // When scrolling back and it leaves the left edge → revert
+            //   if (rect.left > 100 && hasChangedBg) {
+            //     gsap.to(imageSection, {
+            //       backgroundColor: "#e24397",   // original pink
+            //       duration: 1,
+            //       ease: "power3.inOut",
+            //     });
+            //     hasChangedBg = false;
+            //   }
+            // }
           },
           onComplete: () => ScrollTrigger.refresh(),
+        });
+
+
+        ScrollTrigger.create({
+          trigger: fixImagesGroup,      // the div with both images
+          containerAnimation: tl,       // tie it to your horizontal timeline
+          start: "left center",         // when its left edge hits viewport center
+          // end: "right center",          // until its right edge leaves center
+          pin: true,                    // actually pin it
+          pinSpacing: false,            // don't add extra space in the flow
+          anticipatePin: 1,
+          markers: true,
         });
 
 
@@ -324,7 +336,7 @@ const WhoWeAre = () => {
           >
             {/* bg-gtf-pink */}
             <div className="flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
-              <div className="grid items-center grid-cols-12 gap-[40px]">
+              <div className="grid items-center grid-cols-12">
                 <div
                   ref={mainContentRef}
                   className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh]"
@@ -384,7 +396,20 @@ const WhoWeAre = () => {
                 </h3>
               </div>
 
-
+              <div ref={fixImagesRef} >
+                <img
+                  ref={(el) => (imagesRef.current[2] = el)}
+                  className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                  src="/assets/home/who_we_are/absolute_img.webp"
+                  alt="GTF Technologies office environment"
+                />
+                <img
+                  ref={(el) => (imagesRef.current[3] = el)}
+                  className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                  src="/assets/home/who_we_are/img3.webp"
+                  alt="GTF Technologies office environment"
+                />
+              </div>
             </div>
 
 
@@ -435,20 +460,7 @@ const WhoWeAre = () => {
               /> */}
             </div>
 
-            <div ref={fixImagesRef} className="fixed">
-              <img
-                ref={(el) => (imagesRef.current[2] = el)}
-                className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/absolute_img.webp"
-                alt="GTF Technologies office environment"
-              />
-              <img
-                ref={(el) => (imagesRef.current[3] = el)}
-                className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/img3.webp"
-                alt="GTF Technologies office environment"
-              />
-            </div>
+            
 
           </div>
         </div>
