@@ -167,7 +167,7 @@ const Locationmap = () => {
   }, []);
 
   return (
-    <section className="relative hero_section overflow-hidden pb-[100px] pt-[50px] md:px-[50px]">
+    <section className="relative hero_section overflow-hidden py-[120px] md:px-[50px]">
       {/* Decorative Elements */}
       <div className="right-[20px] bottom-[30px] md:block hidden absolute">
         {/* <div className="flex justify-end relative">

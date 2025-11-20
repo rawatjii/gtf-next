@@ -160,7 +160,7 @@ const Expertise = () => {
   // }, [])
   //
   return (
-    <section ref={sectionRef} className="md:pt-[100px] md:pb-[100px] py-[60px] px-[15px] lg:px-[50px] border-t" id="experties_sec">
+    <section ref={sectionRef} className="md:py-[150px] py-[60px] px-[15px] lg:px-[50px] bg-[#f7f7f7]" id="experties_sec">
       <div className="flex justify-between flex-wrap">
         <h2 className="bebas relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[50px] md:text-[50px] 2xl:text-[72px] tracking-[2px] ">
           <span className="block">
@@ -207,7 +207,7 @@ const Expertise = () => {
           </div>
           <div
             ref={circleRef}
-            className="md:h-[250px] md:w-[250px] h-[120px] w-[120px] md:left-[8%]  md:top-[21%] z-[-1] bg-[#FDE93D] mix-blend-multiply md:relative absolute rounded-full"
+            className="md:h-[250px] md:w-[250px] h-[120px] w-[120px] md:left-[8%]  md:top-[21%] bg-[#FDE93D] mix-blend-multiply md:relative absolute rounded-full"
           ></div>
           <img
             src="/assets/home/netblob.png"

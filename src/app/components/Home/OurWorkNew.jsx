@@ -93,19 +93,18 @@ const OurWork = () => {
       scrollTrigger:{
         trigger:section,
         start:"top 50%",
-        scrub:false,
+        end:"top 10%",
+        pinSpacing:false,
+        scrub:1,
       }
     })
 
-    tl1.to(
-      headingTxt,
-      {
-        // clipPath:"inset(0% 0% 0% 0%)",
-        marginRight:'auto',
-        duration: 1.2,
-      }
-    );
-
+    tl1.to(heading, {
+      opacity:1,
+      xPercent: -50,        // pulls it left by half its width
+      // or use x: "-50vw" to move relative to viewport
+      ease: "none"
+    });
 
     return () => {
       ScrollTrigger.getById("our-work-pin")?.kill();
@@ -114,48 +113,50 @@ const OurWork = () => {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative pb-[150px] pt-[100px]">
+    <section ref={sectionRef} className="relative pb-[150px] pt-[100px] bg-[#f7f7f7]">
       <div>
-        <div ref={headingRef} className="heading z-[-1]"
+        <div ref={headingRef} className="heading relative z-[9] table ml-auto"
          style={{
-          
-          // opacity: 0,
+          marginRight:0,
+          opacity: 0,
           // transform:`translateY(-${transformValue}px)`
         }}>
-          <div ref={iconsRef} className="icons flex items-center justify-center" style={{
-            // clipPath:"inset(100% 0% 0% 0%)"
-          }}>
-            <span className="icon pink">
-              <img
-                src="/assets/logos/pink_color.svg"
-                alt="pink logo icon"
-                className="img-fluid w-[60px]"
-              />
-            </span>
-            <span className="icon yellow ml-[-10px]">
-              <img
-                src="/assets/logos/yellow_color.svg"
-                alt="yellow logo icon"
-                className="img-fluid w-[60px]"
-              />
-            </span>
-            <span className="icon pink ml-[-10px]">
-              <img
-                src="/assets/logos/blue_color.svg"
-                alt="blue logo icon"
-                className="img-fluid w-[60px]"
-              />
-            </span>
-          </div>
+          <div className="grid">
+            <div ref={iconsRef} className="icons inline-flex items-center justify-center" style={{
+              // clipPath:"inset(100% 0% 0% 0%)"
+            }}>
+              <span className="icon pink">
+                <img
+                  src="/assets/logos/pink_color.svg"
+                  alt="pink logo icon"
+                  className="img-fluid w-[60px]"
+                />
+              </span>
+              <span className="icon yellow ml-[-10px]">
+                <img
+                  src="/assets/logos/yellow_color.svg"
+                  alt="yellow logo icon"
+                  className="img-fluid w-[60px]"
+                />
+              </span>
+              <span className="icon pink ml-[-10px]">
+                <img
+                  src="/assets/logos/blue_color.svg"
+                  alt="blue logo icon"
+                  className="img-fluid w-[60px]"
+                />
+              </span>
+            </div>
 
-          <h3 ref={headingTxtRef} className="text-[250px] bebas uppercase table mx-auto" style={{
-            // clipPath:"inset(100% 0% 0% 0%)"
-            marginRight:'0',
-            
-          }}>Our Work</h3>
+            <h3 ref={headingTxtRef} className="text-[250px] bebas uppercase inline-block" style={{
+              // clipPath:"inset(100% 0% 0% 0%)"
+            }}>
+              Our Work
+            </h3>
+          </div>
         </div>
 
-        <div ref={projectsRef} className="relative projects mt-[20vh]">
+        <div ref={projectsRef} className="relative projects mt-[20vh] z-[10]">
           {projects?.map((project, idx)=>(
             <div key={idx}>
               <img
