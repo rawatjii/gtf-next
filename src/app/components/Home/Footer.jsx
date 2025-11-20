@@ -12,13 +12,13 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { AiOutlineYoutube } from "react-icons/ai";
 import Link from "next/link";
+import ScrollText from "@/app/utils/ScrollText";
 
-const dotsConfig = [
-  { top: "29%", left: "41%", color: "bg-gtf-blue" },
-  { top: "29%", left: "43.5%", color: "bg-gtf-yellow" },
-  { bottom: "42%", left: "32%", color: "bg-gtf-pink" },
-  { bottom: "38.5%", left: "34.5%", color: "bg-[purple]" },
-  { bottom: "27.5%", left: "37.5%", color: "bg-[green]" },
+const scrollText = [
+  "Say Hello",
+  "Ready to connect",
+  "Say Hello",
+  "Ready to connect",
 ];
 
 const locations = [
@@ -198,7 +198,9 @@ const Footer = () => {
           </button>
         </div>
       </section> */}
-      <footer ref={footerRef} className="md:px-[35px] px-[15px] z-[2] relative pb-[25px] pt-[100px]">
+      <footer ref={footerRef} className="md:px-[35px] px-[15px] z-[2] relative pb-[25px] pt-[50px]">
+
+        <ScrollText scrolltext={scrollText} position="toLeft" className="text-[100px] bartino font-bold tracking-[13px] mb-[100px]" color="#000" />
 
         <div className="grid grid-cols-12">
           <div className="col-span-3">

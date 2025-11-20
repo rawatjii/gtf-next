@@ -1,0 +1,131 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+
+export default function Cursor() {
+  const cursorRef = useRef(null);
+  const textRef = useRef(null);
+  const isHovered = useRef(false);
+
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    const text = textRef.current;
+    if (!cursor || !text) return;
+
+    // Hide default cursor
+    // document.body.style.cursor = 'none';
+
+    const moveCursor = (e) => {
+      gsap.to(cursor, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.9,
+        ease: "power3.out"
+      });
+    };
+
+    const onEnter = (e) => {
+      if (isHovered.current) return;
+
+      const target = e.target;
+      const hoverable = target.closest('a, button, [data-cursor-hover], [data-cursor="hover"]');
+
+      if (hoverable) {
+        isHovered.current = true;
+
+        gsap.to(cursor, {
+          width: 90,
+          height: 90,
+          backgroundColor: 'white',
+          duration: 0.5,
+          ease: "back.out(1.7)"
+        });
+
+        gsap.to(text, {
+          opacity: 1,
+          duration: 0.3,
+          delay: 0.2
+        });
+      }
+    };
+
+    const onLeave = () => {
+      if (!isHovered.current) return;
+
+      isHovered.current = false;
+
+      gsap.to(cursor, {
+        width: 15,
+        height: 15,
+        backgroundColor: '#ef4444',
+        duration: 0.5,
+        ease: "elastic.out(1, 0.3)"
+      });
+
+      gsap.to(text, {
+        opacity: 0,
+        duration: 0.2
+      });
+    };
+
+    // Track mouse position (uses real pointer, works with Lenis)
+    document.addEventListener('mousemove', moveCursor);
+
+    // Global hover detection
+    document.addEventListener('mouseover', onEnter);
+    document.addEventListener('mouseout', onLeave);
+
+    // Optional: Add to specific elements only
+    // const links = document.querySelectorAll('a, button, [data-cursor-hover]');
+    // links.forEach(el => {
+    //   el.addEventListener('mouseenter', onEnter);
+    //   el.addEventListener('mouseleave', onLeave);
+    // });
+
+    return () => {
+      document.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mouseover', onEnter);
+      document.removeEventListener('mouseout', onLeave);
+      document.body.style.cursor = 'auto';
+    };
+  }, []);
+
+  return (
+    <div
+      ref={cursorRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: 15,
+        height: 15,
+        backgroundColor: '#ef4444',
+        borderRadius: '50%',
+        pointerEvents: 'none',
+        zIndex: 9999,
+        transform: 'translate(-50%, -50%)',
+        mixBlendMode: 'difference', // Magic: auto inverts color!
+      }}
+    >
+      <div
+        ref={textRef}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          color: 'white',
+          fontSize: '12px',
+          fontWeight: '600',
+          letterSpacing: '0.5px',
+          opacity: 0,
+          userSelect: 'none',
+          pointerEvents: 'none',
+        }}
+      >
+        View
+      </div>
+    </div>
+  );
+}

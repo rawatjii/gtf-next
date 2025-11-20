@@ -11,6 +11,7 @@ import SparkleBackground from "./components/SparkleBackground";
 import MainLoader from "./components/Loader/Index";
 import { Provider } from "react-redux";
 import { store } from "@/store";
+import Cursor from "./components/Cursor";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
@@ -91,6 +92,7 @@ export default function RootLayout({ children }) {
             </Provider>
           </div>
         </div>
+        <Cursor />
       </body>
     </html>
   );
