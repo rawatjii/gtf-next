@@ -244,63 +244,38 @@ const WhoWeAre = () => {
             });
 
             // Background change exactly when imageSection hits left edge
-            // if (imageSection) {
-            //   const rect = imageSection.getBoundingClientRect();
+            if (fixImagesGroup) {
+              const rect = fixImagesGroup.getBoundingClientRect();
 
-            //   // When left edge of imageSection is ≤ 20px from viewport left → trigger
-            //   if (rect.left <= 20 && !hasChangedBg) {
-            //     gsap.to(imageSection, {
-                  
-            //       ease: "none"
-            //     });
-            //     hasChangedBg = true;
-            //   }
+              // When left edge of imageSection is ≤ 20px from viewport left → trigger
+              if (rect.left <= 20 && !hasChangedBg) {
+                hasChangedBg = true;
 
-            //   // When scrolling back and it leaves the left edge → revert
-            //   if (rect.left > 100 && hasChangedBg) {
-            //     gsap.to(imageSection, {
-            //       backgroundColor: "#e24397",   // original pink
-            //       duration: 1,
-            //       ease: "power3.inOut",
-            //     });
-            //     hasChangedBg = false;
-            //   }
-            // }
+                gsap.to(fixImagesGroup, {
+                  x: 0,
+                  ease: "none",
+                  duration: 0.00001,
+                  modifiers: {
+                    x: () => {
+                      const currentX = gsap.getProperty(section, "x"); // the horizontal scroll amount
+                      return -currentX + (window.innerWidth / 2 - rect.width / 2) + "px";
+                    }
+                  }
+                });
+
+              }
+
+              // When scrolling back and it leaves the left edge → revert
+              if (rect.left > 300 && hasChangedBg) {
+                gsap.set(fixImagesGroup, { x: 0 });
+    hasChangedBg = false;
+              }
+            }
           },
           onComplete: () => ScrollTrigger.refresh(),
         });
 
 
-        ScrollTrigger.create({
-          trigger: fixImagesGroup,      // the div with both images
-          containerAnimation: tl,       // tie it to your horizontal timeline
-          start: "left center",         // when its left edge hits viewport center
-          // end: "right center",          // until its right edge leaves center
-          pin: true,                    // actually pin it
-          pinSpacing: false,            // don't add extra space in the flow
-          anticipatePin: 1,
-          markers: true,
-        });
-
-
-      // gsap.to("body", {
-
-      //   scrollTrigger: {
-      //     trigger: bgColorRef,
-      //     start: "top 50%", // Trigger when bgColorRef reaches 50% of the viewport height
-      //     end: "bottom top",
-      //     scrub: true, // Smooth transition while scrolling
-      //     markers: true, // Set to false when you're ready to go live
-      //     onEnter: () => {
-      //       document.querySelector('body').style.backgroundColor='#d93f92',
-      //       document.querySelector('body').style.trasition = '0.4s all'
-      //     },
-      //     onLeave: () => {
-      //       // Optional: Revert the color if needed
-      //       gsap.to("body", { backgroundColor: "transparent" });
-      //     },
-      //   },
-      // });
 
       ScrollTrigger.refresh();
     }, containerRef);
