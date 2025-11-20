@@ -10,15 +10,27 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     image:"/assets/home/projects/project1.webp",
+    category:"website",
+    title:"Align",
+    video:"assets/work/videos/website.mp4"
   },
   {
     image:"/assets/home/projects/project2.webp",
+    category:"website",
+    title:"Align",
+    video:"assets/work/videos/website.mp4"
   },
   {
     image:"/assets/home/projects/project3.webp",
+    category:"website",
+    title:"Align",
+    video:"assets/work/videos/website.mp4"
   },
   {
     image:"/assets/home/projects/project4.webp",
+    category:"website",
+    title:"Align",
+    video:"assets/work/videos/website.mp4"
   },
 ]
 
@@ -158,15 +170,32 @@ const OurWork = () => {
 
         <div ref={projectsRef} className="relative projects mt-[20vh] z-[10]">
           {projects?.map((project, idx)=>(
-            <div key={idx}>
-              <img
-                src={project.image}
-                alt="project image"
-                className={`img-fluid w-[45%] ${idx % 2 ? 'ml-auto' : ''}`}
-              />
+            <div key={idx} className={`flex ${idx % 2 ? 'justify-end' : ''} ${idx === 0 ? '' : 'mt-[80px]'}`}>
+              <div className="group relative h-[500px] w-[45%] overflow-hidden cursor-pointer">
+                <div className="thumbnail absolute h-full w-full">
+                  <img
+                    src={project.image}
+                    alt="project image"
+                    className={`img-fluid h-full w-full object-cover`}
+                  />
+                </div>
+                <div className="txt absolute text-[#fff] pt-[30px] px-[30px]">
+                  <h3 className="text-[30px]">{project.title}</h3>
+                  <h5 className="font-medium text-[18px]">{project.category}</h5>
+                </div>
+
+                <div className="video absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[93%] h-[calc(100%-250px)] origin-top transition-clip-path duration-700 ease-out [clip-path:inset(0_0_100%_0)] group-hover:[clip-path:inset(0_0_0%_0)]" >
+                  <video
+                    src={project.video}
+                    className="h-full w-full object-cover"
+                    controls
+                  />
+                </div>
+              </div>
             </div>
           ))}
         </div>
+        
       </div>
     </section>
   );
