@@ -37,9 +37,9 @@ const data = [
 ];
 
 const colors = [
-  "#e24397",
+  "#2aaee4",
   "#fde93d",
-  "#2aaee4"
+  "#e24397"
 ]
 
 const HeroSection = () => {
@@ -297,7 +297,7 @@ const HeroSection = () => {
       zoomTl.to(
         zoomTextRef.current,
         {
-          scale:30,
+          scale:25,
           ease:'none',
         },
       );
@@ -335,7 +335,6 @@ const HeroSection = () => {
           width:"100%",
           // scale:'10'
         },
-        "-=0.1"
       );
 
       ScrollTrigger.refresh();
@@ -704,8 +703,8 @@ const HeroSection = () => {
               return (
                 <h3
                   key={index}
-                  ref={index === 0 ? zoomTextRef : null}
-                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000] ${index === 0 ? 'z-[9]' : undefined}`}
+                  ref={index === 2 ? zoomTextRef : null}
+                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000] ${index === 2 ? 'z-[9]' : undefined}`}
                   style={{ color: colors[index] }}
                 >
                   {hasNumber ? (
@@ -720,7 +719,7 @@ const HeroSection = () => {
                       <span className="ml-4 suffix transition-opacity">
                         {suffix}
                       </span>
-                      {index === 0 && 
+                      {/* {index === 2 && 
                         (
                           <span ref={bgZoomColorRef} className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[47%] translate-x-[-50%] block"
                             // style={{
@@ -728,12 +727,17 @@ const HeroSection = () => {
                             // }}
                           ></span>
                         )
-                      }
+                      } */}
                     </div>
                   ) : (
-                    <span className="text-only inline-block translate-y-10">
-                      {suffix}
-                    </span>
+                    <div className="relative">
+                      <span className="text-only inline-block translate-y-10">
+                        {suffix}
+                      </span>
+
+                      <span ref={bgZoomColorRef} className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[50%] translate-x-[-50%] block"></span>
+                    </div>
+                    
                   )}
 
                 </h3>

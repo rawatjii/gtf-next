@@ -75,7 +75,6 @@ const WhoWeAre = () => {
 
   const overviewData = useRef(null);
   const backgroundColorRef = useRef(null);
-  const fixImagesRef = useRef(null);
   const imageSectionRef = useRef(null);
 
   let hasChangedBg = false;
@@ -86,13 +85,12 @@ const WhoWeAre = () => {
       const container = containerRef.current;
       const images = imagesRef.current;
       const ov_data = overviewData.current;
-      const fixImagesGroup = fixImagesRef.current;
       const bgColorRef = backgroundColorRef.current;
       const imageSection = imageSectionRef.current;
 
       const otherText = section.querySelector(".other_txt");
 
-      if (!section || !container || !images || !fixImagesGroup) return;
+      if (!section || !container || !images) return;
 
       // Initial states for animations
 
@@ -243,39 +241,29 @@ const WhoWeAre = () => {
               }
             });
 
-            // Background change exactly when imageSection hits left edge
-            if (fixImagesGroup) {
-              const rect = fixImagesGroup.getBoundingClientRect();
-
-              // When left edge of imageSection is ≤ 20px from viewport left → trigger
-              if (rect.left <= 20 && !hasChangedBg) {
-                hasChangedBg = true;
-
-                gsap.to(fixImagesGroup, {
-                  x: 0,
-                  ease: "none",
-                  duration: 0.00001,
-                  modifiers: {
-                    x: () => {
-                      const currentX = gsap.getProperty(section, "x"); // the horizontal scroll amount
-                      return -currentX + (window.innerWidth / 2 - rect.width / 2) + "px";
-                    }
-                  }
-                });
-
-              }
-
-              // When scrolling back and it leaves the left edge → revert
-              if (rect.left > 300 && hasChangedBg) {
-                gsap.set(fixImagesGroup, { x: 0 });
-    hasChangedBg = false;
-              }
-            }
           },
           onComplete: () => ScrollTrigger.refresh(),
         });
 
 
+      // gsap.to("body", {
+
+      //   scrollTrigger: {
+      //     trigger: bgColorRef,
+      //     start: "top 50%", // Trigger when bgColorRef reaches 50% of the viewport height
+      //     end: "bottom top",
+      //     scrub: true, // Smooth transition while scrolling
+      //     markers: true, // Set to false when you're ready to go live
+      //     onEnter: () => {
+      //       document.querySelector('body').style.backgroundColor='#d93f92',
+      //       document.querySelector('body').style.trasition = '0.4s all'
+      //     },
+      //     onLeave: () => {
+      //       // Optional: Revert the color if needed
+      //       gsap.to("body", { backgroundColor: "transparent" });
+      //     },
+      //   },
+      // });
 
       ScrollTrigger.refresh();
     }, containerRef);
@@ -311,7 +299,7 @@ const WhoWeAre = () => {
           >
             {/* bg-gtf-pink */}
             <div className="flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
-              <div className="grid items-center grid-cols-12">
+              <div className="grid items-center grid-cols-12 gap-[40px]">
                 <div
                   ref={mainContentRef}
                   className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh]"
@@ -371,7 +359,7 @@ const WhoWeAre = () => {
                 </h3>
               </div>
 
-              <div ref={fixImagesRef} >
+              <div>
                 <img
                   ref={(el) => (imagesRef.current[2] = el)}
                   className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
@@ -399,7 +387,7 @@ const WhoWeAre = () => {
                 </h5>
               </div>
 
-              {/* <img
+              <img
                 ref={(el) => (imagesRef.current[2] = el)}
                 className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/absolute_img.webp"
@@ -410,7 +398,7 @@ const WhoWeAre = () => {
                 className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/img3.webp"
                 alt="GTF Technologies office environment"
-              /> */}
+              />
             </div>
 
             <div className="flex flex-row items-center relative pl-[13rem] min-w-[100vw]">
@@ -421,7 +409,7 @@ const WhoWeAre = () => {
                 </h5>
               </div>
 
-              {/* <img
+              <img
                 ref={(el) => (imagesRef.current[2] = el)}
                 className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/absolute_img.webp"
@@ -432,7 +420,7 @@ const WhoWeAre = () => {
                 className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/img3.webp"
                 alt="GTF Technologies office environment"
-              /> */}
+              />
             </div>
 
             
