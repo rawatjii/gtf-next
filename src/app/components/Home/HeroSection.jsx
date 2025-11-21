@@ -30,17 +30,9 @@ const debounce = (func, wait) => {
   };
 };
 
-const data = [
-  "300 Minds",
-  "06 LOCATIONS",
-  "One Team"
-];
+const data = ["300 Minds", "06 LOCATIONS", "One Team"];
 
-const colors = [
-  "#2aaee4",
-  "#fde93d",
-  "#e24397"
-]
+const colors = ["#2aaee4", "#fde93d", "#e24397"];
 
 const HeroSection = () => {
   const [swiperReady, setSwiperReady] = useState(false);
@@ -75,9 +67,8 @@ const HeroSection = () => {
   const countersRef = useRef([]);
   const zoomTextRef = useRef(null);
   const bgZoomColorRef = useRef(null);
-  
 
-  const dispatch =  useDispatch();
+  const dispatch = useDispatch();
 
   const dotsConfig = [
     { top: "29%", left: "65%", color: "bg-gtf-blue" },
@@ -113,6 +104,48 @@ const HeroSection = () => {
     });
   };
 
+  // start counter
+  function startCounters() {
+    countersRef.current.forEach((el) => {
+      if (!el) return;
+      const target = parseInt(el.dataset.target, 10);
+      if (isNaN(target)) return; // ← Skip "One Team" completely
+
+      const pad = target < 10;
+
+      gsap.to(el, {
+        innerText: target,
+        duration: 4.5,
+        ease: "power2.out",
+        snap: { innerText: 1 },
+        onUpdate: () => {
+          const val = Math.round(el.innerText);
+          el.innerText = pad ? val.toString().padStart(2, "0") : val;
+        },
+        onComplete: () => {
+          const suffix = el.nextElementSibling;
+          if (suffix?.classList.contains("suffix")) {
+            gsap.to(suffix, { opacity: 1, duration: 0.8 });
+          }
+        },
+      });
+    });
+
+    gsap.to(".text-only", {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      stagger: 0.2,
+      delay: 0.3,
+    });
+
+    setTimeout(() => {
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    }, 5000);
+  }
+
   useEffect(() => {
     setMounted(true);
     setIsMobile(window.innerWidth < 768);
@@ -136,8 +169,7 @@ const HeroSection = () => {
         }
       );
     }
-  }, []); 
-
+  }, []);
 
   useEffect(() => {
     if (!mounted) return;
@@ -156,10 +188,6 @@ const HeroSection = () => {
     setMounted(true);
   }, []);
 
-
-
-
-
   useEffect(() => {
     if (!sectionRef.current || !mounted) return;
 
@@ -173,24 +201,24 @@ const HeroSection = () => {
         anticipatePin: 1,
         pinSpacing: true,
         pin: true,
-        onEnter:()=>{
+        onEnter: () => {
           // Only lock scroll on initial load AND if user hasn't scrolled past
-          if(initialLoad && !hasScrolledPastHero){
-            document.body.style.overflow = 'hidden'
+          if (initialLoad && !hasScrolledPastHero) {
+            document.body.style.overflow = "hidden";
           }
           initialLoad = false;
         },
-        onLeave:()=>{
-          document.body.style.overflow = '';
+        onLeave: () => {
+          document.body.style.overflow = "";
         },
         onEnterBack: () => {
           // If user scrolls back up, re-lock (optional)
           if (!hasScrolledPastHero) {
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = "hidden";
           }
         },
         onLeaveBack: () => {
-          document.body.style.overflow = '';
+          document.body.style.overflow = "";
         },
         // onEnter: () => {
         //   if (!videoRef.current) return;
@@ -206,101 +234,53 @@ const HeroSection = () => {
       },
     });
 
-
-
     introPinRef.current = tl.scrollTrigger;
 
     const handleScroll = () => {
       if (window.scrollY > window.innerHeight * 0.8) {
         hasScrolledPastHero = true;
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = "auto";
       }
     };
- 
-    window.addEventListener('scroll', handleScroll);
 
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
       tl.scrollTrigger?.kill();
       introPinRef.current?.kill();
-      window.removeEventListener('scroll', handleScroll);
-      document.body.style.overflow = 'auto';
+      window.removeEventListener("scroll", handleScroll);
+      document.body.style.overflow = "auto";
     };
   }, [mounted, videoCompleted, isMobile]);
 
-  useEffect(()=>{
-    if(!mainSectionRef.current || !mounted || !videoCompleted) return;
+  useEffect(() => {
+    if (!mainSectionRef.current || !mounted || !videoCompleted) return;
 
     // Wait until everything is rendered and video is done
     const zoomTl = gsap.timeline({
-      scrollTrigger:{
-        trigger:mainSectionRef.current,
-        start:"top top",
+      scrollTrigger: {
+        trigger: mainSectionRef.current,
+        start: "top top",
         end: "+=120%",
-        pin:true,
-        pinSpacing:true,
-        scrub:2,
-        anticipatePin:1,
-        id:"hero-zoom",
-
-      }
+        pin: true,
+        pinSpacing: true,
+        scrub: 2,
+        anticipatePin: 1,
+        id: "hero-zoom",
+      },
     });
 
-    // start counter
-    function startCounters() {
-      countersRef.current.forEach((el) => {
-        if (!el) return;
-        const target = parseInt(el.dataset.target, 10);
-        if (isNaN(target)) return; // ← Skip "One Team" completely
+    
 
-        const pad = target < 10;
+    // startCounters();
 
-        gsap.to(el, {
-          innerText: target,
-          duration: 4.5,
-          ease: "power2.out",
-          snap: { innerText: 1 },
-          onUpdate: () => {
-            const val = Math.round(el.innerText);
-            el.innerText = pad ? val.toString().padStart(2, "0") : val;
-          },
-          onComplete: () => {
-            const suffix = el.nextElementSibling;
-            if (suffix?.classList.contains("suffix")) {
-              gsap.to(suffix, { opacity: 1, duration: 0.8 });
-            }
-          },
-        });
+    gsap.delayedCall(5.5, () => {
+      if (!zoomTextRef.current || !bgZoomColorRef.current) return;
+
+      zoomTl.to(zoomTextRef.current, {
+        scale: 25,
+        ease: "none",
       });
-
-      gsap.to(".text-only", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        ease: "power3.out",
-        stagger: 0.2,
-        delay: 0.3,
-      });
-
-      
-      setTimeout(()=>{
-        document.documentElement.style.overflow = "auto";
-        document.body.style.overflow = "auto";
-      }, 5000)
-    }
-
-    startCounters();
-
-    gsap.delayedCall(5.5, ()=>{
-      if(!zoomTextRef.current || !bgZoomColorRef.current) return;
-
-      zoomTl.to(
-        zoomTextRef.current,
-        {
-          scale:25,
-          ease:'none',
-        },
-      );
 
       // zoomTl.to(
       //   bgZoomColorRef.current,
@@ -313,12 +293,12 @@ const HeroSection = () => {
       //   },
       //   "-=0.51"
       // );
-  
+
       zoomTl.to(
         bgZoomColorRef.current,
         {
-          top:0,
-          height:"100%",
+          top: 0,
+          height: "100%",
           // transformX:'0',
           // top:0,
           // transform:"auto",
@@ -326,21 +306,17 @@ const HeroSection = () => {
         },
         "-=0.50"
       );
-  
-      zoomTl.to(
-        bgZoomColorRef.current,
-        {
-          transform:"translateX(0)",
-          left:"0",
-          width:"100%",
-          // scale:'10'
-        },
-      );
+
+      zoomTl.to(bgZoomColorRef.current, {
+        transform: "translateX(0)",
+        left: "0",
+        width: "100%",
+        // scale:'10'
+      });
 
       ScrollTrigger.refresh();
-    })
-
-  }, [mounted, videoCompleted])
+    });
+  }, [mounted, videoCompleted]);
 
   const closeModal = () => {
     if (modalRef.current) {
@@ -356,11 +332,8 @@ const HeroSection = () => {
     }
   };
 
-
   const handleVideoEnd = () => {
-    dispatch(hideVideo())
-
-
+    dispatch(hideVideo());
 
     if (introPinRef.current) {
       introPinRef.current.kill();
@@ -369,7 +342,7 @@ const HeroSection = () => {
 
     document.querySelector(".hide_screen").style.display = "none";
     document.querySelector(".slider_content").style.display = "flex";
-    
+
     setVideoCompleted(true);
 
     const tl = gsap.timeline({
@@ -428,31 +401,26 @@ const HeroSection = () => {
         ease: "power3.in",
       },
       "-=1.2"
-    )
+    );
 
     tl.fromTo(
       dataRef.current,
       {
         opacity: 0,
-        y:20,
+        y: 20,
       },
       {
         opacity: 1,
-        y:0,
+        y: 0,
         duration: 0.4,
         ease: "power3.in",
         onComplete: () => {
-          // Optional: small delay so user sees the fade-in first
-          gsap.delayedCall(0.3, () => {
-            // Counter will auto-start via IntersectionObserver
-          });
+          startCounters();
+          // gsap.delayedCall(3, startCounters);
         },
       },
       "-=0.8"
-    )
-
-
-
+    );
   };
 
   useEffect(() => {
@@ -569,11 +537,9 @@ const HeroSection = () => {
     };
   }, []);
 
-
-
   useEffect(() => {
     if (!dataRef.current || !videoCompleted) return;
-  
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -584,13 +550,10 @@ const HeroSection = () => {
     );
 
     observer.observe(dataRef.current);
-  
-    
-  
+
     return () => observer.disconnect();
   }, [videoCompleted]);
 
-  
   return (
     <section
       ref={mainSectionRef}
@@ -598,29 +561,25 @@ const HeroSection = () => {
         videoCompleted ? "md:px-[50px]" : "md:px-0"
       }`}
     >
-
-
       {/* Pink Edge Glow – Infinite rotation around the viewport (finally visible!) */}
-  <div 
-    className="absolute -inset-[100px] h-full animate-gradient-rotation" 
-    id="rotating-pink-glow"
-    style={{
-      background: `linear-gradient(90deg,
+      <div
+        className="absolute -inset-[100px] h-full animate-gradient-rotation"
+        id="rotating-pink-glow"
+        style={{
+          background: `linear-gradient(90deg,
         #e24397 10%,
         transparent 50%,
         transparent 70%,
         transparent 100%
       )`,
-      backgroundSize: "100% 100%",   // Large enough to move fully across screen
-      filter: "blur(90px)",
-      opacity: 0.25,
-    }}
-  />
+          backgroundSize: "100% 100%", // Large enough to move fully across screen
+          filter: "blur(90px)",
+          opacity: 0.25,
+        }}
+      />
 
-    {/* <div ref={bgZoomColorRef} className="bg_color_zoom bg-[#e24397] absolute h-full w-0 left-0 top-0 z-[9]"
+      {/* <div ref={bgZoomColorRef} className="bg_color_zoom bg-[#e24397] absolute h-full w-0 left-0 top-0 z-[9]"
     ></div> */}
-
-
 
       <div ref={sectionRef} className="h-screen hide_screen">
         {/* {mounted && !videoCompleted && ( */}
@@ -635,7 +594,7 @@ const HeroSection = () => {
             muted
             onEnded={handleVideoEnd}
           />
-          
+
           {/*infite loop text animation*/}
           <div
             className="pointer-events-none left-0 w-full overflow-hidden z-[9]"
@@ -665,7 +624,7 @@ const HeroSection = () => {
               ( Scroll Down )
             </div>
           </div>
-          
+
           <button
             ref={skipBtnRef}
             className="absolute z-[99] top-0 left-0  text-white uppercase tracking-[1px] text-[14px] font-medium bg-[#e24397] px-[30px] py-[14px] rounded-full"
@@ -677,13 +636,13 @@ const HeroSection = () => {
       </div>
 
       <div className="relative md:pt-0 z-[4] mt-[120px]">
-        
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[80px] bebas font-medium text-global-color tracking-[7px]" spanClass="font-bold tracking-[7px]" />
+          className="text-center text-[80px] bebas font-medium text-global-color tracking-[7px]"
+          spanClass="font-bold tracking-[7px]"
+        />
 
         <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center">
-
           <div className="map h-full w-full flex items-center justify-center top-0 left-0 w-full h-full opacity-50 z-[-1]">
             <img
               ref={mapRef}
@@ -692,19 +651,23 @@ const HeroSection = () => {
             />
           </div>
 
-          <div ref={dataRef} className="absolute content grid gap-[30px] opacity-0">
+          <div
+            ref={dataRef}
+            className="absolute content grid gap-[30px] opacity-0"
+          >
             {data.map((item, index) => {
               const match = item.match(/^(\d+)\s*(.+)?$/); // Extract number + suffix
               const hasNumber = match && match[1];
               const numberValue = hasNumber ? parseInt(match[1], 10) : null;
               const suffix = match && match[2] ? match[2].trim() : item; // "Minds", "Locations", or full "One Team"
 
-
               return (
                 <h3
                   key={index}
                   ref={index === 2 ? zoomTextRef : null}
-                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000] ${index === 2 ? 'z-[9]' : undefined}`}
+                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000] ${
+                    index === 2 ? "z-[9]" : undefined
+                  }`}
                   style={{ color: colors[index] }}
                 >
                   {hasNumber ? (
@@ -735,17 +698,16 @@ const HeroSection = () => {
                         {suffix}
                       </span>
 
-                      <span ref={bgZoomColorRef} className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[50%] translate-x-[-50%] block"></span>
+                      <span
+                        ref={bgZoomColorRef}
+                        className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[50%] translate-x-[-50%] block"
+                      ></span>
                     </div>
-                    
                   )}
-
                 </h3>
               );
             })}
           </div>
-
-          
         </div>
       </div>
       <button className="bg-[#1E251F] md:hidden block flex gap-[5px] font-[700] relative z-[999] justify-center mt-[15px] place-items-center text-white px-4 py-[2px] font-[500] w-[calc(100%-74px)]  font-[oswald] m-auto before:content-[''] before:absolute before:h-[166px] before:w-[100%] before:bottom-[148px] before:bg-[transparent] ">
@@ -763,7 +725,6 @@ const HeroSection = () => {
         <div className="mix-blend-multiply h-[6px] w-[40px] bg-gtf-blue"></div>
       </div>
 
-      
       {mounted &&
         modalOpen &&
         modalContent &&
@@ -840,7 +801,6 @@ const HeroSection = () => {
           </div>,
           document.body
         )}
-      
     </section>
   );
 };

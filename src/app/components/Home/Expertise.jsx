@@ -164,10 +164,10 @@ const Expertise = () => {
       <div className="flex justify-between flex-wrap">
         <h2 className="bebas relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[50px] md:text-[50px] 2xl:text-[72px] tracking-[2px] ">
           <span className="block">
-            Boutique concepts
+          Concepts That Build
           </span>
           <span className="block ">
-            innovation market
+          What Comes Next
           </span>
           <Line
             ref={coloredLineRef}
@@ -177,11 +177,7 @@ const Expertise = () => {
         </h2>
         <div className="md:basis-[35%] border-b-[1px] border-b-solid border-b-[#666666] md:pb-[50px] pb-[35px] montserrat">
           <p className="text-[16px] font-[400] md:mt-0 mt-[20px] tracking-[0.5px]">
-            GTF Technologies is conceptualized from Gurukul The Foundation. We
-            are a 17-year-old branding and digital media planning agency
-            headquartered in Noida, Mumbai, Pune, and an upcoming office in
-            Bangalore. We create innovative brands, attract customers, and offer
-            comprehensive solutions.
+          GTF Technologies, born from Gurukul The Foundation and built in India, brings 17 years + of absolute mastery in branding and digital media. With a presence across Noida, Mumbai, Pune, Bangalore and Hyderabad, we build brands that stand out and digital engines that scale fast. We know what works. And we deliver it with certainty.
           </p>
           <div className="flex mt-[20px] items-center">
             <p className=" mr-[10px] uppercase bebas tracking-[0.5px]">meet now</p>

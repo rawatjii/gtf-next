@@ -19,16 +19,21 @@ const Clients = () => {
 
   // Your original 10 logos (you can add more if you want)
   const baseLogos = [
-    { id: 1, src: "/assets/home/clients/ambience.png", alt: "Ambience" },
-    { id: 2, src: "/assets/home/clients/ats.png", alt: "ATS" },
-    { id: 3, src: "/assets/home/clients/jindal-realty.png", alt: "Jindal Realty" },
-    { id: 4, src: "/assets/home/clients/homekraft.png", alt: "Homekraft" },
-    { id: 5, src: "/assets/home/clients/parx-laureate.png", alt: "Parx Laureate" },
-    { id: 6, src: "/assets/home/clients/raheja.png", alt: "Raheja" },
+    { id: 1, src: "/assets/home/clients/emaar.png", alt: "Emaar" },
     { id: 7, src: "/assets/home/clients/tarc.png", alt: "Tarc" },
-    { id: 8, src: "/assets/home/clients/ska-orion.png", alt: "SKA Orion" },
-    { id: 9, src: "/assets/home/clients/aipl.png", alt: "AIPL" },
+    { id: 1, src: "/assets/home/clients/ambience.png", alt: "Ambience" },
     { id: 10, src: "/assets/home/clients/eldeco.png", alt: "Eldeco" },
+    { id: 10, src: "/assets/home/clients/omaxe.png", alt: "Omaxe" },
+    { id: 10, src: "/assets/home/clients/jindal-realty.png", alt: "Jindal Realty" },
+    { id: 6, src: "/assets/home/clients/raheja.png", alt: "Raheja" },
+    { id: 6, src: "/assets/home/clients/sheth.png", alt: "Ashwin Sheth" },
+    { id: 6, src: "/assets/home/clients/group108.png", alt: "Group 108" },
+    { id: 6, src: "/assets/home/clients/ska-orion.png", alt: "Ska Orion" },
+    { id: 5, src: "/assets/home/clients/parx-laureate.png", alt: "Parx Laureate" },
+    { id: 5, src: "/assets/home/clients/pyramid.png", alt: "Pyramid" },
+    { id: 9, src: "/assets/home/clients/aipl.png", alt: "AIPL" },
+    { id: 9, src: "/assets/home/clients/dn-homes.png", alt: "DN Homes" },
+    { id: 9, src: "/assets/home/clients/chordia.png", alt: "Chordia" },
   ];
 
   // Duplicate enough times to fill the grid + seamless loop
