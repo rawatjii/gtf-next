@@ -101,10 +101,10 @@ const Contact = () => {
         <div className="block">
           <h3 className="bebas uppercase inline-block md:pl-[35px] md:text-start text-center relative md:leading-[70px] text-white tracking-[2px] 2xl:text-[72px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
             <span ref={span1Ref} className=" block" style={{ clipPath: "inset(100% 0 0 0)" }}>
-              tell us about your project
+            Start the Conversation
             </span>
             <span ref={span2Ref} className="relative md:pl-[15.1rem] block md:text-start mt-[10px]" style={{ clipPath: "inset(100% 0 0 0)" }}>
-              ideas or just say hello.
+            That Changes Everything.
               <Line
                 ref={coloredLineRef}
                 bgColor="bg-gtf-pink"

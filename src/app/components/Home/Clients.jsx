@@ -83,9 +83,9 @@ const Clients = () => {
               transform:"translateY(-50%)"
             }}
           >
-            <span className="block">Amazing brands,</span>
+            <span className="block">LEADING BRANDS,</span>
             <span className="md:pl-[7.5rem] block mt-[10px]">
-              Amazed Clients.
+            UNSTOPPABLE IMPACT.
               <Line
                 bgColor="bg-gtf-blue"
                 left="left-[33%] lg:left-[61%]"
