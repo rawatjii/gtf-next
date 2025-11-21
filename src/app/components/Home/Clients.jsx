@@ -7,7 +7,15 @@ import Image from "next/image";
 import "swiper/css";
 import "swiper/css/grid";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+
 const Clients = () => {
+  const sectionRef = useRef(null);
+  const titleWrapperRef = useRef(null);   // wrapper to control position
+  const titleRef = useRef(null);
+  const sliderRef = useRef(null);
 
   // Your original 10 logos (you can add more if you want)
   const baseLogos = [
@@ -26,11 +34,50 @@ const Clients = () => {
   // Duplicate enough times to fill the grid + seamless loop
   const logos = [...baseLogos, ...baseLogos, ...baseLogos, ...baseLogos]; // 40 items → safe for infinite scroll
 
+  useEffect(() => {
+    const titleWrapper = titleWrapperRef.current;
+    const title = titleRef.current;
+    const slider = sliderRef.current;
+  
+    if (!title || !slider) return;
+  
+    // Start from center (no transform)
+    gsap.set(title, { 
+      top:"50%",
+      transform:"translateY(-50%)"
+     });
+  
+    ScrollTrigger.create({
+      trigger: slider,
+      start: "top 20%",      // When to start the effect
+      end: "top top",        // When to complete
+      pin: true,
+      scrub: 1,
+      markers: true,
+      animation: gsap.to(title, {
+        top:"0",
+        transform:"translateY(0)",
+        scrub:1,            // Move title up — tweak this number!
+        ease: "none",
+      }),
+    });
+  
+    return () => ScrollTrigger.getAll().forEach((st) => st.kill());
+  }, []);
+
 
   return (
-    <section className="bg-[#fde93d] py-[100px] relative">
-        <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-[9] md:px-[35px] px-[15px] md:flex justify-start items-end md:mb-[0] mb-[30px] md:text-start">
-          <h3 className="bebas uppercase relative md:leading-[70px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px]">
+    <section ref={sectionRef} className="bg-[#fde93d] relative">
+        <div ref={titleWrapperRef} className="absolute z-[9] md:px-[35px] px-[15px] md:flex justify-center md:mb-[0] mb-[30px] md:text-start w-full h-full"
+          
+        >
+
+          <h3 ref={titleRef} className="bebas uppercase relative md:leading-[110px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[120px] lg:text-[62px] md:text-[50px] text-[32px]"
+            style={{
+              top:"50%",
+              transform:"translateY(-50%)"
+            }}
+          >
             <span className="block">Amazing brands,</span>
             <span className="md:pl-[7.5rem] block mt-[10px]">
               Amazed Clients.
@@ -48,7 +95,7 @@ const Clients = () => {
         </div>
 
         {/* 4×6 Grid Infinite Slider */}
-        <div className="overflow-hidden relative w-full main_border_cmp border-black">
+        <div ref={sliderRef} className="overflow-hidden relative w-full main_border_cmp border-black py-[150px]">
           <Swiper
             modules={[Autoplay, Grid]}
             grid={{
