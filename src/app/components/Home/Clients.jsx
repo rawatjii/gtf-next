@@ -53,7 +53,7 @@ const Clients = () => {
       end: "top top",        // When to complete
       pin: true,
       scrub: 1,
-      markers: true,
+      markers: false,
       animation: gsap.to(title, {
         top:"0",
         transform:"translateY(0)",
@@ -111,11 +111,11 @@ const Clients = () => {
             }}
             speed={10000}        // Adjust speed for smooth feel (10 seconds per full cycle)
             allowTouchMove={false}
-            freeMode={{ enabled: true, momentum: false }}
+            // freeMode={{ enabled: true, momentum: false }}
             className="w-full h-full infinite_swiper" // Adjust height based on your logo size (4 rows × ~150px + spacing)
           >
             {logos.map((logo, index) => (
-              <SwiperSlide key={`${logo.id}-${index}`}>
+              <SwiperSlide key={`${logo.id}-${index}`} className="h-auto">
                 <div className="flex items-center justify-center h-[150px] bg-white hover:grayscale transition-all duration-300 rounded-lg shadow-sm">
                   <Image
                     src={logo.src}

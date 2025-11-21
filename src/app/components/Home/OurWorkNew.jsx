@@ -124,6 +124,12 @@ const OurWork = () => {
     };
   }, [])
 
+  const mouseEnter = ()=>{
+
+
+
+  }
+
   return (
     <section ref={sectionRef} className="relative pb-[150px] pt-[100px] bg-[#f7f7f7]">
       <div>
@@ -171,20 +177,30 @@ const OurWork = () => {
         <div ref={projectsRef} className="relative projects mt-[20vh] z-[10]">
           {projects?.map((project, idx)=>(
             <div key={idx} className={`flex ${idx % 2 ? 'justify-end' : ''} ${idx === 0 ? '' : 'mt-[80px]'}`}>
-              <div className="group relative h-[500px] w-[45%] overflow-hidden cursor-pointer">
-                <div className="thumbnail absolute h-full w-full">
+              <div className="group relative h-[600px] w-[45%] overflow-hidden cursor-pointer" onMouseEnter={mouseEnter}>
+                <div className="thumbnail absolute h-full w-full group-hover:[filter:blur(10px)] ease-in-out duration-1000">
                   <img
                     src={project.image}
                     alt="project image"
-                    className={`img-fluid h-full w-full object-cover`}
+                    className={`img-fluid h-full w-full object-cover  group-hover:[transform:scale(1.2)] ease-in-out duration-1000`}
                   />
+                </div>
+                <div className="bg_patter absolute top-0 left-0 h-full w-full opacity-0 group-hover:[opacity:0.45] duration-1000"
+                  style={{
+                    backgroundImage: "url(https://framerusercontent.com/images/azWer5pvSTAicrN1Fi7O5iqZs.gif)",
+                    backgroundRepeat: "repeat",
+                    backgroundPosition: "left top",
+                    border: '0',
+                    backgroundSize: "120px auto",
+                  }}  
+                >
                 </div>
                 <div className="txt absolute text-[#fff] pt-[30px] px-[30px]">
                   <h3 className="text-[30px]">{project.title}</h3>
                   <h5 className="font-medium text-[18px]">{project.category}</h5>
                 </div>
 
-                <div className="video absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[93%] h-[calc(100%-250px)] origin-top transition-clip-path duration-700 ease-out [clip-path:inset(0_0_100%_0)] group-hover:[clip-path:inset(0_0_0%_0)]" >
+                <div className="video absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[93%] h-[calc(100%-250px)] origin-top transition-clip-path duration-700 ease-in-out [clip-path:inset(0_0_100%_0)] group-hover:[clip-path:inset(0_0_0%_0)]" >
                   <video
                     src={project.video}
                     className="h-full w-full object-cover"
