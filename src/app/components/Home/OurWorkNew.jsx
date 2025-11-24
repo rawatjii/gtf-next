@@ -9,33 +9,40 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    image:"/assets/home/projects/project1.webp",
+    image:"/assets/home/projects/signature/thumbnail.webp",
     category:"website",
     title:"Align",
-    video:"assets/work/videos/website.mp4"
+    video:"assets/home/projects/signature/signature.mp4"
   },
   {
-    image:"/assets/home/projects/project2.webp",
+    image:"/assets/home/projects/dn-homes/thumbnail.webp",
     category:"website",
     title:"Align",
-    video:"assets/work/videos/website.mp4"
+    video:"assets/home/projects/dn-homes/dn-homes.mp4"
   },
   {
-    image:"/assets/home/projects/project3.webp",
+    image:"/assets/home/projects/aranya/thumbnail.webp",
     category:"website",
     title:"Align",
-    video:"assets/work/videos/website.mp4"
+    video:"assets/home/projects/aranya/aranya.mp4"
   },
   {
-    image:"/assets/home/projects/project4.webp",
+    image:"/assets/home/projects/ekayam/thumbnail.webp",
     category:"website",
     title:"Align",
-    video:"assets/work/videos/website.mp4"
+    video:"assets/home/projects/ekayam/ekayam.mp4"
+  },
+  {
+    image:"/assets/home/projects/eternia/thumbnail.webp",
+    category:"website",
+    title:"Align",
+    video:"assets/home/projects/eternia/eternia.mp4"
   },
 ]
 
 const OurWork = () => {
   const transformValue = '250';
+
 
   // refs for the elements we will animate
   const sectionRef = useRef(null);
@@ -43,6 +50,7 @@ const OurWork = () => {
   const iconsRef = useRef(null);
   const projectsRef = useRef(null);
   const headingTxtRef = useRef(null);
+  const [headingHeight, setHeadingHeight] = useState(0);
 
   useEffect(()=>{
     const section = sectionRef.current;
@@ -52,6 +60,8 @@ const OurWork = () => {
     const icons = iconsRef.current;
 
     if(!section || !heading || !projectsContainer) return;
+
+    setHeadingHeight(heading.offsetHeight);
 
     // Measure height AFTER images are loaded (important!)
     const refreshHeight = () => {
@@ -87,7 +97,7 @@ const OurWork = () => {
     const tl = gsap.timeline({
       scrollTrigger:{
         trigger:section,
-        start: "top 30%",
+        start: "top 25%",
         end:"bottom bottom",
         // end: () => `+=${projectsContainer.offsetHeight + window.innerHeight}`,
         pin: heading,
@@ -113,7 +123,8 @@ const OurWork = () => {
 
     tl1.to(heading, {
       opacity:1,
-      xPercent: -50,        // pulls it left by half its width
+      transform:"translateX(-50%)",
+      // xPercent: -50,        // pulls it left by half its width
       // or use x: "-50vw" to move relative to viewport
       ease: "none"
     });
@@ -126,16 +137,16 @@ const OurWork = () => {
 
   const mouseEnter = ()=>{
 
-
-
   }
 
   return (
-    <section ref={sectionRef} className="relative pb-[150px] pt-[100px] bg-[#f7f7f7]">
-      <div>
-        <div ref={headingRef} className="heading relative z-[9] table ml-auto"
+    <section ref={sectionRef} className="border-t border-b border-[#ddd] relative pb-[150px] pt-[100px] bg-[#f7f7f7]">
+      <div className="md:px-[50px]">
+        <div ref={headingRef} className="heading relative z-[9] table "
          style={{
-          marginRight:0,
+          left:"50%",
+          transform:"translateX(100%)",
+          // marginRight:0,
           opacity: 0,
           // transform:`translateY(-${transformValue}px)`
         }}>
@@ -205,6 +216,8 @@ const OurWork = () => {
                     src={project.video}
                     className="h-full w-full object-cover"
                     controls
+                    autoPlay
+                    muted
                   />
                 </div>
               </div>
