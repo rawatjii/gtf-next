@@ -72,13 +72,13 @@ const WhoWeAre = () => {
   const headingRef = useRef(null);
   const mainHeadingRef = useRef(null);
   const mainContentRef = useRef(null);
-
+  const rightHeading=useRef(null);
   const overviewData = useRef(null);
   const backgroundColorRef = useRef(null);
   const imageSectionRef = useRef(null);
 
   let hasChangedBg = false;
-
+  let tl = "";
   useEffect(() => {
     const ctx = gsap.context(() => {
       const section = sectionRef.current;
@@ -102,10 +102,10 @@ const WhoWeAre = () => {
       const mainHeading = mainHeadingRef.current;
       const mainContent = mainContentRef.current;
 
-      gsap.set(hides, { display: "inline-block", marginRight: "30px" });
-      gsap.set(otherText, { width: 0, opacity: 0, display: "inline-block" });
-      gsap.set(images, { opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)" });
-      gsap.set(heading, { opacity: 0 });
+      // gsap.set(hides, { display: "inline-block", marginRight: "30px" });
+      // gsap.set(otherText, { width: 0, opacity: 0, display: "inline-block" });
+      // gsap.set(images, { opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)" });
+      // gsap.set(heading, { opacity: 0 });
 
       const splitInstances = textRef.current
         .filter(Boolean)
@@ -119,32 +119,12 @@ const WhoWeAre = () => {
 
       const animatedIndices = [];
 
-
-
-      const whoWeAreTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: "whoWeAreTrigger",
-          trigger: container,
-          start: "top 50%",
-          end: "top 0",
-          markers: false,
-          scrub: 1,
-        },
-      });
-
-      whoWeAreTimeline.to(mainContent, {
-        marginTop: "0",
-        // alignItems:'center',
-        // duration:'0.5',
-        scrub: 1,
-      });
-
-      const tl = gsap.timeline({
+      tl = gsap.timeline({
         scrollTrigger: {
           id: "whoWeAreTrigger",
           trigger: container,
           start: "top top",
-          end: () => `+=${maxTranslateX + window.innerWidth}`,
+          end: () => `+=${maxTranslateX + window.innerWidth + 100 + 2000}`,
           pin: true,
           markers: false,
           scrub: 1,
@@ -159,8 +139,6 @@ const WhoWeAre = () => {
           left: "0",
           transform: "translateX(0)",
           duration: 0.1,
-          // scrub:1,
-          // ease: "power2",
         },
         "+=0.1"
       );
@@ -196,13 +174,11 @@ const WhoWeAre = () => {
           { marginLeft: "25px", opacity: 1, width: "auto", duration: 0.2 },
           "+=0.05"
         )
-        // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
         .to(
           ov_data,
           { height: "auto", duration: 0.1, ease: "power2" },
           "+=0.05"
         )
-        // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
         .to(heading, { autoAlpha: 0, duration: 0.1, ease: "power2" })
         .to(allChars, { opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
         .to(allChars, {
@@ -214,7 +190,6 @@ const WhoWeAre = () => {
         })
         .to(section, {
           x: -maxTranslateX,
-          // ease: "power4",
           ease: "none",
           duration: 1,
           onUpdate: function (x) {
@@ -240,54 +215,87 @@ const WhoWeAre = () => {
                 animatedIndices.push(index);
               }
             });
-
           },
-          onComplete: () => ScrollTrigger.refresh(),
+          onComplete: () => {
+            ScrollTrigger.refresh();
+          },
         });
-
-
-      // gsap.to("body", {
-
-      //   scrollTrigger: {
-      //     trigger: bgColorRef,
-      //     start: "top 50%", // Trigger when bgColorRef reaches 50% of the viewport height
-      //     end: "bottom top",
-      //     scrub: true, // Smooth transition while scrolling
-      //     markers: true, // Set to false when you're ready to go live
-      //     onEnter: () => {
-      //       document.querySelector('body').style.backgroundColor='#d93f92',
-      //       document.querySelector('body').style.trasition = '0.4s all'
-      //     },
-      //     onLeave: () => {
-      //       // Optional: Revert the color if needed
-      //       gsap.to("body", { backgroundColor: "transparent" });
-      //     },
-      //   },
-      // });
 
       ScrollTrigger.refresh();
     }, containerRef);
+    const absoluteDiv = document.querySelector("#absolute_dev");
 
+    const tl2 = gsap
+      .timeline({
+        scrollTrigger: {
+          id: "whoWeAreReveal",
+          trigger: containerRef.current,
+          start: () => tl.scrollTrigger.end,
+          end: "+=3000",
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+          markers: false,
+          anticipatePin: 1,
+        },
+      })
+      .to(rightHeading.current, {
+        x: "-150%",
+        duration: 1.5,
+        ease: "power3.out",
+      },">")
+      .to(absoluteDiv, {
+        x: "0%",
+        duration: 1.5,
+        ease: "power3.out",
+      },">")
+
+      
+      // .to(heading, { autoAlpha: 0, y: -100, duration: 1 }, "+=0")
+      // // // // .to(heading, { autoAlpha: 0, y: -100, duration: 1 }, "+=0.5")
+      // // // // .to(
+      // // // //   allChars,
+      // // // //   { opacity: 0, y: -30, stagger: 0.02, duration: 0.8 },
+      // // // //   "-=0.8"
+      // // // // )
+      // // // // .to(
+      // // // //   images,
+      // // // //   {
+      // // // //     opacity: 1,
+      // // // //     y: 0,
+      // // // //     clipPath: "inset(0% 0% 0% 0%)",
+      // // // //     duration: 1.5,
+      // // // //     stagger: 0.3,
+      // // // //     ease: "power3.out",
+      // // // //   },
+      // // // //   "-=0.5"
+      // // // // )
+      // // // .to(
+      // // //   ov_data,
+      // // //   {
+      // // //     backgroundColor: "rgba(0,0,0,0.8)",
+      // // //     padding: "60px",
+      // // //     duration: 1,
+      // // //   },
+      // //   "-=1"
+      // )
+      .from(
+        ".final-cta, .extra-content",
+        {
+          opacity: 0,
+          y: 100,
+          stagger: 0.2,
+          duration: 1.2,
+        },
+        "-=0.8"
+      );
     return () => ctx.revert();
-
-    // Cleanup function
-    // return () => {
-    //   ScrollTrigger.refresh();
-    //   const mainTrigger = ScrollTrigger.getById("whoWeAreTrigger");
-    //   mainTrigger?.kill();
-    //   tl.kill();
-    //   splitInstances.forEach((split) => split.revert());
-    //   ScrollTrigger.refresh();
-    //   images.forEach((image) => {
-    //     if (image.parentNode) image.parentNode.style.overflow = "";
-    //   });
-    // };
   }, []);
 
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container">
-        <div className="flex flex-row h-screen  main-container-scroll no-scrollbar min-w-[430vw] relative">
+        <div className="flex flex-row h-screen   no-scrollbar min-w-[430vw] relative">
           <div
             ref={sectionRef}
             className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
@@ -352,83 +360,166 @@ const WhoWeAre = () => {
             </div>
             {/* First Image Section */}
 
-            <div ref={imageSectionRef} className="flex items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
-              <div className="pr-[50px] pl-[20px]">
+            <div
+              ref={imageSectionRef}
+              className="flex items-center relative pl-[13rem] min-w-[calc(100vw)]"
+            >
+              <div ref={rightHeading} className="pr-[50px] pl-[20px]">
                 <h3 className="montserrrat uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                   Built to Disrupt <span className="block">the Ordinary</span>
                 </h3>
               </div>
 
               <div>
-                <img
-                  ref={(el) => (imagesRef.current[2] = el)}
-                  className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                  src="/assets/home/who_we_are/absolute_img.webp"
-                  alt="GTF Technologies office environment"
-                />
-                <img
-                  ref={(el) => (imagesRef.current[3] = el)}
-                  className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                  src="/assets/home/who_we_are/img3.webp"
-                  alt="GTF Technologies office environment"
-                />
+                <div className="cat1">
+                  <img
+                    ref={(el) => (imagesRef.current[2] = el)}
+                    className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                    src="/assets/home/who_we_are/absolute_img.webp"
+                    alt="GTF Technologies office environment"
+                  />
+                  <img
+                    ref={(el) => (imagesRef.current[3] = el)}
+                    className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                    src="/assets/home/who_we_are/img3.webp"
+                    alt="GTF Technologies office environment"
+                  />
+                </div>
+                <div className="cat1">
+                  <img
+                    ref={(el) => (imagesRef.current[2] = el)}
+                    className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                    src="/assets/home/who_we_are/absolute_img.webp"
+                    alt="GTF Technologies office environment"
+                  />
+                  <img
+                    ref={(el) => (imagesRef.current[3] = el)}
+                    className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                    src="/assets/home/who_we_are/img3.webp"
+                    alt="GTF Technologies office environment"
+                  />
+                </div>
+                <div className="cat1">
+                  <img
+                    ref={(el) => (imagesRef.current[2] = el)}
+                    className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
+                    src="/assets/home/who_we_are/absolute_img.webp"
+                    alt="GTF Technologies office environment"
+                  />
+                  <img
+                    ref={(el) => (imagesRef.current[3] = el)}
+                    className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
+                    src="/assets/home/who_we_are/img3.webp"
+                    alt="GTF Technologies office environment"
+                  />
+                </div>
               </div>
             </div>
-
-
-
-            <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
-              <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
-                  Not a Team.{" "}
-                  <span className="block text-[50px] uppercase font-bold">
-                    A task force{" "}
-                  </span>
-                </h5>
-              </div>
-
-              <img
-                ref={(el) => (imagesRef.current[2] = el)}
-                className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/absolute_img.webp"
-                alt="GTF Technologies office environment"
-              />
-              <img
-                ref={(el) => (imagesRef.current[3] = el)}
-                className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/img3.webp"
-                alt="GTF Technologies office environment"
-              />
-            </div>
-
-            <div className="flex flex-row items-center relative pl-[13rem] min-w-[100vw]">
-              <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h5 className="text-[50px] mb-[1rem]  text-[50px] font-semibold">
-                  Wired to help brands{" "}
-                  <span className="block">move ahead of the market.</span>
-                </h5>
-              </div>
-
-              <img
-                ref={(el) => (imagesRef.current[2] = el)}
-                className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/absolute_img.webp"
-                alt="GTF Technologies office environment"
-              />
-              <img
-                ref={(el) => (imagesRef.current[3] = el)}
-                className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/img3.webp"
-                alt="GTF Technologies office environment"
-              />
-            </div>
-
-            
-
           </div>
         </div>
+        <div
+          id="absolute_dev"
+          className="absolute w-full flex items-center  h-full top-[0] translate-x-[200%]"
+        >
+          <div className="flex flex-row  items-center  relative pl-[13rem] h-full min-w-[calc(100vw-13rem)]">
+            <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                Not a Team.{" "}
+                <span className="block text-[50px] uppercase font-bold">
+                  A task force{" "}
+                </span>
+              </h5>
+            </div>
+          </div>
+
+     
+        </div>
+        <div
+          id="absolute_dev"
+          className="absolute w-full flex items-center  h-full top-[0] translate-x-[200%]"
+        >
+          <div className="flex flex-row  items-center  relative pl-[13rem] h-full min-w-[calc(100vw-13rem)]">
+            <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                Not a Team.{" "}
+                <span className="block text-[50px] uppercase font-bold">
+                  A task force{" "}
+                </span>
+              </h5>
+            </div>
+          </div>
+
+     
+        </div>
+        <div
+          id="absolute_dev"
+          className="absolute w-full flex items-center  h-full top-[0] translate-x-[200%]"
+        >
+          <div className="flex flex-row  items-center  relative pl-[13rem] h-full min-w-[calc(100vw-13rem)]">
+            <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                Not a Team.{" "}
+                <span className="block text-[50px] uppercase font-bold">
+                  A task force{" "}
+                </span>
+              </h5>
+            </div>
+          </div>
+
+     
+        </div>
+        <div
+          id="absolute_dev"
+          className="absolute w-full flex items-center  h-full top-[0] translate-x-[200%]"
+        >
+          <div className="flex flex-row  items-center  relative pl-[13rem] h-full min-w-[calc(100vw-13rem)]">
+            <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                Not a Team.{" "}
+                <span className="block text-[50px] uppercase font-bold">
+                  A task force{" "}
+                </span>
+              </h5>
+            </div>
+          </div>
+
+     
+        </div>
+        <div
+          id="absolute_dev"
+          className="absolute w-full flex items-center  h-full top-[0] translate-x-[200%]"
+        >
+          <div className="flex flex-row  items-center  relative pl-[13rem] h-full min-w-[calc(100vw-13rem)]">
+            <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                Not a Team.{" "}
+                <span className="block text-[50px] uppercase font-bold">
+                  A task force{" "}
+                </span>
+              </h5>
+            </div>
+          </div>
+
+     
+        </div>
+        <div
+          id="absolute_dev"
+          className="absolute w-full flex items-center  h-full top-[0] translate-x-[200%]"
+        >
+          <div className="flex flex-row  items-center  relative pl-[13rem] h-full min-w-[calc(100vw-13rem)]">
+            <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                Not a Team.{" "}
+                <span className="block text-[50px] uppercase font-bold">
+                  A task force{" "}
+                </span>
+              </h5>
+            </div>
+          </div>
+
+     
+        </div>  
       </div>
-      {/* <div  ref={backgroundColorRef} className="absolute top-0 left-0 w-full h-full"></div> */}
     </section>
   );
 };
