@@ -30,7 +30,11 @@ const lines = [
     " ",
     "shaping",
     " ",
-    "brands",
+    {
+      word: "brands",
+      className: "highlightWord",
+      sibling: "/assets/home/who_we_are/line.svg",
+    },
     " ",
     "for",
     " ",
@@ -50,7 +54,11 @@ const lines = [
     " ",
     "create",
     " ",
-    "ideas",
+    {
+      word: "ideas",
+      className: "highlightWord",
+      sibling: "/assets/home/who_we_are/line.svg",
+    },
     " ",
     "that",
     " ",
@@ -76,6 +84,7 @@ const WhoWeAre = () => {
   const overviewData = useRef(null);
   const backgroundColorRef = useRef(null);
   const imageSectionRef = useRef(null);
+  const svgRefs = useRef([]);
 
   let hasChangedBg = false;
 
@@ -87,6 +96,7 @@ const WhoWeAre = () => {
       const ov_data = overviewData.current;
       const bgColorRef = backgroundColorRef.current;
       const imageSection = imageSectionRef.current;
+      const svg = svgRefs.current;
 
       const otherText = section.querySelector(".other_txt");
 
@@ -114,12 +124,10 @@ const WhoWeAre = () => {
         );
       const allChars = splitInstances.flatMap((split) => split.chars);
 
-      gsap.set(allChars, { opacity: 0 });
+      gsap.set(allChars, { opacity: 0, transform:"translateY(30px)" });
       gsap.set(ov_data, { height: 0 });
 
       const animatedIndices = [];
-
-
 
       const whoWeAreTimeline = gsap.timeline({
         scrollTrigger: {
@@ -204,14 +212,20 @@ const WhoWeAre = () => {
         )
         // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
         .to(heading, { autoAlpha: 0, duration: 0.1, ease: "power2" })
-        .to(allChars, { opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
+        .to(allChars, {transform:"translateY(0px)", opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
+        .to(svg, {
+          opacity:1,
+          stagger:0.1,
+          // duration:0.2,
+          ease:"none",
+        })
         .to(allChars, {
           opacity: 1,
           duration: 0.02,
           stagger: 0.008,
           ease: "power2.out",
           immediateRender: false,
-        })
+        }, "-=0.3")
         .to(section, {
           x: -maxTranslateX,
           // ease: "power4",
@@ -240,11 +254,9 @@ const WhoWeAre = () => {
                 animatedIndices.push(index);
               }
             });
-
           },
           onComplete: () => ScrollTrigger.refresh(),
         });
-
 
       // gsap.to("body", {
 
@@ -314,7 +326,7 @@ const WhoWeAre = () => {
                   <div className="relative mx-auto">
                     <h4
                       ref={headingRef}
-                      className="montserrat uppercase js-title text-[40px] font-bold absolute w-[max-content]"
+                      className="montserrat uppercase js-title text-[60px] font-bold absolute w-[max-content]"
                       style={{
                         opacity: 0,
                       }}
@@ -336,12 +348,28 @@ const WhoWeAre = () => {
                           className="flex flex-wrap justify-left text-left"
                         >
                           {line.map((word, wordIndex) => (
-                            <span
-                              key={wordIndex}
-                              className="montserrat font-medium pr-[8px] 2xl:leading-[1.2] lg:leading-[1.4] tracking-[-2.5px] 2xl:text-[40px] xl:text-[48px] text-[32px] inline-block text-left"
-                            >
-                              {word}
-                            </span>
+                            
+                              typeof word === "string" ? (
+                                <span
+                                  key={wordIndex}
+                                  className="montserrat font-medium pr-[8px] 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px]  text-[32px] inline-block text-left"
+                                >
+                                  {word}
+                                </span>
+                              ) : (
+                                <span
+                                  key={wordIndex}
+                                  className={`relative montserrat font-medium px-[40px]  2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left ${word.className}`}
+                                >
+                                  {word.word}
+                                  <img ref={(el)=>svgRefs.current[wordIndex] = el} src={word.sibling} className="absolute w-full h-full inset-0"
+                                    style={{
+                                      opacity:"0"
+                                    }}
+                                  />
+                                </span>
+                              )
+                            
                           ))}
                         </div>
                       ))}
@@ -352,7 +380,10 @@ const WhoWeAre = () => {
             </div>
             {/* First Image Section */}
 
-            <div ref={imageSectionRef} className="flex items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
+            <div
+              ref={imageSectionRef}
+              className="flex items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
+            >
               <div className="pr-[50px] pl-[20px]">
                 <h3 className="montserrrat uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                   Built to Disrupt <span className="block">the Ordinary</span>
@@ -374,8 +405,6 @@ const WhoWeAre = () => {
                 />
               </div>
             </div>
-
-
 
             <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
@@ -422,9 +451,6 @@ const WhoWeAre = () => {
                 alt="GTF Technologies office environment"
               />
             </div>
-
-            
-
           </div>
         </div>
       </div>

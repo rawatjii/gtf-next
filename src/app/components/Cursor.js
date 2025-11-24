@@ -66,6 +66,8 @@ export default function Cursor() {
           duration: 0.3,
           delay: 0.2
         });
+      }else{
+        
       }
     };
 

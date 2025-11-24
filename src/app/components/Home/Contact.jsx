@@ -81,7 +81,7 @@ const Contact = () => {
       <img
         ref={imgRef}
         src="/assets/contactus/say_hello_bg.jpg"
-        className="absolute w-full h-full object-cover top-0 left-0"
+        className="absolute w-full h-full object-cover top-0 left-0  z-[-1]"
         alt="Contact background"
         style={{
           scale: 1.2, // Inline initial scale
@@ -89,14 +89,19 @@ const Contact = () => {
         }}
       />
 
+      <img
+        src="/assets/home/clients/bg.png"
+        className="absolute top-0 left-0 z-[-1] opacity-30"
+      />
+
       <div
-        style={{
-          backgroundImage: `url("/assets/home/clients/bg.png")`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="relative md:mt-[1rem] md:pt-[5rem] py-[60px] md:px-0 px-[15px]"
+        // style={{
+        //   backgroundImage: `url("/assets/home/clients/bg.png")`,
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "center",
+        // }}
+        className="relative md:mt-[1rem] md:pt-[5rem] py-[60px] md:px-0 px-[15px] z-[9]"
       >
         <div className="block">
           <h3 className="bebas uppercase inline-block md:pl-[35px] md:text-start text-center relative md:leading-[70px] text-white tracking-[2px] 2xl:text-[72px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
