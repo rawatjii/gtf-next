@@ -7,22 +7,34 @@ export default function Cursor() {
   const cursorRef = useRef(null);
   const textRef = useRef(null);
   const isHovered = useRef(false);
+  const glowRef = useRef(null);
 
   useEffect(() => {
     const cursor = cursorRef.current;
     const text = textRef.current;
-    if (!cursor || !text) return;
+    const glow = glowRef.current;
+
+    if (!cursor || !text || !glow) return;
 
     // Hide default cursor
     // document.body.style.cursor = 'none';
 
     const moveCursor = (e) => {
+      // Main cursor
       gsap.to(cursor, {
         x: e.clientX,
         y: e.clientY,
         duration: 0.9,
         ease: "power3.out"
       });
+
+      // Radial glow (slightly delayed for trailing effect)
+      gsap.to(glow, {
+        x:e.clientX,
+        y:e.clientY,
+        duration:0.6,
+        ease:"power2.out"
+      })
     };
 
     const onEnter = (e) => {
@@ -40,6 +52,13 @@ export default function Cursor() {
           backgroundColor: 'white',
           duration: 0.5,
           ease: "back.out(1.7)"
+        });
+
+        gsap.to(glow, {
+          // scale: 1.6,
+          // opacity: 0.6,
+          duration: 0.5,
+          ease: "power2.out",
         });
 
         gsap.to(text, {
@@ -61,6 +80,13 @@ export default function Cursor() {
         backgroundColor: '#ef4444',
         duration: 0.5,
         ease: "elastic.out(1, 0.3)"
+      });
+
+      gsap.to(glow, {
+        scale: 1,
+        // opacity: 0.35,
+        duration: 0.4,
+        ease: "power2.out",
       });
 
       gsap.to(text, {
@@ -92,6 +118,27 @@ export default function Cursor() {
   }, []);
 
   return (
+
+    <>
+      <div
+        ref={glowRef}
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: 600,
+          height: 600,
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 9998,
+          transform: 'translate(-50%, -50%)',
+          background: 'radial-gradient(circle, rgba(255,0,0,0.35) 0%, rgba(255,0,0,0) 70%)',
+          filter: 'blur(40px)',
+          opacity: 0.28,
+        }}
+      />
+
+      
     <div
       ref={cursorRef}
       style={{
@@ -127,5 +174,6 @@ export default function Cursor() {
         View
       </div>
     </div>
+    </>
   );
 }

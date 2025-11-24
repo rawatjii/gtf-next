@@ -557,7 +557,7 @@ const HeroSection = () => {
   return (
     <section
       ref={mainSectionRef}
-      className={`relative hero_section overflow-hidden bg-[#faf9f6] ${
+      className={`relative hero_section overflow-hidden h-screen bg-[#faf9f6] pb-0 ${
         videoCompleted ? "md:px-[50px]" : "md:px-0"
       }`}
     >
@@ -635,19 +635,20 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="relative md:pt-0 z-[4] mt-[120px]">
+      <div className="relative md:pt-0 z-[4] mt-[80px]">
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[80px] bebas font-medium text-global-color tracking-[7px]"
+          className="text-center text-[60px] bebas font-medium text-global-color tracking-[7px]"
           spanClass="font-bold tracking-[7px]"
         />
 
-        <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center">
+        <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center mt-[50px]">
           <div className="map h-full w-full flex items-center justify-center top-0 left-0 w-full h-full opacity-50 z-[-1]">
             <img
               ref={mapRef}
               src="/assets/map/map.png"
-              className="max-w-[700px]"
+              className="max-h-[calc(100vh-300px)]"
+              // max-w-[700px]
             />
           </div>
 

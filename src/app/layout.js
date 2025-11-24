@@ -12,6 +12,7 @@ import MainLoader from "./components/Loader/Index";
 import { Provider } from "react-redux";
 import { store } from "@/store";
 import Cursor from "./components/Cursor";
+import Spotlight from "./utils/Spotlight";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
@@ -93,6 +94,7 @@ export default function RootLayout({ children }) {
           </div>
         </div>
         <Cursor />
+        {/* <Spotlight /> */}
       </body>
     </html>
   );
