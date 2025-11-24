@@ -9,6 +9,8 @@ import "swiper/css/grid";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import LogoItem from "@/app/utils/LogoItem";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const Clients = () => {
@@ -20,20 +22,28 @@ const Clients = () => {
   // Your original 10 logos (you can add more if you want)
   const baseLogos = [
     { id: 1, src: "/assets/home/clients/emaar.png", alt: "Emaar" },
-    { id: 7, src: "/assets/home/clients/tarc.png", alt: "Tarc" },
-    { id: 1, src: "/assets/home/clients/ambience.png", alt: "Ambience" },
-    { id: 10, src: "/assets/home/clients/eldeco.png", alt: "Eldeco" },
-    { id: 10, src: "/assets/home/clients/omaxe.png", alt: "Omaxe" },
-    { id: 10, src: "/assets/home/clients/jindal-realty.png", alt: "Jindal Realty" },
-    { id: 6, src: "/assets/home/clients/raheja.png", alt: "Raheja" },
-    { id: 6, src: "/assets/home/clients/sheth.png", alt: "Ashwin Sheth" },
-    { id: 6, src: "/assets/home/clients/group108.png", alt: "Group 108" },
-    { id: 6, src: "/assets/home/clients/ska-orion.png", alt: "Ska Orion" },
-    { id: 5, src: "/assets/home/clients/parx-laureate.png", alt: "Parx Laureate" },
-    { id: 5, src: "/assets/home/clients/pyramid.png", alt: "Pyramid" },
-    { id: 9, src: "/assets/home/clients/aipl.png", alt: "AIPL" },
-    { id: 9, src: "/assets/home/clients/dn-homes.png", alt: "DN Homes" },
-    { id: 9, src: "/assets/home/clients/chordia.png", alt: "Chordia" },
+    { id: 2, src: "/assets/home/clients/tarc.png", alt: "Tarc" },
+    { id: 3, src: "/assets/home/clients/ambience.png", alt: "Ambience" },
+    { id: 4, src: "/assets/home/clients/eldeco.png", alt: "Eldeco" },
+    { id: 5, src: "/assets/home/clients/omaxe.png", alt: "Omaxe" },
+    { id: 6, src: "/assets/home/clients/jindal-realty.png", alt: "Jindal Realty" },
+    { id: 7, src: "/assets/home/clients/raheja.png", alt: "Raheja" },
+    { id: 8, src: "/assets/home/clients/sheth.png", alt: "Ashwin Sheth" },
+    { id: 9, src: "/assets/home/clients/group108.png", alt: "Group 108" },
+    { id: 10, src: "/assets/home/clients/ska-orion.png", alt: "Ska Orion" },
+    { id: 11, src: "/assets/home/clients/parx-laureate.png", alt: "Parx Laureate" },
+    { id: 12, src: "/assets/home/clients/pyramid.png", alt: "Pyramid" },
+    { id: 13, src: "/assets/home/clients/aipl.png", alt: "AIPL" },
+    { id: 14, src: "/assets/home/clients/dn-homes.png", alt: "DN Homes" },
+    { id: 15, src: "/assets/home/clients/chordia.png", alt: "Chordia" },
+    { id: 16, src: "/assets/home/clients/central-park.png", alt: "Central Park" },
+    { id: 17, src: "/assets/home/clients/trump-towers.png", alt: "Trump Towers" },
+    { id: 18, src: "/assets/home/clients/anant-raj.png", alt: "Anant Raj" },
+    { id: 19, src: "/assets/home/clients/ats-homekraft.png", alt: "ATS Homekraft" },
+    { id: 20, src: "/assets/home/clients/tdi.png", alt: "TDI" },
+    { id: 21, src: "/assets/home/clients/mvn.png", alt: "MVN Infrastructure" },
+    { id: 22, src: "/assets/home/clients/rubberwala.png", alt: "Rubberwala" },
+    { id: 22, src: "/assets/home/clients/prateek-group.png", alt: "prateek-group" },
   ];
 
   // Duplicate enough times to fill the grid + seamless loop
@@ -100,39 +110,42 @@ const Clients = () => {
         </div>
 
         {/* 4×6 Grid Infinite Slider */}
-        <div ref={sliderRef} className="overflow-hidden relative w-full main_border_cmp border-black py-[150px]">
-          <Swiper
-            modules={[Autoplay, Grid]}
-            grid={{
-              rows: 4,           // 4 rows vertically
-              fill: "row",       // Important: fills row by row
-            }}
-            slidesPerView={6}    // 6 columns horizontally
-            spaceBetween={30}
-            loop={true}
-            autoplay={{
-              delay: 0,
-              disableOnInteraction: false,
-            }}
-            speed={10000}        // Adjust speed for smooth feel (10 seconds per full cycle)
-            allowTouchMove={false}
-            // freeMode={{ enabled: true, momentum: false }}
-            className="w-full h-full infinite_swiper" // Adjust height based on your logo size (4 rows × ~150px + spacing)
-          >
-            {logos.map((logo, index) => (
-              <SwiperSlide key={`${logo.id}-${index}`} className="h-auto">
-                <div className="flex items-center justify-center h-[150px] bg-white hover:grayscale transition-all duration-300 rounded-lg shadow-sm">
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={180}
-                    height={100}
-                    className="max-w-full max-h-full object-contain p-4"
-                  />
-                </div>
-              </SwiperSlide>
+        <div ref={sliderRef} className="overflow-hidden relative w-full py-[150px] bg-[#fde93d]">
+          <div className="animate-marquee flex">
+            {/* Generate 2 full sets for seamless loop */}
+            {[...Array(2)].map((_, setIndex) => (
+              <div key={setIndex} className="flex shrink-0">
+                {/* Generate 6 columns dynamically */}
+                {[...Array(6)].map((_, colIndex) => (
+                  <div
+                    key={colIndex}
+                    className="grid grid-rows-4 gap-8 mx-4" // mx-4 = horizontal spacing between columns
+                  >
+                    {/* Each column gets 4 logos, vertically */}
+                    {[...Array(4)].map((_, rowIndex) => {
+                      const logoIndex = setIndex * (6 * 4) + colIndex * 4 + rowIndex;
+                      const logo = baseLogos[logoIndex % baseLogos.length]; // Safe wrap-around
+
+                      return (
+                        <div
+                          key={`${setIndex}-${colIndex}-${rowIndex}`}
+                          className="flex items-center justify-center h-[150px] bg-white hover:grayscale transition-all duration-300 rounded-lg shadow-sm"
+                        >
+                          <Image
+                            src={logo.src}
+                            alt={logo.alt}
+                            width={180}
+                            height={100}
+                            className="max-w-full max-h-full object-contain p-4"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                ))}
+              </div>
             ))}
-          </Swiper>
+          </div>
         </div>
 
       
