@@ -37,7 +37,7 @@ export default function FloatingBG() {
             rotationIntensity={0.4}
             floatIntensity={0.8}
           >
-            <Model url="assets/models/loader.glb" scale={2.5} />
+            <Model url="assets/models/rectangle.glb" scale={2.5} />
           </Float>
 
           <Preload all />
