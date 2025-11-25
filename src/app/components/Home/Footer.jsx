@@ -15,10 +15,8 @@ import Link from "next/link";
 import ScrollText from "@/app/utils/ScrollText";
 
 const scrollText = [
-  "Say Hello",
-  "Ready to connect",
-  "Say Hello",
-  "Ready to connect",
+  "Your next step starts here",
+  "Reach out to us!",
 ];
 
 const locations = [

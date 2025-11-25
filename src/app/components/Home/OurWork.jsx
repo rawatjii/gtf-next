@@ -13,8 +13,8 @@ const scrollText = [
 
 const images = [
   "/assets/home/work/work1.webp",
-  "/assets/home/work/work2.jpg",
-  "/assets/home/work/work3.jpg",
+  "/assets/home/work/work2.webp",
+  "/assets/home/work/work3.webp",
 ];
 
 const dataInitial = [

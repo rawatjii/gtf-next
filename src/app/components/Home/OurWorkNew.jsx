@@ -27,7 +27,7 @@ const projects = [
     video:"assets/home/projects/aranya/aranya.mp4"
   },
   {
-    image:"/assets/home/projects/ekayam/thumbnail.webp",
+    image:"/assets/home/projects/ekayam/thumbnail.jpg",
     category:"website",
     title:"Align",
     video:"assets/home/projects/ekayam/ekayam.mp4"
