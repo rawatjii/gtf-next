@@ -647,7 +647,7 @@ const HeroSection = () => {
             <img
               ref={mapRef}
               src="/assets/map/map.png"
-              className="max-h-[calc(100vh-300px)]"
+              className="max-h-[calc(100vh-250px)]"
               // max-w-[700px]
             />
           </div>

@@ -391,13 +391,13 @@ const WhoWeAre = () => {
                 <img
                   ref={(el) => (imagesRef.current[2] = el)}
                   className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                  src="/assets/home/who_we_are/absolute_img.webp"
+                  src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
                 <img
                   ref={(el) => (imagesRef.current[3] = el)}
                   className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                  src="/assets/home/who_we_are/img3.webp"
+                  src="/assets/home/who_we_are/creative1/img1.webp"
                   alt="GTF Technologies office environment"
                 />
               </div>
@@ -416,13 +416,13 @@ const WhoWeAre = () => {
               <img
                 ref={(el) => (imagesRef.current[2] = el)}
                 className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/absolute_img.webp"
+                src="/assets/home/who_we_are/creative2/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
               <img
                 ref={(el) => (imagesRef.current[3] = el)}
                 className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/img3.webp"
+                src="/assets/home/who_we_are/creative2/img1.webp"
                 alt="GTF Technologies office environment"
               />
             </div>
