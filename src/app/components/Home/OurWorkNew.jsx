@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 import Line from "../Line";
 import { MdArrowOutward } from "react-icons/md";
 import gsap from "gsap";
@@ -52,92 +52,92 @@ const OurWork = () => {
   const headingTxtRef = useRef(null);
   const [headingHeight, setHeadingHeight] = useState(0);
 
-  useEffect(()=>{
-    const section = sectionRef.current;
-    const heading = headingRef.current;
-    const projectsContainer = projectsRef.current;
-    const headingTxt = headingTxtRef.current;
-    const icons = iconsRef.current;
+  useLayoutEffect(()=>{
+    const ctx = gsap.context(() => {
+      const section = sectionRef.current;
+      const heading = headingRef.current;
+      const projectsContainer = projectsRef.current;
+      const headingTxt = headingTxtRef.current;
+      const icons = iconsRef.current;
 
-    if(!section || !heading || !projectsContainer) return;
+      if(!section || !heading || !projectsContainer) return;
 
-    setHeadingHeight(heading.offsetHeight);
+      // Force full refresh after everything is in DOM (critical for mid-page reloads)
+      requestAnimationFrame(() => ScrollTrigger.refresh());
 
-    // Measure height AFTER images are loaded (important!)
-    const refreshHeight = () => {
-      ScrollTrigger.refresh();
-    };
+      ScrollTrigger.getAll().forEach(t => t.kill());
 
-    // Ensure images are loaded before calculating height
-    const images = projectsContainer.querySelectorAll("img");
-    let loadedCount = 0;
+      setHeadingHeight(heading.offsetHeight);
 
-    const totalImages = images.length;
 
-    const onImageLoad = ()=>{
-      loadedCount++;
-      if(loadedCount === totalImages){
+      // Ensure images are loaded before calculating height
+      const images = projectsContainer.querySelectorAll("img");
+      let loadedCount = 0;
+
+      const totalImages = images.length;
+
+      const onImageLoad = ()=>{
+        loadedCount++;
+        if(loadedCount === totalImages){
+          ScrollTrigger.refresh();
+        }
+      };
+
+      if (totalImages === 0) {
         ScrollTrigger.refresh();
+      }else{
+        images.forEach((img)=>{
+          if(img.complete){
+            onImageLoad();
+          }else{
+            img.addEventListener("load", onImageLoad);
+          }
+        })
       }
-    };
 
-    if (totalImages === 0) {
-      ScrollTrigger.refresh();
-    }else{
-      images.forEach((img)=>{
-        if(img.complete){
-          onImageLoad();
-        }else{
-          img.addEventListener("load", onImageLoad);
+
+      const tl = gsap.timeline({
+        scrollTrigger:{
+          trigger:section,
+          start: "top 25%",
+          end:"bottom bottom",
+          // end: () => `+=${projectsContainer.offsetHeight + window.innerHeight}`,
+          pin: heading,
+          pinSpacing: false,
+          scrub: false,               // Keep fade snappy
+          markers: false,              // remove in production
+          id: "our-work-pin1",
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+
+        }
+      });
+
+      const tl1 = gsap.timeline({
+        scrollTrigger:{
+          trigger:section,
+          start:"top 50%",
+          end:"top 10%",
+          pinSpacing:false,
+          scrub:1,
         }
       })
-    }
 
-
-    const tl = gsap.timeline({
-      scrollTrigger:{
-        trigger:section,
-        start: "top 25%",
-        end:"bottom bottom",
-        // end: () => `+=${projectsContainer.offsetHeight + window.innerHeight}`,
-        pin: heading,
-        pinSpacing: false,
-        scrub: false,               // Keep fade snappy
-        markers: false,              // remove in production
-        id: "our-work-pin1",
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-
-      }
+      tl1.to(heading, {
+        opacity:1,
+        transform:"translateX(-50%)",
+        // xPercent: -50,        // pulls it left by half its width
+        // or use x: "-50vw" to move relative to viewport
+        ease: "none"
+      });
     });
 
-    const tl1 = gsap.timeline({
-      scrollTrigger:{
-        trigger:section,
-        start:"top 50%",
-        end:"top 10%",
-        pinSpacing:false,
-        scrub:1,
-      }
-    })
 
-    tl1.to(heading, {
-      opacity:1,
-      transform:"translateX(-50%)",
-      // xPercent: -50,        // pulls it left by half its width
-      // or use x: "-50vw" to move relative to viewport
-      ease: "none"
-    });
 
-    return () => {
-      ScrollTrigger.getById("our-work-pin")?.kill();
-      ScrollTrigger.getById("our-work-pin1")?.kill();
-    };
+    
+
+    return () => ctx.revert();
   }, [])
-
-  const mouseEnter = ()=>{
-
-  }
 
   return (
     <section ref={sectionRef} className="border-t border-b border-[#ddd] relative pb-[150px] pt-[100px] bg-[#f7f7f7]">
@@ -188,7 +188,7 @@ const OurWork = () => {
         <div ref={projectsRef} className="relative projects mt-[20vh] z-[10]">
           {projects?.map((project, idx)=>(
             <div key={idx} className={`flex ${idx % 2 ? 'justify-end' : ''} ${idx === 0 ? '' : 'mt-[80px]'}`}>
-              <div className="group relative h-[600px] w-[45%] overflow-hidden cursor-pointer" onMouseEnter={mouseEnter}>
+              <div className="group relative h-[600px] w-[45%] overflow-hidden cursor-pointer">
                 <div className="thumbnail absolute h-full w-full group-hover:[filter:blur(10px)] ease-in-out duration-1000">
                   <img
                     src={project.image}
