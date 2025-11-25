@@ -58,26 +58,31 @@ const Clients = () => {
   
     // Start from center (no transform)
     gsap.set(title, { 
+      yPercent:-50,
       top:"50%",
-      transform:"translateY(-50%)"
      });
   
-    ScrollTrigger.create({
-      trigger: slider,
-      start: "top 20%",      // When to start the effect
-      end: "top top",        // When to complete
-      pin: true,
-      scrub: 1,
-      markers: false,
-      animation: gsap.to(title, {
-        top:"0",
-        transform:"translateY(0)",
-        scrub:1,            // Move title up — tweak this number!
-        ease: "none",
-      }),
+     const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: slider,
+        start: "top 20%",
+        end: "top top",
+        pin: true,       // ← Pin the WRAPPER, not the title directly (more reliable)
+        scrub: 1,
+        markers: false,
+        // anticipatePin: 1,     // Optional: smoother pinning on iOS
+      }
     });
   
-    return () => ScrollTrigger.getAll().forEach((st) => st.kill());
+    tl.to(title, {
+      yPercent: 0,    
+      top:0,         // Moves from -50 → 0 (perfectly smooth)
+      ease: "none"
+    });
+  
+    return () => {
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
   }, []);
 
 
