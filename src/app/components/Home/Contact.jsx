@@ -76,23 +76,12 @@ const Contact = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="text-center relative overflow-hidden">
-      {/* Animated Background Image */}
-      <img
-        ref={imgRef}
-        src="/assets/contactus/say_hello_bg.jpg"
-        className="absolute w-full h-full object-cover top-0 left-0  z-[-1]"
-        alt="Contact background"
-        style={{
-          scale: 1.2, // Inline initial scale
-          transformOrigin: "center center",
-        }}
-      />
+    <section ref={sectionRef} className="text-center relative overflow-hidden relative before:absolute before:top-0 before:left-0 before:block before:content-[''] before:w-full before:h-full before:bg-[#000]">
 
-      <img
+      {/* <img
         src="/assets/home/clients/bg.png"
         className="absolute top-0 left-0 z-[-1] opacity-30"
-      />
+      /> */}
 
       <div
         // style={{
@@ -101,10 +90,10 @@ const Contact = () => {
         //   backgroundSize: "cover",
         //   backgroundPosition: "center",
         // }}
-        className="relative md:mt-[1rem] md:pt-[5rem] py-[60px] md:px-0 px-[15px] z-[9]"
+        className="absolute  z-[9] top-[40%] translate-y-[-50%] px-[50px]"
       >
-        <div className="block">
-          <h3 className="bebas uppercase inline-block md:pl-[35px] md:text-start text-center relative md:leading-[70px] text-white tracking-[2px] 2xl:text-[72px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
+        <div className="">
+          <h3 className="bebas text-[#fff] uppercase inline-block md:text-start text-center relative md:leading-[70px] text-white tracking-[2px] 2xl:text-[72px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
             <span ref={span1Ref} className=" block" style={{ clipPath: "inset(100% 0 0 0)" }}>
             Start the Conversation
             </span>
@@ -123,6 +112,17 @@ const Contact = () => {
           Submit
         </button>
       </div>
+
+      <img
+        ref={imgRef}
+        src="/assets/contactus/say_hello_bg.png"
+        className="w-full object-contain top-0 left-0  z-[0]"
+        alt="Contact background"
+        style={{
+          scale: 1.2, // Inline initial scale
+          transformOrigin: "center center",
+        }}
+      />
 
       {/* Uncomment when needed */}
       {/* <div className="bg-[#2AAEE4] md:px-[35px] px-[15px] z-[2] mix-blend-multiply">
