@@ -67,7 +67,10 @@ export default function Cursor() {
           delay: 0.2
         });
       }else{
-        
+        gsap.to(text, {
+          opacity: 0,
+        duration: 0.2
+        });
       }
     };
 
