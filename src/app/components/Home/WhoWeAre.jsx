@@ -28,7 +28,7 @@ const lines = [
       word: "Made-in-India",
       className: "highlightWord",
       sibling: "/assets/home/who_we_are/line.svg",
-      imgClass:"h-[170%] top-[-40%]",
+      imgClass:"!h-[170%] !top-[-40%]",
     },
     " ",
     "company",
