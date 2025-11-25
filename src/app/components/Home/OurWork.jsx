@@ -20,18 +20,25 @@ const images = [
 const dataInitial = [
   {
     heading: "Brand Catalyst",
-    description:
-      "We don't just tell. We weave, launching a refined brand identity across online and offline platforms, leading to improved online presence, enhanced customer engagement, and increased market competitiveness",
+    description:[
+      "We don’t just tell stories — we build belief systems.",
+      "From identity to influence, we sharpen how brands look, feel, think, and sell."
+    ],
   },
   {
     heading: "Great Story Tellers",
-    description:
-      "We don't just tell. We weave, launching a refined brand identity across online and offline platforms, leading to improved online presence, enhanced customer engagement, and increased market competitiveness",
+    description:[
+      "Narratives built with precision.",
+      "Stories shaped to spark emotion, trigger action, and stay unforgettable."
+    ],
   },
   {
-    heading: "One-stop Solution",
-    description:
-      "We don't just tell. We weave, launching a refined brand identity across online and offline platforms, leading to improved online presence, enhanced customer engagement, and increased market competitiveness",
+    heading: "One-Stop Solution",
+    description:[
+      "Strategy, creative, media, tech, culture — one integrated engine.",
+      "We don’t outsource excellence.",
+      "We manufacture it."
+    ],
   },
 ];
 
@@ -152,9 +159,9 @@ const   OurWork = () => {
                     }}
                     className="cursor-pointer py-[30px]"
                   >
-                    <p className="2xl:text-[60px] xl:leading-[50px] lg:text-[50px] text-[30px] uppercase font-[600] bebas tracking-[2px]">
+                    <h3 className="2xl:text-[60px] xl:leading-[50px] lg:text-[50px] text-[30px] uppercase font-[600] bebas tracking-[2px] mb-[30px]">
                       {info.heading}
-                    </p>
+                    </h3>
 
                     <div
                       className={`overflow-hidden transition-all duration-[1.5s] ease-in-out montserrat text-[16px] ${
@@ -163,7 +170,14 @@ const   OurWork = () => {
                           : "max-h-0 opacity-0 mb-0 pb-0"
                       }`}
                     >
-                      <p className="text-[16px] mt-[15px]">{info.description}</p>
+                      {Array.isArray(info.description) ? (
+                        info.description.map((des, idx)=>(
+                          <p key={idx} className="text-[18px] mb-[5px] font-medium" >{des}</p>
+                        )) 
+                      ) : (
+                        <p className="text-[18px] mb-[5px] font-medium">{info.description}</p>
+                      ) }
+                      
                     </div>
                   </li>
                 )

@@ -24,17 +24,18 @@ const lines = [
     " ",
     "a",
     " ",
-    "Made-in-India",
+    {
+      word: "Made-in-India",
+      className: "highlightWord",
+      sibling: "/assets/home/who_we_are/line.svg",
+      imgClass:"h-[170%] top-[-40%]",
+    },
     " ",
     "company",
     " ",
     "shaping",
     " ",
-    {
-      word: "brands",
-      className: "highlightWord",
-      sibling: "/assets/home/who_we_are/line.svg",
-    },
+    "brands",
     " ",
     "for",
     " ",
@@ -54,11 +55,7 @@ const lines = [
     " ",
     "create",
     " ",
-    {
-      word: "ideas",
-      className: "highlightWord",
-      sibling: "/assets/home/who_we_are/line.svg",
-    },
+    "ideas",
     " ",
     "that",
     " ",
@@ -362,7 +359,7 @@ const WhoWeAre = () => {
                                   className={`relative montserrat font-medium px-[40px]  2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left ${word.className}`}
                                 >
                                   {word.word}
-                                  <img ref={(el)=>svgRefs.current[wordIndex] = el} src={word.sibling} className="absolute w-full h-full inset-0"
+                                  <img ref={(el)=>svgRefs.current[wordIndex] = el} src={word.sibling} className={`absolute w-full h-full inset-0 ${word.imgClass}`}
                                     style={{
                                       opacity:"0"
                                     }}
