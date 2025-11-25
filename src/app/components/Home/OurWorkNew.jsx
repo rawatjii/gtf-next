@@ -9,19 +9,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    image:"/assets/home/projects/signature/thumbnail.webp",
+    image:"/assets/home/projects/signature/thumbnail.jpg",
     category:"website",
     title:"Align",
     video:"assets/home/projects/signature/signature.mp4"
   },
   {
-    image:"/assets/home/projects/dn-homes/thumbnail.webp",
+    image:"/assets/home/projects/dn-homes/thumbnail.jpg",
     category:"website",
     title:"Align",
     video:"assets/home/projects/dn-homes/dn-homes.mp4"
   },
   {
-    image:"/assets/home/projects/aranya/thumbnail.webp",
+    image:"/assets/home/projects/aranya/thumbnail.jpg",
     category:"website",
     title:"Align",
     video:"assets/home/projects/aranya/aranya.mp4"
@@ -33,7 +33,7 @@ const projects = [
     video:"assets/home/projects/ekayam/ekayam.mp4"
   },
   {
-    image:"/assets/home/projects/eternia/thumbnail.webp",
+    image:"/assets/home/projects/eternia/thumbnail.jpg",
     category:"website",
     title:"Align",
     video:"assets/home/projects/eternia/eternia.mp4"
@@ -206,15 +206,15 @@ const OurWork = () => {
                   }}  
                 >
                 </div>
-                <div className="txt absolute text-[#fff] pt-[30px] px-[30px]">
+                {/* <div className="txt absolute text-[#fff] pt-[30px] px-[30px]">
                   <h3 className="text-[30px]">{project.title}</h3>
                   <h5 className="font-medium text-[18px]">{project.category}</h5>
-                </div>
+                </div> */}
 
-                <div className="video absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[93%] h-[calc(100%-250px)] origin-top transition-clip-path duration-700 ease-in-out [clip-path:inset(0_0_100%_0)] group-hover:[clip-path:inset(0_0_0%_0)]" >
+                <div className="video absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[93%] h-auto origin-top transition-clip-path duration-700 ease-in-out [clip-path:inset(0_0_100%_0)] group-hover:[clip-path:inset(0_0_0%_0)]" >
                   <video
                     src={project.video}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                     controls
                     autoPlay
                     muted
