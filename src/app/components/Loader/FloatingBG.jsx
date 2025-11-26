@@ -37,7 +37,7 @@ export default function FloatingBG() {
             rotationIntensity={0.4}
             floatIntensity={0.8}
           >
-            <Model url="assets/models/cubes.glb" scale={2.2} />
+            <Model url="assets/models/cubes.glb" scale={2.5} />
           </Float>
 
           <Preload all />

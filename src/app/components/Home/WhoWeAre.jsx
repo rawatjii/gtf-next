@@ -299,7 +299,7 @@ const WhoWeAre = () => {
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container">
-        <div className="flex flex-row h-screen  main-container-scroll no-scrollbar min-w-[430vw] relative">
+        <div className="flex flex-row h-screen  main-container-scroll no-scrollbar relative">
           <div
             ref={sectionRef}
             className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
