@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrambleTextPlugin);
 const FloatingBG = dynamic(()=>import('./FloatingBG'), {ssr: false});
 
 export default function MainLoader() {
-  const words = ["Digital", "Branding", "Design & Development"];
+  const words = ["Marketing", "Branding", "Creative", "Digital"];
 
   // Text color per word (replace with your brand palette)
   const wordColors = ["#e24397", "#fde93d", "#2aaee4"];

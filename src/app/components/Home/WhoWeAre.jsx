@@ -126,23 +126,21 @@ const WhoWeAre = () => {
 
       const animatedIndices = [];
 
-      const whoWeAreTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: "whoWeAreTrigger",
-          trigger: container,
-          start: "top 50%",
-          end: "top 0",
-          markers: false,
-          scrub: 1,
-        },
-      });
+      // const whoWeAreTimeline = gsap.timeline({
+      //   scrollTrigger: {
+      //     id: "whoWeAreTrigger",
+      //     trigger: container,
+      //     start: "top 50%",
+      //     end: "top 0",
+      //     markers: false,
+      //     scrub: 1,
+      //   },
+      // });
 
-      whoWeAreTimeline.to(mainContent, {
-        marginTop: "0",
-        // alignItems:'center',
-        // duration:'0.5',
-        scrub: 1,
-      });
+      // whoWeAreTimeline.to(mainContent, {
+      //   marginTop: "0",
+      //   scrub: 1,
+      // });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -276,6 +274,11 @@ const WhoWeAre = () => {
 
       ScrollTrigger.refresh();
     }, containerRef);
+
+
+      const tl2 = gsap.timeline({
+        
+      })
 
     return () => ctx.revert();
 
@@ -414,7 +417,7 @@ const WhoWeAre = () => {
               </div>
 
               
-              <img
+              {/* <img
                 ref={(el) => (imagesRef.current[2] = el)}
                 className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/absolute_img.webp"
@@ -425,7 +428,7 @@ const WhoWeAre = () => {
                 className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
                 src="/assets/home/who_we_are/img3.webp"
                 alt="GTF Technologies office environment"
-              />
+              /> */}
             </div>
 
             <div className="flex flex-row items-center relative pl-[13rem] min-w-[100vw]">
@@ -436,7 +439,7 @@ const WhoWeAre = () => {
                 </h5>
               </div>
 
-              <img
+              {/* <img
                   ref={(el) => (imagesRef.current[2] = el)}
                   className="object-cover relative top-[-20px] 2xl:h-auto inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
@@ -447,7 +450,7 @@ const WhoWeAre = () => {
                   className=" object-cover inline-block w-[365px] 2xl:h-auto xl:h-[480px] border-[4px] border-solid border-black"
                   src="/assets/home/who_we_are/creative1/img1.webp"
                   alt="GTF Technologies office environment"
-                />
+                /> */}
             </div>
           </div>
         </div>

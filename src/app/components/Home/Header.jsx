@@ -20,7 +20,7 @@ const Header = () => {
       <header className="fixed site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[9]">
         <img src={isVideoHidden ? '/assets/logo.svg' : '/assets/logo_white.svg'} className="h-[60px]" alt="logo" />
 
-        {!isVideoHidden && <SlideTxtAn className="text-white uppercase text-[30px]" />}
+        {!isVideoHidden && <SlideTxtAn className="text-white uppercase text-[26px]" />}
 
         <div className="hamburger_menu cursor-pointer"  onClick={() => openHamenu()}>
           <span className={`${isVideoHidden ? 'bg-black' : 'bg-white'} w-[40px] h-[2px] block my-2.5`}></span>

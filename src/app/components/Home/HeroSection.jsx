@@ -261,16 +261,14 @@ const HeroSection = () => {
       scrollTrigger: {
         trigger: mainSectionRef.current,
         start: "top top",
-        end: "+=120%",
+        end: "+=30%",
         pin: true,
         pinSpacing: true,
-        scrub: 2,
+        scrub: 1,
         anticipatePin: 1,
         id: "hero-zoom",
       },
     });
-
-    
 
     // startCounters();
 
@@ -567,11 +565,11 @@ const HeroSection = () => {
         id="rotating-pink-glow"
         style={{
           background: `linear-gradient(90deg,
-        #e24397 10%,
-        transparent 50%,
-        transparent 70%,
-        transparent 100%
-      )`,
+          #e24397 10%,
+            transparent 50%,
+            transparent 70%,
+            transparent 100%
+          )`,
           backgroundSize: "100% 100%", // Large enough to move fully across screen
           filter: "blur(90px)",
           opacity: 0.25,
@@ -638,7 +636,7 @@ const HeroSection = () => {
       <div className="relative md:pt-0 z-[4] mt-[80px]">
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[60px] bebas font-medium text-global-color tracking-[7px]"
+          className="text-center text-[50px] bebas font-medium text-global-color tracking-[3px]"
           spanClass="font-bold tracking-[7px]"
         />
 
