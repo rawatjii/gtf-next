@@ -41,7 +41,7 @@ export default function Cursor() {
       if (isHovered.current) return;
 
       const target = e.target;
-      const hoverable = target.closest('a, button, [data-cursor-hover], [data-cursor="hover"]');
+      const hoverable = target.closest('a, button, [data-cursor-hover], [data-cursor="hover"], .cursor-hover');
 
       if (hoverable) {
         isHovered.current = true;
@@ -64,7 +64,8 @@ export default function Cursor() {
         gsap.to(text, {
           opacity: 1,
           duration: 0.3,
-          delay: 0.2
+          delay: 0.2,
+          color:"#555"
         });
       }else{
         gsap.to(text, {
@@ -168,10 +169,12 @@ export default function Cursor() {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           color: 'white',
-          fontSize: '12px',
+          fontSize: '14px',
+          textTransform:"uppercase",
           fontWeight: '600',
           letterSpacing: '0.5px',
           opacity: 0,
+          zIndex:'99',
           userSelect: 'none',
           pointerEvents: 'none',
         }}

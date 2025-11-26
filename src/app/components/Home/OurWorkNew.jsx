@@ -99,7 +99,7 @@ const OurWork = () => {
       const tl = gsap.timeline({
         scrollTrigger:{
           trigger:section,
-          start: "top 25%",
+          start: "top 15%",
           end:"bottom bottom",
           // end: () => `+=${projectsContainer.offsetHeight + window.innerHeight}`,
           pin: heading,
@@ -177,7 +177,7 @@ const OurWork = () => {
               </span>
             </div> */}
 
-            <h3 ref={headingTxtRef} className="text-[250px] bebas uppercase inline-block" style={{
+            <h3 ref={headingTxtRef} className="text-[350px] bebas uppercase inline-block w-[max-content]" style={{
               // clipPath:"inset(100% 0% 0% 0%)"
             }}>
               Our Work
@@ -188,7 +188,7 @@ const OurWork = () => {
         <div ref={projectsRef} className="relative projects mt-[20vh] z-[10]">
           {projects?.map((project, idx)=>(
             <div key={idx} className={`flex ${idx % 2 ? 'justify-end' : ''} ${idx === 0 ? '' : 'mt-[80px]'}`}>
-              <div className="group relative h-[600px] w-[45%] overflow-hidden cursor-pointer">
+              <div className="group relative h-[600px] w-[45%] overflow-hidden cursor-pointer cursor-hover">
                 <div className="thumbnail absolute h-full w-full group-hover:[filter:blur(10px)] ease-in-out duration-1000">
                   <img
                     src={project.image}
