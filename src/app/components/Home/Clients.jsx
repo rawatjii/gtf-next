@@ -93,17 +93,20 @@ const Clients = () => {
       {
         isMobile: "(max-width:767px)",
         isTablet: "(min-width:768px) and (max-width:1023px)",
-        isDesktop: "(min-width:1024px)",
+        isLaptop:"(min-width:1201px) and (max-width:1500px)",
+        isDesktop: "(min-width:1501px)",
       },
       (context) => {
-        let { isMobile, isTablet, isDesktop } = context.conditions;
+        let { isMobile, isTablet, isLaptop, isDesktop } = context.conditions;
 
         const targetFontSize = isMobile
           ? "42px" // or whatever you want on mobile after animation
           : isTablet
           ? "60px"
+          : isLaptop
+          ? "54px"
           : isDesktop
-          ? "100px" // xl/2xl can go even larger if needed
+          ? "72px" // xl/2xl can go even larger if needed
           : "72px";
 
         const tl = gsap.timeline({
