@@ -99,15 +99,25 @@ const Clients = () => {
       (context) => {
         let { isMobile, isTablet, isLaptop, isDesktop } = context.conditions;
 
-        const targetFontSize = isMobile
-          ? "42px" // or whatever you want on mobile after animation
-          : isTablet
-          ? "60px"
-          : isLaptop
-          ? "54px"
-          : isDesktop
-          ? "70px" // xl/2xl can go even larger if needed
-          : "0";
+        const config = {
+          fontSize:isMobile
+            ? "42px" // or whatever you want on mobile after animation
+            : isTablet
+            ? "60px"
+            : isLaptop
+            ? "54px"
+            : isDesktop
+            ? "70px" // xl/2xl can go even larger if needed
+            : "0",
+
+          lineHeight: isMobile
+            ? "48px"
+            : isLaptop
+              ? "68px"
+              : isDesktop
+                ? "120px"
+                : "100px",
+        };
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -124,7 +134,8 @@ const Clients = () => {
 
         tl.to(title, {
           yPercent: 0,
-          fontSize: targetFontSize,
+          fontSize: config.fontSize,
+          lineHeight: config.lineHeight,
           top: 0, // Moves from -50 → 0 (perfectly smooth)
           ease: "none",
           scrollTrigger: {
