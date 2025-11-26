@@ -86,39 +86,69 @@ const Clients = () => {
       top: "50%",
     });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: "top top",
-        end: "+=1200",
-        pin: true, // ← Pin the WRAPPER, not the title directly (more reliable)
-        scrub: 1,
-        anticipatePin: 1,
-        markers: false,
-        // anticipatePin: 1,     // Optional: smoother pinning on iOS
-      },
-    });
+    // Use gsap.matchMedia() for responsive animations
+    let mm = gsap.matchMedia();
 
-    tl.to(title, {
-      yPercent: 0,
-      fontSize:"72px",
-      top: 0, // Moves from -50 → 0 (perfectly smooth)
-      ease: "none",
-      scrollTrigger:{
-        trigger:section,
-        start:"top top",
-        end: "+=300",
-        scrub:1,
+    mm.add(
+      {
+        isMobile: "(max-width:767px)",
+        isTablet: "(min-width:768px) and (max-width:1023px)",
+        isDesktop: "(min-width:1024px)",
+      },
+      (context) => {
+        let { isMobile, isTablet, isDesktop } = context.conditions;
+
+        const targetFontSize = isMobile
+          ? "42px" // or whatever you want on mobile after animation
+          : isTablet
+          ? "60px"
+          : isDesktop
+          ? "100px" // xl/2xl can go even larger if needed
+          : "72px";
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "+=1200",
+            pin: true, // ← Pin the WRAPPER, not the title directly (more reliable)
+            scrub: 1,
+            anticipatePin: 1,
+            markers: false,
+            // anticipatePin: 1,     // Optional: smoother pinning on iOS
+          },
+        });
+
+        tl.to(title, {
+          yPercent: 0,
+          fontSize: targetFontSize,
+          top: 0, // Moves from -50 → 0 (perfectly smooth)
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "+=300",
+            scrub: 1,
+          },
+        });
+
+        // Cleanup on revert (when resizing)
+        return () => {
+          tl.kill();
+        };
       }
-    });
+    );
 
     return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
+      mm.revert();
     };
   }, []);
 
   return (
-    <section ref={sectionRef} className=" bg-[#fde93d] relative h-screen md:mb-[0] mb-[30px] flex items-center">
+    <section
+      ref={sectionRef}
+      className=" bg-[#fde93d] relative h-screen md:mb-[0] mb-[30px] flex items-center"
+    >
       <div
         ref={titleWrapperRef}
         className="absolute md:px-[35px] px-[15px] z-[9] md:flex justify-center md:text-start w-full h-full"
