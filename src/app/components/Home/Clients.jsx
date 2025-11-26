@@ -106,7 +106,7 @@ const Clients = () => {
           : isLaptop
           ? "54px"
           : isDesktop
-          ? "72px" // xl/2xl can go even larger if needed
+          ? "70px" // xl/2xl can go even larger if needed
           : "0";
 
         const tl = gsap.timeline({
