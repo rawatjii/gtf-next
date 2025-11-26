@@ -290,8 +290,8 @@ const Locationmap = () => {
                 key={i}
                 onMouseEnter={() => handleHover(i)}
                 onMouseLeave={handleMouseLeave}
-                className={`bebas uppercase cursor-pointer transition-colors mb-[8px] text-base tracking-[0.5] ${
-                  i === activeIndex ? "text-black 2xl:text-[22px] mb-[14px] font-medium" : "text-[#b5b6b2] 2xl:text-[18px]"
+                className={`bebas capitalize cursor-pointer transition-colors mb-[20px] text-base tracking-[0.5] ${
+                  i === activeIndex ? "text-black 2xl:text-[32px] mb-[14px] font-medium" : "text-[#b5b6b2] 2xl:text-[24px]"
                 } `}
               >
                 {info.name}

@@ -151,7 +151,7 @@ const OurWork = () => {
           // transform:`translateY(-${transformValue}px)`
         }}>
           <div className="grid">
-            <div ref={iconsRef} className="icons inline-flex items-center justify-center" style={{
+            {/* <div ref={iconsRef} className="icons inline-flex items-center justify-center" style={{
               // clipPath:"inset(100% 0% 0% 0%)"
             }}>
               <span className="icon pink">
@@ -175,7 +175,7 @@ const OurWork = () => {
                   className="img-fluid w-[60px]"
                 />
               </span>
-            </div>
+            </div> */}
 
             <h3 ref={headingTxtRef} className="text-[250px] bebas uppercase inline-block" style={{
               // clipPath:"inset(100% 0% 0% 0%)"
