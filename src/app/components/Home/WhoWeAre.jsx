@@ -112,7 +112,7 @@ const WhoWeAre = () => {
       gsap.set(hides, { display: "inline-block", marginRight: "30px" });
       gsap.set(otherText, { width: 0, opacity: 0, display: "inline-block" });
       gsap.set(images, { opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)" });
-      gsap.set(heading, { opacity: 0 });
+      // gsap.set(heading, { opacity: 0 });
 
       const splitInstances = textRef.current
         .filter(Boolean)
@@ -134,6 +134,7 @@ const WhoWeAre = () => {
           end: "top 0",
           markers: false,
           scrub: 1,
+          toggleActions: "play none none none",
         },
       });
 
@@ -151,6 +152,7 @@ const WhoWeAre = () => {
           pin: true,
           markers: false,
           scrub: 1,
+          toggleActions: "play none none none",
           pinSpacing: true,
         },
       });
@@ -166,39 +168,39 @@ const WhoWeAre = () => {
           // ease: "power2",
         },
         "+=0.1"
-      );
-
-      tl.to(heading, {
-        autoAlpha: 1,
-        duration: 0.2,
-        ease: "power2",
-      });
-
-      tl.to(
-        hides,
-        {
-          autoAlpha: 0,
-          duration: 0.1,
-          stagger: 0.05,
-          ease: "power2",
-        },
-        "+=0.05"
       )
-        .to(
-          hides,
-          {
-            width: 0,
-            marginRight: 0,
-            duration: 0.05,
-            ease: "power2",
-          },
-          "+=0.05"
-        )
-        .to(
-          otherText,
-          { marginLeft: "25px", opacity: 1, width: "auto", duration: 0.2 },
-          "+=0.05"
-        )
+
+      // tl.to(heading, {
+      //   autoAlpha: 1,
+      //   duration: 0.2,
+      //   ease: "power2",
+      // });
+
+      // tl.to(
+      //   hides,
+      //   {
+      //     autoAlpha: 0,
+      //     duration: 0.1,
+      //     stagger: 0.05,
+      //     ease: "power2",
+      //   },
+      //   "+=0.05"
+      // )
+        // .to(
+        //   hides,
+        //   {
+        //     width: 0,
+        //     marginRight: 0,
+        //     duration: 0.05,
+        //     ease: "power2",
+        //   },
+        //   "+=0.05"
+        // )
+        // .to(
+        //   otherText,
+        //   { marginLeft: "25px", opacity: 1, width: "auto", duration: 0.2 },
+        //   "+=0.05"
+        // )
         // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
         .to(
           ov_data,
@@ -207,20 +209,28 @@ const WhoWeAre = () => {
         )
         // to(heading, {left:0, transform:"unset", lineHeight:'70px', fontSize:'60px', duration:0.2, ease:"power2"}, "+=0.5").
         .to(heading, { autoAlpha: 0, duration: 0.1, ease: "power2" })
-        .to(allChars, {transform:"translateY(0px)", opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
-        .to(svg, {
-          opacity:1,
-          stagger:0.1,
-          // duration:0.2,
-          ease:"none",
-        })
-        .to(allChars, {
-          opacity: 1,
-          duration: 0.02,
-          stagger: 0.008,
-          ease: "power2.out",
-          immediateRender: false,
-        }, "-=0.3")
+        .to(allChars, {y:0, opacity: 0.2, duration: 0.2, ease: "power2" }, "-=0.1")
+        // This is the key: a NON-scrubbed nested timeline for the reveal
+        .add(()=>{
+          gsap.timeline()
+            .to(svg, {
+              opacity:1,
+              stagger:0.1,
+              // duration:0.2,
+              ease:"none",
+            })
+            .to(allChars, {
+              opacity: 1,
+              duration: 5,
+              stagger: {
+                each:0.05,
+                from: "start"
+              },
+              ease: "power2.out",
+            }, "-=0.4")
+          })
+        
+        // Now continue with the main horizontal scroll (still scrubbed)
         .to(section, {
           x: -maxTranslateX,
           // ease: "power4",
@@ -324,7 +334,7 @@ const WhoWeAre = () => {
                   </h2>
 
                   <div className="relative mx-auto">
-                    <h4
+                    {/* <h4
                       ref={headingRef}
                       className="montserrat uppercase js-title text-[60px] font-bold absolute w-[max-content]"
                       style={{
@@ -335,7 +345,7 @@ const WhoWeAre = () => {
                       <span className="hide">he </span>F
                       <span className="hide">oundation </span>
                       <span className="other_txt">Technologies</span>
-                    </h4>
+                    </h4> */}
 
                     <div
                       ref={overviewData}
