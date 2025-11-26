@@ -126,21 +126,21 @@ const WhoWeAre = () => {
 
       const animatedIndices = [];
 
-      // const whoWeAreTimeline = gsap.timeline({
-      //   scrollTrigger: {
-      //     id: "whoWeAreTrigger",
-      //     trigger: container,
-      //     start: "top 50%",
-      //     end: "top 0",
-      //     markers: false,
-      //     scrub: 1,
-      //   },
-      // });
+      const whoWeAreTimeline = gsap.timeline({
+        scrollTrigger: {
+          id: "whoWeAreTrigger",
+          trigger: container,
+          start: "top 50%",
+          end: "top 0",
+          markers: false,
+          scrub: 1,
+        },
+      });
 
-      // whoWeAreTimeline.to(mainContent, {
-      //   marginTop: "0",
-      //   scrub: 1,
-      // });
+      whoWeAreTimeline.to(mainContent, {
+        marginTop: "0",
+        scrub: 1,
+      });
 
       const tl = gsap.timeline({
         scrollTrigger: {
