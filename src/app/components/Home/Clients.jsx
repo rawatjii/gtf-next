@@ -175,7 +175,7 @@ const Clients = () => {
             transform: "translateY(-50%)",
           }}
         >
-          <span className="block"> Trusted by Leading Brands</span>
+          <span className="block">Clients</span>
           {/* <span className="md:pl-[7.5rem] block mt-[10px]">
             UNSTOPPABLE IMPACT.
               <Line

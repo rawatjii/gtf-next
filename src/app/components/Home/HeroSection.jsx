@@ -636,8 +636,8 @@ const HeroSection = () => {
       <div className="relative md:pt-0 z-[4] mt-[80px]">
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[50px] bebas font-medium text-global-color tracking-[3px]"
-          spanClass="font-bold tracking-[7px]"
+          className="text-center text-[50px] font-bold text-global-color tracking-[0.5px] meno_font"
+          spanClass=""
         />
 
         <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center mt-[50px]">

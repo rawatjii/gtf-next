@@ -174,11 +174,13 @@ const WhoWeAre = () => {
           onUpdate: (self) => {
             // Check if otherSection has reached left 0 in the viewport
             const rect = otherSection.getBoundingClientRect();
+            console.log('rect',rect.left);
+            console.log('self',self);
             
             // If the left side of otherSection is at 0, trigger the alert
-            if (rect.left <= 0) {
-              alert('otherSection has reached left 0 in the viewport!');
-            }
+            // if (rect.left <= 0) {
+            //   alert('otherSection has reached left 0 in the viewport!');
+            // }
           },
         },
       });

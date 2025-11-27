@@ -166,9 +166,9 @@ const Expertise = () => {
       id="experties_sec"
     >
       <div className="flex justify-between flex-wrap">
-        <h2 className="bebas relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[50px] md:text-[50px] 2xl:text-[72px] tracking-[2px] ">
-          <span className="block">Concepts That Build</span>
-          <span className="block ">What Comes Next</span>
+        <h2 className="meno_font font-bold relative capitalize 2xl:leading-[80px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] ">
+          <span className="block">We create</span>
+          <span className="block relative">what others only imagine.</span>
           <Line
             ref={coloredLineRef}
             left={"xl:left-[25%] left-[50%] 2xl:left-[37%]"}
