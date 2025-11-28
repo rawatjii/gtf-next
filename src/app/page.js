@@ -18,7 +18,7 @@ const Home = () => {
 
   return (
     <div>
-      {/* <HeroSection /> */}
+      <HeroSection />
       {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
       <Feature />
       {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}

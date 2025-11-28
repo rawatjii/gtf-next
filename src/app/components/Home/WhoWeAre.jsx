@@ -674,7 +674,7 @@ const WhoWeAre = () => {
 
             {/* First Image Section */}
 
-            <div
+            {/*<div
               ref={imageSectionRef}
               className="flex items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
             >
@@ -761,7 +761,7 @@ const WhoWeAre = () => {
                       bgColor="bg-gtf-pink"
                     />
                   </h2>
-                  {/* <div className="md:basis-[35%] border-b-[1px] border-b-solid border-b-[#666666] md:pb-[50px] pb-[35px] montserrat">
+                  /~ <div className="md:basis-[35%] border-b-[1px] border-b-solid border-b-[#666666] md:pb-[50px] pb-[35px] montserrat">
                     <p className="text-[16px] font-[400] md:mt-0 mt-[20px] tracking-[0.5px]">
                       GTF Technologies, born from Gurukul The Foundation and built in
                       India, brings 17 years + of absolute mastery in branding and digital
@@ -773,21 +773,21 @@ const WhoWeAre = () => {
                       </p>
                       <MdArrowOutward className="bg-[#ddd]" />
                     </div>
-                  </div> */}
+                  </div> ~/
                 </div>
                 <div className="flex justify-between flex-wrap relative md:pt-[0] pt-[30px]">
                   <div className="md:basis-[60%] basis-[100%] relative px-[50px]">
-                    {/* 1 */}
+                    /~ 1 ~/
                     <div ref={lineRef} className="relative w-0 top-[46%] left-[29%]">
-                      {/* top */}
+                      /~ top ~/
                       <div className="origin-left md:block hidden  rotate-[-15.5deg] h-[1px] w-[75%] border-dashed border-b-[1px] border-black  absolute bottom-0 "></div>
                       <div className="origin-left md:block hidden rotate-[-12deg] h-[1px] w-[73%] border-dashed border-b-[1px] border-black  absolute bottom-[0px]"></div>
 
-                      {/* middle */}
+                      /~ middle ~/
                       <div className="h-[1px] md:block hidden w-[70%] border-dashed border-b-[1px] border-black origin-left rotate-[1.4deg] absolute  "></div>
                       <div className="h-[1px] md:block hidden w-[70%] border-dashed border-b-[1px] border-black  absolute origin-left rotate-[-2deg] "></div>
 
-                      {/* third */}
+                      /~ third ~/
                       <div className="h-[1px] md:block hidden w-[73%] origin-left rotate-[12deg] border-dashed border-b-[1px] border-black  absolute  "></div>
                       <div className="h-[1px] md:block hidden w-[75%] origin-left rotate-[16deg] border-dashed border-b-[1px] border-black  absolute  "></div>
                     </div>
@@ -845,7 +845,7 @@ const WhoWeAre = () => {
 
               </div>
 
-            </div>
+            </div>*/}
 
           </div>
         </div>

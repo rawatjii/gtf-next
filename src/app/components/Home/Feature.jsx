@@ -91,138 +91,164 @@ const Feature = () => {
   const lineRef = useRef(null);
   const coloredLineRef = useRef(null);
   const counterRef = useRef(null);
+  const counterSecRef = useRef(null);
   const imageContentRef = useRef(null);
+  const lastSlideRef = useRef(null);
+  
+  
   const [counts, setCounts] = useState({
     projects: 0,
     googleQueries: 0,
     facebookQueries: 0,
   });
 
-
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       const container = containerRef.current;
       const section = sectionRef.current;
       const pinned = pinImageRef.current;
+      const lastSlide = lastSlideRef.current;
+      const counterSec = counterSecRef.current;
+      const circle = circleRef.current;
+      
+
       const slides = [
         section.children[0],        // Slide 1
         imageContentRef.current,    // Slide 2 (your ref)
         section.children[2],        // Slide 3
       ];
-
+  
       const imageSets = pinned.children; // 3 divs with absolute images
-
+  
       const getMaxX = () => section.scrollWidth - window.innerWidth;
-
-      gsap.set(imageSets, { clipPath: "inset(100% 0 0 0)", opacity: 1 });
-      gsap.set(imageSets[0], { clipPath: "inset(0% 0 0% 0)" });
-
-      const splits = textRef.current
-        .filter(Boolean)
-        .map((el) => new SplitText(el, { type: "chars" }));
-      const chars = splits.flatMap((s) => s.chars);
-
-      gsap.set(overviewData.current, { height: 0 });
-      gsap.set(chars, { opacity: 0, transform: "translateY(30px)" });
-      // gsap.set(circle, {
-      //   scale: 0,
-      //   opacity: 0,
-      //   transformOrigin: "center center",
-      // });
-
-      const whoWeAreTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: "whoWeAreTrigger",
-          trigger: container,
-          start: "top 50%",
-          end: "top 0",
-          markers: false,
-          scrub: 1,
-          toggleActions: "play none none none",
-        },
-      });
-
-      whoWeAreTimeline.to(mainContentRef.current, {
-        marginTop: "0",
-        scrub: 1,
-      });
-
-      let tl = gsap.timeline();
-
-      // REVERSIBLE HORIZONTAL SCROLL
+  
+      // INITIAL STATE
+      gsap.set(imageSets, { clipPath: "inset(100% -100% 0 0)", opacity: 1 });
+      gsap.set(imageSets[0], { clipPath: "inset(0% -100% 0% 0)" }); // First set visible
+  
+      // MAIN HORIZONTAL SCROLL
       gsap.to(section, {
         x: () => -getMaxX(),
         ease: "none",
         scrollTrigger: {
           trigger: container,
           start: "top top",
-          end: () => `+=${getMaxX() + window.innerWidth}`,
+          end: () => `+=${getMaxX() - window.innerWidth}`,
           pin: true,
-          scrub: 1,
-          // markers:true,
+          scrub: 0.2,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          pinType: "transform",
           onUpdate: (self) => {
-            const imageContent = imageContentRef.current;
-            const pinned = pinImageRef.current;
-            if (!imageContent || !pinned) return;
+            slides.forEach((slide, index) => {
+              if (!slide) return;
+              const rect = slide.getBoundingClientRect();
+              const lastRect = lastSlide.getBoundingClientRect();
+              const counterSecRect = counterSec.getBoundingClientRect();
 
-            const rect = imageContent.getBoundingClientRect();
-            const vw = window.innerWidth;
+              const vw = window.innerWidth;
+              const triggerPoint = vw * 0.70; // Start reveal at 70% from left
+              const counterTriggerPoint = vw * 0.50; // Start reveal at 70% from left
+              const lastSlidePoint = "-250";
+          
+              let progress = 0;
+              if (rect.left <= triggerPoint && rect.left >= 0) {
+                progress = 1 - (rect.left / triggerPoint); // 0 → 1 as it approaches 70%
+              } else if (rect.left < 0) {
+                progress = 1;
+              }
+              progress = gsap.utils.clamp(0, 1, progress);
+          
+              const targetSet = imageSets[index];
+          
+              // Clip-path reveal from top to bottom
+              gsap.set(targetSet, {
+                clipPath: `inset(${100 - progress * 300}% -100% 0% 0%)`,
+                zIndex: index === 0 ? 3 : index === 1 ? 2 : 1, // Optional: stack order
+              });
+          
+              // Hide all others when this one is revealing
+              if (progress > 0.01) {
+                for (let i = 0; i < imageSets.length; i++) {
+                  if (i !== index) {
+                    gsap.set(imageSets[i], { clipPath: "inset(100% -100% 0 0)" });
+                  }
+                }
+              }
+          
+              // Adjust pinned element scroll position
+              if (lastRect.left <= lastSlidePoint) {
+                // Calculate scroll progress based on how far the last slide has moved
+                const distanceToScroll = lastSlidePoint - lastRect.left; // Adjust based on your needs
+          
+                // Dynamically set the `x` position for the pinned element to scroll left
+                gsap.set(pinned, {
+                  x: `-${distanceToScroll}px`, // Adjust for scroll effect
+                  overwrite: true,
+                });
+              }
 
-            // Start animation when section is at 70% from left
-            const startX = vw * 0.30;   // 70vw
-            const endX   = 0;           // 0px → section aligned to left edge
-
-            let localProgress = 0;
-
-            // Only run when we're in the 70vw → 0 range
-            if (rect.left <= startX && rect.left >= endX) {
-              // Perfect linear mapping: 70vw → 0 = progress 0 → 1
-              localProgress = (startX - rect.left) / (startX - endX);
-            }
-            else if (rect.left < endX) {
-              localProgress = 1; // Lock at final position
-            }
-            // Before 70vw → no movement
-            // After 0 → stays centered
-
-            localProgress = gsap.utils.clamp(0, 1, localProgress);
-
-            // Optional: smooth easing (highly recommended)
-            const easedProgress = gsap.parseEase("power2.out")(localProgress);
-
-            gsap.set(pinned, {
-              x: 50 * (1 - easedProgress) + "vw",   // 100 → 0 (off-right → center)
-              opacity: easedProgress,
-              scale: 0.94 + (0.06 * easedProgress),
-              overwrite: true,
+              console.log(counterSecRect.left, counterTriggerPoint);
+              if (counterSecRect.left <= counterTriggerPoint) { // isActive prevents re-trigger
+                // Mark that we've already animated
+                // self.isActive = true;
+  
+                // Animate the yellow circle
+                gsap.to(circleRef.current, {
+                  scale: 1,
+                  opacity: 1,
+                  duration: 1.4,
+                  ease: "power4.out",
+                  transformOrigin: "center center",
+                });
+  
+                // Animate dashed lines growing in
+                gsap.to(lineRef.current, {
+                  width: "100%",
+                  duration: 1.6,
+                  ease: "power3.out",
+                  delay: 0.3,
+                });
+  
+                // Optional: Animate counters
+                gsap.to(counts, {
+                  projects: 1500,
+                  googleQueries: 50,
+                  facebookQueries: 1000,
+                  duration: 2.8,
+                  ease: "power2.out",
+                  snap: { projects: 1, googleQueries: 10, facebookQueries: 10 },
+                  onUpdate: () => setCounts({ ...counts }),
+                  delay: 0.6,
+                });
+              }
             });
-          },
+          }
+          
         },
       });
-
-      // IMAGE REVEALS (once per image)
-      imagesRef.current.forEach((img, i) => {
-        ScrollTrigger.create({
-          trigger: img,
-          start: "top 90%",
-          once: true,
-          onEnter: () => {
-            gsap.to(img, {
-              opacity: 1,
-              y: 0,
-              clipPath: "inset(0% 0 0% 0)",
-              duration: 1.6,
-              ease: "power3.out",
-            });
-          },
-        });
-      });
+  
+      // Your existing image reveal code...
+      // imagesRef.current.forEach((img) => {
+      //   if (img) {
+      //     ScrollTrigger.create({
+      //       trigger: img,
+      //       start: "top 90%",
+      //       once: true,
+      //       onEnter: () => {
+      //         gsap.to(img, {
+      //           opacity: 1,
+      //           y: 0,
+      //           clipPath: "inset(0% 0 0% 0)",
+      //           duration: 1.6,
+      //           ease: "power3.out",
+      //         });
+      //       },
+      //     });
+      //   }
+      // });
+  
     }, containerRef);
-
+  
     return () => ctx.revert();
   }, []);
 
@@ -325,7 +351,7 @@ const Feature = () => {
               </div>
             </div>
 
-            <div className="flex flex-row items-center relative pl-[13rem] min-w-[100vw]">
+            <div ref={lastSlideRef} className="flex flex-row items-center relative pl-[13rem] min-w-[100vw] last_slide">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
                 <h5 className="text-[50px] mb-[1rem]  text-[50px] font-semibold">
                   Wired to help brands{" "}
@@ -334,7 +360,7 @@ const Feature = () => {
               </div>
             </div>
 
-            <div className="flex flex-row items-center relative min-w-[100vw] bg-[#f7f7f7] last_slide ml-[13rem]">
+            <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f7f7f7] ml-[13rem]">
               <div className="basis-[100%]">
                 <div className="flex justify-between flex-wrap">
                   <h2 className="meno_font font-bold relative capitalize 2xl:leading-[80px] px-[50px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] ">
