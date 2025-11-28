@@ -172,6 +172,13 @@ const WhoWeAre = () => {
               ease: "power2.out",
             });
 
+            // .to(circle, {
+
+            // })
+
+            
+
+
           splits.forEach((s) => s.revert());
         },
       });
@@ -228,9 +235,9 @@ const WhoWeAre = () => {
 
               // Optional: Animate counters
               gsap.to(counts, {
-                projects: 250,
-                googleQueries: 800,
-                facebookQueries: 600,
+                projects: 1500,
+                googleQueries: 50,
+                facebookQueries: 1000,
                 duration: 2.8,
                 ease: "power2.out",
                 snap: { projects: 1, googleQueries: 10, facebookQueries: 10 },
@@ -597,7 +604,7 @@ const WhoWeAre = () => {
               <div className="grid items-center grid-cols-12 gap-[40px]">
                 <div
                   ref={mainContentRef}
-                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh] text-white"
+                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh]"
                 >
                   <h2
                     ref={mainHeadingRef}

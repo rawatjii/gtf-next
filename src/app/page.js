@@ -11,14 +11,16 @@ import OurWork from "./components/Home/OurWork";
 import LocationMap from "./components/Home/LocationMap";
 import OurWorkNew from "./components/Home/OurWorkNew";
 import WhyGTF from "./components/Home/WhyGTF";
+import Feature from "./components/Home/Feature";
 
 const Home = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   return (
     <div>
-      <HeroSection />
+      {/* <HeroSection /> */}
       {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
+      <Feature />
       {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
       {/* <Expertise /> */}
       <OurWorkNew />
