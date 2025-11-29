@@ -173,7 +173,7 @@ const Feature = () => {
                 clipPath: `inset(${progress * 300}% 0% 0% 0%)`, // Reverse direction
                 zIndex: prevIndex === 0 ? 3 : prevIndex === 1 ? 2 : 1, // Adjust z-index if needed
               });
-
+ 
              
           
               // Hide all others when this one is revealing
