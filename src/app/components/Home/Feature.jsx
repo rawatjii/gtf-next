@@ -79,6 +79,8 @@ const Feature = () => {
   const headingRef = useRef(null);
   const mainHeadingRef = useRef(null);
   const mainContentRef = useRef(null);
+  const timelineRef = useRef(null); // Ref for the timeline container
+  const dotsRef = useRef([]); // Ref to hold dot elements
 
   const overviewData = useRef(null);
   const backgroundColorRef = useRef(null);
@@ -110,6 +112,7 @@ const Feature = () => {
       const lastSlide = lastSlideRef.current;
       const counterSec = counterSecRef.current;
       const circle = circleRef.current;
+      const timeline = timelineRef.current; 
       
 
       const slides = [
@@ -157,6 +160,23 @@ const Feature = () => {
                 progress = 1;
               }
               progress = gsap.utils.clamp(0, 1, progress);
+
+              // Update the timeline fill width based on the scroll progress
+              gsap.to(timeline, {
+                width: `${progress * 100}%`, // Animate the timeline fill
+                ease: "power2.out",
+              });
+
+              // Update the dots at specific points (e.g., every 20%)
+              dotsRef.current.forEach((dot, index) => {
+                if (progress >= index * 0.2) { // Update every 20% scroll progress
+                  gsap.to(dot, {
+                    scale: 1.2, // Increase size of dot
+                    color: "#4CAF50", // Change color to indicate progress
+                    duration: 0.5,
+                  });
+                }
+              });
           
               const targetSet = imageSets[index];
               const prevIndex = index === 0 ? imageSets.length - 1 : index - 1;
@@ -265,6 +285,26 @@ const Feature = () => {
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container relative">
+
+        {/* Timeline Bar */}
+        <div ref={timelineRef} className="relative w-full h-1 bg-gray-300 mt-10">
+          {/* Timeline fill */}
+          <div className="absolute top-[30px] left-0 h-full bg-blue-600" style={{ width: "0%" }} />
+        </div>
+
+        {/* Dots on Timeline */}
+        <div className="absolute top-[30px] left-0 w-full h-full flex justify-between">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div
+              key={index}
+              ref={(el) => (dotsRef.current[index] = el)}
+              className="w-4 h-4 rounded-full bg-blue-500"
+              style={{ top: "50%", transform: "translateY(-50%)" }}
+            />
+          ))}
+        </div>
+
+
         <div
           ref={pinImageRef}
           className="fixed top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[fit-content] z-[9]"

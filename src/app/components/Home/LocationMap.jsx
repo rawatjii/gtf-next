@@ -201,11 +201,11 @@ const Locationmap = () => {
 
         <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px] bebas tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] ">
           <span className="block">
-          Digital Strategies That Make
+            Life At GTF
           </span>
-          <span className="block mt-[10px]">
+          {/* <span className="block mt-[10px]">
            Your Brand Unstoppable
-          </span>
+          </span> */}
           <Line
             ref={coloredLineRef}
             left={"xl:left-[25%] left-[50%] 2xl:left-[37%]"}

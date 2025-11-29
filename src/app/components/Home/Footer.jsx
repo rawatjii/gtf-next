@@ -57,6 +57,15 @@ const locations = [
   },
 ];
 
+const dotsConfig = [
+  { top: "31%", left: "33%", color: "bg-gtf-blue" },
+  { top: "31%", left: "38%", color: "bg-gtf-yellow" },
+  { bottom: "38%", left: "23%", color: "bg-gtf-pink" },
+  { bottom: "35%", left: "26%", color: "bg-[purple]" },
+  { bottom: "26%", left: "29%", color: "bg-[green]" },
+];
+
+
 const sequence = [[1, 3], [0, 4], [2]];
 
 const Footer = () => {
@@ -208,27 +217,53 @@ const Footer = () => {
                   <img
                     src="/assets/logos/pink_color.svg"
                     alt="pink logo icon"
-                    className="img-fluid w-[40px]"
+                    className="img-fluid w-[50px]"
                   />
                 </span>
                 <span className="icon yellow ml-[-10px]">
                   <img
                     src="/assets/logos/yellow_color.svg"
                     alt="yellow logo icon"
-                    className="img-fluid w-[40px]"
+                    className="img-fluid w-[50px]"
                   />
                 </span>
                 <span className="icon pink ml-[-10px]">
                   <img
                     src="/assets/logos/blue_color.svg"
                     alt="blue logo icon"
-                    className="img-fluid w-[40px]"
+                    className="img-fluid w-[50px]"
                   />
                 </span>
               </div>
-              <h5 className="text-[30px] font-[Oswald] font-medium">
-                GTF Technologies
-              </h5>
+              
+            </div>
+
+            <div className="md:basis-[100%] mt-[2rem] justify-center relative flex-wrap">
+              <div className="relative inline-block">
+              {dotsConfig.map((dot, index) => {
+                const isActive = activeIndexes.includes(index);
+                return (
+                  <span
+                    key={index}
+                    className={`
+                      absolute h-[6px] w-[6px]  transition-opacity transform duration-500 ease-in-out
+                      ${dot.color}
+                      ${isActive ? "opacity-100 scale-100" : "opacity-0 scale-75"}
+                    `}
+                    style={{
+                      top: dot.top,
+                      left: dot.left,
+                      bottom: dot.bottom,
+                    }}
+                  />
+                );
+              })}
+              <img
+                src="/assets/home/map-1.png"
+                className=" h-[300px] md:mb-[2.5rem] mb-[20px] object-contain"
+                alt="map.png"
+              />
+              </div>
             </div>
           </div>
 
@@ -242,7 +277,7 @@ const Footer = () => {
                   </p>
                   {data.number && (
                     <p className="font-[Oswald] mt-[10px]">
-                      <Link href={data.number}>{data.number}</Link>
+                      <Link href={data.number} className="font-medium">{data.number}</Link>
                     </p>
                   )}
                 </div>
