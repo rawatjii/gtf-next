@@ -29,7 +29,7 @@ const lines = [
     {
       word: "Made-in-India",
       className: "highlightWord",
-      sibling: "/assets/home/who_we_are/line.svg",
+      sibling: "/assets/home/who_we_are/line.png",
       imgClass: "!h-[170%] !top-[-40%]",
     },
     " ",
@@ -57,7 +57,12 @@ const lines = [
     " ",
     "create",
     " ",
-    "ideas",
+    {
+      word: "ideas",
+      className: "highlightWord word_underline",
+      sibling: null,
+      imgClass: "!h-[170%] !top-[-40%]",
+    },
     " ",
     "that",
     " ",
@@ -91,6 +96,7 @@ const WhoWeAre = () => {
   const lineRef = useRef(null);
   const coloredLineRef = useRef(null);
   const counterRef = useRef(null);
+  const underlineRef = useRef(null);
   const [counts, setCounts] = useState({
     projects: 0,
     googleQueries: 0,
@@ -103,6 +109,7 @@ const WhoWeAre = () => {
       const section = sectionRef.current;
       const otherSection = otherSectionRef.current;
       const circle = circleRef.current;
+      const underline = underlineRef.current;
 
       const getMaxX = () => section.scrollWidth - window.innerWidth;
       const splits = textRef.current
@@ -155,16 +162,20 @@ const WhoWeAre = () => {
         duration: 0.6,
         ease: "power2.out",
       });
-      whoWeAreTimeline.to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 },
-        "-=0.2"
+
+      whoWeAreTimeline.to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 }
       );
+      whoWeAreTimeline.to(underline, { opacity: 1, width:"100%", duration: 0.8 }      );
+      
       whoWeAreTimeline.to(chars, {
         opacity: 1,
         duration: 1.6,
         stagger: 0.03,
         ease: "power2.out",
       },
-    "-=0.2");
+      "-=0.2");
+
+    
       
 
 
@@ -678,19 +689,29 @@ const WhoWeAre = () => {
                             ) : (
                               <span
                                 key={wordIndex}
-                                className={`relative montserrat font-medium px-[40px]  2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left ${word.className}`}
+                                className={`relative montserrat font-medium 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left`}
                               >
                                 {word.word}
-                                <img
-                                  ref={(el) =>
-                                    (svgRefs.current[wordIndex] = el)
-                                  }
-                                  src={word.sibling}
-                                  className={`absolute w-full h-full inset-0 ${word.imgClass}`}
-                                  style={{
-                                    opacity: "0",
-                                  }}
-                                />
+                                {word.sibling ? (
+                                  <img
+                                    ref={(el) =>
+                                      (svgRefs.current[wordIndex] = el)
+                                    }
+                                    src={word.sibling}
+                                    className={`absolute w-full h-full inset-0 ${word.imgClass}`}
+                                    style={{
+                                      opacity: "0",
+                                    }}
+                                  />
+                                ) : (
+                                  <span ref={underlineRef} className="line absolute h-[4px] w-full bg-[#fff] left-0 bottom-[15px]"
+                                    style={{
+                                      width:0,
+                                      opacity:0,
+                                    }}
+                                  ></span>
+                                )}
+                                
                               </span>
                             )
                           )}

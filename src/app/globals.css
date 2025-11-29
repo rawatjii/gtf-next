@@ -367,6 +367,21 @@ canvas {
   animation-play-state: paused;
 }
 
+.word_underline{
+  position:relative;
+}
+
+.word_underline:before{
+  position:absolute;
+  content:'';
+  display:block;
+  height:4px;
+  width: 100%;
+  background:#fff;
+  bottom:15px;
+  left:0;
+}
+
 
 
 /* start responsive */
