@@ -13,11 +13,17 @@ import LogoItem from "@/app/utils/LogoItem";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const isMobile = "(max-width: 767px)";
+  const isTablet = "(min-width: 768px) and (max-width: 1023px)";
+  const isLaptop = "(min-width: 1201px) and (max-width: 1500px)";
+  const isDesktop = "(min-width: 1501px)";
+
 const Clients = () => {
   const sectionRef = useRef(null);
   const titleWrapperRef = useRef(null); // wrapper to control position
   const titleRef = useRef(null);
   const sliderRef = useRef(null);
+  const [gridRows, setGridRows] = useState(4);
 
   // Your original 10 logos (you can add more if you want)
   const baseLogos = [
@@ -72,6 +78,28 @@ const Clients = () => {
   // Duplicate enough times to fill the grid + seamless loop
   const logos = [...baseLogos, ...baseLogos, ...baseLogos, ...baseLogos]; // 40 items → safe for infinite scroll
 
+  const updateGridRows = ()=>{
+    if(window.matchMedia(isMobile).matches){
+      setGridRows(2);
+    }else if (window.matchMedia(isLaptop).matches) {
+      setGridRows(3);
+    } else if (window.matchMedia(isDesktop).matches) {
+      setGridRows(4);
+    } else {
+      setGridRows(4);
+    }
+  }
+
+  // Update grid rows when the screen size changes
+  useEffect(()=>{
+    updateGridRows();
+    window.addEventListener('resize', updateGridRows);
+
+    return () => {
+      window.removeEventListener('resize', updateGridRows);
+    };
+  }, [])
+
   useEffect(() => {
     const titleWrapper = titleWrapperRef.current;
     const title = titleRef.current;
@@ -105,7 +133,7 @@ const Clients = () => {
             : isTablet
             ? "60px"
             : isLaptop
-            ? "54px"
+            ? "70px"
             : isDesktop
             ? "70px" // xl/2xl can go even larger if needed
             : "0",
@@ -113,10 +141,18 @@ const Clients = () => {
           lineHeight: isMobile
             ? "48px"
             : isLaptop
-              ? "68px"
-              : isDesktop
-                ? "120px"
-                : "100px",
+            ? "110px"
+            : isDesktop
+            ? "120px"
+            : "100px",
+
+          gridRows: isMobile
+            ? "2"
+            : isLaptop
+            ? "3"
+            : isDesktop
+            ? "4"
+            : "4",
         };
 
         const tl = gsap.timeline({
@@ -169,13 +205,13 @@ const Clients = () => {
       >
         <h3
           ref={titleRef}
-          className="bebas uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[62px] md:text-[50px] text-[32px]"
+          className="bebas uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[70px] md:text-[50px] text-[32px]"
           style={{
             top: "50%",
             transform: "translateY(-50%)",
           }}
         >
-          <span className="block">Clients</span>
+          <span className="block">Our Clients</span>
           {/* <span className="md:pl-[7.5rem] block mt-[10px]">
             UNSTOPPABLE IMPACT.
               <Line
@@ -205,12 +241,12 @@ const Clients = () => {
               {[...Array(6)].map((_, colIndex) => (
                 <div
                   key={colIndex}
-                  className="grid grid-rows-4 gap-8 mx-4" // mx-4 = horizontal spacing between columns
+                  className={`grid grid-rows-${gridRows} ${gridRows === 3 ? 'gap-4 mx-2' : 'gap-8 mx-4' } `} // mx-4 = horizontal spacing between columns
                 >
                   {/* Each column gets 4 logos, vertically */}
-                  {[...Array(4)].map((_, rowIndex) => {
+                  {[...Array(gridRows)].map((_, rowIndex) => {
                     const logoIndex =
-                      setIndex * (6 * 4) + colIndex * 4 + rowIndex;
+                      setIndex * (6 * gridRows) + colIndex * gridRows + rowIndex;
                     const logo = logos[logoIndex % logos.length]; // Safe wrap-around
 
                     return (
