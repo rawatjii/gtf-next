@@ -124,130 +124,159 @@ const WhoWeAre = () => {
           trigger: container,
           start: "top 50%",
           end: "top 0",
+          duration:1,
           markers: false,
-          scrub: 1,
+          scrub: false,
           toggleActions: "play none none none",
         },
       });
 
-      whoWeAreTimeline.to(mainContentRef.current, {
-        marginTop: "0",
-        scrub: 1,
+      // whoWeAreTimeline.to(mainContentRef.current, {
+      //   marginTop: "0",
+      //   scrub: 1,
+      // })
+
+      whoWeAreTimeline.to(mainHeadingRef.current, {
+        fontSize: "80px",
+        left: 0,
+        x: 0,
+        duration: 0.2,
+        ease: "power3.out",
       });
 
-      let tl = gsap.timeline();
+      whoWeAreTimeline.to(mainContentRef.current, { marginTop: 0, duration: 0.2 });
+      whoWeAreTimeline.to(
+        overviewData.current,
+        { height: "auto", duration: 0.8 },
+      );
+      whoWeAreTimeline.to(chars, {
+        y: 0,
+        opacity: 0.2,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+      whoWeAreTimeline.to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 },
+        "-=0.2"
+      );
+      whoWeAreTimeline.to(chars, {
+        opacity: 1,
+        duration: 1.6,
+        stagger: 0.03,
+        ease: "power2.out",
+      },
+    "-=0.2");
+      
+
 
       // ONE-TIME REVEAL
-      ScrollTrigger.create({
-        trigger: container,
-        start: "top top",
-        once: true,
-        onEnter: () => {
-          tl.to(mainHeadingRef.current, {
-            fontSize: "80px",
-            left: 0,
-            x: 0,
-            duration: 1.2,
-            ease: "power3.out",
-          })
-            .to(mainContentRef.current, { marginTop: 0, duration: 1 }, "-=0.8")
-            .to(
-              overviewData.current,
-              { height: "auto", duration: 0.8 },
-              "-=0.6"
-            );
+      // ScrollTrigger.create({
+      //   trigger: container,
+      //   start: "top 30%",
+      //   once: true,
+      //   onEnter: () => {
+      //     let tl = gsap.timeline();
+      //     tl.to(mainHeadingRef.current, {
+      //       fontSize: "80px",
+      //       left: 0,
+      //       x: 0,
+      //       duration: 1.2,
+      //       ease: "power3.out",
+      //     })
+      //       .to(mainContentRef.current, { marginTop: 0, duration: 1 }, "-=0.8")
+      //       .to(
+      //         overviewData.current,
+      //         { height: "auto", duration: 0.8 },
+      //         "-=0.6"
+      //       );
 
-          // Text animation
-          tl.to(chars, {
-            y: 0,
-            opacity: 0.2,
-            duration: 0.6,
-            ease: "power2.out",
-          })
-            .to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 })
-            .to(chars, {
-              opacity: 1,
-              duration: 1.6,
-              stagger: 0.03,
-              ease: "power2.out",
-            });
+      //     // Text animation
+      //     tl.to(chars, {
+      //       y: 0,
+      //       opacity: 0.2,
+      //       duration: 0.6,
+      //       ease: "power2.out",
+      //     },
+      //   "-=0.6")
+      //       .to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 },
+      //         "-=0.6"
+      //       )
+      //       .to(chars, {
+      //         opacity: 1,
+      //         duration: 1.6,
+      //         stagger: 0.03,
+      //         ease: "power2.out",
+      //       },
+      //     "-=0.4");
 
-            // .to(circle, {
-
-            // })
-
-            
-
-
-          splits.forEach((s) => s.revert());
-        },
-      });
+      //     // splits.forEach((s) => s.revert());
+      //   },
+      // });
 
       // REVERSIBLE HORIZONTAL SCROLL
-      gsap.to(section, {
-        x: () => -getMaxX(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: () => `+=${getMaxX() + window.innerWidth}`,
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          pinType: "transform",
-          onUpdate: (self) => {
-            const progress = self.progress; // 0 to 1
-            const lastSlide = document.querySelector(".last_slide");
-            if (!lastSlide) return;
+      // gsap.to(section, {
+      //   x: () => -getMaxX(),
+      //   ease: "none",
+      //   scrollTrigger: {
+      //     trigger: container,
+      //     start: "top top",
+      //     end: () => `+=${getMaxX() + window.innerWidth}`,
+      //     pin: true,
+      //     scrub: 1,
+      //     anticipatePin: 1,
+      //     invalidateOnRefresh: true,
+      //     pinType: "transform",
+      //     onUpdate: (self) => {
+      //       const progress = self.progress; // 0 to 1
+      //       const lastSlide = document.querySelector(".last_slide");
+      //       if (!lastSlide) return;
 
-            // Get how far the left edge of .last_slide is from the left of the viewport
-            const rect = lastSlide.getBoundingClientRect();
-            const distanceFromLeft = rect.left; // in pixels
+      //       // Get how far the left edge of .last_slide is from the left of the viewport
+      //       const rect = lastSlide.getBoundingClientRect();
+      //       const distanceFromLeft = rect.left; // in pixels
 
-            // Trigger when last_slide's left edge is within ~20% of viewport width from the left
-            const triggerPoint = window.innerWidth * 0.50; // 20% from left
+      //       // Trigger when last_slide's left edge is within ~20% of viewport width from the left
+      //       const triggerPoint = window.innerWidth * 0.50; // 20% from left
 
-            console.log('distanceFromLeft',distanceFromLeft);
-            console.log('triggerPoint',triggerPoint);
+      //       console.log('distanceFromLeft',distanceFromLeft);
+      //       console.log('triggerPoint',triggerPoint);
 
-            // Only run once when it crosses the threshold (from right to left)
-            if (distanceFromLeft <= triggerPoint) { // isActive prevents re-trigger
-              // Mark that we've already animated
-              // self.isActive = true;
+      //       // Only run once when it crosses the threshold (from right to left)
+      //       if (distanceFromLeft <= triggerPoint) { // isActive prevents re-trigger
+      //         // Mark that we've already animated
+      //         // self.isActive = true;
 
-              // Animate the yellow circle
-              gsap.to(circleRef.current, {
-                scale: 1,
-                opacity: 1,
-                duration: 1.4,
-                ease: "power4.out",
-                transformOrigin: "center center",
-              });
+      //         // Animate the yellow circle
+      //         gsap.to(circleRef.current, {
+      //           scale: 1,
+      //           opacity: 1,
+      //           duration: 1.4,
+      //           ease: "power4.out",
+      //           transformOrigin: "center center",
+      //         });
 
-              // Animate dashed lines growing in
-              gsap.to(lineRef.current, {
-                width: "100%",
-                duration: 1.6,
-                ease: "power3.out",
-                delay: 0.3,
-              });
+      //         // Animate dashed lines growing in
+      //         gsap.to(lineRef.current, {
+      //           width: "100%",
+      //           duration: 1.6,
+      //           ease: "power3.out",
+      //           delay: 0.3,
+      //         });
 
-              // Optional: Animate counters
-              gsap.to(counts, {
-                projects: 1500,
-                googleQueries: 50,
-                facebookQueries: 1000,
-                duration: 2.8,
-                ease: "power2.out",
-                snap: { projects: 1, googleQueries: 10, facebookQueries: 10 },
-                onUpdate: () => setCounts({ ...counts }),
-                delay: 0.6,
-              });
-            }
-          }
-        },
-      });
+      //         // Optional: Animate counters
+      //         gsap.to(counts, {
+      //           projects: 1500,
+      //           googleQueries: 50,
+      //           facebookQueries: 1000,
+      //           duration: 2.8,
+      //           ease: "power2.out",
+      //           snap: { projects: 1, googleQueries: 10, facebookQueries: 10 },
+      //           onUpdate: () => setCounts({ ...counts }),
+      //           delay: 0.6,
+      //         });
+      //       }
+      //     }
+      //   },
+      // });
 
 
 
@@ -608,8 +637,9 @@ const WhoWeAre = () => {
                 >
                   <h2
                     ref={mainHeadingRef}
-                    className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block left-[50%] -translate-x-1/2 leading-[150px]"
-                  >
+                    className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block leading-[150px]" 
+                  > 
+                   {/* left-[50%] -translate-x-1/2 */}
                     Who We Are?
                   </h2>
 

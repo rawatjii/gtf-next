@@ -123,8 +123,8 @@ const Feature = () => {
       const getMaxX = () => section.scrollWidth - window.innerWidth;
   
       // INITIAL STATE
-      gsap.set(imageSets, { clipPath: "inset(100% -100% 0 0)", opacity: 1 });
-      gsap.set(imageSets[0], { clipPath: "inset(0% -100% 0% 0)" }); // First set visible
+      // gsap.set(imageSets, { clipPath: "inset(100% -100% 0 0)", opacity: 1 });
+      // gsap.set(imageSets[0], { clipPath: "inset(0% -100% 0% 0)" }); // First set visible
   
       // MAIN HORIZONTAL SCROLL
       gsap.to(section, {
@@ -159,21 +159,31 @@ const Feature = () => {
               progress = gsap.utils.clamp(0, 1, progress);
           
               const targetSet = imageSets[index];
+              const prevIndex = index === 0 ? imageSets.length - 1 : index - 1;
+              const nextIndex = index === imageSets.length - 1 ? 0 : index + 1;
           
               // Clip-path reveal from top to bottom
               gsap.set(targetSet, {
-                clipPath: `inset(${100 - progress * 300}% -100% 0% 0%)`,
+                clipPath: `inset(0% 0% 0% 0%)`,
                 zIndex: index === 0 ? 3 : index === 1 ? 2 : 1, // Optional: stack order
               });
+
+              // Update clipPath for previous image (reversing)
+              gsap.set(imageSets[prevIndex], {
+                clipPath: `inset(${progress * 300}% 0% 0% 0%)`, // Reverse direction
+                zIndex: prevIndex === 0 ? 3 : prevIndex === 1 ? 2 : 1, // Adjust z-index if needed
+              });
+
+             
           
               // Hide all others when this one is revealing
-              if (progress > 0.01) {
-                for (let i = 0; i < imageSets.length; i++) {
-                  if (i !== index) {
-                    gsap.set(imageSets[i], { clipPath: "inset(100% -100% 0 0)" });
-                  }
-                }
-              }
+              // if (progress > 0.01) {
+              //   for (let i = 0; i < imageSets.length; i++) {
+              //     if (i !== index) {
+              //       gsap.set(imageSets[i], { clipPath: "inset(100% -100% 0 0)" });
+              //     }
+              //   }
+              // }
           
               // Adjust pinned element scroll position
               if (lastRect.left <= lastSlidePoint) {
@@ -269,31 +279,20 @@ const Feature = () => {
             <div className="relative flex">
               <img
                 ref={(el) => (imagesRef.current[2] = el)}
-                className="object-contain relative top-[-20px] inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/creative2/img1-sm.webp"
+                className="object-contain relative inline-block z-[1] w-[500px]"
+                src="/assets/home/who_we_are/creative1.webp"
                 alt="GTF Technologies office environment"
               />
-              <img
-                ref={(el) => (imagesRef.current[3] = el)}
-                className=" object-contain inline-block w-[365px] xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/creative2/img1.webp"
-                alt="GTF Technologies office environment"
-              />
+              
             </div>
           </div>
 
           <div className="absolute left-0 top-0 h-full w-full">
             <div className="relative flex">
-              <img
+            <img
                 ref={(el) => (imagesRef.current[2] = el)}
-                className="object-contain relative top-[-20px] inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/absolute_img.webp"
-                alt="GTF Technologies office environment"
-              />
-              <img
-                ref={(el) => (imagesRef.current[3] = el)}
-                className=" object-contain inline-block w-[365px] xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/img3.webp"
+                className="object-contain relative inline-block z-[1] w-[500px]"
+                src="/assets/home/who_we_are/creative2.webp"
                 alt="GTF Technologies office environment"
               />
             </div>
@@ -303,14 +302,8 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[2] = el)}
-                className="object-contain relative top-[-20px] inline-block top-[-70px]  right-[-90px] !rotate-[-5deg]  z-[1] xl:h-[360px] w-[365px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/creative2/img1-sm.webp"
-                alt="GTF Technologies office environment"
-              />
-              <img
-                ref={(el) => (imagesRef.current[3] = el)}
-                className=" object-contain inline-block w-[365px] xl:h-[480px] border-[4px] border-solid border-black"
-                src="/assets/home/who_we_are/creative2/img1.webp"
+                className="object-contain relative inline-block z-[1] w-[500px]"
+                src="/assets/home/who_we_are/creative1.webp"
                 alt="GTF Technologies office environment"
               />
             </div>
