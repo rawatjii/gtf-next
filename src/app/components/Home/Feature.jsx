@@ -398,7 +398,7 @@ const Feature = () => {
                 <div className="flex justify-between flex-wrap">
                   <h2 className="meno_font font-bold relative capitalize 2xl:leading-[80px] px-[50px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] ">
                     <span className="block">We create</span>
-                    <span className="block relative">
+                    <span className="block relative pl-[100px] w-[max-content] before:absolute before:h-[3px] before:w-[80px] before:bg-[#000] before:block before:left-[0] before:top-[50%] before:translate-y-[-1/2]">
                       what others only imagine.
                     </span>
                     <Line
