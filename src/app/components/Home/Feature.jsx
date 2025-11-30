@@ -8,67 +8,10 @@ import Line from "../Line";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const lines = [
-  [
-    "Born",
-    " ",
-    "from",
-    " ",
-    "Gurukul",
-    " ",
-    "The",
-    " ",
-    "Foundation,",
-    " ",
-    "We",
-    " ",
-    "are",
-    " ",
-    "a",
-    " ",
-    {
-      word: "Made-in-India",
-      className: "highlightWord",
-      sibling: "/assets/home/who_we_are/line.svg",
-      imgClass: "!h-[170%] !top-[-40%]",
-    },
-    " ",
-    "company",
-    " ",
-    "shaping",
-    " ",
-    "brands",
-    " ",
-    "for",
-    " ",
-    "a",
-    " ",
-    "world",
-    " ",
-    "that",
-    " ",
-    "never",
-    " ",
-    "stands",
-    " ",
-    "still.",
-    " ",
-    "We",
-    " ",
-    "create",
-    " ",
-    "ideas",
-    " ",
-    "that",
-    " ",
-    "move",
-    " ",
-    "people",
-    " ",
-    "and",
-    " ",
-    "markets.",
-  ],
+const dotLabels = [
+  "Built to Disrupt the Ordinary", // for slide 1
+  "A Task Force, Not a Team",      // for slide 2
+  "Move Ahead of the Market",      // for slide 3
 ];
 
 const Feature = () => {
@@ -96,6 +39,7 @@ const Feature = () => {
   const counterSecRef = useRef(null);
   const imageContentRef = useRef(null);
   const lastSlideRef = useRef(null);
+  const [dotCount, setDotCount] = useState(0);
   
   
   const [counts, setCounts] = useState({
@@ -114,6 +58,15 @@ const Feature = () => {
       const circle = circleRef.current;
       const timeline = timelineRef.current; 
       
+      if (!section) return;
+
+
+      // 👉 Calculate slides for dots (all children except counterSecRef)
+      const slidesForDots = Array.from(section.children).filter((child)=>child !== counterSec)
+
+      setDotCount(slidesForDots.length); // dynamically set number of dots
+      
+      
 
       const slides = [
         section.children[0],        // Slide 1
@@ -122,8 +75,13 @@ const Feature = () => {
       ];
   
       const imageSets = pinned.children; // 3 divs with absolute images
-  
+
       const getMaxX = () => section.scrollWidth - window.innerWidth;
+
+      const slidesScrollDistance =
+        counterSec && counterSec.offsetLeft
+        ? counterSec.offsetLeft
+        : getMaxX();
   
       // INITIAL STATE
       // gsap.set(imageSets, { clipPath: "inset(100% -100% 0 0)", opacity: 1 });
@@ -142,117 +100,129 @@ const Feature = () => {
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            slides.forEach((slide, index) => {
-              if (!slide) return;
-              const rect = slide.getBoundingClientRect();
-              const lastRect = lastSlide.getBoundingClientRect();
-              const counterSecRect = counterSec.getBoundingClientRect();
-
-              const vw = window.innerWidth;
-              const triggerPoint = vw * 0.70; // Start reveal at 70% from left
-              const counterTriggerPoint = vw * 0.50; // Start reveal at 70% from left
-              const lastSlidePoint = "-250";
+            // Each slide fills a segment of the bar AFTER the base 25%
+            var basePercent = 25;               // base at 70% line
+            var segmentSizes = [25, 25, 25];    // 3 slides → 25% each
           
-              let progress = 0;
+            var slideProgresses = [0, 0, 0];    // store per-slide progress
+          
+            // Common values
+            var lastRect = lastSlide.getBoundingClientRect();
+            var counterSecRect = counterSec.getBoundingClientRect();
+            var vw = window.innerWidth;
+            var triggerPoint = vw * 0.7;        // 70% from left
+            var counterTriggerPoint = vw * 0.5;
+            var lastSlidePoint = -250;
+          
+            // -------- PER-SLIDE PROGRESS, IMAGE REVEAL, ETC. --------
+            slides.forEach(function (slide, index) {
+              if (!slide) return;
+          
+              var rect = slide.getBoundingClientRect();
+          
+              // Local progress for this slide based on 70% line
+              var progress = 0;
               if (rect.left <= triggerPoint && rect.left >= 0) {
-                progress = 1 - (rect.left / triggerPoint); // 0 → 1 as it approaches 70%
+                // from 70% → 0% of viewport
+                progress = 1 - rect.left / triggerPoint; // 0 → 1
               } else if (rect.left < 0) {
                 progress = 1;
               }
               progress = gsap.utils.clamp(0, 1, progress);
-
-              // Update the timeline fill width based on the scroll progress
-              gsap.to(timeline, {
-                width: `${progress * 100}%`, // Animate the timeline fill
-                ease: "power2.out",
-              });
-
-              // Update the dots at specific points (e.g., every 20%)
-              dotsRef.current.forEach((dot, index) => {
-                if (progress >= index * 0.2) { // Update every 20% scroll progress
-                  gsap.to(dot, {
-                    scale: 1.2, // Increase size of dot
-                    color: "#4CAF50", // Change color to indicate progress
-                    duration: 0.5,
-                  });
-                }
-              });
+              slideProgresses[index] = progress;
           
-              const targetSet = imageSets[index];
-              const prevIndex = index === 0 ? imageSets.length - 1 : index - 1;
-              const nextIndex = index === imageSets.length - 1 ? 0 : index + 1;
+              // IMAGE CLIP REVEAL PER SLIDE (your existing logic)
+              var targetSet = imageSets[index];
+              var prevIndex = index === 0 ? imageSets.length - 1 : index - 1;
           
-              // Clip-path reveal from top to bottom
-              gsap.set(targetSet, {
-                clipPath: `inset(0% 0% 0% 0%)`,
-                zIndex: index === 0 ? 3 : index === 1 ? 2 : 1, // Optional: stack order
-              });
-
-              // Update clipPath for previous image (reversing)
-              gsap.set(imageSets[prevIndex], {
-                clipPath: `inset(${progress * 300}% 0% 0% 0%)`, // Reverse direction
-                zIndex: prevIndex === 0 ? 3 : prevIndex === 1 ? 2 : 1, // Adjust z-index if needed
-              });
- 
-             
-          
-              // Hide all others when this one is revealing
-              // if (progress > 0.01) {
-              //   for (let i = 0; i < imageSets.length; i++) {
-              //     if (i !== index) {
-              //       gsap.set(imageSets[i], { clipPath: "inset(100% -100% 0 0)" });
-              //     }
-              //   }
-              // }
-          
-              // Adjust pinned element scroll position
-              if (lastRect.left <= lastSlidePoint) {
-                // Calculate scroll progress based on how far the last slide has moved
-                const distanceToScroll = lastSlidePoint - lastRect.left; // Adjust based on your needs
-          
-                // Dynamically set the `x` position for the pinned element to scroll left
-                gsap.set(pinned, {
-                  x: `-${distanceToScroll}px`, // Adjust for scroll effect
-                  overwrite: true,
+              if (targetSet) {
+                gsap.set(targetSet, {
+                  clipPath: "inset(0% 0% 0% 0%)",
+                  zIndex: index === 0 ? 3 : index === 1 ? 2 : 1,
                 });
               }
-
-              console.log(counterSecRect.left, counterTriggerPoint);
-              if (counterSecRect.left <= counterTriggerPoint) { // isActive prevents re-trigger
-                // Mark that we've already animated
-                // self.isActive = true;
-  
-                // Animate the yellow circle
-                gsap.to(circleRef.current, {
-                  scale: 1,
-                  opacity: 1,
-                  duration: 1.4,
-                  ease: "power4.out",
-                  transformOrigin: "center center",
-                });
-  
-                // Animate dashed lines growing in
-                gsap.to(lineRef.current, {
-                  width: "100%",
-                  duration: 1.6,
-                  ease: "power3.out",
-                  delay: 0.3,
-                });
-  
-                // Optional: Animate counters
-                gsap.to(counts, {
-                  projects: 1500,
-                  googleQueries: 50,
-                  facebookQueries: 1000,
-                  duration: 2.8,
-                  ease: "power2.out",
-                  snap: { projects: 1, googleQueries: 10, facebookQueries: 10 },
-                  onUpdate: () => setCounts({ ...counts }),
-                  delay: 0.6,
+          
+              var prevSet = imageSets[prevIndex];
+              if (prevSet) {
+                gsap.set(prevSet, {
+                  clipPath: "inset(" + progress * 300 + "% 0% 0% 0%)",
+                  zIndex: prevIndex === 0 ? 3 : prevIndex === 1 ? 2 : 1,
                 });
               }
             });
+          
+            // -------- TIMELINE WIDTH FROM SLIDE PROGRESS --------
+            // Start with base 25%, then add each slide's contribution
+            var timelineWidth = basePercent;
+          
+            slideProgresses.forEach(function (p, idx) {
+              var seg = segmentSizes[idx] || 0;
+              timelineWidth += p * seg; // add partial fill of that segment
+            });
+          
+            // Clamp just in case
+            timelineWidth = Math.min(100, Math.max(0, timelineWidth));
+          
+            gsap.to(timeline, {
+              width: timelineWidth + "%",
+              ease: "power2.out",
+            });
+          
+            // -------- DOTS STATE FROM SLIDE PROGRESS --------
+            // Dot i becomes active as soon as slide i has some progress
+            dotsRef.current.forEach(function (dot, idx) {
+              if (!dot) return;
+              var active = slideProgresses[idx] > 0.01;
+          
+              gsap.to(dot, {
+                scale: active ? 1.2 : 1,
+                backgroundColor: active ? "#2aaee4" : "#777679",
+                duration: 0.3,
+              });
+            });
+          
+            // -------- PINNED IMAGE X SCROLL (unchanged) --------
+            if (lastRect.left <= lastSlidePoint) {
+              var distanceToScroll = lastSlidePoint - lastRect.left;
+          
+              gsap.set(pinned, {
+                x: "-" + distanceToScroll + "px",
+                overwrite: true,
+              });
+            }
+          
+            // -------- COUNTER + CIRCLE ANIMATIONS (unchanged) --------
+            if (counterSecRect.left <= counterTriggerPoint) {
+              gsap.to(circleRef.current, {
+                scale: 1,
+                opacity: 1,
+                duration: 1.4,
+                ease: "power4.out",
+                transformOrigin: "center center",
+              });
+          
+              gsap.to(lineRef.current, {
+                width: "100%",
+                duration: 1.6,
+                ease: "power3.out",
+                delay: 0.3,
+              });
+          
+              gsap.to(counts, {
+                projects: 1500,
+                googleQueries: 50,
+                facebookQueries: 1000,
+                duration: 2.8,
+                ease: "power2.out",
+                snap: { projects: 1, googleQueries: 10, facebookQueries: 10 },
+                onUpdate: function () {
+                  setCounts({ ...counts });
+                },
+                delay: 0.6,
+              });
+            }
           }
+          
           
         },
       });
@@ -282,25 +252,48 @@ const Feature = () => {
     return () => ctx.revert();
   }, []);
 
+  
+
+  useEffect(() => {
+    if (dotsRef.current[0]) {
+      gsap.set(dotsRef.current[0], {
+        scale: 1.2,
+        backgroundColor: "#4CAF50",
+      });
+    }
+  }, [dotCount]);
+
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container relative">
 
         {/* Timeline Bar */}
-        <div ref={timelineRef} className="relative w-full h-1 bg-gray-300 mt-10">
+        <div className="absolute w-full h-[3px] bg-gray-300 bottom-[40px]">
           {/* Timeline fill */}
-          <div className="absolute top-[30px] left-0 h-full bg-blue-600" style={{ width: "0%" }} />
+          <div className="absolute left-0 w-full h-full bg-black-200"></div>
+          <div ref={timelineRef} className="absolute left-0 h-full bg-[#2aaee4]" style={{ width: "0%" }} />
         </div>
 
         {/* Dots on Timeline */}
-        <div className="absolute top-[30px] left-0 w-full h-full flex justify-between">
-          {Array.from({ length: 5 }).map((_, index) => (
+        <div className="absolute pointer-events-none w-full bottom-[35px]  flex items-center justify-evenly">
+          {Array.from({ length: dotCount || 0 }).map((_, index) => (
             <div
               key={index}
-              ref={(el) => (dotsRef.current[index] = el)}
-              className="w-4 h-4 rounded-full bg-blue-500"
-              style={{ top: "50%", transform: "translateY(-50%)" }}
-            />
+              className="flex flex-col items-center gap-2 pointer-events-none"
+            >
+              <div
+                key={index}
+                ref={(el) => (dotsRef.current[index] = el)}
+                className="w-[10px] h-[10px] rounded-full bg-black-200"
+              />
+
+              {/* Label */}
+              <span className="absolute bottom-[20px] text-[14px] leading-tight text-gray-700 text-center px-2">
+                {dotLabels[index] || `Stage ${index + 1}`}
+              </span>
+
+            </div>
+            
           ))}
         </div>
 
