@@ -58,30 +58,34 @@ const Feature = () => {
       const circle = circleRef.current;
       const timeline = timelineRef.current; 
       
-      if (!section) return;
+      if (!section || !pinned) return;
 
+      // All slides that should drive timeline/dots/images
+      // = all section children except the counter section
+      const slides = Array.from(section.children).filter(function (child) {
+        return child !== counterSec;
+      });
 
-      // 👉 Calculate slides for dots (all children except counterSecRef)
-      const slidesForDots = Array.from(section.children).filter((child)=>child !== counterSec)
+      // Number of dots = number of slides
+      setDotCount(slides.length);
 
-      setDotCount(slidesForDots.length); // dynamically set number of dots
-      
-      
+      // All image layers inside pinned image container
+      const imageSets = pinned.children;
 
-      const slides = [
-        section.children[0],        // Slide 1
-        imageContentRef.current,    // Slide 2 (your ref)
-        section.children[2],        // Slide 3
-      ];
-  
-      const imageSets = pinned.children; // 3 divs with absolute images
-
+      // Horizontal scroll distance
       const getMaxX = () => section.scrollWidth - window.innerWidth;
 
-      const slidesScrollDistance =
-        counterSec && counterSec.offsetLeft
-        ? counterSec.offsetLeft
-        : getMaxX();
+      // DYNAMIC BASE PERCENT (100 / (slides + 1))
+      const slidesLen = slides.length;
+      const basePercent = slidesLen > 0 ? 100 / (slidesLen + 1) : 0;
+      // Each slide gets one equal segment
+      const segmentSize = slidesLen > 0 ? (100 - basePercent) / slidesLen : 0;
+
+      // Set initial timeline fill on load (e.g. 16.66% for 5 slides)
+      gsap.set(timeline, {
+        width: basePercent + "%",
+      });
+
   
       // INITIAL STATE
       // gsap.set(imageSets, { clipPath: "inset(100% -100% 0 0)", opacity: 1 });
@@ -100,15 +104,14 @@ const Feature = () => {
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            // Each slide fills a segment of the bar AFTER the base 25%
-            var basePercent = 25;               // base at 70% line
-            var segmentSizes = [25, 25, 25];    // 3 slides → 25% each
-          
-            var slideProgresses = [0, 0, 0];    // store per-slide progress
+            // Base + dynamic segments based on number of slides
+            var slideProgresses = new Array(slidesLen).fill(0);
           
             // Common values
-            var lastRect = lastSlide.getBoundingClientRect();
-            var counterSecRect = counterSec.getBoundingClientRect();
+            var lastRect = lastSlide ? lastSlide.getBoundingClientRect() : null;
+            var counterSecRect = counterSec
+              ? counterSec.getBoundingClientRect()
+              : { left: Infinity };
             var vw = window.innerWidth;
             var triggerPoint = vw * 0.7;        // 70% from left
             var counterTriggerPoint = vw * 0.5;
@@ -131,14 +134,15 @@ const Feature = () => {
               progress = gsap.utils.clamp(0, 1, progress);
               slideProgresses[index] = progress;
           
-              // IMAGE CLIP REVEAL PER SLIDE (your existing logic)
+              // IMAGE CLIP REVEAL PER SLIDE
               var targetSet = imageSets[index];
-              var prevIndex = index === 0 ? imageSets.length - 1 : index - 1;
+              var prevIndex =
+                index === 0 ? imageSets.length - 1 : index - 1;
           
               if (targetSet) {
                 gsap.set(targetSet, {
                   clipPath: "inset(0% 0% 0% 0%)",
-                  zIndex: index === 0 ? 3 : index === 1 ? 2 : 1,
+                  zIndex: index === 0 ? 5 : index === 1 ? 4 : index === 2 ? 3 : index === 3 ? 2 : 1,
                 });
               }
           
@@ -146,30 +150,27 @@ const Feature = () => {
               if (prevSet) {
                 gsap.set(prevSet, {
                   clipPath: "inset(" + progress * 300 + "% 0% 0% 0%)",
-                  zIndex: prevIndex === 0 ? 3 : prevIndex === 1 ? 2 : 1,
+                  zIndex: prevIndex === 0 ? 5 : prevIndex === 1 ? 4 : prevIndex === 2 ? 3 : prevIndex === 3 ? 2 : 1,
                 });
               }
             });
           
             // -------- TIMELINE WIDTH FROM SLIDE PROGRESS --------
-            // Start with base 25%, then add each slide's contribution
+            // 25% base + equal share for each slide
             var timelineWidth = basePercent;
           
-            slideProgresses.forEach(function (p, idx) {
-              var seg = segmentSizes[idx] || 0;
-              timelineWidth += p * seg; // add partial fill of that segment
+            slideProgresses.forEach(function (p) {
+              timelineWidth += p * segmentSize;
             });
-          
-            // Clamp just in case
+            
             timelineWidth = Math.min(100, Math.max(0, timelineWidth));
-          
+            
             gsap.to(timeline, {
               width: timelineWidth + "%",
               ease: "power2.out",
             });
           
             // -------- DOTS STATE FROM SLIDE PROGRESS --------
-            // Dot i becomes active as soon as slide i has some progress
             dotsRef.current.forEach(function (dot, idx) {
               if (!dot) return;
               var active = slideProgresses[idx] > 0.01;
@@ -182,7 +183,7 @@ const Feature = () => {
             });
           
             // -------- PINNED IMAGE X SCROLL (unchanged) --------
-            if (lastRect.left <= lastSlidePoint) {
+            if (lastRect && lastRect.left <= lastSlidePoint) {
               var distanceToScroll = lastSlidePoint - lastRect.left;
           
               gsap.set(pinned, {
@@ -222,6 +223,7 @@ const Feature = () => {
               });
             }
           }
+          
           
           
         },
@@ -311,7 +313,7 @@ const Feature = () => {
           <div className="absolute left-0 top-0 h-full w-full">
             <div className="relative flex">
               <img
-                ref={(el) => (imagesRef.current[2] = el)}
+                ref={(el) => (imagesRef.current[0] = el)}
                 className="object-contain relative inline-block z-[1] w-[500px]"
                 src="/assets/home/who_we_are/creative1.webp"
                 alt="GTF Technologies office environment"
@@ -323,7 +325,7 @@ const Feature = () => {
           <div className="absolute left-0 top-0 h-full w-full">
             <div className="relative flex">
             <img
-                ref={(el) => (imagesRef.current[2] = el)}
+                ref={(el) => (imagesRef.current[1] = el)}
                 className="object-contain relative inline-block z-[1] w-[500px]"
                 src="/assets/home/who_we_are/creative2.webp"
                 alt="GTF Technologies office environment"
@@ -335,6 +337,29 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[2] = el)}
+                className="object-contain relative inline-block z-[1] w-[500px]"
+                src="/assets/home/who_we_are/creative1.webp"
+                alt="GTF Technologies office environment"
+              />
+            </div>
+          </div>
+
+          <div className="absolute left-0 top-0 h-full w-full">
+            <div className="relative flex">
+            <img
+                ref={(el) => (imagesRef.current[1] = el)}
+                className="object-contain relative inline-block z-[1] w-[500px]"
+                src="/assets/home/who_we_are/creative2.webp"
+                alt="GTF Technologies office environment"
+              />
+              
+            </div>
+          </div>
+
+          <div className="absolute left-0 top-0 h-full w-full">
+            <div className="relative flex">
+            <img
+                ref={(el) => (imagesRef.current[4] = el)}
                 className="object-contain relative inline-block z-[1] w-[500px]"
                 src="/assets/home/who_we_are/creative1.webp"
                 alt="GTF Technologies office environment"
@@ -360,6 +385,34 @@ const Feature = () => {
                 <h3 className="montserrrat uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                   Built to Disrupt <span className="block">the Ordinary</span>
                 </h3>
+              </div>
+            </div>
+
+            <div
+              ref={imageContentRef}
+              className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
+            >
+              <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                  Not a Team.{" "}
+                  <span className="block text-[50px] uppercase font-bold">
+                    A task force{" "}
+                  </span>
+                </h5>
+              </div>
+            </div>
+
+            <div
+              ref={imageContentRef}
+              className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
+            >
+              <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <h5 className="montserrat text-[34px] mb-[1rem] font-[600]">
+                  Not a Team.{" "}
+                  <span className="block text-[50px] uppercase font-bold">
+                    A task force{" "}
+                  </span>
+                </h5>
               </div>
             </div>
 
