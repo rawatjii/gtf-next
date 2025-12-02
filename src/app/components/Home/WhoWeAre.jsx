@@ -1,10 +1,8 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { MdArrowOutward } from "react-icons/md";
-import Line from "../Line";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -61,7 +59,7 @@ const lines = [
       word: "ideas",
       className: "highlightWord word_underline",
       sibling: null,
-      imgClass: "!h-[170%] !top-[-40%]",
+      imgClass: "!h-[170%] !top-[-20%]",
     },
     " ",
     "that",
@@ -80,33 +78,19 @@ const WhoWeAre = () => {
   const textRef = useRef([]);
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
-  const imagesRef = useRef([]);
   const headingRef = useRef(null);
   const mainHeadingRef = useRef(null);
   const mainContentRef = useRef(null);
 
   const overviewData = useRef(null);
-  const backgroundColorRef = useRef(null);
-  const imageSectionRef = useRef(null);
-  const otherSectionRef = useRef(null);
   const svgRefs = useRef([]);
-  const pinImageRef = useRef(null);
-
   const circleRef = useRef(null);
   const lineRef = useRef(null);
-  const coloredLineRef = useRef(null);
-  const counterRef = useRef(null);
   const underlineRef = useRef(null);
-  const [counts, setCounts] = useState({
-    projects: 0,
-    googleQueries: 0,
-    facebookQueries: 0,
-  });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const container = containerRef.current;
-      const section = sectionRef.current;
       const circle = circleRef.current;
       const underline = underlineRef.current;
 
@@ -123,20 +107,10 @@ const WhoWeAre = () => {
         transformOrigin: "center center",
       });
 
-      // First ScrollTrigger for Heading and Text Animation at 50%
-      const headingTimeline = gsap.timeline({
-        scrollTrigger: {
-          id: "headingAnimation",
-          trigger: container,
-          start: "top 50%",  // Trigger at 50% from the top
-          end: "top 0%",
-          scrub: false,
-          markers: false,
-          toggleActions: "play none none none",
-        },
-      });
+      // Animation for Heading and Text
+      const whoWeAreTimeline = gsap.timeline({ paused: true });
 
-      headingTimeline.to(mainHeadingRef.current, {
+      whoWeAreTimeline.to(mainHeadingRef.current, {
         fontSize: "80px",
         left: 0,
         x: 0,
@@ -144,84 +118,93 @@ const WhoWeAre = () => {
         ease: "power3.out",
       });
 
-      headingTimeline.to(mainContentRef.current, { marginTop: 0, duration: 0.2 });
-      headingTimeline.to(overviewData.current, { height: "auto", duration: 0.8 });
-      headingTimeline.to(chars, {
+      whoWeAreTimeline.to(mainContentRef.current, {
+        marginTop: 0,
+        duration: 0.2,
+      });
+      whoWeAreTimeline.to(overviewData.current, {
+        height: "auto",
+        duration: 0.8,
+      });
+      whoWeAreTimeline.to(chars, {
         y: 0,
         opacity: 0.2,
         duration: 0.6,
         ease: "power2.out",
       });
 
-      headingTimeline.to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 });
-      headingTimeline.to(underline, { opacity: 1, width: "100%", duration: 0.8 });
-
-      headingTimeline.to(chars, {
+      whoWeAreTimeline.to(svgRefs.current, {
         opacity: 1,
-        duration: 1.6,
-        stagger: 0.03,
-        ease: "power2.out",
-      }, "-=0.2");
+        stagger: 0.1,
+        duration: 0.8,
+      });
+      whoWeAreTimeline.to(underline, {
+        opacity: 1,
+        width: "100%",
+        duration: 0.8,
+      });
+
+      whoWeAreTimeline.to(
+        chars,
+        {
+          opacity: 1,
+          duration: 1.6,
+          stagger: 0.03,
+          ease: "power2.out",
+        },
+        "-=0.2"
+      );
+
+      // First ScrollTrigger for Heading and Text Animation at 50%
+      ScrollTrigger.create({
+        id: "whoWeAreAnim",
+        trigger: container,
+        start: "top 50%", // Trigger at 50% from the top
+        once: true, // Play only once
+        onEnter: () => {
+          whoWeAreTimeline.play();
+        },
+      });
 
       // Second ScrollTrigger for Pinning at 0% from the top
       ScrollTrigger.create({
+        id: "whoWeArePin",
         trigger: container,
-        start: "top top", // Start pinning when the top of the container reaches the top of the viewport
-        end: "+=1500", // Pin for 1500px after the start
+        start: "top top", // Pin section when the top of container reaches the top of the viewport
+        end: "+=1500", // Stay pinned for 1500px scroll distance
         pin: true, // Pin the section
-        pinSpacing: true, // Avoid additional space when pinning
-        scrub: true, // Synchronize with scroll
-        markers: false,
+        pinSpacing: true, // Allow space for the pinned section
+        scrub: false, // Time-based animation, not scrub
+        anticipatePin: 1,
+        markers: false, // Disable markers
+        invalidateOnRefresh: true, // Force recalculation on window resize or refresh
         onEnter: () => {
-          // Optional: Add any logic when the pin is triggered
+          // Apply the transform-based pinning to avoid top/left shift
+          gsap.set(container, { 
+            transform: "translate3d(0, 0, 0)", // Use transform instead of top/left
+          });
         },
         onLeaveBack: () => {
-          // Optional: Add any logic when the section unpins
-        }, 
+          // Optionally add logic when the section unpins (e.g., revert styles or actions)
+        },
       });
-
-    }, containerRef);
+    });
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="w-full relative mix-blend-multiply overflow-hidden">
-      <div ref={containerRef} className="pin-container">
-        <div className="flex flex-row h-screen main-container-scroll no-scrollbar relative">
-          <div ref={sectionRef} className="main-container-scroll no-scrollbar flex h-screen will-change-transform">
-            <div className="first_slide flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
-              <div className="grid items-center grid-cols-12 gap-[40px]">
-                <div ref={mainContentRef} className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh]">
-                  <h2 ref={mainHeadingRef} className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block leading-[150px]">
-                    Who We Are?
-                  </h2>
-                  <div ref={overviewData} className="flex flex-col items-center space-y-2 gap-[25px]">
-                    {lines.map((line, lineIndex) => (
-                      <div key={lineIndex} ref={(el) => (textRef.current[lineIndex] = el)} className="flex flex-wrap justify-left text-left">
-                        {line.map((word, wordIndex) =>
-                          typeof word === "string" ? (
-                            <span key={wordIndex} className="montserrat font-medium pr-[8px] 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left">
-                              {word}
-                            </span>
-                          ) : (
-                            <span key={wordIndex} className={`relative montserrat font-medium 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left`}>
-                              {word.word}
-                              {word.sibling ? (
-                                <img ref={(el) => (svgRefs.current[wordIndex] = el)} src={word.sibling} className={`absolute w-full h-full inset-0 ${word.imgClass}`} style={{ opacity: "0" }} />
-                              ) : (
-                                <span ref={underlineRef} className="line absolute h-[4px] w-full bg-[#fff] left-0 bottom-[15px]" style={{ width: 0, opacity: 0 }}></span>
-                              )}
-                            </span>
-                          )
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <section className="w-full relative overflow-hidden">
+      <div ref={containerRef} className="relative">
+        <div
+          className="relative"
+        >
+          <h2
+            ref={mainHeadingRef}
+            className="relative mb-[30px] uppercase baskervville_font tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px]"
+          >
+            Who We Are?
+          </h2>
         </div>
       </div>
     </section>

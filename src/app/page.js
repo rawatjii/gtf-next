@@ -18,9 +18,10 @@ const Home = () => {
 
   return (
     <div>
-      <HeroSection />
+      {/* <HeroSection /> */}
+      <div className="h-screen bg-[#ccc]">hello</div>
       {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
-      <Feature />
+      {/* <Feature /> */}
       {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
       {/* <Expertise /> */}
       <OurWorkNew />
