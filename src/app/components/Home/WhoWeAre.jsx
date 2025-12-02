@@ -60,8 +60,8 @@ const lines = [
     {
       word: "ideas",
       className: "highlightWord word_underline",
-      sibling: "/assets/home/who_we_are/line2.png",
-      imgClass: "!h-[auto] !top-[unset]",
+      sibling: null,
+      imgClass: "!h-[170%] !top-[-20%]",
     },
     " ",
     "that",
