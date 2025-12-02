@@ -272,12 +272,11 @@ const HeroSection = () => {
 
     // startCounters();
 
-    gsap.delayedCall(3.5, () => {
+    gsap.delayedCall(5.5, () => {
       if (!zoomTextRef.current || !bgZoomColorRef.current) return;
 
       zoomTl.to(zoomTextRef.current, {
-        scale: 10,
-        y: "-200px",
+        scale: 25,
         ease: "none",
       });
 
@@ -580,7 +579,7 @@ const HeroSection = () => {
       {/* <div ref={bgZoomColorRef} className="bg_color_zoom bg-[#e24397] absolute h-full w-0 left-0 top-0 z-[9]"
     ></div> */}
 
-      <div ref={sectionRef} className="h-screen hide_screen z-[999]">
+      <div ref={sectionRef} className="h-screen hide_screen">
         {/* {mounted && !videoCompleted && ( */}
         <div className="video_container !absolute top-0 left-0 w-full h-screen z-[9]">
           <video
@@ -637,7 +636,7 @@ const HeroSection = () => {
       <div className="relative md:pt-0 z-[4] mt-[80px]">
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[50px] font-bold text-global-color tracking-[0.5px] baskervville_font "
+          className="text-center text-[50px] font-bold text-global-color tracking-[0.5px] meno_font"
           spanClass=""
         />
 

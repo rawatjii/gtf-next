@@ -226,7 +226,7 @@ const WhoWeAre = () => {
   }, []);
 
   return (
-    <section className="w-full relative mt-[-100px]">
+    <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container">
         <div className="flex flex-row h-screen  main-container-scroll no-scrollbar relative">
           <div
@@ -247,7 +247,7 @@ const WhoWeAre = () => {
                 >
                   <h2
                     ref={mainHeadingRef}
-                    className="relative mb-[30px] uppercase baskervville_font tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px]"
+                    className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block leading-[150px]"
                   >
                     {/* left-[50%] -translate-x-1/2 */}
                     Who We Are?
