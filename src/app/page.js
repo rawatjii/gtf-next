@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <div>
       <HeroSection />
-      {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre />} */}
+      {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
       <Feature />
       {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
       {/* <Expertise /> */}
