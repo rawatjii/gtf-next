@@ -26,7 +26,7 @@ const lines = [
     " ",
     {
       word: "Made-in-India",
-      className: "highlightWord",
+      className: "highlightWord !font-bold",
       sibling: "/assets/home/who_we_are/line.png",
       imgClass: "!h-[170%] !top-[-40%]",
     },
@@ -57,7 +57,7 @@ const lines = [
     " ",
     {
       word: "ideas",
-      className: "highlightWord word_underline",
+      className: "highlightWord !font-bold",
       sibling: "/assets/home/who_we_are/line2.png",
       imgClass: "!h-[auto] !top-[unset] !bottom-0",
     },
@@ -193,7 +193,7 @@ const WhoWeAre = () => {
           id: "whoWeAreTrigger",
           trigger: container,
           start: "top top",
-          end: () => `+=1500`,
+          end: () => `+=500`,
           pin: true,
           markers: false,
           scrub: 1,
@@ -224,24 +224,24 @@ const WhoWeAre = () => {
             }}
           >
             {/* bg-gtf-pink */}
-            <div className="first_slide flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
+            <div className="first_slide flex flex-row justify-between h-full bg-[#000] min-w-[100vw]">
               <div className="grid items-center grid-cols-12 gap-[40px]">
                 <div
                   ref={mainContentRef}
-                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh]"
+                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh] text-white"
                 >
                   <h2
                     ref={mainHeadingRef}
-                    className="relative mb-[30px] uppercase baskervville_font tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px]"
+                    className="relative mb-[30px]  futuru_font font-bold tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px]"
                   >
                     {/* left-[50%] -translate-x-1/2 */}
-                    Who We Are?
+                    Who We Are<span className="text-[#fdda39]">?</span>
                   </h2>
 
                   <div className="relative mx-auto">
                     <div
                       ref={overviewData}
-                      className="flex flex-col items-center space-y-2 gap-[25px]"
+                      className="flex flex-col items-center space-y-2 gap-[25px] just_font"
                     >
                       {lines.map((line, lineIndex) => (
                         <div
@@ -253,14 +253,14 @@ const WhoWeAre = () => {
                             typeof word === "string" ? (
                               <span
                                 key={wordIndex}
-                                className="montserrat font-medium pr-[8px] 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px]  text-[32px] inline-block text-left"
+                                className="just_font font-regular pr-[8px] 2xl:leading-[1.4] 2xl:text-[60px]  text-[28px] inline-block text-left"
                               >
                                 {word}
                               </span>
                             ) : (
                               <span
                                 key={wordIndex}
-                                className={`relative montserrat font-medium 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left`}
+                                className={`relative just_font font-regular 2xl:leading-[1.4] 2xl:text-[60px] text-[28px] inline-block text-left ${word.className}`}
                               >
                                 {word.word}
                                 {word.sibling ? (

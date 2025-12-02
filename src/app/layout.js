@@ -81,7 +81,7 @@ export default function RootLayout({ children }) {
       ></link>
 
       <body>
-        <MainLoader />
+        {/* <MainLoader /> */}
 
         <div id="smooth-wrapper" ref={wrapperRef}>
           <div id="smooth-content" ref={contentRef}>

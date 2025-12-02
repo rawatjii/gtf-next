@@ -8,7 +8,7 @@ const SlideTxtAn = forwardRef(({ className, spanClass }, ref) => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const words = ['Marketing', 'Branding', 'Creative', 'Digital'];
-      const colors = ['#e24397', '#fde93d', '#2aaee4', '#fde93d']; // 4 colors to match 4 words
+      const colors = ['#e24397', '#fdda39', '#2aaee4', '#fdda39']; // 4 colors to match 4 words
 
       // Initial state
       if (textRef.current) {

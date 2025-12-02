@@ -67,12 +67,71 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Futuru";
+  src: url("/fonts/futuru/WOFF/Futuru-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futuru";
+  src: url("/fonts/futuru/WOFF/Futuru-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futuru";
+  src: url("/fonts/futuru/WOFF/Futuru-Semibold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Futuru";
+  src: url("/fonts/futuru/WOFF/Futuru-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "JUST";
+  src: url("/fonts/just-sans/OTF/JUST-Sans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JUST";
+  src: url("/fonts/just-sans/OTF/JUST-Sans-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JUST";
+  src: url("/fonts/just-sans/OTF/JUST-Sans-SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JUST";
+  src: url("/fonts/just-sans/OTF/JUST-Sans-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
   --meno_font:"MenoBanner";
   --baskervville_font:"Baskervville", serif;
+  --futuru_font:"Futuru";
+  --just_font:"JUST";
 }
 
 
@@ -92,6 +151,14 @@ html {
 
 .baskervville_font{
   font-family: var(--baskervville_font);
+}
+
+.futuru_font{
+  font-family: var(--futuru_font);
+}
+
+.just_font{
+  font-family: var(--just_font);
 }
 
 @layer utilities {

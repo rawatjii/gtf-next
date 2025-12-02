@@ -32,7 +32,7 @@ const debounce = (func, wait) => {
 
 const data = ["300 Minds", "06 LOCATIONS", "One Team"];
 
-const colors = ["#2aaee4", "#fde93d", "#e24397"];
+const colors = ["#2aaee4", "#fdda39", "#e24397"];
 
 const HeroSection = () => {
   const [swiperReady, setSwiperReady] = useState(false);
@@ -556,7 +556,7 @@ const HeroSection = () => {
   return (
     <section
       ref={mainSectionRef}
-      className={`relative hero_section overflow-hidden h-screen bg-[#faf9f6] pb-0 ${
+      className={`relative hero_section overflow-hidden h-screen bg-[#fff] pb-0 ${
         videoCompleted ? "md:px-[50px]" : "md:px-0"
       }`}
     >
@@ -566,7 +566,7 @@ const HeroSection = () => {
         id="rotating-pink-glow"
         style={{
           background: `linear-gradient(90deg,
-          #e24397 10%,
+          rgba(0 0 0 / 0.8) 10%,
             transparent 50%,
             transparent 70%,
             transparent 100%
@@ -637,7 +637,7 @@ const HeroSection = () => {
       <div className="relative md:pt-0 z-[4] mt-[80px]">
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[50px] font-bold text-global-color tracking-[0.5px] baskervville_font "
+          className="text-center text-[40px] font-bold text-global-color tracking-[4px] futuru_font "
           spanClass=""
         />
 
@@ -653,7 +653,7 @@ const HeroSection = () => {
 
           <div
             ref={dataRef}
-            className="absolute content grid gap-[30px] opacity-0"
+            className="absolute content flex items-center opacity-0"
           >
             {data.map((item, index) => {
               const match = item.match(/^(\d+)\s*(.+)?$/); // Extract number + suffix
@@ -662,49 +662,54 @@ const HeroSection = () => {
               const suffix = match && match[2] ? match[2].trim() : item; // "Minds", "Locations", or full "One Team"
 
               return (
-                <h3
-                  key={index}
-                  ref={index === 2 ? zoomTextRef : null}
-                  className={`text-[140px] uppercase bartino leading-[100px] text-center tracking-[10px] font-bold text-[#000] ${
-                    index === 2 ? "z-[9]" : undefined
-                  }`}
-                  style={{ color: colors[index] }}
-                >
-                  {hasNumber ? (
-                    <div className="relative">
-                      <span
-                        ref={(el) => (countersRef.current[index] = el)}
-                        className="counter inline-block"
-                        data-target={numberValue}
-                      >
-                        00
-                      </span>
-                      <span className="ml-4 suffix transition-opacity">
-                        {suffix}
-                      </span>
-                      {/* {index === 2 && 
-                        (
-                          <span ref={bgZoomColorRef} className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[47%] translate-x-[-50%] block"
-                            // style={{
-                            //   opacity:0,
-                            // }}
-                          ></span>
-                        )
-                      } */}
-                    </div>
-                  ) : (
-                    <div className="relative">
-                      <span className="text-only inline-block translate-y-10">
-                        {suffix}
-                      </span>
+                <>
+                  <h3
+                    key={index}
+                    ref={index === 2 ? zoomTextRef : null}
+                    className={`text-[80px] uppercase bartino leading-[100px] text-center tracking-[5px] font-bold text-[#000] ${
+                      index === 2 ? "z-[9]" : undefined
+                    }`}
+                    style={{ color: colors[index] }}
+                  >
+                    {hasNumber ? (
+                      <div className="relative">
+                        <span
+                          ref={(el) => (countersRef.current[index] = el)}
+                          className="counter"
+                          data-target={numberValue}
+                        >
+                          00
+                        </span>
+                        <span className="ml-4 suffix transition-opacity">
+                          {suffix}
+                        </span>
+                        {/* {index === 2 && 
+                          (
+                            <span ref={bgZoomColorRef} className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[47%] translate-x-[-50%] block"
+                              // style={{
+                              //   opacity:0,
+                              // }}
+                            ></span>
+                          )
+                        } */}
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <span className="text-only translate-y-10">
+                          {suffix}
+                        </span>
 
-                      <span
-                        ref={bgZoomColorRef}
-                        className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[50%] translate-x-[-50%] block"
-                      ></span>
-                    </div>
+                        <span
+                          ref={bgZoomColorRef}
+                          className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[50%] translate-x-[-50%] block"
+                        ></span>
+                      </div>
+                    )}
+                  </h3>
+                  {index < data.length - 1 && (
+                    <span class="divider h-[13px] w-[13px] bg-[#333] inline-block mx-[30px]"></span>
                   )}
-                </h3>
+                </>
               );
             })}
           </div>

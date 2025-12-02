@@ -140,7 +140,7 @@ const OurWork = () => {
   }, [])
 
   return (
-    <section ref={sectionRef} className="border-t border-b border-[#ddd] relative pb-[150px] pt-[100px] bg-[#f7f7f7]">
+    <section ref={sectionRef} className="border-t  border-[#ddd] relative pb-[150px] pt-[100px] bg-[#fff]">
       <div className="md:px-[50px]">
         <div ref={headingRef} className="heading relative z-[9] table "
          style={{
@@ -177,7 +177,7 @@ const OurWork = () => {
               </span>
             </div> */}
 
-            <h3 ref={headingTxtRef} className="text-[350px] bebas uppercase inline-block w-[max-content]" style={{
+            <h3 ref={headingTxtRef} className="text-[220px] futuru_font uppercase inline-block w-[max-content] font-semibold text-[#ebebeb]" style={{
               // clipPath:"inset(100% 0% 0% 0%)"
             }}>
               Our Work

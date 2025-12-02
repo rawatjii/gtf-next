@@ -197,7 +197,7 @@ const Clients = () => {
   return (
     <section
       ref={sectionRef}
-      className=" bg-[#fde93d] relative h-screen md:mb-[0] mb-[30px] flex items-center"
+      className=" bg-[#fff] relative h-screen md:mb-[0] mb-[30px] flex items-center border-t border-b border-[#ddd]-200"
     >
       <div
         ref={titleWrapperRef}
@@ -231,7 +231,7 @@ const Clients = () => {
       {/* 4×6 Grid Infinite Slider */}
       <div
         ref={sliderRef}
-        className="overflow-hidden relative w-full bg-[#fde93d]"
+        className="overflow-hidden relative w-full bg-[#fff]"
       >
         <div className="animate-marquee flex">
           {/* Generate 2 full sets for seamless loop */}
@@ -252,7 +252,7 @@ const Clients = () => {
                     return (
                       <div
                         key={`${setIndex}-${colIndex}-${rowIndex}`}
-                        className="flex items-center justify-center h-[150px] bg-white hover:grayscale transition-all duration-300 rounded-lg shadow-sm"
+                        className="flex items-center justify-center h-[150px] bg-[#f9f9f9] hover:grayscale transition-all duration-300 rounded-lg shadow-sm"
                       >
                         <Image
                           src={logo.src}
