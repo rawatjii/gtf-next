@@ -318,8 +318,8 @@ const Feature = () => {
             <div className="relative flex">
               <img
                 ref={(el) => (imagesRef.current[0] = el)}
-                className="object-contain relative inline-block z-[1] w-[500px]"
-                src="/assets/home/who_we_are/creative1.webp"
+                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                src="/assets/home/who_we_are/creative1/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
               
@@ -330,8 +330,8 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[1] = el)}
-                className="object-contain relative inline-block z-[1] w-[500px]"
-                src="/assets/home/who_we_are/creative2.webp"
+                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                src="/assets/home/who_we_are/creative2/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
             </div>
@@ -341,8 +341,8 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[2] = el)}
-                className="object-contain relative inline-block z-[1] w-[500px]"
-                src="/assets/home/who_we_are/creative1.webp"
+                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                src="/assets/home/who_we_are/creative1/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
             </div>
@@ -352,8 +352,8 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[1] = el)}
-                className="object-contain relative inline-block z-[1] w-[500px]"
-                src="/assets/home/who_we_are/creative2.webp"
+                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                src="/assets/home/who_we_are/creative2/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
               
@@ -364,8 +364,8 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[4] = el)}
-                className="object-contain relative inline-block z-[1] w-[500px]"
-                src="/assets/home/who_we_are/creative1.webp"
+                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                src="/assets/home/who_we_are/creative1/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
             </div>
@@ -386,7 +386,7 @@ const Feature = () => {
 
             <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
               <div className="basis-[100%] pr-[50px] pl-[20px]">
-                <h3 className="montserrrat uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
+                <h3 className="baskervville_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                   Built to Disrupt <span className="block">the Ordinary</span>
                 </h3>
               </div>
