@@ -21,7 +21,7 @@ const dataInitial = [
   {
     heading: "Brand Catalyst",
     description:[
-      "We don’t just tell stories — we build belief systems.",
+      "We don’t just tell stories; we build belief systems.",
       "From identity to influence, we sharpen how brands look, feel, think, and sell."
     ],
   },
@@ -35,9 +35,8 @@ const dataInitial = [
   {
     heading: "One-Stop Solution",
     description:[
-      "Strategy, creative, media, tech, culture — one integrated engine.",
-      "We don’t outsource excellence.",
-      "We manufacture it."
+      "Strategy, creative, media, tech, culture - one integrated engine.",
+      "We don’t outsource excellence. We manufacture it.",
     ],
   },
 ];

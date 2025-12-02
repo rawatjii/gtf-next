@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import gsap from "gsap";
 
-const SparkleBackground = () => {
+const SparkleBackground = ({className}) => {
   const canvasRef = useRef(null);
   const animationFrameRef = useRef(null);
   const resizeTimeoutRef = useRef(null);
@@ -98,7 +98,7 @@ const SparkleBackground = () => {
 
   return (
     <div 
-      className="fixed z-[-1] top-0 left-0 w-full h-screen flex flex-col items-center justify-center text-center text-white pointer-events-none"
+      className={`fixed z-[-1] top-0 left-0 w-full h-screen flex flex-col items-center justify-center text-center text-white pointer-events-none ${className}`}
       style={{ isolation: 'isolate' }} // Helps with stacking context
     >
       <canvas
@@ -110,7 +110,7 @@ const SparkleBackground = () => {
 };
 
 // Portal wrapper component
-const SparkleBackgroundPortal = () => {
+const SparkleBackgroundPortal = ({className}) => {
   const [mounted, setMounted] = useState(false);
   const [portalRoot, setPortalRoot] = useState(null);
 
@@ -147,7 +147,7 @@ const SparkleBackgroundPortal = () => {
     return null;
   }
 
-  return createPortal(<SparkleBackground />, portalRoot);
+  return createPortal(<SparkleBackground className={className} />, portalRoot);
 };
 
 export default SparkleBackgroundPortal;

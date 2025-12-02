@@ -4,14 +4,17 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { MdArrowOutward } from "react-icons/md";
+import SparkleBackground from "../../components/SparkleBackground";
 import Line from "../Line";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const dotLabels = [
-  "Built to Disrupt the Ordinary", // for slide 1
-  "A Task Force, Not a Team",      // for slide 2
-  "Move Ahead of the Market",      // for slide 3
+  "Brand Strategy", // for slide 1
+  "Performance Marketing",      // for slide 2
+  "Website Design & Development",      // for slide 3
+  "Social Media Marketing",
+  "SEO",
 ];
 
 const Feature = () => {
@@ -266,7 +269,8 @@ const Feature = () => {
   }, [dotCount]);
 
   return (
-    <section className="w-full relative  mix-blend-multiply overflow-hidden">
+    <>
+      <section className="w-full relative  mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container relative">
 
         {/* Timeline Bar */}
@@ -542,6 +546,8 @@ const Feature = () => {
       </div>
       {/* <div  ref={backgroundColorRef} className="absolute top-0 left-0 w-full h-full"></div> */}
     </section>
+    <SparkleBackground />
+    </>
   );
 };
 
