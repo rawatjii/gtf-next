@@ -175,16 +175,6 @@ const WhoWeAre = () => {
       },
       "-=0.2");
 
-      // End pinning when the animation ends (after 1500 pixels)
-      ScrollTrigger.create({
-        trigger: container,
-        start: "top top",
-        end: "+=1500", // 1500px scroll after start
-        pin: true, // Pin the section
-        pinSpacing: true,
-        scrub: true, // Synchronize with scroll
-      });
-
     }, containerRef);
       
 
