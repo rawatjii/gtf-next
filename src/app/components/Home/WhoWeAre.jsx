@@ -107,11 +107,9 @@ const WhoWeAre = () => {
     const ctx = gsap.context(() => {
       const container = containerRef.current;
       const section = sectionRef.current;
-      const otherSection = otherSectionRef.current;
       const circle = circleRef.current;
       const underline = underlineRef.current;
 
-      const getMaxX = () => section.scrollWidth - window.innerWidth;
       const splits = textRef.current
         .filter(Boolean)
         .map((el) => new SplitText(el, { type: "chars" }));
@@ -125,25 +123,20 @@ const WhoWeAre = () => {
         transformOrigin: "center center",
       });
 
-      const whoWeAreTimeline = gsap.timeline({
+      // First ScrollTrigger for Heading and Text Animation at 50%
+      const headingTimeline = gsap.timeline({
         scrollTrigger: {
-          id: "whoWeAreTrigger",
+          id: "headingAnimation",
           trigger: container,
-          start: "top 50%",
-          end: "top 0",
-          duration:1,
-          markers: false,
+          start: "top 50%",  // Trigger at 50% from the top
+          end: "top 0%",
           scrub: false,
+          markers: false,
           toggleActions: "play none none none",
         },
       });
 
-      // whoWeAreTimeline.to(mainContentRef.current, {
-      //   marginTop: "0",
-      //   scrub: 1,
-      // })
-
-      whoWeAreTimeline.to(mainHeadingRef.current, {
+      headingTimeline.to(mainHeadingRef.current, {
         fontSize: "80px",
         left: 0,
         x: 0,
@@ -151,122 +144,83 @@ const WhoWeAre = () => {
         ease: "power3.out",
       });
 
-      whoWeAreTimeline.to(mainContentRef.current, { marginTop: 0, duration: 0.2 });
-      whoWeAreTimeline.to(
-        overviewData.current,
-        { height: "auto", duration: 0.8 },
-      );
-      whoWeAreTimeline.to(chars, {
+      headingTimeline.to(mainContentRef.current, { marginTop: 0, duration: 0.2 });
+      headingTimeline.to(overviewData.current, { height: "auto", duration: 0.8 });
+      headingTimeline.to(chars, {
         y: 0,
         opacity: 0.2,
         duration: 0.6,
         ease: "power2.out",
       });
 
-      whoWeAreTimeline.to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 }
-      );
-      whoWeAreTimeline.to(underline, { opacity: 1, width:"100%", duration: 0.8 }      );
-      
-      whoWeAreTimeline.to(chars, {
+      headingTimeline.to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 });
+      headingTimeline.to(underline, { opacity: 1, width: "100%", duration: 0.8 });
+
+      headingTimeline.to(chars, {
         opacity: 1,
         duration: 1.6,
         stagger: 0.03,
         ease: "power2.out",
-      },
-      "-=0.2");
+      }, "-=0.2");
+
+      // Second ScrollTrigger for Pinning at 0% from the top
+      ScrollTrigger.create({
+        trigger: container,
+        start: "top top", // Start pinning when the top of the container reaches the top of the viewport
+        end: "+=1500", // Pin for 1500px after the start
+        pin: true, // Pin the section
+        pinSpacing: true, // Avoid additional space when pinning
+        scrub: true, // Synchronize with scroll
+        markers: false,
+        onEnter: () => {
+          // Optional: Add any logic when the pin is triggered
+        },
+        onLeaveBack: () => {
+          // Optional: Add any logic when the section unpins
+        },
+      });
 
     }, containerRef);
-      
 
     return () => ctx.revert();
   }, []);
 
-
   return (
-    <section className="w-full relative  mix-blend-multiply overflow-hidden">
+    <section className="w-full relative mix-blend-multiply overflow-hidden">
       <div ref={containerRef} className="pin-container">
-        <div className="flex flex-row h-screen  main-container-scroll no-scrollbar relative">
-          <div
-            ref={sectionRef}
-            className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
-            style={{
-              display: "flex",
-              // width: "fit-content",
-              willChange: "transform",
-            }}
-          >
-            {/* bg-gtf-pink */}
+        <div className="flex flex-row h-screen main-container-scroll no-scrollbar relative">
+          <div ref={sectionRef} className="main-container-scroll no-scrollbar flex h-screen will-change-transform">
             <div className="first_slide flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
               <div className="grid items-center grid-cols-12 gap-[40px]">
-                <div
-                  ref={mainContentRef}
-                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh]"
-                >
-                  <h2
-                    ref={mainHeadingRef}
-                    className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block leading-[150px]" 
-                  > 
-                   {/* left-[50%] -translate-x-1/2 */}
+                <div ref={mainContentRef} className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh]">
+                  <h2 ref={mainHeadingRef} className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block leading-[150px]">
                     Who We Are?
                   </h2>
-
-                  <div className="relative mx-auto">
-                    
-                    <div
-                      ref={overviewData}
-                      className="flex flex-col items-center space-y-2 gap-[25px]"
-                    >
-                      {lines.map((line, lineIndex) => (
-                        <div
-                          key={lineIndex}
-                          ref={(el) => (textRef.current[lineIndex] = el)} // One ref per line
-                          className="flex flex-wrap justify-left text-left"
-                        >
-                          {line.map((word, wordIndex) =>
-                            typeof word === "string" ? (
-                              <span
-                                key={wordIndex}
-                                className="montserrat font-medium pr-[8px] 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px]  text-[32px] inline-block text-left"
-                              >
-                                {word}
-                              </span>
-                            ) : (
-                              <span
-                                key={wordIndex}
-                                className={`relative montserrat font-medium 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left`}
-                              >
-                                {word.word}
-                                {word.sibling ? (
-                                  <img
-                                    ref={(el) =>
-                                      (svgRefs.current[wordIndex] = el)
-                                    }
-                                    src={word.sibling}
-                                    className={`absolute w-full h-full inset-0 ${word.imgClass}`}
-                                    style={{
-                                      opacity: "0",
-                                    }}
-                                  />
-                                ) : (
-                                  <span ref={underlineRef} className="line absolute h-[4px] w-full bg-[#fff] left-0 bottom-[15px]"
-                                    style={{
-                                      width:0,
-                                      opacity:0,
-                                    }}
-                                  ></span>
-                                )}
-                                
-                              </span>
-                            )
-                          )}
-                        </div>
-                      ))}
-                    </div>
+                  <div ref={overviewData} className="flex flex-col items-center space-y-2 gap-[25px]">
+                    {lines.map((line, lineIndex) => (
+                      <div key={lineIndex} ref={(el) => (textRef.current[lineIndex] = el)} className="flex flex-wrap justify-left text-left">
+                        {line.map((word, wordIndex) =>
+                          typeof word === "string" ? (
+                            <span key={wordIndex} className="montserrat font-medium pr-[8px] 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left">
+                              {word}
+                            </span>
+                          ) : (
+                            <span key={wordIndex} className={`relative montserrat font-medium 2xl:leading-[1.4] tracking-[-2.5px] 2xl:text-[60px] text-[32px] inline-block text-left`}>
+                              {word.word}
+                              {word.sibling ? (
+                                <img ref={(el) => (svgRefs.current[wordIndex] = el)} src={word.sibling} className={`absolute w-full h-full inset-0 ${word.imgClass}`} style={{ opacity: "0" }} />
+                              ) : (
+                                <span ref={underlineRef} className="line absolute h-[4px] w-full bg-[#fff] left-0 bottom-[15px]" style={{ width: 0, opacity: 0 }}></span>
+                              )}
+                            </span>
+                          )
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
