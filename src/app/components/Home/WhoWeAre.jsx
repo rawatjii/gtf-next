@@ -177,7 +177,7 @@ const WhoWeAre = () => {
         },
         onLeaveBack: () => {
           // Optional: Add any logic when the section unpins
-        },
+        }, 
       });
 
     }, containerRef);
