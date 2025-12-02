@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[9]">
+      <header className="fixed site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[9999]">
         <img src={isVideoHidden ? '/assets/logo.svg' : '/assets/logo_white.svg'} className="h-[60px]" alt="logo" />
 
         {!isVideoHidden && <SlideTxtAn className="text-white uppercase text-[26px]" />}
