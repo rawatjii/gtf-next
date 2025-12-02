@@ -130,25 +130,22 @@ const WhoWeAre = () => {
       gsap.set(allChars, { opacity: 0, transform:"translateY(30px)" });
       gsap.set(ov_data, { height: 0 });
 
-      const animatedIndices = [];
 
       const whoWeAreTimeline = gsap.timeline({
         scrollTrigger: {
           id: "whoWeAreTrigger",
           trigger: container,
-          start: "top 50%",
+          start: "top 80%",
           once:true,
           markers: false,
         },
       });
 
-      whoWeAreTimeline.to(mainHeadingRef.current, {
-        fontSize: "80px",
-        left: 0,
-        x: 0,
-        duration: 0.2,
-        ease: "power3.out",
-      });
+      // whoWeAreTimeline.to(mainHeadingRef.current, {
+      //   fontSize: "80px",
+      //   duration: 0.2,
+      //   ease: "power3.out",
+      // });
 
       whoWeAreTimeline.to(mainContent, {
         marginTop: "0",
@@ -158,6 +155,7 @@ const WhoWeAre = () => {
       whoWeAreTimeline.to(
         ov_data,
         { height: "auto", duration: 0.1, ease: "power2" },
+        "+=0.2"
       )
 
       whoWeAreTimeline.to(allChars, {
@@ -166,18 +164,6 @@ const WhoWeAre = () => {
         duration: 0.6,
         ease: "power2.out",
       });
-
-      whoWeAreTimeline.to(svg, {
-        opacity:1,
-        stagger:0.1,
-        duration: 0.8,
-      })
-
-      whoWeAreTimeline.to(underline, {
-        opacity: 1,
-        width: "100%",
-        duration: 0.8,
-      })
 
       whoWeAreTimeline.to(
         allChars,
@@ -189,6 +175,18 @@ const WhoWeAre = () => {
         },
         "-=0.2"
       );
+
+      whoWeAreTimeline.to(svg, {
+        opacity:1,
+        stagger:0.1,
+        duration: 0.8,
+      }, "-=4")
+
+      whoWeAreTimeline.to(underline, {
+        opacity: 1,
+        width: "100%",
+        duration: 0.8,
+      }, "-=3.5")
 
       const tl = gsap.timeline({
         scrollTrigger: {
