@@ -61,7 +61,7 @@ const lines = [
       word: "ideas",
       className: "highlightWord word_underline",
       sibling: null,
-      imgClass: "!h-[170%] !top-[-20%]",
+      imgClass: "!h-[170%] !top-[-40%]",
     },
     " ",
     "that",
@@ -125,7 +125,18 @@ const WhoWeAre = () => {
         transformOrigin: "center center",
       });
 
-      const whoWeAreTimeline = gsap.timeline({ paused: true });
+      const whoWeAreTimeline = gsap.timeline({
+        scrollTrigger: {
+          id: "whoWeAreTrigger",
+          trigger: container,
+          start: "top 50%",
+          end: "top 0",
+          duration:1,
+          markers: false,
+          scrub: false,
+          toggleActions: "play none none none",
+        },
+      });
 
       // whoWeAreTimeline.to(mainContentRef.current, {
       //   marginTop: "0",
@@ -140,14 +151,11 @@ const WhoWeAre = () => {
         ease: "power3.out",
       });
 
-      whoWeAreTimeline.to(mainContentRef.current, {
-        marginTop: 0,
-        duration: 0.2,
-      });
-      whoWeAreTimeline.to(overviewData.current, {
-        height: "auto",
-        duration: 0.8,
-      });
+      whoWeAreTimeline.to(mainContentRef.current, { marginTop: 0, duration: 0.2 });
+      whoWeAreTimeline.to(
+        overviewData.current,
+        { height: "auto", duration: 0.8 },
+      );
       whoWeAreTimeline.to(chars, {
         y: 0,
         opacity: 0.2,
@@ -155,75 +163,34 @@ const WhoWeAre = () => {
         ease: "power2.out",
       });
 
-      whoWeAreTimeline.to(svgRefs.current, {
-        opacity: 1,
-        stagger: 0.1,
-        duration: 0.8,
-      });
-      whoWeAreTimeline.to(underline, {
-        opacity: 1,
-        width: "100%",
-        duration: 0.8,
-      });
-
-      whoWeAreTimeline.to(
-        chars,
-        {
-          opacity: 1,
-          duration: 1.6,
-          stagger: 0.03,
-          ease: "power2.out",
-        },
-        "-=0.2"
+      whoWeAreTimeline.to(svgRefs.current, { opacity: 1, stagger: 0.1, duration: 0.8 }
       );
+      whoWeAreTimeline.to(underline, { opacity: 1, width:"100%", duration: 0.8 }      );
+      
+      whoWeAreTimeline.to(chars, {
+        opacity: 1,
+        duration: 1.6,
+        stagger: 0.03,
+        ease: "power2.out",
+      },
+      "-=0.2");
 
+      // End pinning when the animation ends (after 1500 pixels)
       ScrollTrigger.create({
-        id: "whoWeAreAnim",
-        trigger: container,
-        start: "top 50%", // same logic as before
-        once: true, // play only once
-        onEnter: () => {
-          whoWeAreTimeline.play();
-        },
-      });
-
-      let hasPinnedOnce = false;
-
-      ScrollTrigger.create({
-        id: "whoWeArePin",
         trigger: container,
         start: "top top",
-        end: () => "+=1500",
-        // tweak 400 → 500 / 600 if you want it to stay pinned longer/shorter
-        pin: true,
+        end: "+=1500", // 1500px scroll after start
+        pin: true, // Pin the section
         pinSpacing: true,
-        scrub: false, // we want time-based animation, not scrub
-        anticipatePin: 1,
-        markers: false,
-        
+        scrub: true, // Synchronize with scroll
       });
 
-      // IMAGE REVEALS (once per image)
-      imagesRef.current.forEach((img, i) => {
-        ScrollTrigger.create({
-          trigger: img,
-          start: "top 90%",
-          once: true,
-          onEnter: () => {
-            gsap.to(img, {
-              opacity: 1,
-              y: 0,
-              clipPath: "inset(0% 0 0% 0)",
-              duration: 1.6,
-              ease: "power3.out",
-            });
-          },
-        });
-      });
     }, containerRef);
+      
 
     return () => ctx.revert();
   }, []);
+
 
   return (
     <section className="w-full relative  mix-blend-multiply overflow-hidden">
@@ -247,13 +214,14 @@ const WhoWeAre = () => {
                 >
                   <h2
                     ref={mainHeadingRef}
-                    className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block leading-[150px]"
-                  >
-                    {/* left-[50%] -translate-x-1/2 */}
+                    className="relative mb-[30px] uppercase bebas tracking-[2px] 2xl:text-[140px] md:text-[80px] text-[32px] inline-block leading-[150px]" 
+                  > 
+                   {/* left-[50%] -translate-x-1/2 */}
                     Who We Are?
                   </h2>
 
                   <div className="relative mx-auto">
+                    
                     <div
                       ref={overviewData}
                       className="flex flex-col items-center space-y-2 gap-[25px]"
@@ -290,15 +258,14 @@ const WhoWeAre = () => {
                                     }}
                                   />
                                 ) : (
-                                  <span
-                                    ref={underlineRef}
-                                    className="line absolute h-[4px] w-full bg-[#fff] left-0 bottom-[15px]"
+                                  <span ref={underlineRef} className="line absolute h-[4px] w-full bg-[#fff] left-0 bottom-[15px]"
                                     style={{
-                                      width: 0,
-                                      opacity: 0,
+                                      width:0,
+                                      opacity:0,
                                     }}
                                   ></span>
                                 )}
+                                
                               </span>
                             )
                           )}
@@ -309,6 +276,7 @@ const WhoWeAre = () => {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
