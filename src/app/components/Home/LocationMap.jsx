@@ -195,7 +195,7 @@ const Locationmap = () => {
 
       <img
         src="/assets/home/hero/circle.svg"
-        className="rotation_circle opacity-0 absolute 2xl:h-[450px] md:h-[300px] h-[300px] lg:left-[8%] top-[40%]"
+        className="rotation_circle opacity-0 absolute 2xl:h-[450px] md:h-[300px] h-[300px] lg:left-[8%] top-[40%] rotate-plus"
         alt="circle"
       />
 

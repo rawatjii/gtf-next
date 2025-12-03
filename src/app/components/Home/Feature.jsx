@@ -12,9 +12,9 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 const dotLabels = [
   "Brand Strategy", // for slide 1
   "Performance Marketing",      // for slide 2
-  "Website Design & Development",      // for slide 3
+  "Website Development",      // for slide 3
   "Social Media Marketing",
-  "SEO",
+  "Search Engine Optimization",
 ];
 
 const Feature = () => {
@@ -43,6 +43,7 @@ const Feature = () => {
   const imageContentRef = useRef(null);
   const lastSlideRef = useRef(null);
   const [dotCount, setDotCount] = useState(0);
+  const [activeDotIndex, setActiveDotIndex] = useState(0); // Track active dot
 
 
   const [counts, setCounts] = useState({
@@ -178,8 +179,14 @@ const Feature = () => {
               if (!dot) return;
               var active = slideProgresses[idx] > 0.01;
 
+              // Change active dot index when active
+
+              if (active) {
+                setActiveDotIndex(idx);
+              }
+
               gsap.to(dot, {
-                scale: active ? 1.2 : 1,
+                scale: active ? 1.5 : 1,
                 backgroundColor: active ? "#e24397" : "#777679",
                 duration: 0.3,
               });
@@ -273,7 +280,7 @@ const Feature = () => {
         <div ref={containerRef} className="pin-container relative">
 
           {/* Timeline Bar */}
-          <div className="absolute w-full h-[3px] bg-gray-300 bottom-[40px]">
+          <div className="absolute w-full h-[3px] bg-gray-300 bottom-[38px]">
             {/* Timeline fill */}
             <div className="absolute left-0 w-full h-full bg-black-200"></div>
             <div ref={timelineRef} className="absolute left-0 h-full bg-[#e24397]" style={{ width: "0%" }} />
@@ -289,11 +296,11 @@ const Feature = () => {
                 <div
                   key={index}
                   ref={(el) => (dotsRef.current[index] = el)}
-                  className="w-[10px] h-[10px] rounded-full bg-black-200"
+                  className={`w-[8px] h-[8px] rounded-full bg-black-200 ${activeDotIndex === index ? 'scale-150 text-xl' : ''}`}
                 />
 
                 {/* Label */}
-                <span className="absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font">
+                <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'text-[22px]' : ''}`}>
                   {dotLabels[index] || `Stage ${index + 1}`}
                 </span>
 
@@ -442,10 +449,10 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f5f5f5] ml-[13rem]">
+              <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f5f5f5] ml-[13rem] overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
-                    <h2 className="futuru_font font-bold relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1]">
+                    <h2 className="futuru_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
                       <span className="block">We create</span>
                       <span className="block relative pl-[100px] w-[max-content] before:absolute before:h-[3px] before:w-[80px] before:bg-[#000] before:block before:left-[0] before:top-[50%] before:translate-y-[-1/2]">
                         what others only imagine.
@@ -476,11 +483,11 @@ const Feature = () => {
                       <img
                         src="/assets/home/netblob.png"
                         alt="Years of Expertise"
-                        className="absolute md:w-[70%] md:h-[auto] h-[250px] w-[100%] opacity-[.9] md:translate-y-[-50%] md:top-[55%]  md:block hidden left-[0%]  top-[-52px] "
+                        className="absolute md:h-[auto] h-[100%] w-[100%] md:translate-y-[-50%] translate-x-[-50%] md:block hidden left-[0%] z-index: [1px]"
                       />
                       <div
                         ref={lineRef}
-                        className="relative w-0 top-[50%] left-[29%]"
+                        className="relative w-0 top-[50%] left-[29%] z-[1]"
                       >
                         {/* top */}
                         <div className="origin-left md:block hidden  rotate-[-14deg] h-[1px] w-[75%] border-dashed border-b-[1px] border-black  absolute bottom-0 "></div>
@@ -499,7 +506,7 @@ const Feature = () => {
                         className="md:h-[250px] md:w-[250px] h-[120px] w-[120px] md:left-[8%]  md:top-[50%] bg-[#FDE93D] translate-y-[-50%] md:relative absolute rounded-full"
                       ></div>
                       
-                      <p className="md:absolute bottom-[50px] left-[0]  md:text-start  px-[50px]">
+                      <p className="md:absolute bottom-[50px] left-[0]  md:text-start  px-[50px] z-[9]">
                         <span className="just_font text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
                           17 +
                         </span>

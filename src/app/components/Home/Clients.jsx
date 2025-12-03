@@ -191,7 +191,7 @@ const Clients = () => {
   return (
     <section
       ref={sectionRef}
-      className=" bg-[#fff] relative h-screen md:mb-[0] mb-[30px] flex items-center border-t border-[#ddd]-200"
+      className=" bg-[#141414] relative h-screen md:mb-[0] mb-[30px] flex items-center border-t border-[#ddd]-200"
     >
       <div
         ref={titleWrapperRef}
@@ -199,7 +199,7 @@ const Clients = () => {
       >
         <h3
           ref={titleRef}
-          className="futuru_font font-bold uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[70px] md:text-[50px] text-[32px]"
+          className="futuru_font font-bold uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[70px] md:text-[50px] text-[32px] text-[#e3b320]"
           style={{
             top: "50%",
             transform: "translateY(-50%)",
@@ -225,7 +225,7 @@ const Clients = () => {
       {/* 4×6 Grid Infinite Slider */}
       <div
         ref={sliderRef}
-        className="overflow-hidden relative w-full bg-[#fff]"
+        className="overflow-hidden relative w-full"
       >
         <div className="animate-marquee flex">
           {/* Generate 2 full sets for seamless loop */}
