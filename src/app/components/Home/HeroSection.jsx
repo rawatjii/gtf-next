@@ -32,7 +32,7 @@ const debounce = (func, wait) => {
 
 const data = ["300 Minds", "06 LOCATIONS", "One Team"];
 
-const colors = ["#2aaee4", "#fdda39", "#e24397"];
+const colors = ["#e34090", "#e3b320", "#2999cd"];
 
 const HeroSection = () => {
   const [swiperReady, setSwiperReady] = useState(false);
@@ -649,7 +649,7 @@ const HeroSection = () => {
         />
 
         <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center mt-[50px]">
-          <div className="map h-full w-full flex items-center justify-center top-0 left-0 w-full h-full z-[-1]">
+          <div className="map h-full w-full flex items-center justify-center top-0 left-0 w-full h-full z-[-1] ml-[140px]">
             <img
               ref={mapRef}
               src="/assets/map/map.png"
@@ -673,7 +673,7 @@ const HeroSection = () => {
                   <h3
                     key={index}
                     // ref={index === 2 ? zoomTextRef : null}
-                    className={`text-[80px] uppercase futuru_font leading-[80px] text-center tracking-[2px] font-bold text-[#000] ${
+                    className={`text-[150px] uppercase just_font leading-[80px] text-center tracking-[2px] font-bold text-[#000] ${
                       index === 2 ? "z-[9]" : undefined
                     }`}
                     style={{ color: colors[index] }}
@@ -682,12 +682,12 @@ const HeroSection = () => {
                       <div className="relative">
                         <span
                           ref={(el) => (countersRef.current[index] = el)}
-                          className="counter"
+                          className="counter outline_word"
                           data-target={numberValue}
                         >
                           00
                         </span>
-                        <span className="block suffix transition-opacity">
+                        <span className="block suffix transition-opacity text-[60px] font-medium tracking-[0] mt-[20px]">
                           {suffix}
                         </span>
                         {/* {index === 2 && 
@@ -702,9 +702,9 @@ const HeroSection = () => {
                       </div>
                     ) : (
                       <div className="relative">
-                        <div className="text-only translate-y-10">
+                        <div className="text-only">
                           {suffix.split(" ").map((item, idx) => (
-                            <span key={idx} className="block">
+                            <span key={idx} className={`block ${idx == 0 ? 'outline_word' : 'text-[60px] font-medium tracking-[0] mt-[34px]'}`}>
                               {item}
                             </span>
                           ))}
@@ -718,7 +718,7 @@ const HeroSection = () => {
                     )}
                   </h3>
                   {index < data.length - 1 && (
-                    <span class="divider h-[13px] w-[13px] bg-[#333] inline-block mx-[60px]"></span>
+                    <span class="divider h-[300px] w-[1px]  inline-block mx-[60px] border-r border-dashed border-[1px] border-[#ccc]"></span>
                   )}
                 </>
               );
