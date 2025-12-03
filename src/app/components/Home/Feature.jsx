@@ -315,16 +315,16 @@ const Feature = () => {
             className="fixed top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[fit-content] z-[9]"
             style={{
               left: "50%", // Start from center of viewport
-              height: "500px",
+              height: "700px",
               width: "500px",
               transform:"translate(-50%, -50%)"
             }}
           >
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex justify-center">
+              <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[0] = el)}
-                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
+                  className="object-cover relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -333,10 +333,10 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex justify-center">
+              <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
-                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
+                  className="object-cover relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative2/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -344,10 +344,10 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex justify-center">
+              <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[2] = el)}
-                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
+                  className="object-cover relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -355,10 +355,10 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex justify-center">
+              <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
-                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
+                  className="object-cover relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative2/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -367,10 +367,10 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex justify-center">
+              <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[4] = el)}
-                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
+                  className="object-cover relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />

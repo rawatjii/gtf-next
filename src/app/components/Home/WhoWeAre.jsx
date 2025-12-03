@@ -169,9 +169,9 @@ const WhoWeAre = () => {
         allChars,
         {
           opacity: 1,
-          duration: 1.6,
           stagger: 0.03,
-          ease: "power2.out",
+          ease: "none",
+          scrub:true,
         },
         "-=0.2"
       );
