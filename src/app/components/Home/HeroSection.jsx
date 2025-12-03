@@ -285,7 +285,7 @@ const HeroSection = () => {
       zoomTl.to(zoomTextRef.current, {
         scale: 65,
         y: "-200px",
-        duration:'0.4',
+        duration:'0.2',
       });
 
       // zoomTl.to(

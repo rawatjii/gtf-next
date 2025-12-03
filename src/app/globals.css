@@ -560,6 +560,10 @@ canvas {
   line-height: 50px;
 }
 
+.counter.outline_word{
+  
+}
+
 /* start responsive */
 
 @media (max-width: 1440px) {
