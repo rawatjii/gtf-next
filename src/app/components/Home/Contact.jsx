@@ -93,7 +93,7 @@ const Contact = () => {
         className="absolute  z-[9] top-[40%] translate-y-[-50%] px-[50px]"
       >
         <div className="">
-          <h3 className="futuru_font font-bold text-[#fff] uppercase inline-block md:text-start text-center relative md:leading-[60px] text-white tracking-[2px] 2xl:text-[54px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
+          <h3 className="neue_font font-bold text-[#fff] uppercase inline-block md:text-start text-center relative md:leading-[60px] text-white tracking-[2px] 2xl:text-[54px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
             <span ref={span1Ref} className=" block" style={{ clipPath: "inset(100% 0 0 0)" }}>
             Start the Conversation
             </span>

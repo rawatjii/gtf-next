@@ -177,7 +177,7 @@ const OurWork = () => {
               </span>
             </div> */}
 
-            <h3 ref={headingTxtRef} className="text-[220px] futuru_font uppercase inline-block w-[max-content] font-semibold text-[#141414]" style={{
+            <h3 ref={headingTxtRef} className="text-[220px] neue_font uppercase inline-block w-[max-content] font-semibold text-[#141414]" style={{
               // clipPath:"inset(100% 0% 0% 0%)"
             }}>
               Our Work

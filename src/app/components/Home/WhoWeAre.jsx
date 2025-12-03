@@ -100,13 +100,10 @@ const WhoWeAre = () => {
       const imageSection = imageSectionRef.current;
       const svg = svgRefs.current;
 
-      const otherText = section.querySelector(".other_txt");
-
       if (!section || !container || !images) return;
 
       // Initial states for animations
 
-      const hides = section.querySelectorAll(".hide");
       const scrollWidth = section.scrollWidth;
       const windowWidth = window.innerWidth;
       const maxTranslateX = scrollWidth - windowWidth;
@@ -115,10 +112,6 @@ const WhoWeAre = () => {
       const mainContent = mainContentRef.current;
       const underline = underlineRef.current;
 
-      gsap.set(hides, { display: "inline-block", marginRight: "30px" });
-      gsap.set(otherText, { width: 0, opacity: 0, display: "inline-block" });
-      gsap.set(images, { opacity: 0, y: 50, clipPath: "inset(50% 0 50% 0)" });
-      gsap.set(heading, { opacity: 0 });
 
       const splitInstances = textRef.current
         .filter(Boolean)
@@ -127,81 +120,54 @@ const WhoWeAre = () => {
         );
       const allChars = splitInstances.flatMap((split) => split.chars);
 
-      gsap.set(allChars, { opacity: 0, transform:"translateY(30px)" });
-      gsap.set(ov_data, { height: 0 });
+      gsap.set(allChars, { opacity:0.2 });
 
+      // mainContent
+      gsap.set(ov_data, { height: 'auto' });
 
       const whoWeAreTimeline = gsap.timeline({
         scrollTrigger: {
           id: "whoWeAreTrigger",
           trigger: container,
-          start: "top 80%",
-          once:true,
+          start: "top 50%",
+          end: "top 0",
           markers: false,
+          scrub: 1,
         },
       });
-
-      // whoWeAreTimeline.to(mainHeadingRef.current, {
-      //   fontSize: "80px",
-      //   duration: 0.2,
-      //   ease: "power3.out",
-      // });
 
       whoWeAreTimeline.to(mainContent, {
         marginTop: "0",
         scrub: 1,
       });
 
-      whoWeAreTimeline.to(
-        ov_data,
-        { height: "auto", duration: 0.1, ease: "power2" },
-        "+=0.2"
-      )
-
-      whoWeAreTimeline.to(allChars, {
-        y: 0,
-        opacity: 0.2,
-        duration: 0.6,
-        ease: "power2.out",
-      });
-
-      whoWeAreTimeline.to(
-        allChars,
-        {
-          opacity: 1,
-          stagger: 0.03,
-          ease: "none",
-          scrub:true,
-        },
-        "-=0.2"
-      );
-
-      whoWeAreTimeline.to(svg, {
-        opacity:1,
-        stagger:0.1,
-        duration: 0.8,
-      }, "-=4")
-
-      whoWeAreTimeline.to(underline, {
-        opacity: 1,
-        width: "100%",
-        duration: 0.8,
-      }, "-=3.5")
 
       const tl = gsap.timeline({
         scrollTrigger: {
           id: "whoWeAreTrigger",
           trigger: container,
           start: "top top",
-          end: () => `+=500`,
+          end: () => `+=1000`,
           pin: true,
-          markers: false,
+          markers:false,
           scrub: 1,
           pinSpacing: true,
-        },
+        },  
       });
 
-      
+      // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
+      tl.to(allChars, {opacity: 1, duration: 0.1, stagger: 0.008, ease: "power2.out", immediateRender: false,})
+      tl.to(svg, {
+        opacity:1,
+        stagger:0.1,
+        duration: 0.8,
+      }, "-=1")
+
+      tl.to(underline, {
+        opacity: 1,
+        width: "100%",
+        duration: 0.8,
+      }, "-=1.2");
 
       ScrollTrigger.refresh();
     }, containerRef);
@@ -232,7 +198,7 @@ const WhoWeAre = () => {
                 >
                   <h2
                     ref={mainHeadingRef}
-                    className="relative mb-[30px]  futuru_font font-bold tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px]"
+                    className="relative mb-[30px]  neue_font font-bold tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px]"
                   >
                     {/* left-[50%] -translate-x-1/2 */}
                     Who We Are<span className="text-[#fdda39]">?</span>

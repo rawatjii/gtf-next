@@ -644,8 +644,8 @@ const HeroSection = () => {
       <div className="relative md:pt-0 z-[4] mt-[80px]">
         <SlideTxtAn
           ref={slideTxtAnRef}
-          className="text-center text-[40px] font-bold text-global-color tracking-[4px] futuru_font "
-          spanClass=""
+          className="text-center text-[40px] font-bold text-global-color tracking-[4px] neue_font "
+          spanclassName=""
         />
 
         <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center mt-[50px]">
@@ -718,7 +718,7 @@ const HeroSection = () => {
                     )}
                   </h3>
                   {index < data.length - 1 && (
-                    <span class="divider h-[300px] w-[1px]  inline-block mx-[60px] border-r border-dashed border-[1px] border-[#ccc]"></span>
+                    <span className="divider h-[300px] w-[1px]  inline-block mx-[60px] border-r border-dashed border-[1px] border-[#ccc]"></span>
                   )}
                 </>
               );
@@ -742,7 +742,7 @@ const HeroSection = () => {
       </div>
 
       <div className="scrollDown">
-        <span ref={zoomTextRef} class="mouse">
+        <span ref={zoomTextRef} className="mouse">
           <span ref={zoomDotRef}></span>
         </span>
 

@@ -158,7 +158,7 @@ const   OurWork = () => {
                     }}
                     className="cursor-pointer py-[30px]"
                   >
-                    <h3 className="2xl:text-[60px] xl:leading-[50px] lg:text-[50px] text-[30px] uppercase font-[600] futuru_font font-bold tracking-[2px] mb-[30px]">
+                    <h3 className="2xl:text-[60px] xl:leading-[50px] lg:text-[50px] text-[30px] uppercase font-[600] neue_font font-bold tracking-[2px] mb-[30px]">
                       {info.heading}
                     </h3>
 

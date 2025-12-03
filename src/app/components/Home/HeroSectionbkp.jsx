@@ -638,7 +638,7 @@ const HeroSection = () => {
                 </h2>
                 
                 <div className="border-[#000] pt-[20px]">
-                  <h4 class="font-[700] uppercase tracking-[-1px]  text-[20px]">
+                  <h4 className="font-[700] uppercase tracking-[-1px]  text-[20px]">
                     Project one
                   </h4>
                   <p>{modalContent.text}</p>

@@ -124,6 +124,29 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "NEUE";
+  src: url("/fonts/neue/NeueHaasDisplayRoman.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NEUE";
+  src: url("/fonts/neue/NeueHaasDisplayMediu.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NEUE";
+  src: url("/fonts/neue/NeueHaasDisplayBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+
 
 :root {
   --background: #ffffff;
@@ -132,6 +155,7 @@
   --baskervville_font:"Baskervville", serif;
   --futuru_font:"Futuru";
   --just_font:"JUST";
+  --neue_font:"NEUE"
 }
 
 
@@ -159,6 +183,10 @@ html {
 
 .just_font{
   font-family: var(--just_font);
+}
+
+.neue_font{
+  font-family: var(--neue_font);
 }
 
 @layer utilities {

@@ -199,7 +199,7 @@ const Clients = () => {
       >
         <h3
           ref={titleRef}
-          className="futuru_font font-bold uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[70px] md:text-[50px] text-[32px] text-[#e3b320]"
+          className="neue_font font-bold uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[70px] md:text-[50px] text-[32px] text-[#e3b320]"
           style={{
             top: "50%",
             transform: "translateY(-50%)",

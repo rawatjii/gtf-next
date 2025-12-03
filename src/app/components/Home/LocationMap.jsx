@@ -199,7 +199,7 @@ const Locationmap = () => {
         alt="circle"
       />
 
-        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px] tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] futuru_font font-bold">
+        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px] tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] neue_font font-bold">
           <span className="block">
             Life At GTF
           </span>

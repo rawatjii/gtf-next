@@ -392,7 +392,7 @@ const Feature = () => {
 
               <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h3 className="just_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
+                  <h3 className="neue_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                     Built to Disrupt <span className="block">the Ordinary</span>
                   </h3>
                 </div>
@@ -403,7 +403,7 @@ const Feature = () => {
                 className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="just_font text-[34px] mb-[1rem] font-[600]">
+                  <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
                       A task force{" "}
@@ -417,7 +417,7 @@ const Feature = () => {
                 className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="just_font text-[34px] mb-[1rem] font-[600]">
+                  <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
                       A task force{" "}
@@ -431,7 +431,7 @@ const Feature = () => {
                 className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="just_font text-[34px] mb-[1rem] font-[600]">
+                  <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
                       A task force{" "}
@@ -442,7 +442,7 @@ const Feature = () => {
 
               <div ref={lastSlideRef} className="flex flex-row items-center relative pl-[13rem] min-w-[100vw] last_slide">
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="just_font text-[50px] mb-[1rem]  text-[50px] font-semibold">
+                  <h5 className="neue_font text-[50px] mb-[1rem]  text-[50px] font-semibold">
                     Wired to help brands{" "}
                     <span className="block">move ahead of the market.</span>
                   </h5>
@@ -452,7 +452,7 @@ const Feature = () => {
               <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f5f5f5] ml-[13rem] overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
-                    <h2 className="just_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
+                    <h2 className="neue_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
                       <span className="block">We create</span>
                       <span className="block relative pl-[100px] w-[max-content] before:absolute before:h-[3px] before:w-[80px] before:bg-[#000] before:block before:left-[0] before:top-[50%] before:translate-y-[-1/2]">
                         what others only imagine.
@@ -507,11 +507,11 @@ const Feature = () => {
                       ></div>
                       
                       <p className="md:absolute bottom-[50px] left-[0]  md:text-start  px-[50px] z-[9]">
-                        <span className="just_font text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
+                        <span className="neue_font text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
                           17 +
                         </span>
                         <br />
-                        <span className="just_font md:leading-[60px] 2xl:text-[50px] text-[35px] lg:text-[50px] tracking-[2px] font-medium">
+                        <span className="neue_font md:leading-[60px] 2xl:text-[50px] text-[35px] lg:text-[50px] tracking-[2px] font-medium">
                           Years Of <br className="md:block hidden" /> Expertise
                         </span>
                       </p>
