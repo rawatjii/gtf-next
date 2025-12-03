@@ -11,6 +11,7 @@ const Line = forwardRef(
       bottom = "bottom-0",
       callVia,
       height = "h-[20px]",
+      className
     },
     ref
   ) => {
@@ -41,7 +42,7 @@ const Line = forwardRef(
     return (
       <div
         ref={elementRef}
-        className={`absolute ${bgColor} ${height} ${bottom} ${left} ${top} ${right} -z-10 -mb-[0.25rem] md:block ${
+        className={`absolute ${bgColor} ${height} ${bottom} ${left} ${top} ${right} -z-10 -mb-[0.25rem] md:block ${className} ${
           isVisible ? "animate-growBarSm lg:animate-growBar" : "w-0"
         }`}
       />

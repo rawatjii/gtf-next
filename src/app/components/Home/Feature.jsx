@@ -300,7 +300,7 @@ const Feature = () => {
                 />
 
                 {/* Label */}
-                <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'text-[22px]' : ''}`}>
+                <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'text-[22px] font-semibold tracking-[-1px]' : ''}`}>
                   {dotLabels[index] || `Stage ${index + 1}`}
                 </span>
 
@@ -312,19 +312,19 @@ const Feature = () => {
 
           <div
             ref={pinImageRef}
-            className="fixed top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[fit-content] z-[9]"
+            className="fixed top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[fit-content] z-[9]"
             style={{
-              left: "50vw", // Start from center of viewport
-              x: "50vw", // GSAP starts it 50vw to the right → off-screen
+              left: "50%", // Start from center of viewport
               height: "500px",
-              width: "500px"
+              width: "500px",
+              transform:"translate(-50%, -50%)"
             }}
           >
             <div className="absolute left-0 top-0 h-full w-full">
               <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[0] = el)}
-                  className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -336,7 +336,7 @@ const Feature = () => {
               <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
-                  className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
                   src="/assets/home/who_we_are/creative2/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -347,7 +347,7 @@ const Feature = () => {
               <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[2] = el)}
-                  className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -358,7 +358,7 @@ const Feature = () => {
               <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
-                  className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
                   src="/assets/home/who_we_are/creative2/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -370,7 +370,7 @@ const Feature = () => {
               <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[4] = el)}
-                  className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                  className="object-cover relative inline-block z-[1] w-[370px] h-[650px] "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -392,7 +392,7 @@ const Feature = () => {
 
               <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h3 className="futuru_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content] tracking-[2px]">
+                  <h3 className="just_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                     Built to Disrupt <span className="block">the Ordinary</span>
                   </h3>
                 </div>
@@ -403,7 +403,7 @@ const Feature = () => {
                 className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="futuru_font text-[34px] mb-[1rem] font-[600]">
+                  <h5 className="just_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
                       A task force{" "}
@@ -417,7 +417,7 @@ const Feature = () => {
                 className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="futuru_font text-[34px] mb-[1rem] font-[600]">
+                  <h5 className="just_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
                       A task force{" "}
@@ -431,7 +431,7 @@ const Feature = () => {
                 className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="futuru_font text-[34px] mb-[1rem] font-[600]">
+                  <h5 className="just_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
                       A task force{" "}
@@ -442,7 +442,7 @@ const Feature = () => {
 
               <div ref={lastSlideRef} className="flex flex-row items-center relative pl-[13rem] min-w-[100vw] last_slide">
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
-                  <h5 className="futuru_font text-[50px] mb-[1rem]  text-[50px] font-semibold">
+                  <h5 className="just_font text-[50px] mb-[1rem]  text-[50px] font-semibold">
                     Wired to help brands{" "}
                     <span className="block">move ahead of the market.</span>
                   </h5>
@@ -452,7 +452,7 @@ const Feature = () => {
               <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f5f5f5] ml-[13rem] overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
-                    <h2 className="futuru_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
+                    <h2 className="just_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
                       <span className="block">We create</span>
                       <span className="block relative pl-[100px] w-[max-content] before:absolute before:h-[3px] before:w-[80px] before:bg-[#000] before:block before:left-[0] before:top-[50%] before:translate-y-[-1/2]">
                         what others only imagine.

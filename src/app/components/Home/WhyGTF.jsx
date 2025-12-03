@@ -26,7 +26,7 @@ const WhyGTF = () => {
         }}
         className="relative md:text-start text-center md:py-[0] py-[60px]"
       >
-        <h3 className="futuru_font font-bold uppercase md:text-start mb-[1.5rem] text-center max-h-content inline-block relative md:pt-[5rem] md:pl-[35px] px-5 md:leading-[70px] tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px]">
+        <h3 className="futuru_font font-bold uppercase md:text-start mb-[1.5rem] text-center max-h-content inline-block relative md:pt-[5rem] md:pl-[35px] px-5 md:leading-[70px] tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px] relative z-0">
           <span>WHY </span>
           <span className="block">gtf technologies ?</span>
           <Line
@@ -34,6 +34,7 @@ const WhyGTF = () => {
             top="lg:bottom-[0]"
             left="left-[47%] lg:left-[61%]"
             right="right-[-2%]"
+            className="test"
           />
         </h3>
 

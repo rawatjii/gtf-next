@@ -682,7 +682,7 @@ const HeroSection = () => {
                       <div className="relative">
                         <span
                           ref={(el) => (countersRef.current[index] = el)}
-                          className="counter outline_word"
+                          className="counter outline_word w-[400px] inline-block"
                           data-target={numberValue}
                         >
                           00
