@@ -202,7 +202,6 @@ const Feature = () => {
                 opacity: 1,
                 duration: 1.4,
                 ease: "power4.out",
-                transformOrigin: "center center",
               });
 
               gsap.to(lineRef.current, {
@@ -270,7 +269,7 @@ const Feature = () => {
 
   return (
     <>
-      <section className="w-full relative  mix-blend-multiply overflow-hidden bg-[#e8e8e8]">
+      <section className="w-full relative  mix-blend-multiply overflow-hidden bg-[#fff]">
         <div ref={containerRef} className="pin-container relative">
 
           {/* Timeline Bar */}
@@ -315,7 +314,7 @@ const Feature = () => {
             }}
           >
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex">
+              <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[0] = el)}
                   className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
@@ -327,7 +326,7 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex">
+              <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
                   className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
@@ -338,7 +337,7 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex">
+              <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[2] = el)}
                   className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
@@ -349,7 +348,7 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex">
+              <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
                   className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
@@ -361,7 +360,7 @@ const Feature = () => {
             </div>
 
             <div className="absolute left-0 top-0 h-full w-full">
-              <div className="relative flex">
+              <div className="relative flex justify-center">
                 <img
                   ref={(el) => (imagesRef.current[4] = el)}
                   className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
@@ -443,10 +442,10 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f7f7f7] ml-[13rem]">
+              <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f5f5f5] ml-[13rem]">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
-                    <h2 className="futuru_font font-bold relative capitalize 2xl:leading-[80px] px-[50px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] ">
+                    <h2 className="futuru_font font-bold relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1]">
                       <span className="block">We create</span>
                       <span className="block relative pl-[100px] w-[max-content] before:absolute before:h-[3px] before:w-[80px] before:bg-[#000] before:block before:left-[0] before:top-[50%] before:translate-y-[-1/2]">
                         what others only imagine.
@@ -471,34 +470,35 @@ const Feature = () => {
                     </div>
                   </div> */}
                   </div>
-                  <div className="flex justify-between flex-wrap relative md:pt-[0] pt-[30px]">
-                    <div className="md:basis-[60%] basis-[100%] relative px-[50px]">
+                  <div className="flex justify-between flex-wrap relative md:pt-[0] pt-[30px] px-[100px]">
+                    <div className="md:basis-[60%] basis-[100%] relative">
                       {/* 1 */}
-                      <div
-                        ref={lineRef}
-                        className="relative w-0 top-[46%] left-[29%]"
-                      >
-                        {/* top */}
-                        <div className="origin-left md:block hidden  rotate-[-15.5deg] h-[1px] w-[75%] border-dashed border-b-[1px] border-black  absolute bottom-0 "></div>
-                        <div className="origin-left md:block hidden rotate-[-12deg] h-[1px] w-[73%] border-dashed border-b-[1px] border-black  absolute bottom-[0px]"></div>
-
-                        {/* middle */}
-                        <div className="h-[1px] md:block hidden w-[70%] border-dashed border-b-[1px] border-black origin-left rotate-[1.4deg] absolute  "></div>
-                        <div className="h-[1px] md:block hidden w-[70%] border-dashed border-b-[1px] border-black  absolute origin-left rotate-[-2deg] "></div>
-
-                        {/* third */}
-                        <div className="h-[1px] md:block hidden w-[73%] origin-left rotate-[12deg] border-dashed border-b-[1px] border-black  absolute  "></div>
-                        <div className="h-[1px] md:block hidden w-[75%] origin-left rotate-[16deg] border-dashed border-b-[1px] border-black  absolute  "></div>
-                      </div>
-                      <div
-                        ref={circleRef}
-                        className="md:h-[250px] md:w-[250px] h-[120px] w-[120px] md:left-[8%]  md:top-[21%] bg-[#FDE93D] mix-blend-multiply md:relative absolute rounded-full"
-                      ></div>
                       <img
                         src="/assets/home/netblob.png"
                         alt="Years of Expertise"
                         className="absolute md:w-[70%] md:h-[auto] h-[250px] w-[100%] opacity-[.9] md:translate-y-[-50%] md:top-[55%]  md:block hidden left-[0%]  top-[-52px] "
                       />
+                      <div
+                        ref={lineRef}
+                        className="relative w-0 top-[50%] left-[29%]"
+                      >
+                        {/* top */}
+                        <div className="origin-left md:block hidden  rotate-[-14deg] h-[1px] w-[75%] border-dashed border-b-[1px] border-black  absolute bottom-0 "></div>
+                        <div className="origin-left md:block hidden rotate-[-12deg] h-[1px] w-[75%] border-dashed border-b-[1px] border-black  absolute bottom-[0px]"></div>
+
+                        {/* middle */}
+                        <div className="h-[1px] md:block hidden w-[73%] border-dashed border-b-[1px] border-black origin-left rotate-[0deg] absolute  "></div>
+                        <div className="h-[1px] md:block hidden w-[73%] border-dashed border-b-[1px] border-black  absolute origin-left rotate-[-3deg] "></div>
+
+                        {/* third */}
+                        <div className="h-[1px] md:block hidden w-[75%] origin-left rotate-[10deg] border-dashed border-b-[1px] border-black  absolute  "></div>
+                        <div className="h-[1px] md:block hidden w-[75%] origin-left rotate-[12deg] border-dashed border-b-[1px] border-black  absolute  "></div>
+                      </div>
+                      <div
+                        ref={circleRef}
+                        className="md:h-[250px] md:w-[250px] h-[120px] w-[120px] md:left-[8%]  md:top-[50%] bg-[#FDE93D] translate-y-[-50%] md:relative absolute rounded-full"
+                      ></div>
+                      
                       <p className="md:absolute bottom-[50px] left-[0]  md:text-start  px-[50px]">
                         <span className="just_font text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
                           17 +
@@ -509,31 +509,31 @@ const Feature = () => {
                         </span>
                       </p>
                     </div>
-                    <div className="md:basis-[35%] md:pt-[38px] pt-[30px]">
-                      <p className="uppercase flex flex-col md:justify-start justify-center mb-[30px] md:mb-[65px]">
+                    <div className="md:basis-[40%] pl-[60px] flex flex-wrap gap-[100px]">
+                      <p className="flex items-center md:justify-start justify-center">
                         <span
                           ref={counterRef}
-                          className="just_font text-[30px] md:text-start 2xl:text-[30px] lg:text-[36px] font-semibold"
+                          className="just_font text-[30px] md:text-start 2xl:text-[50px] lg:text-[36px] font-semibold text-[#e34090] w-[200px] leading-[30px]"
                         >
-                          {counts.projects} +
+                          {counts.projects}+
                         </span>
-                        <span className="text-[14px] font-[400] tracking-wide just_font font-medium">
-                          PROJECTS DONE
+                        <span className="text-[22px] font-[400] tracking-wide just_font">
+                          Projects Done
                         </span>
                       </p>
-                      <p className="uppercase flex flex-col md:justify-start justify-center mb-[30px] md:mb-[65px]">
-                        <span className="just_font text-[30px] md:text-start 2xl:text-[30px] lg:text-[36px] font-semibold">
-                          {counts.googleQueries} k +
+                      <p className="flex items-center md:justify-start justify-center">
+                        <span className="just_font text-[30px] md:text-start 2xl:text-[50px] lg:text-[36px] font-semibold text-[#e3b320] w-[200px]">
+                          {counts.googleQueries}k+
                         </span>
-                        <span className="text-[14px] font-[400] tracking-wide just_font font-medium">
+                        <span className="text-[22px] font-[400] tracking-wide just_font">
                           Queries generated from Google per month
                         </span>
                       </p>
-                      <p className="uppercase flex flex-col md:justify-start justify-center mb-[30px] md:mb-[65px]">
-                        <span className="just_font text-[30px] md:text-start 2xl:text-[30px] lg:text-[36px] font-semibold">
-                          {counts.facebookQueries} k +
+                      <p className="flex items-center md:justify-start justify-center">
+                        <span className="just_font text-[30px] md:text-start 2xl:text-[50px] lg:text-[36px] font-semibold text-[#2999cd] w-[200px]">
+                          {counts.facebookQueries}k+
                         </span>
-                        <span className="text-[14px] font-[400] tracking-wide just_font font-medium">
+                        <span className="text-[22px] font-[400] tracking-wide just_font flex-1">
                           Queries generated from Facebook & Instagram per month
                         </span>
                       </p>

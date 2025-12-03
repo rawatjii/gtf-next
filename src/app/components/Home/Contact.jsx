@@ -93,11 +93,11 @@ const Contact = () => {
         className="absolute  z-[9] top-[40%] translate-y-[-50%] px-[50px]"
       >
         <div className="">
-          <h3 className="bebas text-[#fff] uppercase inline-block md:text-start text-center relative md:leading-[70px] text-white tracking-[2px] 2xl:text-[72px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
+          <h3 className="futuru_font font-bold text-[#fff] uppercase inline-block md:text-start text-center relative md:leading-[60px] text-white tracking-[2px] 2xl:text-[54px] md:text-start lg:text-[60px] md:text-[50px] text-[32px] ">
             <span ref={span1Ref} className=" block" style={{ clipPath: "inset(100% 0 0 0)" }}>
             Start the Conversation
             </span>
-            <span ref={span2Ref} className="relative md:pl-[15.1rem] block md:text-start mt-[10px]" style={{ clipPath: "inset(100% 0 0 0)" }}>
+            <span ref={span2Ref} className="relative md:pl-[10.1rem] block md:text-start mt-[10px]" style={{ clipPath: "inset(100% 0 0 0)" }}>
             That Changes Everything.
               <Line
                 ref={coloredLineRef}
@@ -108,7 +108,7 @@ const Contact = () => {
           </h3>
         </div>
 
-        <button ref={buttonRef} className="mt-[50px] bg-[white] w-[100%] lg:w-auto font-[600] uppercase font-[Oswald] rounded-md shadow-md  cursor-pointer xl:text-[18px] text-[16px] outline-none px-[3rem] py-[0.8rem] text-center transition-transform duration-150 ease-in-out hover:shadow-lg hover:-translate-y-1 tracking-[1px]" style={{opacity:0, transform:"translateY(10px)"}}>
+        <button ref={buttonRef} className="mt-[50px] bg-[white] w-[100%] lg:w-auto font-[600] uppercase just_font rounded-md shadow-md  cursor-pointer xl:text-[18px] text-[16px] outline-none px-[3rem] py-[0.8rem] text-center transition-transform duration-150 ease-in-out hover:shadow-lg hover:-translate-y-1 tracking-[1px]" style={{opacity:0, transform:"translateY(10px)"}}>
           Submit
         </button>
       </div>

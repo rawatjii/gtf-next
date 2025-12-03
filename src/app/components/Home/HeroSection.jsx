@@ -66,6 +66,7 @@ const HeroSection = () => {
   const dataRef = useRef(null);
   const countersRef = useRef([]);
   const zoomTextRef = useRef(null);
+  const zoomDotRef = useRef(null);
   const bgZoomColorRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -275,10 +276,16 @@ const HeroSection = () => {
     gsap.delayedCall(3.5, () => {
       if (!zoomTextRef.current || !bgZoomColorRef.current) return;
 
+
+      zoomTl.to(zoomDotRef.current, {
+        opacity:0,
+        ease:'none'
+      })
+
       zoomTl.to(zoomTextRef.current, {
-        scale: 10,
+        scale: 65,
         y: "-200px",
-        ease: "none",
+        duration:'0.4',
       });
 
       // zoomTl.to(
@@ -642,7 +649,7 @@ const HeroSection = () => {
         />
 
         <div className="flex hidden overflow-hidden slider_content justify-center flex-wrap items-center mt-[50px]">
-          <div className="map h-full w-full flex items-center justify-center top-0 left-0 w-full h-full opacity-50 z-[-1]">
+          <div className="map h-full w-full flex items-center justify-center top-0 left-0 w-full h-full z-[-1]">
             <img
               ref={mapRef}
               src="/assets/map/map.png"
@@ -665,8 +672,8 @@ const HeroSection = () => {
                 <>
                   <h3
                     key={index}
-                    ref={index === 2 ? zoomTextRef : null}
-                    className={`text-[80px] uppercase bartino leading-[100px] text-center tracking-[5px] font-bold text-[#000] ${
+                    // ref={index === 2 ? zoomTextRef : null}
+                    className={`text-[80px] uppercase futuru_font leading-[80px] text-center tracking-[2px] font-bold text-[#000] ${
                       index === 2 ? "z-[9]" : undefined
                     }`}
                     style={{ color: colors[index] }}
@@ -680,7 +687,7 @@ const HeroSection = () => {
                         >
                           00
                         </span>
-                        <span className="ml-4 suffix transition-opacity">
+                        <span className="block suffix transition-opacity">
                           {suffix}
                         </span>
                         {/* {index === 2 && 
@@ -695,19 +702,23 @@ const HeroSection = () => {
                       </div>
                     ) : (
                       <div className="relative">
-                        <span className="text-only translate-y-10">
-                          {suffix}
-                        </span>
+                        <div className="text-only translate-y-10">
+                          {suffix.split(" ").map((item, idx) => (
+                            <span key={idx} className="block">
+                              {item}
+                            </span>
+                          ))}
+                        </div>
 
                         <span
                           ref={bgZoomColorRef}
-                          className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[50%] translate-x-[-50%] block"
+                          className="absolute fill_color bg-[#e24397] h-[0px] w-[0px] top-[50%] left-[50%] translate-x-[-50%]"
                         ></span>
                       </div>
                     )}
                   </h3>
                   {index < data.length - 1 && (
-                    <span class="divider h-[13px] w-[13px] bg-[#333] inline-block mx-[30px]"></span>
+                    <span class="divider h-[13px] w-[13px] bg-[#333] inline-block mx-[60px]"></span>
                   )}
                 </>
               );
@@ -728,6 +739,14 @@ const HeroSection = () => {
         <div className="mix-blend-multiply h-[6px] w-[40px] bg-gtf-pink"></div>
         <div className="mix-blend-multiply my-[4px] h-[6px] w-[40px] bg-gtf-yellow"></div>
         <div className="mix-blend-multiply h-[6px] w-[40px] bg-gtf-blue"></div>
+      </div>
+
+      <div className="scrollDown">
+        <span ref={zoomTextRef} class="mouse">
+          <span ref={zoomDotRef}></span>
+        </span>
+
+        <p>scroll Down</p>
       </div>
 
       {mounted &&

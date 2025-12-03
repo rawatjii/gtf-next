@@ -271,13 +271,13 @@ const Footer = () => {
             <div className="grid grid-cols-12">
               {locations?.map((data, index) => (
                 <div key={index} className="col-span-4 px-[30px] mb-[60px]">
-                  <h4 className="font-[Oswald] text-[22px] mb-[20px]">{data.location}</h4>
-                  <p className="text-[16px] mb-[5px]">
+                  <h4 className="futuru_font text-[22px] mb-[20px] font-semibold tracking-[1px]">{data.location}</h4>
+                  <p className="text-[16px] mb-[5px] just_font">
                     {data.address}
                   </p>
                   {data.number && (
-                    <p className="font-[Oswald] mt-[10px]">
-                      <Link href={data.number} className="font-medium">{data.number}</Link>
+                    <p className="just_font mt-[10px]">
+                      <Link href={data.number} className="font-semibold">{data.number}</Link>
                     </p>
                   )}
                 </div>

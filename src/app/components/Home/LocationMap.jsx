@@ -167,7 +167,7 @@ const Locationmap = () => {
   }, []);
 
   return (
-    <section className="relative hero_section overflow-hidden py-[120px] md:px-[50px]">
+    <section className="relative hero_section overflow-hidden py-[120px] md:px-[50px] bg-[#f5f5f5]">
       {/* Decorative Elements */}
       <div className="right-[20px] bottom-[30px] md:block hidden absolute">
         {/* <div className="flex justify-end relative">
@@ -199,7 +199,7 @@ const Locationmap = () => {
         alt="circle"
       />
 
-        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px] bebas tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] ">
+        <h2 className="relative uppercase 2xl:leading-[70px]  xl:leading-[56px]  leading-[35px] md:basis-[50%] max-h-fit table mx-auto text-center mb-[50px] tracking-[2px] text-[30px] xl:text-[50px]  md:text-[50px] 2xl:text-[72px] futuru_font font-bold">
           <span className="block">
             Life At GTF
           </span>
@@ -290,8 +290,8 @@ const Locationmap = () => {
                 key={i}
                 onMouseEnter={() => handleHover(i)}
                 onMouseLeave={handleMouseLeave}
-                className={`bebas capitalize cursor-pointer transition-colors mb-[20px] text-base tracking-[0.5] ${
-                  i === activeIndex ? "text-black 2xl:text-[32px] mb-[14px] font-medium" : "text-[#b5b6b2] 2xl:text-[24px]"
+                className={`just_font capitalize cursor-pointer transition-colors mb-[20px] text-base tracking-[-1] ${
+                  i === activeIndex ? "text-black 2xl:text-[26px] mb-[14px] font-medium" : "text-[#b5b6b2] 2xl:text-[22px]"
                 } `}
               >
                 {info.name}

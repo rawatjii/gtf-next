@@ -14,9 +14,9 @@ import LogoItem from "@/app/utils/LogoItem";
 gsap.registerPlugin(ScrollTrigger);
 
 const isMobile = "(max-width: 767px)";
-  const isTablet = "(min-width: 768px) and (max-width: 1023px)";
-  const isLaptop = "(min-width: 1201px) and (max-width: 1500px)";
-  const isDesktop = "(min-width: 1501px)";
+const isTablet = "(min-width: 768px) and (max-width: 1023px)";
+const isLaptop = "(min-width: 1201px) and (max-width: 1500px)";
+const isDesktop = "(min-width: 1501px)";
 
 const Clients = () => {
   const sectionRef = useRef(null);
@@ -78,27 +78,27 @@ const Clients = () => {
   // Duplicate enough times to fill the grid + seamless loop
   const logos = [...baseLogos, ...baseLogos, ...baseLogos, ...baseLogos]; // 40 items → safe for infinite scroll
 
-  const updateGridRows = ()=>{
-    if(window.matchMedia(isMobile).matches){
+  const updateGridRows = () => {
+    if (window.matchMedia(isMobile).matches) {
       setGridRows(2);
-    }else if (window.matchMedia(isLaptop).matches) {
+    } else if (window.matchMedia(isLaptop).matches) {
       setGridRows(3);
     } else if (window.matchMedia(isDesktop).matches) {
       setGridRows(4);
     } else {
       setGridRows(4);
     }
-  }
+  };
 
   // Update grid rows when the screen size changes
-  useEffect(()=>{
+  useEffect(() => {
     updateGridRows();
-    window.addEventListener('resize', updateGridRows);
+    window.addEventListener("resize", updateGridRows);
 
     return () => {
-      window.removeEventListener('resize', updateGridRows);
+      window.removeEventListener("resize", updateGridRows);
     };
-  }, [])
+  }, []);
 
   useEffect(() => {
     const titleWrapper = titleWrapperRef.current;
@@ -121,14 +121,14 @@ const Clients = () => {
       {
         isMobile: "(max-width:767px)",
         isTablet: "(min-width:768px) and (max-width:1023px)",
-        isLaptop:"(min-width:1201px) and (max-width:1500px)",
+        isLaptop: "(min-width:1201px) and (max-width:1500px)",
         isDesktop: "(min-width:1501px)",
       },
       (context) => {
         let { isMobile, isTablet, isLaptop, isDesktop } = context.conditions;
 
         const config = {
-          fontSize:isMobile
+          fontSize: isMobile
             ? "42px" // or whatever you want on mobile after animation
             : isTablet
             ? "60px"
@@ -146,13 +146,7 @@ const Clients = () => {
             ? "120px"
             : "100px",
 
-          gridRows: isMobile
-            ? "2"
-            : isLaptop
-            ? "3"
-            : isDesktop
-            ? "4"
-            : "4",
+          gridRows: isMobile ? "2" : isLaptop ? "3" : isDesktop ? "4" : "4",
         };
 
         const tl = gsap.timeline({
@@ -197,7 +191,7 @@ const Clients = () => {
   return (
     <section
       ref={sectionRef}
-      className=" bg-[#fff] relative h-screen md:mb-[0] mb-[30px] flex items-center border-t border-b border-[#ddd]-200"
+      className=" bg-[#fff] relative h-screen md:mb-[0] mb-[30px] flex items-center border-t border-[#ddd]-200"
     >
       <div
         ref={titleWrapperRef}
@@ -205,7 +199,7 @@ const Clients = () => {
       >
         <h3
           ref={titleRef}
-          className="bebas uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[70px] md:text-[50px] text-[32px]"
+          className="futuru_font font-bold uppercase relative md:leading-[136px] text-center md:text-start max-h-fit leading-[normal] md:mb-[0] mb-[15px] tracking-[2px] 2xl:text-[100px] xl:text-[70px] md:text-[50px] text-[32px]"
           style={{
             top: "50%",
             transform: "translateY(-50%)",
@@ -241,12 +235,16 @@ const Clients = () => {
               {[...Array(6)].map((_, colIndex) => (
                 <div
                   key={colIndex}
-                  className={`grid grid-rows-${gridRows} ${gridRows === 3 ? 'gap-4 mx-2' : 'gap-8 mx-4' } `} // mx-4 = horizontal spacing between columns
+                  className={`grid grid-rows-${gridRows} ${
+                    gridRows === 3 ? "gap-4 mx-2" : "gap-8 mx-4"
+                  } `} // mx-4 = horizontal spacing between columns
                 >
                   {/* Each column gets 4 logos, vertically */}
                   {[...Array(gridRows)].map((_, rowIndex) => {
                     const logoIndex =
-                      setIndex * (6 * gridRows) + colIndex * gridRows + rowIndex;
+                      setIndex * (6 * gridRows) +
+                      colIndex * gridRows +
+                      rowIndex;
                     const logo = logos[logoIndex % logos.length]; // Safe wrap-around
 
                     return (

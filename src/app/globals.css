@@ -485,6 +485,74 @@ canvas {
 }
 
 
+.scrollDown {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  text-decoration: none;
+  z-index: 10;
+}
+
+.scrollDown p {
+  margin: 20px 0 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #000;
+  opacity: 0.8;
+  font-family: var(--just_font);
+  transition: opacity 0.3s ease;
+}
+
+.scrollDown:hover p {
+  opacity: 1;
+}
+
+.scrollDown .mouse {
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 55px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  background:#000;
+  border-radius: 23px;
+}
+
+.scrollDown .mouse > span {
+  position: absolute;
+  top: 29%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: #fff;
+  border-radius: 50%;
+  animation: ani-mouse 2.5s infinite linear;
+}
+
+@keyframes ani-mouse {
+  0% {
+    top: 29%;
+  }
+  15% {
+    top: 50%;
+  }
+  50% {
+    top: 50%;
+  }
+  100% {
+    top: 29%;
+  }
+}
+
+/* Optional: smooth hover effect */
+.scroll-btn:hover .mouse {
+  opacity: 0.8;
+}
 
 /* start responsive */
 
