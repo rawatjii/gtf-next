@@ -1,31 +1,31 @@
 export const HERO_DATA = [
   {
-    name: "Brand Strategy",
+    name: "Lead With Precision",
     id: "brand_strategy",
     img: "main_video.mp4",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
   {
-    name: "Website Design & Development",
+    name: "Craft is our signature",
     id: "website_development",
     img: "video_banner_1.mp4",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
   {
-    name: "Paid Ads",
+    name: "United Always",
     id: "paid_ads",
     img: "video_banner_3.mp4",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
   {
-    name: "Search Engine Optimization",
+    name: "Deliver What Elevates",
     id: "seo",
     img: "3.jpg",
     video: "video_2.mp4",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
   {
-    name: "Social Media Marketing",
+    name: "Move with Intent",
     id: "social",
     img: "2.jpg",
     text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
