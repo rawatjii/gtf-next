@@ -310,15 +310,15 @@ const Feature = () => {
           style={{
             left: "50vw", // Start from center of viewport
             x: "50vw", // GSAP starts it 50vw to the right → off-screen
-            height: "500px",
-            width: "500px"
+            height: "600px",
+            width: "370px"
           }}
         >
           <div className="absolute left-0 top-0 h-full w-full">
             <div className="relative flex">
               <img
                 ref={(el) => (imagesRef.current[0] = el)}
-                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                className="object-cover relative inline-block z-[1] w-[370px] h-[600px]"
                 src="/assets/home/who_we_are/creative1/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
@@ -330,7 +330,7 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[1] = el)}
-                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                className="object-cover relative inline-block z-[1] w-[370px] h-[600px]"
                 src="/assets/home/who_we_are/creative2/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
@@ -341,7 +341,7 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[2] = el)}
-                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                className="object-cover relative inline-block z-[1] w-[370px] h-[600px]"
                 src="/assets/home/who_we_are/creative1/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
@@ -352,7 +352,7 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[1] = el)}
-                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                className="object-cover relative inline-block z-[1] w-[370px] h-[600px]"
                 src="/assets/home/who_we_are/creative2/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />
@@ -364,7 +364,7 @@ const Feature = () => {
             <div className="relative flex">
             <img
                 ref={(el) => (imagesRef.current[4] = el)}
-                className="object-contain relative inline-block z-[1] w-[370px] border border-[3px]"
+                className="object-cover relative inline-block z-[1] w-[370px] h-[600px]"
                 src="/assets/home/who_we_are/creative1/img1-sm.webp"
                 alt="GTF Technologies office environment"
               />

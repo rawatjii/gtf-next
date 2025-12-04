@@ -193,7 +193,7 @@ const WhoWeAre = () => {
           id: "whoWeAreTrigger",
           trigger: container,
           start: "top top",
-          end: () => `+=1500`,
+          end: () => `+=500`,
           pin: true,
           markers: false,
           scrub: 1,
