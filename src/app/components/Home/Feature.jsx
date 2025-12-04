@@ -315,7 +315,7 @@ const Feature = () => {
             className="fixed top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[fit-content] z-[9]"
             style={{
               left: "50%", // Start from center of viewport
-              height: "700px",
+              height: "620px",
               width: "500px",
               transform:"translate(-50%, -50%)"
             }}
@@ -393,7 +393,7 @@ const Feature = () => {
               <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
                   <h3 className="neue_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
-                    Built to Disrupt <span className="block">the Ordinary</span>
+                    Built to Disrupt <span className="block">the Ordinary.</span>
                   </h3>
                 </div>
               </div>
@@ -406,7 +406,7 @@ const Feature = () => {
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
-                      A task force{" "}
+                      A task force.{" "}
                     </span>
                   </h5>
                 </div>
@@ -418,9 +418,9 @@ const Feature = () => {
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
-                    Not a Team.{" "}
+                    Engineered to turn.{" "}
                     <span className="block text-[50px] uppercase font-bold">
-                      A task force{" "}
+                    clicks into conviction.{" "}
                     </span>
                   </h5>
                 </div>
@@ -432,9 +432,9 @@ const Feature = () => {
               >
                 <div className="basis-[100%] pr-[50px] pl-[20px]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
-                    Not a Team.{" "}
+                  Designed to make noise{" "}
                     <span className="block text-[50px] uppercase font-bold">
-                      A task force{" "}
+                    impossible to ignore.{" "}
                     </span>
                   </h5>
                 </div>
