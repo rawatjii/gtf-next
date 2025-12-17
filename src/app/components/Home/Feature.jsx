@@ -64,6 +64,12 @@ const Feature = () => {
 
       if (!section || !pinned) return;
 
+      // console.log('testing',100/2);
+
+      gsap.set(section, {
+        transform:`translateX(${window.innerWidth * 0.5 + 250}px)`,
+      })
+
       // All slides that should drive timeline/dots/images
       // = all section children except the counter section
       const slides = Array.from(section.children).filter(function (child) {
@@ -75,6 +81,7 @@ const Feature = () => {
 
       // All image layers inside pinned image container
       const imageSets = pinned.children;
+
 
       // Horizontal scroll distance
       const getMaxX = () => section.scrollWidth - window.innerWidth;
@@ -376,12 +383,23 @@ const Feature = () => {
                 />
               </div>
             </div>
+
+            <div className="absolute left-0 top-0 h-full w-full">
+              <div className="relative flex justify-center h-full">
+                <img
+                  ref={(el) => (imagesRef.current[4] = el)}
+                  className="object-cover relative inline-block z-[1] w-full h-full "
+                  src="/assets/home/who_we_are/creative1/img1-sm.webp"
+                  alt="GTF Technologies office environment"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-row h-screen  main-container-scroll no-scrollbar relative">
             <div
               ref={sectionRef}
-              className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
+              className="main-container-scroll  no-scrollbar flex h-screen will-change-transform gap-[500px]"
               style={{
                 display: "flex",
                 // width: "fit-content",
@@ -390,8 +408,8 @@ const Feature = () => {
             >
               {/* First Image Section */}
 
-              <div className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]">
-                <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <div className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]">
+                <div className="basis-[100%]">
                   <h3 className="neue_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                     Built to Disrupt <span className="block">the Ordinary.</span>
                   </h3>
@@ -400,9 +418,9 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
+                className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]"
               >
-                <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <div className="basis-[100%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -414,9 +432,9 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
+                className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]"
               >
-                <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <div className="basis-[100%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Engineered to turn.{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -428,9 +446,9 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative pl-[13rem] min-w-[calc(100vw-13rem)]"
+                className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]"
               >
-                <div className="basis-[100%] pr-[50px] pl-[20px]">
+                <div className="basis-[100%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                   Designed to make noise{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -440,8 +458,8 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={lastSlideRef} className="flex flex-row items-center relative pl-[13rem] min-w-[100vw] last_slide">
-                <div className="basis-[100%] pr-[50px] pl-[20px]">
+              <div ref={lastSlideRef} className="flex flex-row items-center relative last_slide w-[calc((100vw/2)-250px)]">
+                <div className="basis-[100%]">
                   <h5 className="neue_font text-[50px] mb-[1rem]  text-[50px] font-semibold">
                     Wired to help brands{" "}
                     <span className="block">move ahead of the market.</span>
@@ -449,7 +467,7 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={counterSecRef} className="flex flex-row items-center relative min-w-[100vw] bg-[#f5f5f5] ml-[13rem] overflow-hidden">
+              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] bg-[#f5f5f5] ml-[13rem] overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
                     <h2 className="neue_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
