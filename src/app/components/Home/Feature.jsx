@@ -43,7 +43,7 @@ const Feature = () => {
   const imageContentRef = useRef(null);
   const lastSlideRef = useRef(null);
   const [dotCount, setDotCount] = useState(0);
-  const [activeDotIndex, setActiveDotIndex] = useState(0); // Track active dot
+  const [activeDotIndex, setActiveDotIndex] = useState(-1); // Track active dot
 
 
   const [counts, setCounts] = useState({
@@ -67,7 +67,7 @@ const Feature = () => {
       // console.log('testing',100/2);
 
       gsap.set(section, {
-        transform:`translateX(${window.innerWidth * 0.5 + 250}px)`,
+        transform:`translateX(${window.innerWidth * 0.5 + 350}px)`,
       })
 
       // All slides that should drive timeline/dots/images
@@ -88,7 +88,8 @@ const Feature = () => {
 
       // DYNAMIC BASE PERCENT (100 / (slides + 1))
       const slidesLen = slides.length;
-      const basePercent = slidesLen > 0 ? 100 / (slidesLen + 1) : 0;
+      // const basePercent = slidesLen > 0 ? 100 / (slidesLen + 1) : 0;
+      const basePercent = slidesLen > 0 ? 0 : 0;
       // Each slide gets one equal segment
       const segmentSize = slidesLen > 0 ? (100 - basePercent) / slidesLen : 0;
 
@@ -126,7 +127,7 @@ const Feature = () => {
             var vw = window.innerWidth;
             var triggerPoint = vw * 0.7;        // 70% from left
             var counterTriggerPoint = vw * 0.5;
-            var lastSlidePoint = -250;
+            var lastSlidePoint = 0;
 
             // -------- PER-SLIDE PROGRESS, IMAGE REVEAL, ETC. --------
             slides.forEach(function (slide, index) {
@@ -164,6 +165,7 @@ const Feature = () => {
                   zIndex: prevIndex === 0 ? 5 : prevIndex === 1 ? 4 : prevIndex === 2 ? 3 : prevIndex === 3 ? 2 : 1,
                 });
               }
+              
             });
 
             // -------- TIMELINE WIDTH FROM SLIDE PROGRESS --------
@@ -177,14 +179,14 @@ const Feature = () => {
             timelineWidth = Math.min(100, Math.max(0, timelineWidth));
 
             gsap.to(timeline, {
-              width: timelineWidth + "%",
-              ease: "power2.out",
+              width: Math.min(100, Math.max(0, timelineWidth)) + "%", // Ensure it stays between 0% and 100%
+              ease: "none", // Ensure it stays linear
             });
 
             // -------- DOTS STATE FROM SLIDE PROGRESS --------
             dotsRef.current.forEach(function (dot, idx) {
               if (!dot) return;
-              var active = slideProgresses[idx] > 0.01;
+              var active = slideProgresses[idx] > 0.75;
 
               // Change active dot index when active
 
@@ -238,6 +240,7 @@ const Feature = () => {
                 delay: 0.6,
               });
             }
+
           }
 
 
@@ -399,7 +402,7 @@ const Feature = () => {
           <div className="flex flex-row h-screen  main-container-scroll no-scrollbar relative">
             <div
               ref={sectionRef}
-              className="main-container-scroll  no-scrollbar flex h-screen will-change-transform gap-[500px]"
+              className="main-container-scroll  no-scrollbar flex h-screen will-change-transform"
               style={{
                 display: "flex",
                 // width: "fit-content",
@@ -408,7 +411,7 @@ const Feature = () => {
             >
               {/* First Image Section */}
 
-              <div className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]">
+              <div className="flex flex-row items-center relative w-[calc((100vw/2))]">
                 <div className="basis-[100%]">
                   <h3 className="neue_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                     Built to Disrupt <span className="block">the Ordinary.</span>
@@ -418,7 +421,7 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]"
+                className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
                 <div className="basis-[100%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
@@ -432,7 +435,7 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]"
+                className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
                 <div className="basis-[100%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
@@ -446,7 +449,7 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative w-[calc((100vw/2)-250px)]"
+                className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
                 <div className="basis-[100%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
@@ -458,7 +461,7 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={lastSlideRef} className="flex flex-row items-center relative last_slide w-[calc((100vw/2)-250px)]">
+              <div ref={lastSlideRef} className="flex flex-row items-center relative last_slide w-[calc((100vw/2))] ml-[13rem]">
                 <div className="basis-[100%]">
                   <h5 className="neue_font text-[50px] mb-[1rem]  text-[50px] font-semibold">
                     Wired to help brands{" "}
@@ -467,7 +470,7 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] bg-[#f5f5f5] ml-[13rem] overflow-hidden">
+              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] bg-[#f5f5f5] ml-[calc(100vw/2)] overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
                     <h2 className="neue_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">

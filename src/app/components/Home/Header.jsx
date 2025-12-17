@@ -6,6 +6,9 @@ import gsap from "gsap";
 import { useSelector } from "react-redux";
 import SlideTxtAn from "@/app/utils/SlideTxtAn";
 
+import { FaLinkedinIn, FaFacebookF, FaInstagram, FaPinterestP } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
 gsap.registerPlugin(TextPlugin);
 
 const mainNavItems = [
@@ -209,7 +212,7 @@ const Header = () => {
 
         <div
           className="hamburger_menu cursor-pointer"
-          onClick={() => setIsMenuOpen(true)}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <span
             className={`${
@@ -227,102 +230,91 @@ const Header = () => {
 
       {/* Fullscreen Menu */}
       <section
-        className={`fixed left-0 w-full h-screen bg-black flex justify-center items-center z-[9999] transition-all duration-500 ${
-          isMenuOpen ? "top-0" : "top-[-200%]"
+        className={`fixed w-full h-screen z-[999] transition-all duration-300 ${
+          isMenuOpen ? "opacity-1 visible" : "opacity-0 invisible"
         }`}
       >
-        <img
+        <div className=" absolute h-full w-full opacity-[0.8] before:bg-[#e24397] before:absolute before:h-full before:w-full"></div>
+
+        <div className="relative grid grid-cols-12 h-full">
+          <div className="left col-span-4"></div>
+          <div className="right bg-[#fff] col-span-8">
+            <div className="top grid grid-cols-2 pt-[100px] items-center px-[50px]">
+              <div>
+                <ul className="text-[60px] neue_font font-semibold">
+                  <li>Home</li>
+                  <li>Who We Are</li>
+                  <li>Who We Are</li>
+                  <li>Who We Are</li>
+                  <li>Who We Are</li>
+                </ul>
+              </div>
+
+              <div>
+                <ul>
+                  <li>Home</li>
+                  <li>Who We Are</li>
+                  <li>Who We Are</li>
+                  <li>Who We Are</li>
+                  <li>Who We Are</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bottom">
+              <h5>Social Media:</h5>
+              <ul>
+                <li>
+                  <a href="">
+                    <FaLinkedinIn />
+                  </a>
+                </li>
+
+                <li>
+                  <a href="">
+                  <FaXTwitter />
+                  </a>
+                </li>
+
+                <li>
+                  <a href="">
+                  <FaFacebookF />
+                  </a>
+                </li>
+
+                <li>
+                  <a href="">
+                  <FaInstagram />
+                  </a>
+                </li>
+
+                <li>
+                  <a href="">
+                  <FaPinterestP />
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* <img
           src="/assets/sidemenu/menu.jpg"
           className="absolute inset-0 w-full h-full object-cover opacity-70"
           alt="background"
-        />
+        /> */}
 
         {/* Close Button */}
-        <img
+        {/* <img
           src="/assets/sidemenu/cross-svgrepo-com.svg"
-          className="absolute cursor-pointer w-8 top-6 right-8 z-50"
+          className="absolute cursor-pointer w-8 top-6 right-8 z-50 invert"
           alt="close"
           onClick={() => setIsMenuOpen(false)}
-        />
+        /> */}
 
         <div className="relative w-full h-full flex flex-col justify-center p-20">
-          <div className="bg-[#ffffff0f] h-full w-full px-20 grid grid-cols-12 gap-32">
-            {/* Main Navigation */}
-            <div className="col-span-3 my-auto">
-              <ul>
-                {mainNavItems.map((item) => (
-                  <li key={item.label} className="mb-[15px]">
-                    <button
-                      className={`uppercase group font-oswald font-semibold text-3xl transition-colors inline-block relative pb-1 ${
-                        activeItem === item.label
-                          ? "text-white"
-                          : "text-[#FFFFFF40] hover:text-white"
-                      }`}
-                      onClick={()=>setActiveItem(item.label)}
-                    >
-                      {item.label}
-                      <div
-                        className={`absolute bottom-0 left-0 h-1 bg-[#FDE93D] transition-all duration-300 ${
-                          activeItem === item.label ? "w-full" : "w-0 group-hover:w-full"
-                        }`}
-                      />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Services List */}
-            <div className="col-span-4 my-auto">
-              <ul className="space-y-3">
-                {serviceItems.map((service) => (
-                  <li key={service.label}>
-                    <a
-                      href={service.href}
-                      className="uppercase font-oswald font-semibold text-sm tracking-wider text-white hover:text-[#FDE93D] transition-colors block"
-                    >
-                      {service.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Video Background */}
-            <div className="col-span-5 mix-blend-lighten relative">
-              <video
-                width="800"
-                height="200"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute top-1/2 -translate-y-1/2 right-0 w-[612px]'
-                opacity-50 object-cover"
-              >
-                <source
-                  src="/assets/sidemenu/particle_video.mp4"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-          </div>
-
-          {/* Social Links */}
-          <div className="absolute bottom-8 right-20 flex items-center">
-            <h6 className="font-oswald text-white uppercase font-medium text-base mr-4">
-              social media:
-            </h6>
-            <ul className="flex space-x-3">
-              {socialLinks.map((social) => (
-                <li key={social.alt}>
-                  <a href={social.url}>
-                    <img src={social.icon} alt={social.alt} className="w-6" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          
         </div>
       </section>
     </>
