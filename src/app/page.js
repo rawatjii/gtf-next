@@ -15,7 +15,7 @@ import Feature from "./components/Home/Feature";
 
 const Home = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-
+ 
   return (
     <div>
       <HeroSection />
