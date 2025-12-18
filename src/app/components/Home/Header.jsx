@@ -233,19 +233,33 @@ const Header = () => {
     setIsDefault(false)
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    if (!isMenuOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      // When menu is closed, show the scrollbar again
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
+    }
+  };
+
   const handleLinkClick = ()=>{
     setLoading(true); // Trigger the animation
-    setShowText(true); // Show "One moment" text
 
     // GSAP animation for the "window" effect
     gsap.set(windowRef.current, {zIndex:9999})
     gsap.to(topRef.current, { height: "50vh", duration: 0.5, ease: "power2.inOut" });
     gsap.to(bottomRef.current, { height: "50vh", duration: 0.5, ease: "power2.inOut" });
     setIsMenuOpen(false)
+    setShowText(true); // Show "One moment" text
     setTimeout(()=>{
       gsap.to(topRef.current, { height: "0" });
       gsap.to(bottomRef.current, { height: "0" });
       gsap.set(windowRef.current, {zIndex:0})
+      document.documentElement.style.overflow = "auto";
+      document.body.style.overflow = "auto";
     }, 2000)
   }
 
@@ -281,7 +295,7 @@ const Header = () => {
 
         <div
           className="hamburger_menu cursor-pointer"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={toggleMenu}
         >
           <span className="bg-black w-[40px] h-[2px] block my-2.5"></span>
           <span className="bg-black w-[25px] h-[2px] block my-2.5"></span>
@@ -309,11 +323,11 @@ const Header = () => {
             <div className="top grid grid-cols-2 pt-[100px] items-center px-[50px] h-[calc(100%-100px)]">
               {/* Parent Menu */}
               <div className="parent_menu">
-                <ul className="text-[50px] neue_font font-medium">
+                <ul className="text-[40px] neue_font font-medium">
                   {mainNavItems.map((item, index) => (
                     <li
                       key={index}
-                      className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out ${
+                      className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out mb-[10px] ${
                         activeItem === item.label ? "opacity-100 pl-4" : isDefault ? "opacity-100" : "opacity-20"
                       }`}
                     >
@@ -379,14 +393,15 @@ const Header = () => {
       <div ref={windowRef} className="fixed top-0 left-0 w-full h-screen">
         <div ref={topRef} className="absolute top-0 bg-black h-0 w-full"></div>
         <div ref={bottomRef} className="absolute bottom-0 bg-black w-full h-0"></div>
+        {showText && (
+          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold">
+            <span>One moment...</span>
+          </div>
+        )}
       </div>
 
       {/* "One moment" Text Animation */}
-      {showText && (
-        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-4xl font-semibold">
-          <span>One moment...</span>
-        </div>
-      )}
+      
     </>
   );
 };
