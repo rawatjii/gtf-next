@@ -36,7 +36,6 @@ const CaseStudyBanner = () => {
 
   return (  
     <div ref={sectionRefBanner}>
-      <Header />
       <div className="grid grid-cols-12 border-t-[1px] border-[#000] border-dashed">
         <div className="col-span-3 m-auto">
           <div className="relative before:content-[''] before:block before:h-[339px] before:w-[100%] before:bg-[url('/assets/aboutus/right_net.png')] before:bg-no-repeat before:bg-contain before:absolute before:left-[-35px] before:z-[1] before:top-[-65px]">

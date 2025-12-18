@@ -4,7 +4,7 @@ import DigitalCards from '../components/digital/DigitalCards';
 
 const DigitalMarketing = () => {
     return (
-        <div className='px-[35px]'>
+        <div className='pt-[110px]'>
             <DigitalBanner/>
             <DigitalCards/>
         </div>

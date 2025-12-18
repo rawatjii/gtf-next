@@ -61,7 +61,6 @@ const AboutUsBannerSection = () => {
 
   return (
     <div ref={sectionRef}>
-      <Header />
       <section className="relative  w-[100%] h-[calc(100vh-100px)]  border-b-[1px] border-[#000] border-dashed  overflow-hidden">
         <div className="border-t border-black border-dashed relative w-full h-full">
           <div  className="w-full h-full">

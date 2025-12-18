@@ -5,7 +5,7 @@ import DragBuildingComponent from '../components/CaseStudy/DragandDrop';
 const ContactUs = () => {   
     
     return (
-        <div className='px-[35px]'>
+        <div className='pt-[110px]'>
             <CaseStudyBanner/>
             <CaseStudyMidSec/>
             <DragBuildingComponent/>

@@ -235,7 +235,6 @@ const DigitalBanner = () => {
 
   return (
     <div ref={sectionRefBanner}>
-      <Header />
       <section  className="relative banner_parent_sec w-[100%] h-[calc(100vh-100px)] border-b-[1px] border-[#000] border-dashed overflow-hidden">
         <div 
           ref={el => borderRefs.current[0] = el}

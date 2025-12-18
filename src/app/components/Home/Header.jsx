@@ -6,24 +6,34 @@ import gsap from "gsap";
 import { useSelector } from "react-redux";
 import SlideTxtAn from "@/app/utils/SlideTxtAn";
 
-import { FaLinkedinIn, FaFacebookF, FaInstagram, FaPinterestP } from "react-icons/fa";
+import {
+  FaLinkedinIn,
+  FaFacebookF,
+  FaInstagram,
+  FaPinterestP,
+} from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import Link from "next/link";
 
 gsap.registerPlugin(TextPlugin);
 
 const mainNavItems = [
-  { label: "HOME", subMenus: "We help bridge the gap in branding, digital marketing and double-digit growth." },
   {
-    label: "WHO WE ARE",
+    label: "Home",
+    subMenus: null,
+    href:"/"
+  },
+  {
+    label: "Who We Are",
     subMenus: [
       {
         label: "Brand Strategy",
         href: "/brand",
       },
-      {
-        label: "Creative",
-        href: "/creative",
-      },
+      // {
+      //   label: "Creative",
+      //   href: "/creative",
+      // },
       {
         label: "About Us",
         href: "/aboutus",
@@ -31,7 +41,7 @@ const mainNavItems = [
     ],
   },
   {
-    label: "HOW WE WORK",
+    label: "How We Work",
     subMenus: [
       {
         label: "Research",
@@ -52,7 +62,7 @@ const mainNavItems = [
     ],
   },
   {
-    label: "SERVICES",
+    label: "Services",
     subMenus: [
       {
         label: "Brand Strategy",
@@ -109,7 +119,7 @@ const mainNavItems = [
     ],
   },
   {
-    label: "WORK",
+    label: "Work",
     subMenus: [
       {
         label: "Portfolio",
@@ -130,7 +140,7 @@ const mainNavItems = [
     ],
   },
   {
-    label: "HUMAN RESOURCE",
+    label: "Human Resource",
     subMenus: [
       {
         label: "Work Culture",
@@ -147,7 +157,7 @@ const mainNavItems = [
     ],
   },
   {
-    label: "CONTACT",
+    label: "Contact",
     subMenus: [
       {
         label: "Request for Quote",
@@ -180,143 +190,203 @@ const serviceItems = [
 
 // Social Media Links
 const socialLinks = [
-  { icon: "/assets/sidemenu/icon_facebook.svg", alt: "facebook", url: "#" },
-  { icon: "/assets/sidemenu/icon_youtube.svg", alt: "youtube", url: "#" },
-  { icon: "/assets/sidemenu/icon_linkedin.svg", alt: "linkedin", url: "#" },
-  { icon: "/assets/sidemenu/pinterest.svg", alt: "pinterest", url: "#" },
-  { icon: "/assets/sidemenu/icon_insta.svg", alt: "instagram", url: "#" },
+  {
+    icon: <FaLinkedinIn />,
+    alt: "linkedin",
+    url: "https://in.linkedin.com/company/gtftechnologies",
+  },
+  {
+    icon: <FaXTwitter />,
+    alt: "twitter",
+    url: "https://x.com/gtfTechnologies",
+  },
+  {
+    icon: <FaFacebookF />,
+    alt: "facebook",
+    url: "https://www.facebook.com/Gtftechnologiesindia/",
+  },
+  {
+    icon: <FaInstagram />,
+    alt: "instagram",
+    url: "https://www.instagram.com/gtf_technologies/",
+  },
+  {
+    icon: <FaPinterestP />,
+    alt: "pinterest",
+    url: "https://in.pinterest.com/GTFTechnologies/",
+  },
 ];
 
 const Header = () => {
-  const textRef = useRef(null);
-  const tlRef = useRef(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState('HOME');
-  
-  const openHamenu = () => {};
+  const [activeItem, setActiveItem] = useState(null);
+  const [isDefault, setIsDefault] = useState(true);
+  const [loading, setLoading] = useState(false); // for window animation
+  const [showText, setShowText] = useState(false); // for "One moment" text
+  const submenuRefs = useRef({});
+  const topRef = useRef(null);
+  const bottomRef = useRef(null);
+  const windowRef = useRef(null);
 
-  const isVideoHidden = useSelector((state) => state.home.isVideoHidden);
+  const toggleSubmenu = (itemLabel) => {
+    setActiveItem(activeItem === itemLabel ? null : itemLabel);
+    setIsDefault(false)
+  };
+
+  const handleLinkClick = ()=>{
+    setLoading(true); // Trigger the animation
+    setShowText(true); // Show "One moment" text
+
+    // GSAP animation for the "window" effect
+    gsap.set(windowRef.current, {zIndex:9999})
+    gsap.to(topRef.current, { height: "50vh", duration: 0.5, ease: "power2.inOut" });
+    gsap.to(bottomRef.current, { height: "50vh", duration: 0.5, ease: "power2.inOut" });
+    setIsMenuOpen(false)
+    setTimeout(()=>{
+      gsap.to(topRef.current, { height: "0" });
+      gsap.to(bottomRef.current, { height: "0" });
+      gsap.set(windowRef.current, {zIndex:0})
+    }, 2000)
+  }
+
+  // GSAP animation for submenu
+  useEffect(() => {
+    if (activeItem) {
+      const submenu = submenuRefs.current[activeItem];
+      gsap.fromTo(
+        submenu,
+        { opacity: 0, x: 30 }, // Initial state: hidden and off-screen
+        {
+          opacity: 1,
+          x: 0,
+          stagger: 0.1, // Stagger each item
+          duration: 0.5,
+          ease: "power2.out",
+        }
+      );
+    }
+  }, [activeItem]);
+
+  useEffect(() => {
+    if (!loading) {
+      gsap.set(topRef.current, { height: "0%" });
+      gsap.set(bottomRef.current, { height: "0%" });
+    }
+  }, [loading]);
 
   return (
     <>
-      <header className="fixed site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[9999]">
-        <img
-          src={isVideoHidden ? "/assets/logo.svg" : "/assets/logo_white.svg"}
-          className="h-[60px]"
-          alt="logo"
-        />
-
-        {!isVideoHidden && (
-          <SlideTxtAn className="text-white uppercase text-[26px]" />
-        )}
+      <header className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[9999]">
+        <img src="/assets/logo.svg" className="h-[60px]" alt="logo" />
 
         <div
           className="hamburger_menu cursor-pointer"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <span
-            className={`${
-              isVideoHidden ? "bg-black" : "bg-white"
-            } w-[40px] h-[2px] block my-2.5`}
-          ></span>
-          <span
-            className={`${
-              isVideoHidden ? "bg-black" : "bg-white"
-            } w-[25px] h-[2px] block my-2.5`}
-          ></span>
+          <span className="bg-black w-[40px] h-[2px] block my-2.5"></span>
+          <span className="bg-black w-[25px] h-[2px] block my-2.5"></span>
         </div>
-        {/* <RxHamburgerMenu className="text-[40px] font-light text-white" onClick={() => openHamenu()} /> */}
       </header>
 
       {/* Fullscreen Menu */}
       <section
-        className={`fixed w-full h-screen z-[999] transition-all duration-300 ${
-          isMenuOpen ? "opacity-1 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed w-full h-screen z-[999] transition-all duration-800 ${isMenuOpen ? "opacity-1 visible" : " delay-500 opacity-0 invisible"}`}
       >
-        <div className=" absolute h-full w-full opacity-[0.8] before:bg-[#e24397] before:absolute before:h-full before:w-full"></div>
+        <div className="absolute h-full w-full opacity-[0.9] bg-[#e24397] "></div>
 
         <div className="relative grid grid-cols-12 h-full">
-          <div className="left col-span-4"></div>
-          <div className="right bg-[#fff] col-span-8">
-            <div className="top grid grid-cols-2 pt-[100px] items-center px-[50px]">
-              <div>
-                <ul className="text-[60px] neue_font font-semibold">
-                  <li>Home</li>
-                  <li>Who We Are</li>
-                  <li>Who We Are</li>
-                  <li>Who We Are</li>
-                  <li>Who We Are</li>
+          <div className="left col-span-4 p-[50px]">
+            <div className="absolute bottom-[50px]">
+              <img
+                src="/assets/home/who_we_are/creative1/img1-sm.webp"
+                width={400}
+                className={`transition-all duration-300 ${isMenuOpen ? "delay-500 opacity-1" : "opacity-0"}`}
+              />
+            </div>
+          </div>
+
+          <div className={`right bg-[#fff] col-span-8 transition-all duration-500 ${isMenuOpen ? "ml-0" : "ml-[100%]"}`}>
+            <div className="top grid grid-cols-2 pt-[100px] items-center px-[50px] h-[calc(100%-100px)]">
+              {/* Parent Menu */}
+              <div className="parent_menu">
+                <ul className="text-[50px] neue_font font-medium">
+                  {mainNavItems.map((item, index) => (
+                    <li
+                      key={index}
+                      className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out ${
+                        activeItem === item.label ? "opacity-100 pl-4" : isDefault ? "opacity-100" : "opacity-20"
+                      }`}
+                    >
+                      {item.subMenus ? (
+                        <button
+                        onClick={() => toggleSubmenu(item.label)}
+                        className="text-left w-full"
+                      >
+                        {item.label}
+                      </button>
+                      ) : (
+                        <Link href={item.href} className="text-left w-full" onClick={handleLinkClick}>{item.label}</Link>
+                      )}
+                      
+                    </li>
+                  ))}
                 </ul>
               </div>
 
-              <div>
-                <ul>
-                  <li>Home</li>
-                  <li>Who We Are</li>
-                  <li>Who We Are</li>
-                  <li>Who We Are</li>
-                  <li>Who We Are</li>
-                </ul>
+              {/* Submenu */}
+              <div className="sub_menus">
+                {mainNavItems.map((item, index) => (
+                  <div
+                    key={index}
+                    ref={(el) => (submenuRefs.current[item.label] = el)}
+                    className={`pl-4 mt-2 ${activeItem === item.label ? "block" : "hidden"}`}
+                  >
+                    {activeItem === item.label &&
+                      item.subMenus &&
+                      item.subMenus.map((submenu, subIndex) => (
+                        <ul key={subIndex}>
+                          <li className="text-[18px] just_font mb-[10px]">
+                            {submenu.href ? (
+                              <Link href={submenu.href} className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline" onClick={handleLinkClick}>{submenu.label}</Link>
+                            ) : (
+                              <span>{submenu}</span>
+                            )}
+                          </li>
+                        </ul>
+                      ))}
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="bottom">
-              <h5>Social Media:</h5>
-              <ul>
-                <li>
-                  <a href="">
-                    <FaLinkedinIn />
-                  </a>
-                </li>
-
-                <li>
-                  <a href="">
-                  <FaXTwitter />
-                  </a>
-                </li>
-
-                <li>
-                  <a href="">
-                  <FaFacebookF />
-                  </a>
-                </li>
-
-                <li>
-                  <a href="">
-                  <FaInstagram />
-                  </a>
-                </li>
-
-                <li>
-                  <a href="">
-                  <FaPinterestP />
-                  </a>
-                </li>
-
+            <div className="bottom flex h-[100px] border-t items-center justify-end px-[50px]">
+              <h5 className="mr-3 uppercase text-[14px] font-medium">Social Media :</h5>
+              <ul className="flex gap-3">
+                {socialLinks?.map((link, idx) => (
+                  <li key={idx}>
+                    <Link href={link.url} target="_blank">
+                      {link.icon}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
-        </div>
-
-        {/* <img
-          src="/assets/sidemenu/menu.jpg"
-          className="absolute inset-0 w-full h-full object-cover opacity-70"
-          alt="background"
-        /> */}
-
-        {/* Close Button */}
-        {/* <img
-          src="/assets/sidemenu/cross-svgrepo-com.svg"
-          className="absolute cursor-pointer w-8 top-6 right-8 z-50 invert"
-          alt="close"
-          onClick={() => setIsMenuOpen(false)}
-        /> */}
-
-        <div className="relative w-full h-full flex flex-col justify-center p-20">
           
         </div>
       </section>
+
+      <div ref={windowRef} className="fixed top-0 left-0 w-full h-screen">
+        <div ref={topRef} className="absolute top-0 bg-black h-0 w-full"></div>
+        <div ref={bottomRef} className="absolute bottom-0 bg-black w-full h-0"></div>
+      </div>
+
+      {/* "One moment" Text Animation */}
+      {showText && (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-4xl font-semibold">
+          <span>One moment...</span>
+        </div>
+      )}
     </>
   );
 };

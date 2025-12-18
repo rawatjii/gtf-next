@@ -14,6 +14,8 @@ import { store } from "@/store";
 import Cursor from "./components/Cursor";
 import Spotlight from "./utils/Spotlight";
 
+import './globals.css'
+
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
 export default function RootLayout({ children }) {
@@ -87,7 +89,7 @@ export default function RootLayout({ children }) {
           <div id="smooth-content" ref={contentRef}>
             {/* <SparkleBackground /> */}
             <Provider store={store}>
-              {isHome && <Header />}
+            <Header />
               {children}
               <Footer />
             </Provider>
