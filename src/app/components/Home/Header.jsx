@@ -221,12 +221,18 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [isDefault, setIsDefault] = useState(true);
+  const [isContentHide, setIsContentHide] = useState(true);
   const [loading, setLoading] = useState(false); // for window animation
   const [showText, setShowText] = useState(false); // for "One moment" text
   const submenuRefs = useRef({});
   const topRef = useRef(null);
   const bottomRef = useRef(null);
   const windowRef = useRef(null);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [showHeader, setShowHeader] = useState(true);
+  const headerRef = useRef(null);
+  const logoRef = useRef(null);
+  
 
   const toggleSubmenu = (itemLabel) => {
     setActiveItem(activeItem === itemLabel ? null : itemLabel);
@@ -234,7 +240,12 @@ const Header = () => {
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsContentHide(!isContentHide);
+    
+    setTimeout(() => {
+      setIsMenuOpen(!isMenuOpen);
+    }, 100);
+
     if (!isMenuOpen) {
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
@@ -247,6 +258,7 @@ const Header = () => {
 
   const handleLinkClick = () => {
     setLoading(true); // Trigger the animation
+    setIsContentHide(!isContentHide);
 
     // GSAP animation for the "window" effect
     gsap.set(windowRef.current, { zIndex: 9999 });
@@ -260,10 +272,11 @@ const Header = () => {
       duration: 0.5,
       ease: "power2.inOut",
     });
-    setIsMenuOpen(false);
-    setTimeout(()=>{
+    
+    setTimeout(() => {
       setShowText(true);
-    }, 500)
+      setIsMenuOpen(false);
+    }, 500);
     setTimeout(() => {
       gsap.to(topRef.current, { height: "0" });
       gsap.to(bottomRef.current, { height: "0" });
@@ -273,6 +286,57 @@ const Header = () => {
       document.body.style.overflow = "auto";
     }, 2000);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY; // Use smooth scroll value for direction
+      console.log('currentScrollPos',currentScrollPos);
+      if (prevScrollPos > currentScrollPos) {
+        // Scrolling up
+        setShowHeader(true);
+        if(currentScrollPos !== 0){
+          gsap.set(headerRef.current, {
+            background:"#fff",
+            paddingTop:"15px",
+            paddingBottom:"15px"
+          })
+          gsap.set(logoRef.current, {
+            height:"50px"
+          })
+        }else{
+          gsap.set(headerRef.current, {
+            background:"transparent",
+            paddingTop:"25px",
+            paddingBottom:"25px"
+          })
+          gsap.set(logoRef.current, {
+            height:"60px"
+          })
+        }
+      } else {
+        // Scrolling down
+        setShowHeader(false);
+      }
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [prevScrollPos]);
+
+  useEffect(() => {
+    // Use GSAP for smooth transition when showing or hiding the header
+    if (headerRef.current) {
+      gsap.to(headerRef.current, {
+        opacity: showHeader ? 1 : 0,
+        y: showHeader ? 0 : -100, // Slide up when hidden
+        duration: 0.3, // Animation duration
+      });
+    }
+  }, [showHeader]);
 
   // GSAP animation for submenu
   useEffect(() => {
@@ -301,8 +365,8 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[99999]">
-        <img src="/assets/logo.svg" className="h-[60px]" alt="logo" />
+      <header ref={headerRef} className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[999]">
+        <img ref={logoRef} src="/assets/logo.svg" className="h-[60px]" alt="logo" />
 
         <div className="hamburger_menu cursor-pointer" onClick={toggleMenu}>
           <span className="bg-black w-[40px] h-[2px] block my-2.5"></span>
@@ -319,25 +383,29 @@ const Header = () => {
         <div className="absolute h-full w-full bg-[#f3f3f3]"></div>
 
         <div className="relative grid grid-cols-12 h-full">
+          <img src="/assets/sidemenu/cross-svgrepo-com.svg" class="absolute cursor-pointer w-[25px] top-[20px] z-[99] right-[25px] z-99 invert" alt=""  onClick={toggleMenu} />
+          
           <div className="relative left col-span-4">
-            <div className="clouds absolute w-full h-full overflow-hidden z-0">
-              <img
-                src="/assets/header/cloud.png"
-                alt=""
-                className="absolute top-[15%] w-[80px] animate-moveCloud1"
-              />
+            <div className={`transition-all duration-300 ${isMenuOpen ? "delay-400 opacity-1" : "opacity-0"}`}>
+              <div className="clouds absolute w-full h-full overflow-hidden z-0">
+                <img
+                  src="/assets/header/cloud.png"
+                  alt=""
+                  className="absolute top-[15%] w-[80px] animate-moveCloud1"
+                />
+
+                <img
+                  src="/assets/header/cloud2.png"
+                  alt=""
+                  className="absolute top-[20%] left-[30%] w-[100px] animate-moveCloud2"
+                />
+              </div>
 
               <img
-                src="/assets/header/cloud2.png"
-                alt=""
-                className="absolute top-[20%] left-[30%] w-[100px] animate-moveCloud2"
+                src="/assets/header/building_img.png"
+                className={`transition-all duration-300 w-full h-[calc(100vh)] object-cover z-[9] relative`}
               />
             </div>
-
-            <img
-              src="/assets/header/building.png"
-              className={`transition-all duration-300 w-full h-[calc(100vh)] object-cover z-[9] relative`}
-            />
             {/* <div className="absolute bottom-[50px]">
               <img
                 src="/assets/home/who_we_are/creative1/img1-sm.webp"
@@ -352,77 +420,82 @@ const Header = () => {
               isMenuOpen ? "ml-0" : "ml-[100%]"
             }`}
           >
-            <div className="top grid grid-cols-2 pt-[100px] items-center px-[50px] h-[calc(100%-100px)]">
+            <div className="relative top  pt-[100px] px-[50px] h-[calc(100%-100px)]">
               {/* Parent Menu */}
-              <div className="parent_menu">
-                <ul className="text-[40px] neue_font font-medium">
+              <div className={`grid items-center grid-cols-2 h-full transition-all transition-300 ${isContentHide ? ' opacity-0' : 'opacity-100'}`}> 
+                <div className="parent_menu">
+                  <ul className="text-[40px] neue_font font-medium">
+                    {mainNavItems.map((item, index) => (
+                      <li
+                        key={index}
+                        className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out mb-[10px] ${
+                          activeItem === item.label
+                            ? "opacity-100 pl-4"
+                            : isDefault
+                            ? "opacity-100"
+                            : "opacity-20"
+                        }`}
+                      >
+                        {item.subMenus ? (
+                          <button
+                            onClick={() => toggleSubmenu(item.label)}
+                            className="text-left w-full"
+                          >
+                            {item.label}
+                          </button>
+                        ) : (
+                          <Link
+                            href={item.href}
+                            className="text-left w-full"
+                            onClick={handleLinkClick}
+                          >
+                            {item.label}
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Submenu */}
+                <div className="sub_menus">
                   {mainNavItems.map((item, index) => (
-                    <li
+                    <div
                       key={index}
-                      className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out mb-[10px] ${
-                        activeItem === item.label
-                          ? "opacity-100 pl-4"
-                          : isDefault
-                          ? "opacity-100"
-                          : "opacity-20"
+                      ref={(el) => (submenuRefs.current[item.label] = el)}
+                      className={`pl-4 mt-2 ${
+                        activeItem === item.label ? "block" : "hidden"
                       }`}
                     >
-                      {item.subMenus ? (
-                        <button
-                          onClick={() => toggleSubmenu(item.label)}
-                          className="text-left w-full"
-                        >
-                          {item.label}
-                        </button>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className="text-left w-full"
-                          onClick={handleLinkClick}
-                        >
-                          {item.label}
-                        </Link>
-                      )}
-                    </li>
+                      {activeItem === item.label &&
+                        item.subMenus &&
+                        item.subMenus.map((submenu, subIndex) => (
+                          <ul key={subIndex}>
+                            <li className="text-[18px] just_font mb-[10px]">
+                              {submenu.href ? (
+                                <Link
+                                  href={submenu.href}
+                                  className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline"
+                                  onClick={handleLinkClick}
+                                >
+                                  {submenu.label}
+                                </Link>
+                              ) : (
+                                <span>{submenu}</span>
+                              )}
+                            </li>
+                          </ul>
+                        ))}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
 
-              {/* Submenu */}
-              <div className="sub_menus">
-                {mainNavItems.map((item, index) => (
-                  <div
-                    key={index}
-                    ref={(el) => (submenuRefs.current[item.label] = el)}
-                    className={`pl-4 mt-2 ${
-                      activeItem === item.label ? "block" : "hidden"
-                    }`}
-                  >
-                    {activeItem === item.label &&
-                      item.subMenus &&
-                      item.subMenus.map((submenu, subIndex) => (
-                        <ul key={subIndex}>
-                          <li className="text-[18px] just_font mb-[10px]">
-                            {submenu.href ? (
-                              <Link
-                                href={submenu.href}
-                                className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline"
-                                onClick={handleLinkClick}
-                              >
-                                {submenu.label}
-                              </Link>
-                            ) : (
-                              <span>{submenu}</span>
-                            )}
-                          </li>
-                        </ul>
-                      ))}
-                  </div>
-                ))}
-              </div>
+              <img ref={logoRef} src="/assets/logo.svg" className={`absolute bottom-[30px] right-[40px] h-[60px] ${isContentHide ? ' opacity-0' : 'opacity-100'}`} alt="logo" />
+
             </div>
 
-            <div className="bottom flex h-[100px] border-t items-center justify-end px-[50px]">
+            <div className={`bottom flex h-[100px] border-t items-center justify-end px-[50px] ${isContentHide ? ' opacity-0' : 'opacity-100'}`}>
               <h5 className="mr-3 uppercase text-[14px] font-medium">
                 Social Media :
               </h5>
@@ -450,11 +523,7 @@ const Header = () => {
           className="absolute bottom-0 bg-[#efefef] w-full h-0"
         ></div>
         {showText && (
-          // <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold">
-          //   <span>One moment...</span>
-          // </div>
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold z-[99999] bg-[#efefef]">
-            {/* loader1 */}
+          <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-white text-[20px] font-semibold">
             <video
               width="150"
               height="auto"
@@ -463,36 +532,51 @@ const Header = () => {
               loop
               className="mix-blend-darken"
             >
-              <source src="/assets/loader/page_loader1.mp4" type="video/mp4" />
+              <source src="/assets/loader/loader.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-
-            {/* loader2 */}
-            <video
-              width="150"
-              height="auto"
-              autoPlay
-              muted
-              loop
-              className="mix-blend-darken"
-            >
-              <source src="/assets/loader/page_loader2.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-
-            {/* loader3 */}
-            <video
-              width="150"
-              height="auto"
-              autoPlay
-              muted
-              loop
-              className="mix-blend-darken"
-            >
-              <source src="/assets/loader/page_loader3.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <span className="block text-black">One moment</span>
           </div>
+          // <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold z-[99999] bg-[#efefef]">
+          //   {/* loader1 */}
+          //   <video
+          //     width="150"
+          //     height="auto"
+          //     autoPlay
+          //     muted
+          //     loop
+          //     className="mix-blend-darken"
+          //   >
+          //     <source src="/assets/loader/page_loader1.mp4" type="video/mp4" />
+          //     Your browser does not support the video tag.
+          //   </video>
+
+          //   {/* loader2 */}
+          //   <video
+          //     width="150"
+          //     height="auto"
+          //     autoPlay
+          //     muted
+          //     loop
+          //     className="mix-blend-darken"
+          //   >
+          //     <source src="/assets/loader/page_loader2.mp4" type="video/mp4" />
+          //     Your browser does not support the video tag.
+          //   </video>
+
+          //   {/* loader3 */}
+          //   <video
+          //     width="150"
+          //     height="auto"
+          //     autoPlay
+          //     muted
+          //     loop
+          //     className="mix-blend-darken"
+          //   >
+          //     <source src="/assets/loader/page_loader3.mp4" type="video/mp4" />
+          //     Your browser does not support the video tag.
+          //   </video>
+          // </div>
         )}
       </div>
 

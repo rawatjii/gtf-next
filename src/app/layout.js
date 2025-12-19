@@ -85,16 +85,16 @@ export default function RootLayout({ children }) {
       <body>
         <MainLoader />
 
+            <Provider store={store}>
+            <Header />
         <div id="smooth-wrapper" ref={wrapperRef}>
           <div id="smooth-content" ref={contentRef}>
             {/* <SparkleBackground /> */}
-            <Provider store={store}>
-            <Header />
               {children}
               <Footer />
-            </Provider>
           </div>
         </div>
+            </Provider>
         <Cursor />
         {/* <Spotlight /> */}
       </body>

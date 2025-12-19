@@ -82,7 +82,7 @@ export default function MainLoader() {
         ref={loaderRef}
         className="fixed inset-0 h-screen w-screen bg-[#f9f9f9] z-[999999] flex items-center justify-center"
       >
-        <video width="250" height="auto" autoPlay muted loop className="mix-blend-darken">
+        <video width="250" height="auto" autoPlay muted loop playsInline className="mix-blend-darken">
           <source src="/assets/loader/loader.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
