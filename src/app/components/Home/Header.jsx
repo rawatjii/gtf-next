@@ -232,7 +232,6 @@ const Header = () => {
   const [showHeader, setShowHeader] = useState(true);
   const headerRef = useRef(null);
   const logoRef = useRef(null);
-  
 
   const toggleSubmenu = (itemLabel) => {
     setActiveItem(activeItem === itemLabel ? null : itemLabel);
@@ -241,7 +240,7 @@ const Header = () => {
 
   const toggleMenu = () => {
     setIsContentHide(!isContentHide);
-    
+
     setTimeout(() => {
       setIsMenuOpen(!isMenuOpen);
     }, 100);
@@ -272,7 +271,7 @@ const Header = () => {
       duration: 0.5,
       ease: "power2.inOut",
     });
-    
+
     setTimeout(() => {
       setShowText(true);
       setIsMenuOpen(false);
@@ -290,28 +289,28 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY; // Use smooth scroll value for direction
-      console.log('currentScrollPos',currentScrollPos);
+      console.log("currentScrollPos", currentScrollPos);
       if (prevScrollPos > currentScrollPos) {
         // Scrolling up
         setShowHeader(true);
-        if(currentScrollPos !== 0){
+        if (currentScrollPos !== 0) {
           gsap.set(headerRef.current, {
-            background:"#fff",
-            paddingTop:"15px",
-            paddingBottom:"15px"
-          })
+            background: "#fff",
+            paddingTop: "15px",
+            paddingBottom: "15px",
+          });
           gsap.set(logoRef.current, {
-            height:"50px"
-          })
-        }else{
+            height: "50px",
+          });
+        } else {
           gsap.set(headerRef.current, {
-            background:"transparent",
-            paddingTop:"25px",
-            paddingBottom:"25px"
-          })
+            background: "transparent",
+            paddingTop: "25px",
+            paddingBottom: "25px",
+          });
           gsap.set(logoRef.current, {
-            height:"60px"
-          })
+            height: "60px",
+          });
         }
       } else {
         // Scrolling down
@@ -365,8 +364,16 @@ const Header = () => {
 
   return (
     <>
-      <header ref={headerRef} className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[999]">
-        <img ref={logoRef} src="/assets/logo.svg" className="h-[60px]" alt="logo" />
+      <header
+        ref={headerRef}
+        className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[999]"
+      >
+        <img
+          ref={logoRef}
+          src="/assets/logo.svg"
+          className="h-[60px]"
+          alt="logo"
+        />
 
         <div className="hamburger_menu cursor-pointer" onClick={toggleMenu}>
           <span className="bg-black w-[40px] h-[2px] block my-2.5"></span>
@@ -380,24 +387,33 @@ const Header = () => {
           isMenuOpen ? "opacity-1 visible" : " delay-500 opacity-0 invisible"
         }`}
       >
-        <div className="absolute h-full w-full bg-[#f3f3f3]"></div>
+        <div className="absolute h-full w-full bg-[#efeee7]"></div>
 
         <div className="relative grid grid-cols-12 h-full">
-          <img src="/assets/sidemenu/cross-svgrepo-com.svg" class="absolute cursor-pointer w-[25px] top-[20px] z-[99] right-[25px] z-99 invert" alt=""  onClick={toggleMenu} />
-          
+          <img
+            src="/assets/sidemenu/cross-svgrepo-com.svg"
+            class="absolute cursor-pointer w-[25px] top-[20px] z-[99] right-[25px] z-99 invert"
+            alt=""
+            onClick={toggleMenu}
+          />
+
           <div className="relative left col-span-4">
-            <div className={`transition-all duration-300 ${isMenuOpen ? "delay-400 opacity-1" : "opacity-0"}`}>
+            <div
+              className={`transition-all duration-300 ${
+                isMenuOpen ? "delay-400 opacity-1" : "opacity-0"
+              }`}
+            >
               <div className="clouds absolute w-full h-full overflow-hidden z-0">
                 <img
                   src="/assets/header/cloud.png"
                   alt=""
-                  className="absolute top-[15%] w-[80px] animate-moveCloud1"
+                  className="absolute top-[55%] w-[80px] animate-moveCloud1"
                 />
 
                 <img
                   src="/assets/header/cloud2.png"
                   alt=""
-                  className="absolute top-[20%] left-[30%] w-[100px] animate-moveCloud2"
+                  className="absolute top-[45%] left-[30%] w-[100px] animate-moveCloud2"
                 />
               </div>
 
@@ -422,7 +438,11 @@ const Header = () => {
           >
             <div className="relative top  pt-[100px] px-[50px] h-[calc(100%-100px)]">
               {/* Parent Menu */}
-              <div className={`grid items-center grid-cols-2 h-full transition-all transition-300 ${isContentHide ? ' opacity-0' : 'opacity-100'}`}> 
+              <div
+                className={`grid items-center grid-cols-2 h-full transition-all transition-300 ${
+                  isContentHide ? " opacity-0" : "opacity-100"
+                }`}
+              >
                 <div className="parent_menu">
                   <ul className="text-[40px] neue_font font-medium">
                     {mainNavItems.map((item, index) => (
@@ -491,11 +511,21 @@ const Header = () => {
                 </div>
               </div>
 
-              <img ref={logoRef} src="/assets/logo.svg" className={`absolute bottom-[30px] right-[40px] h-[60px] ${isContentHide ? ' opacity-0' : 'opacity-100'}`} alt="logo" />
-
+              <img
+                ref={logoRef}
+                src="/assets/logo.svg"
+                className={`absolute bottom-[30px] right-[40px] h-[60px] ${
+                  isContentHide ? " opacity-0" : "opacity-100"
+                }`}
+                alt="logo"
+              />
             </div>
 
-            <div className={`bottom flex h-[100px] border-t items-center justify-end px-[50px] ${isContentHide ? ' opacity-0' : 'opacity-100'}`}>
+            <div
+              className={`bottom flex h-[100px] border-t items-center justify-end px-[50px] ${
+                isContentHide ? " opacity-0" : "opacity-100"
+              }`}
+            >
               <h5 className="mr-3 uppercase text-[14px] font-medium">
                 Social Media :
               </h5>
