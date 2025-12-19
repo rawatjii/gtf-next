@@ -12,6 +12,7 @@ import LocationMap from "./components/Home/LocationMap";
 import OurWorkNew from "./components/Home/OurWorkNew";
 import WhyGTF from "./components/Home/WhyGTF";
 import Feature from "./components/Home/Feature";
+import OurCulture from "./components/Home/OurCulture";
 
 const Home = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
@@ -25,10 +26,11 @@ const Home = () => {
       {/* <Expertise /> */}
       <OurWorkNew />
       <Clients />
-      <LocationMap />
+      {/* <LocationMap /> */}
       <WhyGTF />
       <OurWork />
       {/* <Solutions /> */}
+      <OurCulture />
       <Contact />
     </div>
   );

@@ -21,7 +21,7 @@ const mainNavItems = [
   {
     label: "Home",
     subMenus: null,
-    href:"/"
+    href: "/",
   },
   {
     label: "Who We Are",
@@ -230,7 +230,7 @@ const Header = () => {
 
   const toggleSubmenu = (itemLabel) => {
     setActiveItem(activeItem === itemLabel ? null : itemLabel);
-    setIsDefault(false)
+    setIsDefault(false);
   };
 
   const toggleMenu = () => {
@@ -245,23 +245,34 @@ const Header = () => {
     }
   };
 
-  const handleLinkClick = ()=>{
+  const handleLinkClick = () => {
     setLoading(true); // Trigger the animation
 
     // GSAP animation for the "window" effect
-    gsap.set(windowRef.current, {zIndex:9999})
-    gsap.to(topRef.current, { height: "50vh", duration: 0.5, ease: "power2.inOut" });
-    gsap.to(bottomRef.current, { height: "50vh", duration: 0.5, ease: "power2.inOut" });
-    setIsMenuOpen(false)
-    setShowText(true); // Show "One moment" text
+    gsap.set(windowRef.current, { zIndex: 9999 });
+    gsap.to(topRef.current, {
+      height: "50vh",
+      duration: 0.5,
+      ease: "power2.inOut",
+    });
+    gsap.to(bottomRef.current, {
+      height: "50vh",
+      duration: 0.5,
+      ease: "power2.inOut",
+    });
+    setIsMenuOpen(false);
     setTimeout(()=>{
+      setShowText(true);
+    }, 500)
+    setTimeout(() => {
       gsap.to(topRef.current, { height: "0" });
       gsap.to(bottomRef.current, { height: "0" });
-      gsap.set(windowRef.current, {zIndex:0})
+      gsap.set(windowRef.current, { zIndex: 0 });
+      setShowText(false);
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
-    }, 2000)
-  }
+    }, 2000);
+  };
 
   // GSAP animation for submenu
   useEffect(() => {
@@ -290,13 +301,10 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[9999]">
+      <header className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[99999]">
         <img src="/assets/logo.svg" className="h-[60px]" alt="logo" />
 
-        <div
-          className="hamburger_menu cursor-pointer"
-          onClick={toggleMenu}
-        >
+        <div className="hamburger_menu cursor-pointer" onClick={toggleMenu}>
           <span className="bg-black w-[40px] h-[2px] block my-2.5"></span>
           <span className="bg-black w-[25px] h-[2px] block my-2.5"></span>
         </div>
@@ -304,22 +312,46 @@ const Header = () => {
 
       {/* Fullscreen Menu */}
       <section
-        className={`fixed w-full h-screen z-[999] transition-all duration-800 ${isMenuOpen ? "opacity-1 visible" : " delay-500 opacity-0 invisible"}`}
+        className={`fixed w-full h-screen z-[9999] transition-all duration-800 ${
+          isMenuOpen ? "opacity-1 visible" : " delay-500 opacity-0 invisible"
+        }`}
       >
-        <div className="absolute h-full w-full opacity-[0.9] bg-[#e24397] "></div>
+        <div className="absolute h-full w-full bg-[#f3f3f3]"></div>
 
         <div className="relative grid grid-cols-12 h-full">
-          <div className="left col-span-4 p-[50px]">
-            <div className="absolute bottom-[50px]">
+          <div className="relative left col-span-4">
+            <div className="clouds absolute w-full h-full overflow-hidden z-0">
+              <img
+                src="/assets/header/cloud.png"
+                alt=""
+                className="absolute top-[15%] w-[80px] animate-moveCloud1"
+              />
+
+              <img
+                src="/assets/header/cloud2.png"
+                alt=""
+                className="absolute top-[20%] left-[30%] w-[100px] animate-moveCloud2"
+              />
+            </div>
+
+            <img
+              src="/assets/header/building.png"
+              className={`transition-all duration-300 w-full h-[calc(100vh)] object-cover z-[9] relative`}
+            />
+            {/* <div className="absolute bottom-[50px]">
               <img
                 src="/assets/home/who_we_are/creative1/img1-sm.webp"
                 width={400}
                 className={`transition-all duration-300 ${isMenuOpen ? "delay-500 opacity-1" : "opacity-0"}`}
               />
-            </div>
+            </div> */}
           </div>
 
-          <div className={`right bg-[#fff] col-span-8 transition-all duration-500 ${isMenuOpen ? "ml-0" : "ml-[100%]"}`}>
+          <div
+            className={`right bg-[#fff] col-span-8 transition-all duration-500 border-l ${
+              isMenuOpen ? "ml-0" : "ml-[100%]"
+            }`}
+          >
             <div className="top grid grid-cols-2 pt-[100px] items-center px-[50px] h-[calc(100%-100px)]">
               {/* Parent Menu */}
               <div className="parent_menu">
@@ -328,20 +360,29 @@ const Header = () => {
                     <li
                       key={index}
                       className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out mb-[10px] ${
-                        activeItem === item.label ? "opacity-100 pl-4" : isDefault ? "opacity-100" : "opacity-20"
+                        activeItem === item.label
+                          ? "opacity-100 pl-4"
+                          : isDefault
+                          ? "opacity-100"
+                          : "opacity-20"
                       }`}
                     >
                       {item.subMenus ? (
                         <button
-                        onClick={() => toggleSubmenu(item.label)}
-                        className="text-left w-full"
-                      >
-                        {item.label}
-                      </button>
+                          onClick={() => toggleSubmenu(item.label)}
+                          className="text-left w-full"
+                        >
+                          {item.label}
+                        </button>
                       ) : (
-                        <Link href={item.href} className="text-left w-full" onClick={handleLinkClick}>{item.label}</Link>
+                        <Link
+                          href={item.href}
+                          className="text-left w-full"
+                          onClick={handleLinkClick}
+                        >
+                          {item.label}
+                        </Link>
                       )}
-                      
                     </li>
                   ))}
                 </ul>
@@ -353,7 +394,9 @@ const Header = () => {
                   <div
                     key={index}
                     ref={(el) => (submenuRefs.current[item.label] = el)}
-                    className={`pl-4 mt-2 ${activeItem === item.label ? "block" : "hidden"}`}
+                    className={`pl-4 mt-2 ${
+                      activeItem === item.label ? "block" : "hidden"
+                    }`}
                   >
                     {activeItem === item.label &&
                       item.subMenus &&
@@ -361,7 +404,13 @@ const Header = () => {
                         <ul key={subIndex}>
                           <li className="text-[18px] just_font mb-[10px]">
                             {submenu.href ? (
-                              <Link href={submenu.href} className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline" onClick={handleLinkClick}>{submenu.label}</Link>
+                              <Link
+                                href={submenu.href}
+                                className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline"
+                                onClick={handleLinkClick}
+                              >
+                                {submenu.label}
+                              </Link>
                             ) : (
                               <span>{submenu}</span>
                             )}
@@ -374,7 +423,9 @@ const Header = () => {
             </div>
 
             <div className="bottom flex h-[100px] border-t items-center justify-end px-[50px]">
-              <h5 className="mr-3 uppercase text-[14px] font-medium">Social Media :</h5>
+              <h5 className="mr-3 uppercase text-[14px] font-medium">
+                Social Media :
+              </h5>
               <ul className="flex gap-3">
                 {socialLinks?.map((link, idx) => (
                   <li key={idx}>
@@ -386,22 +437,66 @@ const Header = () => {
               </ul>
             </div>
           </div>
-          
         </div>
       </section>
 
       <div ref={windowRef} className="fixed top-0 left-0 w-full h-screen">
-        <div ref={topRef} className="absolute top-0 bg-black h-0 w-full"></div>
-        <div ref={bottomRef} className="absolute bottom-0 bg-black w-full h-0"></div>
+        <div
+          ref={topRef}
+          className="absolute top-0 bg-[#efefef] h-0 w-full "
+        ></div>
+        <div
+          ref={bottomRef}
+          className="absolute bottom-0 bg-[#efefef] w-full h-0"
+        ></div>
         {showText && (
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold">
-            <span>One moment...</span>
+          // <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold">
+          //   <span>One moment...</span>
+          // </div>
+          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold z-[99999] bg-[#efefef]">
+            {/* loader1 */}
+            <video
+              width="150"
+              height="auto"
+              autoPlay
+              muted
+              loop
+              className="mix-blend-darken"
+            >
+              <source src="/assets/loader/page_loader1.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            {/* loader2 */}
+            <video
+              width="150"
+              height="auto"
+              autoPlay
+              muted
+              loop
+              className="mix-blend-darken"
+            >
+              <source src="/assets/loader/page_loader2.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            {/* loader3 */}
+            <video
+              width="150"
+              height="auto"
+              autoPlay
+              muted
+              loop
+              className="mix-blend-darken"
+            >
+              <source src="/assets/loader/page_loader3.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         )}
       </div>
 
       {/* "One moment" Text Animation */}
-      
     </>
   );
 };

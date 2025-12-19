@@ -592,6 +592,37 @@ canvas {
   
 }
 
+
+/* cloud moving */
+
+@keyframes moveCloud1 {
+  0% {
+    transform: translateX(35vw);
+  }
+  100% {
+    transform: translateX(-100px);
+  }
+}
+
+@keyframes moveCloud2 {
+  0% {
+    transform: translateX(40vw);
+  }
+  100% {
+    transform: translateX(-300px);
+  }
+}
+
+.animate-moveCloud1 {
+  animation: moveCloud1 20s linear infinite;
+}
+
+.animate-moveCloud2 {
+  animation: moveCloud2 15s linear infinite;
+}
+
+
+
 /* start responsive */
 
 @media (max-width: 1440px) {
