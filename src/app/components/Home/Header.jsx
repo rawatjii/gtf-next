@@ -283,7 +283,7 @@ const Header = () => {
       setShowText(false);
       document.documentElement.style.overflow = "auto";
       document.body.style.overflow = "auto";
-    }, 2000);
+    }, 3000);
   };
 
   useEffect(() => {

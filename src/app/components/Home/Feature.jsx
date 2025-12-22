@@ -325,7 +325,7 @@ const Feature = () => {
             className="fixed top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[fit-content] z-[9]"
             style={{
               left: "50%", // Start from center of viewport
-              height: "620px",
+              height: "500px",
               width: "500px",
               transform:"translate(-50%, -50%)"
             }}
@@ -412,7 +412,7 @@ const Feature = () => {
               {/* First Image Section */}
 
               <div className="flex flex-row items-center relative w-[calc((100vw/2))]">
-                <div className="basis-[100%]">
+                <div className="basis-[50%]">
                   <h3 className="neue_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                     Built to Disrupt <span className="block">the Ordinary.</span>
                   </h3>
@@ -423,7 +423,7 @@ const Feature = () => {
                 ref={imageContentRef}
                 className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
-                <div className="basis-[100%]">
+                <div className="basis-[50%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -437,7 +437,7 @@ const Feature = () => {
                 ref={imageContentRef}
                 className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
-                <div className="basis-[100%]">
+                <div className="basis-[50%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Engineered to turn.{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -451,7 +451,7 @@ const Feature = () => {
                 ref={imageContentRef}
                 className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
-                <div className="basis-[100%]">
+                <div className="basis-[50%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                   Designed to make noise{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -462,8 +462,8 @@ const Feature = () => {
               </div>
 
               <div ref={lastSlideRef} className="flex flex-row items-center relative last_slide w-[calc((100vw/2))] ml-[13rem]">
-                <div className="basis-[100%]">
-                  <h5 className="neue_font text-[50px] mb-[1rem]  text-[50px] font-semibold">
+                <div className="basis-[50%]">
+                  <h5 className="neue_font text-[50px] mb-[1rem]  text-[50px] font-semibold leading-[60px]">
                     Wired to help brands{" "}
                     <span className="block">move ahead of the market.</span>
                   </h5>

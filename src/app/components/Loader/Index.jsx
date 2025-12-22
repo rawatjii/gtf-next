@@ -66,7 +66,7 @@ export default function MainLoader() {
           gsap.set(loaderRef.current, { display: "none" }); // remove loader after finish fade effect
         },
       });
-    }, 3500);
+    }, 5000);
 
     return () => {
       clearTimeout(hideTimeout);
