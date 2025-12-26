@@ -4,7 +4,7 @@ import JobOpening from '../components/Career/JobOpening';
 
 export default function CareerHome() {
   return (
-    <div className="px-[35px]">
+    <div className="pt-[110px]">
       <CareerBanner/>
       <JobOpening/>
     </div>

@@ -47,7 +47,7 @@ export default function GallerySlider() {
   ];
 
   return (
-    <div className='grid grid-cols-12 mt-[105px]'>
+    <div className='grid grid-cols-12 mt-[105px] px-[80px]'>
       <div className='col-span-3'>
         <figure>
           <img src="/assets/rewards/slidemain_1.jpg" className='w-[calc(75%+10px)] h-auto object-cover p-[10px] border-[1px] border-dashed p-[10px] border-[#1E251F] !filter-none' alt="Gallery item 1"/>

@@ -205,7 +205,7 @@ const Footer = () => {
           </button>
         </div>
       </section> */}
-      <footer ref={footerRef} className="md:px-[35px] px-[15px] z-[2] relative pb-[25px] pt-[50px]">
+      <footer ref={footerRef} className="md:px-[35px] px-[15px] z-[2] relative pb-[25px] pt-[50px] overflow-hidden">
 
         <ScrollText scrolltext={scrollText} position="toLeft" className="text-[100px] bartino font-bold tracking-[13px] mb-[100px]" color="#000" />
 

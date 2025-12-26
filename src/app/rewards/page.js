@@ -3,7 +3,7 @@
   const Rewards = () => {
     return (
       <>
-      <div className="px-[35px]">
+      <div className="pt-[110px]">
         <RewardsBanner />
         <Lifeatgtf/>
       </div> 

@@ -57,7 +57,7 @@ export default function JobOpening() {
 
   return (
     <section
-      className="py-[80px] mb-[80px] border-b-[1px] border-dashed border-[#000] "
+      className="p-[80px] mb-[80px] border-b-[1px] border-dashed border-[#000] "
       ref={sectionRef}
     >
       <div className="grid grid-cols-12 pb-[80px]">

@@ -3,7 +3,7 @@ import TestimonialBanner from '../components/Testimonial/TestimonialBanner';
 import TestimonialCards from '../components/Testimonial/TestimonialMainCard';
 const Page = () => {
     return (
-        <div>
+        <div className="pt-[110px]">
             <TestimonialBanner/>
             <TestimonialCards/>
         </div>
