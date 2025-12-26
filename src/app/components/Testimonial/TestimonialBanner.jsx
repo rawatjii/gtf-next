@@ -30,7 +30,7 @@ const TestimonialBanner = () => {
 
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <div className='border-t-[1px] px-[35px] border-[#000] border-dashed py-[100px]'>
                 <h1 
                     ref={headerRef}

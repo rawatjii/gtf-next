@@ -17,7 +17,7 @@ gsap.set(".marquee__inner", {xPercent: -50});
 });
   return (
     <div ref={sectionRefBanner}>
-      <Header />
+      {/* <Header /> */}
       <section className="relative w-[100%] border-y-[1px] border-[#000] border-dashed overflow-hidden">
           <Grid />
           <div className="relative overflow-hidden pt-[40px] pb-[60px]">

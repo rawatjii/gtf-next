@@ -123,11 +123,11 @@ const mainNavItems = [
     subMenus: [
       {
         label: "Portfolio",
-        href: "/portfolio",
+        href: "/work",
       },
       {
         label: "Case Studies",
-        href: "/case-studies",
+        href: "/casestudy",
       },
       {
         label: "Clients",
@@ -135,7 +135,7 @@ const mainNavItems = [
       },
       {
         label: "Client Testimonials",
-        href: "/client-testimonials",
+        href: "/testimonial",
       },
     ],
   },
@@ -148,26 +148,18 @@ const mainNavItems = [
       },
       {
         label: "Work With Us",
-        href: "/work-with-us",
+        href: "/career",
       },
       {
         label: "Life at GTF Technologies",
-        href: "/life-at-gtf-technologies",
+        href: "/rewards",
       },
     ],
   },
   {
     label: "Contact",
-    subMenus: [
-      {
-        label: "Request for Quote",
-        href: "/request-for-quote",
-      },
-      {
-        label: "Say Hello!",
-        href: "/say-hello",
-      },
-    ],
+    subMenus: null,
+    href: "/contactus",
   },
 ];
 

@@ -64,7 +64,7 @@ const WorkBanner = () => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <div className="border-t-[1px] border-dashed border-[#000] py-[80px]">
         <h1
           ref={headingRef}

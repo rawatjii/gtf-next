@@ -4,7 +4,7 @@ import Header from '../components/Home/Header';
 const Home = () => {
     return (
         <>
-        <Header/>
+        {/* <Header/> */}
         <section className="px-4 md:px-8 lg:px-[35px] pb-[90px] pt-[90px]">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12">
                 <div className="col-span-1 md:col-span-3">

@@ -77,7 +77,7 @@ const CareerBanner = () => {
 
   return (
     <div ref={sectionRefBanner}>
-      <Header />
+      {/* <Header /> */}
       <section className="relative w-[100%] border-y-[1px] border-[#000] border-dashed overflow-hidden">
         <div className="grid grid-cols-12 pt-[40px] pb-[60px]">
           <Grid />
