@@ -5,7 +5,7 @@ import OurMission from "../components/Aboutus/OurMission";
 const AboutUs = () => {
   return (
     <>
-    <div className="pt-[110px]">
+    <div className="">
       <AboutUsBannerSection />
       <OurValuesAndMission/>
       <OurMission/>
