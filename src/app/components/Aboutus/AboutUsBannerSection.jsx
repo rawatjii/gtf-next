@@ -49,7 +49,7 @@ const AboutUsBannerSection = () => {
         scrollTrigger:{
           trigger:heroSection.current,
           start:"top top",
-          end:"bottom bottom",
+          end:"bottom 0%",
           scrub:true,
           pin:true,
           markers:true,
@@ -59,7 +59,7 @@ const AboutUsBannerSection = () => {
 
       tl.to(bannerVideo, {
         x:0,
-        y:"100vh",
+        y:"700px",
         width: "100vw",
         height: "100vh",
         borderRadius: 0,
@@ -67,6 +67,10 @@ const AboutUsBannerSection = () => {
       })
 
     }, bannerVideoRef);
+
+    return () => {
+      ctx.revert();
+    };
 
 
   }, []);
