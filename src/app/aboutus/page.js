@@ -8,7 +8,7 @@ const AboutUs = () => {
     <div className="">
       <AboutUsBannerSection />
       <OurValuesAndMission/>
-      <OurMission/>
+      {/* <OurMission/> */}
       <OurTools/>
     </div>
   </>

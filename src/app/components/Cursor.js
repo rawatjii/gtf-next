@@ -1,18 +1,25 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
 import gsap from 'gsap';
+import { FaPlay, FaPause } from "react-icons/fa";
 
 export default function Cursor() {
   const cursorRef = useRef(null);
   const textRef = useRef(null);
   const isHovered = useRef(false);
   const glowRef = useRef(null);
+  const video_cursor_btns = useRef(null);
+
+  const [isVideoClicked, setIsVideoClicked] = useState(false);
+  const [isVideoPlay, setIsVideoPlay] = useState(true);
 
   useEffect(() => {
     const cursor = cursorRef.current;
     const text = textRef.current;
     const glow = glowRef.current;
+    const video_cursor = video_cursor_btns.current;
 
     if (!cursor || !text || !glow) return;
 
@@ -42,9 +49,35 @@ export default function Cursor() {
 
       const target = e.target;
       const hoverable = target.closest('a, button, [data-cursor-hover], [data-cursor="hover"], .cursor-hover');
+      const videoCursorHover = target.closest('.video_cursor');
+
+      if(videoCursorHover){
+        isHovered.current = true;
+        document.body.style.cursor = 'none';  // This hides the default cursor
+
+        gsap.to(cursor, {
+          width: 50,
+          height: 50,
+          alignItems:"center",
+          justifyContent:"center",
+          backgroundColor: '#e24397',
+          duration: 0.5,
+          opacity: 1,
+          ease: "back.out(1.7)"
+        });
+
+        gsap.to(video_cursor, {
+          opacity:1,
+          duration: 0.5,
+          ease: "back.out(1.7)"
+        })
+      }
+
+      
 
       if (hoverable) {
         isHovered.current = true;
+        document.body.style.cursor = 'auto';
 
         gsap.to(cursor, {
           width: 90,
@@ -68,9 +101,15 @@ export default function Cursor() {
           color:"#555"
         });
       }else{
+
         gsap.to(text, {
           opacity: 0,
-        duration: 0.2
+          duration: 0.2
+        });
+
+        gsap.to(video_cursor, {
+          opacity: 0,
+          duration: 0.2
         });
       }
     };
@@ -79,6 +118,8 @@ export default function Cursor() {
       if (!isHovered.current) return;
 
       isHovered.current = false;
+
+      document.body.style.cursor = '';
 
       gsap.to(cursor, {
         width: 15,
@@ -99,6 +140,12 @@ export default function Cursor() {
         opacity: 0,
         duration: 0.2
       });
+
+      gsap.to(video_cursor, {
+        opacity:0,
+        duration: 0.2,
+        ease: "power2.out",
+      })
     };
 
     // Track mouse position (uses real pointer, works with Lenis)
@@ -147,6 +194,7 @@ export default function Cursor() {
       
     <div
       ref={cursorRef}
+      className='flex items-center justify-center'
       style={{
         position: 'fixed',
         top: 0,
@@ -180,6 +228,21 @@ export default function Cursor() {
         }}
       >
         View
+      </div>
+
+      <div
+        ref={video_cursor_btns}
+        className='video_cursor_btns flex items-center justify-center'
+          style={{
+            opacity:0,
+
+          }}
+        >
+          {!isVideoClicked ? (
+            <FaPlay size={14} />
+          ) : (
+            <FaPause size={14} />
+          )}
       </div>
     </div>
     </>

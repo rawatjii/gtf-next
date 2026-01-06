@@ -22,168 +22,114 @@ const AboutUsBannerSection = () => {
     const bannerVideo = bannerVideoRef.current;
     const shallowVideo = shallowBannerVideoRef.current;
 
-    const setInitial = ()=>{
+    const setInitial = () => {
       const heroRect = heroSection.getBoundingClientRect();
       const shallowRect = shallowVideo.getBoundingClientRect();
 
       gsap.set(bannerVideo, {
-        position:"absolute",
-        left:0,
-        top:0,
-        zIndex:50,
-        overflow:"hidden",
-        willChange:"transform, width, height",
-      })
+        position: "absolute", // Use absolute instead of pinning
+        left: 0,
+        top: 0,
+        zIndex: 50,
+        overflow: "hidden",
+        willChange: "transform, width, height",
+      });
 
       gsap.set(bannerVideo, {
-        x: shallowRect.left,
-        y: shallowRect.top,
-        width:shallowRect.width,
+        x: shallowRect.left - heroRect.left,
+        y: shallowRect.top - heroRect.top,
+        width: shallowRect.width,
       });
-    }
+    };
 
     const ctx = gsap.context(() => {
       setInitial();
 
       const tl = gsap.timeline({
-        scrollTrigger:{
-          trigger:heroSection.current,
-          start:"top top",
-          end:"bottom 0%",
-          scrub:true,
-          pin:true,
-          markers:true,
-          anticipatePin:true,
-        }
+        scrollTrigger: {
+          trigger: heroSection,
+          start: "top top",
+          end: "bottom 100%",
+          scrub: true,
+          anticipatePin: true,
+          // No pin, manually handle positioning and scaling
+        },
       });
 
+      // Animate the banner video manually with `position: fixed` for smooth scroll interaction
       tl.to(bannerVideo, {
-        x:0,
-        y:"700px",
+        x: 0,
+        y: "100vh", // Ensure the vertical movement is proportional
         width: "100vw",
         height: "100vh",
         borderRadius: 0,
+        position: "fixed", // Keep the video fixed as the user scrolls
+        top: 0,
+        left: 0,
         ease: "none",
-      })
-
+      });
     }, bannerVideoRef);
 
     return () => {
       ctx.revert();
     };
-
-
   }, []);
 
   return (
     <div ref={sectionRef}>
-      <section ref={heroSectionRef} className="relative bg-[#e243971c] h-[200vh]">
-          <div className="content max-w-[80%] h-screen mx-auto flex justify-center items-center">
-            <h1 className="relative mb-0 neue_font font-bold tracking-[0px] 2xl:text-[120px] md:text-[80px] text-[32px] inline-block text-center leading-[140px] uppercase text-[#111]">
-              Map the journey
-              <span className="flex items-center justify-center">
-                before
-                <div
-                  ref={shallowBannerVideoRef}
-                  className=" w-[250px] h-[140px] mx-[30px]"
-                >
-                </div>
-                you
-              </span>
-              take the trip.
-            </h1>
-          </div>
+      <section
+        ref={heroSectionRef}
+        className="custom_banner_sec relative bg-[#e243971c] h-[200vh]"
+      >
+        <div className="content max-w-[80%] h-screen mx-auto flex justify-center items-center">
+          <h1 className="relative mb-0 neue_font font-bold tracking-[0px] 2xl:text-[120px] md:text-[80px] text-[32px] inline-block text-center leading-[140px] uppercase text-[#111]">
+            Map the journey
+            <span className="flex items-center justify-center">
+              before
+              <div
+                ref={shallowBannerVideoRef}
+                className=" w-[250px] h-[140px] mx-[30px]"
+              ></div>
+              you
+            </span>
+            take the trip.
+          </h1>
+        </div>
 
-        <div ref={bannerVideoRef} className="rounded rounded-[10px] overflow-hidden w-full" >
+        <div
+          ref={bannerVideoRef}
+          className="rounded rounded-[10px] overflow-hidden w-full"
+          style={{
+            width: "100vw",
+          }}
+        >
           <video
             src="/assets/aboutus/about.mp4"
             autoPlay
             muted
             loop
             playsInline
-            className="w-full h-full object-cover"
+            className="video_cursor w-full h-full object-cover"
+            style={{
+              width: "100vw",
+            }}
+            onClick={() => alert("testing")}
           />
         </div>
+
       </section>
 
-      <div className="h-screen"></div>
+      <div className="about_content mt-[150px] mb-[100px]">
+        <div className="container mx-auto">
+          <div className="max-w-[50%]">
+            <h5 className="neue_font text-[32px] leading-[40px] tracking-[1px] mb-[30px]">We believe happy people make happy clients. We focus on ensuring our team's wellbeing is front and foremost, and as a result they always bring their A game.</h5>
 
-      <section className="relative  w-[100%] h-[calc(100vh-100px)]  border-b-[1px] border-[#000] border-dashed  overflow-hidden">
-        <div className="border-t border-black border-dashed relative w-full h-full">
-          <div className="w-full h-full">
-            <div
-              ref={titleRef}
-              className="flex  flex-col place-items-end justify-between absolute text-center w-[60vw] left-[0] inset-0"
-            >
-              <h3>
-                <span className="neue_font inline-block h-fit relative text-[350px] font-medium">
-                  About
-                </span>
-              </h3>
-            </div>
-
-            <div
-              ref={videoContainerRef}
-              className="absolute top-0  right-0 h-full border-l p-[60px] border-black border-dashed border-b-none overflow-hidden z-0"
-            >
-              <div className="!pb-[32px] w-full">
-                <video
-                  src="/assets/aboutus/about.mp4"
-                  ref={videoRef}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full object-cover"
-                ></video>
-              </div>
-              <div className="flex ml-[auto] ">
-                <div className="relative inline-block logo_parent">
-                  <div className="logo_box mb-[auto] absolute  right-[0] bottom-[-100%]  border-[1px] inline-block px-[20px] py-[8px] border-[#000]">
-                    <figure className="flex justify-center place-items-center">
-                      <img
-                        src="/assets/aboutus/gtf_logo.png"
-                        height={"16"}
-                        className="me-4 w-[50px] basis-[8px]"
-                        alt=""
-                      />
-                      <h4 className="font-[Oswald] leading-[22px] text-start text-[#1E251F] flex-[1] uppercase   basis-[100px] text-[12px] leading-[16px]">
-                        Yours of <span className="lg:block none"></span>{" "}
-                        original work
-                      </h4>
-                      <strong className="text-[#1E251F] font-[Oswald] text-[22px]  ms-[20px]">
-                        17
-                      </strong>
-                    </figure>
-                  </div>
-                </div>
-                <div className=" pt-[0] content_sec ml-[auto]">
-                  <h2 className="font-[Oswald] text-[38px] mb-[20px]">
-                    WHO WE ARE ?
-                  </h2>
-                  <p className="text-justify text-[15px] leading-[25px] text-[#5B5B5B] font-[350]">
-                    GTF Technologies incepts from "Gurukul The Foundation" is a
-                    performance-driven digital media planning company located in
-                    India's heart in New Delhi. With over 15+ years of expertise
-                    and more than 623 satisfied clients across the world, we are
-                    experts in digital media marketing and boast of our
-                    value-added services that enable a business to interact
-                    effectively.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <p className="text-[15px] tracking-[0.5px] leading-[26px]">GTF Technologies incepts from "Gurukul The Foundation" is a performance-driven digital media planning company located in India's heart in New Delhi. With over 15+ years of expertise and more than 623 satisfied clients across the world, we are experts in digital media marketing and boast of our value-added services that enable a business to interact effectively.</p>
           </div>
         </div>
-        <div className="mr-[auto] bottom_right_arrow absolute bottom-[0] left-[0]">
-          <img
-            src="/assets/aboutus/arrow_down.svg"
-            className="mt-[auto]"
-            height={"16"}
-            alt=""
-          />
-        </div>
-      </section>
+        
+      </div>
+
     </div>
   );
 };
