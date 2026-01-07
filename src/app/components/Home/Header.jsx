@@ -26,10 +26,10 @@ const mainNavItems = [
   {
     label: "Who We Are",
     subMenus: [
-      {
-        label: "Brand Strategy",
-        href: "/brand",
-      },
+      // {
+      //   label: "Brand Strategy",
+      //   href: "/brand",
+      // },
       // {
       //   label: "Creative",
       //   href: "/creative",
@@ -66,7 +66,7 @@ const mainNavItems = [
     subMenus: [
       {
         label: "Brand Strategy",
-        href: "/brand-strategy",
+        href: "/brand",
       },
       {
         label: "Creative",
