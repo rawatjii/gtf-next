@@ -70,8 +70,31 @@ const AboutUsBannerSection = () => {
       });
     }, bannerVideoRef);
 
+    const aboutCtx = gsap.context(()=>{
+      const overviewData = document.querySelectorAll('.overview_data');
+      overviewData.forEach((data, index)=>{
+        gsap.fromTo(
+          data,
+          {
+            clipPath:"inset(100% 0 0 0)",
+            duration:1,
+            ease:"power4.out",
+          },
+          {
+            clipPath:"inset(0% 0 0 0)",
+            scrollTrigger:{
+              trigger:data,
+              start:"top 80%",
+              toggleActions:"play none none reverse"
+            }
+          },
+        )
+      })
+    })
+
     return () => {
       ctx.revert();
+      aboutCtx.revert();
     };
   }, []);
 
@@ -122,9 +145,9 @@ const AboutUsBannerSection = () => {
       <div className="about_content mt-[150px] mb-[100px]">
         <div className="container mx-auto">
           <div className="max-w-[50%]">
-            <h5 className="neue_font text-[32px] leading-[40px] tracking-[1px] mb-[30px]">We believe happy people make happy clients. We focus on ensuring our team's wellbeing is front and foremost, and as a result they always bring their A game.</h5>
+            <h5 className="overview_data neue_font text-[32px] leading-[40px] tracking-[1px] mb-[30px]">We believe happy people make happy clients. We focus on ensuring our team's wellbeing is front and foremost, and as a result they always bring their A game.</h5>
 
-            <p className="text-[15px] tracking-[0.5px] leading-[26px]">GTF Technologies incepts from "Gurukul The Foundation" is a performance-driven digital media planning company located in India's heart in New Delhi. With over 15+ years of expertise and more than 623 satisfied clients across the world, we are experts in digital media marketing and boast of our value-added services that enable a business to interact effectively.</p>
+            <p className="overview_data text-[15px] tracking-[0.5px] leading-[26px]">GTF Technologies incepts from "Gurukul The Foundation" is a performance-driven digital media planning company located in India's heart in New Delhi. With over 15+ years of expertise and more than 623 satisfied clients across the world, we are experts in digital media marketing and boast of our value-added services that enable a business to interact effectively.</p>
           </div>
         </div>
         

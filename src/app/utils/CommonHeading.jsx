@@ -17,31 +17,45 @@ export default function CommonHeading({
 
   const headingRef = useRef(null);
 
-  // useEffect(()=>{
-  //   gsap.set(headingRef.current, {
-  //     clipPath:"inset(100% 0 0 0)"
-  //   })
+  useEffect(()=>{
+    gsap.set(headingRef.current, {
+      clipPath:"inset(100% 0 0 0)"
+    })
 
-  //   ScrollTrigger.create({
-  //     trigger:headingRef.current,
-  //     start:"top 85%",
-  //     onEnter:()=>{
-  //       gsap.to(headingRef.current, {
-  //         clipPath: "inset(0% 0 0 0)",
-  //         duration: 1,
-  //         ease: "power3.out",
-  //       })
-  //     },
-  //     onLeave: () => {
-  //       // Optional: Add an animation to hide the heading when leaving the viewport
-  //       gsap.to(headingRef.current, {
-  //         clipPath: "inset(100% 0 0 0)", // Hide the heading again
-  //         duration: 1,
-  //         ease: "power3.out",
-  //       });
-  //     },
-  //   })
-  // }, []);
+    ScrollTrigger.create({
+      trigger:headingRef.current,
+      start:"top 85%",
+      onEnter:()=>{
+        gsap.to(headingRef.current, {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1,
+          ease: "power3.out",
+        })
+      },
+      onLeave: () => {
+        // Optional: Add an animation to hide the heading when leaving the viewport
+        gsap.to(headingRef.current, {
+          clipPath: "inset(100% 0 0 0)", // Hide the heading again
+          duration: 1,
+          ease: "power3.out",
+        });
+      },
+      onEnterBack:()=>{
+        gsap.to(headingRef.current, {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1,
+          ease: "power3.out",
+        })
+      },
+      onLeaveBack:()=>{
+        gsap.to(headingRef.current, {
+          clipPath: "inset(100% 0 0 0)", // Hide the heading again
+          duration: 1,
+          ease: "power3.out",
+        });
+      }
+    })
+  }, []);
 
   return (
     <h3

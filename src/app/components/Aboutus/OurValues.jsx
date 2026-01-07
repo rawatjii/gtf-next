@@ -29,64 +29,64 @@ const OurValuesAndMission = () => {
   const imageRef = useRef(null);
   const sectionRef = useRef(null);
 
-  useEffect(() => {
-    const el = imageRef.current;
-    const section = sectionRef.current;
+  // useEffect(() => {
+  //   const el = imageRef.current;
+  //   const section = sectionRef.current;
 
-    gsap.fromTo(
-      el,
-      {
-        clipPath: "inset(0 100% 0 0)",
-      },
-      {
-        clipPath: "inset(0 0% 0 0)",
-        duration: 3.5,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+  //   gsap.fromTo(
+  //     el,
+  //     {
+  //       clipPath: "inset(0 100% 0 0)",
+  //     },
+  //     {
+  //       clipPath: "inset(0 0% 0 0)",
+  //       duration: 3.5,
+  //       ease: "power3.out",
+  //       scrollTrigger: {
+  //         trigger: el,
+  //         start: "top 80%",
+  //         toggleActions: "play none none reverse",
+  //       },
+  //     }
+  //   );
 
-    // Animation for background color change
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top 50%",
-      end: "bottom top",
-      // markers:true,
-      onEnter: () => {
-        gsap.to("body", {
-          backgroundColor: "black",
-          color: "white",
-          duration: 0.6,
-          ease: "power2.inOut",
-        });
-      },
-      onLeave: () => {
-        gsap.to("body", {
-          backgroundColor: "white", // Reset body background to white
-          color: "black", // Reset text color to black
-          duration: 1, // Set duration for the color reset
-        });
-      },
-      onEnterBack: () => {
-        gsap.to("body", {
-          backgroundColor: "black",
-          color: "white",
-          duration: 1,
-        });
-      },
-      onLeaveBack: () => {
-        gsap.to("body", {
-          backgroundColor: "white",
-          color: "black",
-          duration: 1,
-        });
-      },
-    });
-  }, []);
+  //   // Animation for background color change
+  //   ScrollTrigger.create({
+  //     trigger: section,
+  //     start: "top 50%",
+  //     end: "bottom 50%",
+  //     // markers:true,
+  //     onEnter: () => {
+  //       gsap.to("body", {
+  //         backgroundColor: "black",
+  //         color: "white",
+  //         duration: 0.6,
+  //         ease: "power2.inOut",
+  //       });
+  //     },
+  //     onLeave: () => {
+  //       gsap.to("body", {
+  //         backgroundColor: "white", // Reset body background to white
+  //         color: "black", // Reset text color to black
+  //         duration: 1, // Set duration for the color reset
+  //       });
+  //     },
+  //     onEnterBack: () => {
+  //       gsap.to("body", {
+  //         backgroundColor: "black",
+  //         color: "white",
+  //         duration: 1,
+  //       });
+  //     },
+  //     onLeaveBack: () => {
+  //       gsap.to("body", {
+  //         backgroundColor: "white",
+  //         color: "black",
+  //         duration: 1,
+  //       });
+  //     },
+  //   });
+  // }, []);
 
   return (
     <section
@@ -97,19 +97,18 @@ const OurValuesAndMission = () => {
         {pageData.map((data, idx) => (
           <div className={`grid grid-cols-12 relative gap-[120px] ${idx < pageData.length-1 ? "mb-[100px]" : ""}`}>
               <div
-                className={`col-span-6 mr-[auto] relative mix-blend-multiply ${
+                className={`col-span-6 mr-[auto] relative mix-blend-multiply w-full ${
                   idx % 2 !== 0 ? "order-2" : ""
                 } `}
               >
-                <div className="relative before:content-[''] before:block before:h-[600px] before:w-[70%] before:bg-[url('/assets/aboutus/net.png')] before:bg-no-repeat before:bg-cover before:absolute before:right-[-20px] before:z-[1] before:bottom-[-100px]">
+                <div className={`h-full w-full relative before:content-[''] before:block before:h-[600px] before:w-[70%] before:bg-[url('/assets/aboutus/net.png')] before:bg-no-repeat before:bg-cover before:absolute ${idx % 2 !== 0 ? "before:right-[-20%]" : "before:left-[-40%]"} before:z-[1] before:bottom-[-100px]`}>
                   <video
-                    width="800"
-                    height="800"
+                  fill
                     autoPlay
                     muted
                     loop
                     playsInline
-                    className=" h-full pr-[80px] object-cover scale-x-[-1] ml-[auto]"
+                    className="w-full h-full object-cover scale-x-[-1]"
                   >
                     <source src={data.video} type="video/mp4" />
                     Your browser does not support the video tag.
@@ -126,10 +125,10 @@ const OurValuesAndMission = () => {
                   outlineClass="2xl:!text-[55px] 2xl:tracking-[2px] leading-[55px]"
                   solidClass="2xl:!text-[50px] 2xl:tracking-[2px] leading-[55px]"
                 />
-                <p className="text-[#5B5B5B]">
+                <p className="text-[#888]">
                   {data.para}
                 </p>
-                <div className="text-end">
+                <div className="text-end mt-[30px]">
                   <KnowMoreBtn btn_class="text-black" />
                 </div>
               </div>
