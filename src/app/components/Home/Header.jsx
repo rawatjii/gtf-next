@@ -43,17 +43,14 @@ const mainNavItems = [
   {
     label: "How We Work",
     subMenus: [
-      {
-        label: "Research",
-        href: "/casestudy",
-      },
+      
       {
         label: "Digital Media Planning",
         href: "/digital",
       },
       {
         label: "Concept Content & Creative",
-        href: "/digital",
+        href: "/concept-content-creative",
       },
       {
         label: "Data Analysis & ROI",

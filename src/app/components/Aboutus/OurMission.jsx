@@ -3,7 +3,7 @@ import React from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CommonHeading from "@/app/utils/CommonHeading";
-import KnowMoreBtn from "@/app/utils/knowMoreBtn";
+import CustomButton from "@/app/utils/CustomButton";
 gsap.registerPlugin(ScrollTrigger);
 
 const OurMission = () => {
@@ -33,7 +33,7 @@ const OurMission = () => {
           <div className="pr-[50px]">
         <p className="text-end text-[#5B5B5B] ">Our mission is to innovate, prepare, and provide versatile, user-friendly, productive, and comprehensive digital marketing solutions to present and future digital marketing industry requirements. At Milestone, we endeavour to enable our clients to make a convincing digital presence to give inventive and influential coordinated digital marketing planning, helping our customers develop their organizations and understand their digital marketing goals. We believe that incredible work originates from a pure heart and innovative mind.</p> 
         <div className="text-end mt-4">
-        <KnowMoreBtn/>
+        <CustomButton/>
            </div>
            </div>
           </div> 

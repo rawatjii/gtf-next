@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import CommonHeading from "@/app/utils/CommonHeading";
-import KnowMoreBtn from "@/app/utils/knowMoreBtn";
+import CustomButton from "@/app/utils/CustomButton";
 gsap.registerPlugin(ScrollTrigger);
 
 const pageData = [
@@ -129,7 +129,7 @@ const OurValuesAndMission = () => {
                   {data.para}
                 </p>
                 <div className="text-end mt-[30px]">
-                  <KnowMoreBtn btn_class="text-black" />
+                  <CustomButton btn_class="text-black" />
                 </div>
               </div>
           </div>
