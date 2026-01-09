@@ -252,30 +252,33 @@ const Header = () => {
     setIsContentHide(!isContentHide);
 
     // GSAP animation for the "window" effect
-    gsap.set(windowRef.current, { zIndex: 9999 });
-    gsap.to(topRef.current, {
-      height: "50vh",
-      duration: 0.5,
-      ease: "power2.inOut",
-    });
-    gsap.to(bottomRef.current, {
-      height: "50vh",
-      duration: 0.5,
-      ease: "power2.inOut",
-    });
+    // gsap.set(windowRef.current, { zIndex: 9999 });
+    // gsap.to(topRef.current, {
+    //   height: "50vh",
+    //   duration: 0.5,
+    //   ease: "power2.inOut",
+    // });
+    // gsap.to(bottomRef.current, {
+    //   height: "50vh",
+    //   duration: 0.5,
+    //   ease: "power2.inOut",
+    // });
 
-    setTimeout(() => {
-      setShowText(true);
-      setIsMenuOpen(false);
-    }, 500);
-    setTimeout(() => {
-      gsap.to(topRef.current, { height: "0" });
-      gsap.to(bottomRef.current, { height: "0" });
-      gsap.set(windowRef.current, { zIndex: 0 });
-      setShowText(false);
-      document.documentElement.style.overflow = "auto";
-      document.body.style.overflow = "auto";
-    }, 3000);
+    
+    setIsMenuOpen(false);
+    
+    document.documentElement.style.overflow = "auto";
+    document.body.style.overflow = "auto";
+
+    // setTimeout(() => {
+    //   // setShowText(true);
+    // }, 500);
+    // setTimeout(() => {
+    //   gsap.to(topRef.current, { height: "0" });
+    //   gsap.to(bottomRef.current, { height: "0" });
+    //   gsap.set(windowRef.current, { zIndex: 0 });
+    //   setShowText(false);
+    // }, 3000);
   };
 
   useEffect(() => {
@@ -360,12 +363,15 @@ const Header = () => {
         ref={headerRef}
         className="fixed top-0 site-header py-[25px] md:px-[50px] px-[15px] flex justify-between items-center w-full z-[999]"
       >
-        <img
-          ref={logoRef}
-          src="/assets/logo.svg"
-          className="h-[60px]"
-          alt="logo"
-        />
+        <Link href="/">
+          <img
+            ref={logoRef}
+            src="/assets/logo.svg"
+            className="h-[60px]"
+            alt="logo"
+          />
+        </Link>
+        
 
         <div className="hamburger_menu cursor-pointer" onClick={toggleMenu}>
           <span className="bg-black w-[40px] h-[2px] block my-2.5"></span>
@@ -535,7 +541,7 @@ const Header = () => {
         </div>
       </section>
 
-      <div ref={windowRef} className="fixed top-0 left-0 w-full h-screen">
+      {/* <div ref={windowRef} className="fixed top-0 left-0 w-full h-screen">
         <div
           ref={topRef}
           className="absolute top-0 bg-[#efefef] h-0 w-full "
@@ -559,50 +565,9 @@ const Header = () => {
             </video>
             <span className="block text-black">One moment</span>
           </div>
-          // <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-white text-[20px] font-semibold z-[99999] bg-[#efefef]">
-          //   {/* loader1 */}
-          //   <video
-          //     width="150"
-          //     height="auto"
-          //     autoPlay
-          //     muted
-          //     loop
-          //     className="mix-blend-darken"
-          //   >
-          //     <source src="/assets/loader/page_loader1.mp4" type="video/mp4" />
-          //     Your browser does not support the video tag.
-          //   </video>
-
-          //   {/* loader2 */}
-          //   <video
-          //     width="150"
-          //     height="auto"
-          //     autoPlay
-          //     muted
-          //     loop
-          //     className="mix-blend-darken"
-          //   >
-          //     <source src="/assets/loader/page_loader2.mp4" type="video/mp4" />
-          //     Your browser does not support the video tag.
-          //   </video>
-
-          //   {/* loader3 */}
-          //   <video
-          //     width="150"
-          //     height="auto"
-          //     autoPlay
-          //     muted
-          //     loop
-          //     className="mix-blend-darken"
-          //   >
-          //     <source src="/assets/loader/page_loader3.mp4" type="video/mp4" />
-          //     Your browser does not support the video tag.
-          //   </video>
-          // </div>
         )}
-      </div>
+      </div> */}
 
-      {/* "One moment" Text Animation */}
     </>
   );
 };
