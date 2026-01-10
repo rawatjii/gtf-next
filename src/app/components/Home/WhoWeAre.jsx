@@ -112,7 +112,6 @@ const WhoWeAre = () => {
       const mainContent = mainContentRef.current;
       const underline = underlineRef.current;
 
-
       const splitInstances = textRef.current
         .filter(Boolean)
         .map(
@@ -120,10 +119,10 @@ const WhoWeAre = () => {
         );
       const allChars = splitInstances.flatMap((split) => split.chars);
 
-      gsap.set(allChars, { opacity:0.2 });
+      gsap.set(allChars, { opacity: 0.2 });
 
       // mainContent
-      gsap.set(ov_data, { height: 'auto' });
+      gsap.set(ov_data, { height: "auto" });
 
       const whoWeAreTimeline = gsap.timeline({
         scrollTrigger: {
@@ -141,7 +140,6 @@ const WhoWeAre = () => {
         scrub: 1,
       });
 
-
       const tl = gsap.timeline({
         scrollTrigger: {
           id: "whoWeAreTrigger",
@@ -149,31 +147,44 @@ const WhoWeAre = () => {
           start: "top top",
           end: () => `+=1000`,
           pin: true,
-          markers:false,
+          markers: false,
           scrub: 1,
           pinSpacing: true,
-        },  
+        },
       });
 
       // to(allChars, {display:'inline-block', duration:5, ease:"power2"}, "+=4").
-      tl.to(allChars, {opacity: 1, duration: 0.1, stagger: 0.008, ease: "power2.out", immediateRender: false,})
-      tl.to(svg, {
-        opacity:1,
-        stagger:0.1,
-        duration: 0.8,
-      }, "-=1")
-
-      tl.to(underline, {
+      tl.to(allChars, {
         opacity: 1,
-        width: "100%",
-        duration: 0.8,
-      }, "-=1.2");
+        duration: 0.1,
+        stagger: 0.008,
+        ease: "power2.out",
+        immediateRender: false,
+      });
+      tl.to(
+        svg,
+        {
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.8,
+        },
+        "-=1"
+      );
+
+      tl.to(
+        underline,
+        {
+          opacity: 1,
+          width: "100%",
+          duration: 0.8,
+        },
+        "-=1.2"
+      );
 
       ScrollTrigger.refresh();
     }, containerRef);
 
     return () => ctx.revert();
-
   }, []);
 
   return (
@@ -194,7 +205,7 @@ const WhoWeAre = () => {
               <div className="grid items-center grid-cols-12 gap-[40px]">
                 <div
                   ref={mainContentRef}
-                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto mt-[-50vh] text-white"
+                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto text-white"
                 >
                   <h2
                     ref={mainHeadingRef}

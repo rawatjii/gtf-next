@@ -1,6 +1,7 @@
 import React from 'react';
-import DigitalCards from '../components/digital/DigitalCards';
 import InnerHero from '../utils/InnerHero';
+import HowWeWorkOverview from '../components/HowWeWork/Overview';
+import WeDo from '../components/HowWeWork/WeDo';
 
 const pageData = {
     heading:"Blending Creativity with the Essentials",
@@ -12,7 +13,12 @@ const ConceptContentCreative = () => {
     return (
         <div className='pt-[110px]'>
             <InnerHero data={pageData} videoType="full" videoPosition="static" contentClass="py-[100px]" />
-            <DigitalCards/>
+
+            {/* overview section */}
+            <section>
+                <HowWeWorkOverview />
+                <WeDo />
+            </section>
         </div>
     );
 }

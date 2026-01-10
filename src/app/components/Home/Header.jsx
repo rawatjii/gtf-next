@@ -281,7 +281,6 @@ const Header = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY; // Use smooth scroll value for direction
-      console.log("currentScrollPos", currentScrollPos);
       if (prevScrollPos > currentScrollPos) {
         // Scrolling up
         setShowHeader(true);

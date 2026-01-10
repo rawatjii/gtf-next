@@ -1,10 +1,11 @@
+"use client"
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import React, { useEffect, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ClipPathAnimation = ({children}) => {
+const ClipPathAnimation = ({children, reverse}) => {
   const anRef = useRef(null);
 
   useEffect(()=>{
@@ -14,7 +15,7 @@ const ClipPathAnimation = ({children}) => {
 
     ScrollTrigger.create({
       trigger:anRef.current,
-      start:"top 85%",
+      start:"top 90%",
       onEnter:()=>{
         gsap.to(anRef.current, {
           clipPath: "inset(0% 0 0 0)",
@@ -25,7 +26,7 @@ const ClipPathAnimation = ({children}) => {
       onLeave: () => {
         // Optional: Add an animation to hide the heading when leaving the viewport
         gsap.to(anRef.current, {
-          clipPath: "inset(100% 0 0 0)", // Hide the heading again
+          clipPath: reverse ? "inset(0 0 0 0)" : "inset(100% 0 0 0)", // Hide the heading again
           duration: 1,
           ease: "power3.out",
         });

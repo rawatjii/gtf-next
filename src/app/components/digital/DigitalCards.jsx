@@ -35,7 +35,7 @@ const pageData = [
     others: {
       title: "Want to Build Stronger Connections?",
       desc: "Keyword research is the foundation for effective SEO strategies.",
-      link: "",
+      link: "/digital/research",
     },
   },
   {
@@ -51,7 +51,7 @@ const pageData = [
     others: {
       title: "Want to Establish a Strong Digital Presence?",
       desc: "Online positioning ensures your brand stands out.",
-      link: "",
+      link: "/digital/online-positioning-strategy",
     },
   },
   {
