@@ -67,7 +67,7 @@ const pageData = [
     others: {
       title: "Want to Build Lasting Relationships with Your Customers?",
       desc: "Brand loyalty turns customers into advocates.",
-      link: "",
+      link: "/digital/brand-loyalty",
     },
   },
   {
@@ -83,7 +83,7 @@ const pageData = [
     others: {
       title: "Want to Optimize Your Marketing Reach?",
       desc: "Media planning ensures your message reaches the right audience.",
-      link: "",
+      link: "/digital/media-planning",
     },
   },
   {
@@ -99,7 +99,7 @@ const pageData = [
     others: {
       title: "Want to Build a Seamless User Experience?",
       desc: "Site architecture lays the foundation for easy navigation.",
-      link: "",
+      link: "/digital/site-architecture",
     },
   },
   {
@@ -115,7 +115,7 @@ const pageData = [
     others: {
       title: "Want to Track Your Marketing Success?",
       desc: "Analytics analysis reveals key insights for growth.",
-      link: "",
+      link: "/digital/analytics-analysis-roi",
     },
   },
 ];
