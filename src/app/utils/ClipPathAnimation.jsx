@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ClipPathAnimation = ({children, reverse}) => {
+const ClipPathAnimation = ({children, reverse, className}) => {
   const anRef = useRef(null);
 
   useEffect(()=>{
@@ -49,7 +49,7 @@ const ClipPathAnimation = ({children, reverse}) => {
   },[])
 
   return (
-    <div ref={anRef}>
+    <div ref={anRef} className={`${className}`}>
       {children}
     </div>
   )

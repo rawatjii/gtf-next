@@ -184,7 +184,7 @@ const InnerHero = ({data, videoType=null, videoPosition=null, contentClass=""}) 
       <div className="container mx-auto">
         <div className={`main_content ${contentClass}`}>
           <div ref={mainTxt} className="main_headings">
-            <h1 ref={mainHeadingRef} className="text-[60px] uppercase font-semibold max-w-[60%] leading-[70px]">{data.heading}</h1>
+            <h1 ref={mainHeadingRef} className="text-[60px] uppercase font-semibold max-w-[900px] leading-[70px]">{data.heading}</h1>
             <p ref={mainParaRef} className="mt-[40px] max-w-[450px]">{data.overview}</p>
 
             <CustomButton ref={buttonRef} className="" type="fill">Start Your Journey</CustomButton>

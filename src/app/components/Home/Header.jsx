@@ -51,11 +51,7 @@ const mainNavItems = [
       {
         label: "Concept Content & Creative",
         href: "/concept-content-creative",
-      },
-      {
-        label: "Data Analysis & ROI",
-        href: "/digital",
-      },
+      }
     ],
   },
   {
@@ -75,7 +71,7 @@ const mainNavItems = [
       },
       {
         label: "Website Design & Development",
-        href: "/website-design-development",
+        href: "/services/website-design-development",
       },
       {
         label: "Web & Mobile App Testing",
