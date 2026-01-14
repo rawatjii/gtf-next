@@ -57,31 +57,31 @@ const HorizontalScroll = ({ data, className }) => {
             overwrite: "auto",
           });
         },
-        onLeave: () => {
-          gsap.to(body, {
-            backgroundColor: "white", // Reset body background to white
-            color: "black", // Reset text color to black
-            duration: 1, // Set duration for the color reset
-          });
+        // onLeave: () => {
+        //   gsap.to(body, {
+        //     backgroundColor: "white", // Reset body background to white
+        //     color: "black", // Reset text color to black
+        //     duration: 1, // Set duration for the color reset
+        //   });
 
-          gsap.to(icons, {
-            filter: "invert(0)",
-            duration: 0.3,
-            overwrite: "auto",
-          });
-        },
-        onEnterBack: () => {
-          gsap.to(body, {
-            backgroundColor: "black",
-            color: "white",
-            duration: 1,
-          });
-          gsap.to(icons, {
-            filter: "invert(1)",
-            duration: 0.3,
-            overwrite: "auto",
-          });
-        },
+        //   gsap.to(icons, {
+        //     filter: "invert(0)",
+        //     duration: 0.3,
+        //     overwrite: "auto",
+        //   });
+        // },
+        // onEnterBack: () => {
+        //   gsap.to(body, {
+        //     backgroundColor: "black",
+        //     color: "white",
+        //     duration: 1,
+        //   });
+        //   gsap.to(icons, {
+        //     filter: "invert(1)",
+        //     duration: 0.3,
+        //     overwrite: "auto",
+        //   });
+        // },
         onLeaveBack: () => {
           gsap.to(body, {
             backgroundColor: "white",
@@ -123,7 +123,7 @@ const HorizontalScroll = ({ data, className }) => {
             <h4 className="uppercase font-medium tracking-[0.5px] text-[20px] mt-[20px]">
               {item.title}
             </h4>
-            <p className="mt-[15px] text-[15px] text-[#3d3d3d]">{item.desc}</p>
+            <p className="mt-[15px] text-[15px] text-[#9d9d9d]">{item.desc}</p>
           </div>
         ))}
       </div>

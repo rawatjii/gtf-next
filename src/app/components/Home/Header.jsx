@@ -59,15 +59,15 @@ const mainNavItems = [
     subMenus: [
       {
         label: "Brand Strategy",
-        href: "/brand",
+        href: "/services/brand-strategy",
       },
       {
         label: "Creative",
-        href: "/creative",
+        href: "/services/creative",
       },
       {
         label: "Communication",
-        href: "/communication",
+        href: "/services/communication",
       },
       {
         label: "Website Design & Development",
@@ -75,39 +75,39 @@ const mainNavItems = [
       },
       {
         label: "Web & Mobile App Testing",
-        href: "/web-mobile-app-testing",
+        href: "/services/web-mobile-testing",
       },
       {
         label: "Website's Annual Maintenance",
-        href: "/web-annual-maintenance",
+        href: "/services/website-annual-maintenance",
       },
       {
         label: "Search Engine Optimization",
-        href: "/seo",
+        href: "/services/search-engine-optimization",
       },
       {
         label: "Google Ads",
-        href: "/google-ads",
+        href: "/services/google-ads",
       },
       {
         label: "Display Marketing",
-        href: "/display-marketing",
+        href: "/services/display-marketing",
       },
       {
         label: "YouTube Marketing",
-        href: "/youtube-marketing",
+        href: "/services/youtube-marketing",
       },
       {
         label: "Social Media Optimization",
-        href: "/social-media-optimization",
+        href: "/services/social-media-optimization",
       },
       {
         label: "Social Media Marketing",
-        href: "/social-media-marketing",
+        href: "/services/social-media-marketing",
       },
       {
         label: "Online Reputation Management Marketing",
-        href: "/orm-marketing",
+        href: "/services/online-management-marketing",
       },
     ],
   },
@@ -116,7 +116,7 @@ const mainNavItems = [
     subMenus: [
       {
         label: "Portfolio",
-        href: "/work",
+        href: "/work/portfolio",
       },
       {
         label: "Case Studies",

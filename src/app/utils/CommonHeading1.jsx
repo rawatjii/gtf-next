@@ -21,7 +21,7 @@ export default function CommonHeading1({
         </span>
       )}
       
-      <span className="block">{typeof data == 'string' ? data : data?.bold?.text}</span>
+      <span className={`block ${className}`}>{typeof data == 'string' ? data : data?.bold?.text}</span>
     </h2>
   );
 }

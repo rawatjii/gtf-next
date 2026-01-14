@@ -48,7 +48,7 @@ export default function Cursor() {
       if (isHovered.current) return;
 
       const target = e.target;
-      const hoverable = target.closest('a, button, [data-cursor-hover], [data-cursor="hover"], .cursor-hover');
+      const hoverable = target.closest('a.cursor-hover, button.cursor-hover, [data-cursor-hover], [data-cursor="hover"], .cursor-hover');
       const videoCursorHover = target.closest('.video_cursor');
 
       if(videoCursorHover){

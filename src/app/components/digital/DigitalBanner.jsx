@@ -6,7 +6,7 @@ import { SplitText } from "gsap/SplitText";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const DigitalBanner = () => {
+const DigitalBanner = ({data}) => {
   const sectionRefBanner = useRef(null);
   const videoRef = useRef(null);
   const videoSecRef = useRef(null);
@@ -171,8 +171,8 @@ const DigitalBanner = () => {
       <div className="container mx-auto">
         <div className="main_content">
           <div ref={mainTxt} className="main_headings">
-            <h1 ref={mainHeadingRef} className="text-[60px] uppercase font-semibold max-w-[60%] leading-[70px]">Blending Creativity with the Essentials</h1>
-            <p ref={mainParaRef} className="mt-[40px] max-w-[450px]">We use the art of storytelling to deliver content and messaging in an experiential way, all underpinned with unique strategic insights.</p>
+            <h1 ref={mainHeadingRef} className="text-[60px] uppercase font-semibold max-w-[60%] leading-[70px]">{data?.heading || "Blending Creativity with the Essentials"}</h1>
+            <p ref={mainParaRef} className="mt-[40px] max-w-[450px]">{data?.para || "We use the art of storytelling to deliver content and messaging in an experiential way, all underpinned with unique strategic insights."}</p>
           </div>
 
           <div ref={videoSecRef} className="video_section mt-[100px]">

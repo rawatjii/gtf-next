@@ -15,7 +15,7 @@ const Services = ({ data, className }) => {
         </ClipPathAnimation>
 
         <ClipPathAnimation reverse="false" className="mt-[30px]">
-          <p className="max-w-[1000px] mx-auto text-center text-[14px] tracking-[0.5px] text-[#5f5f5f]">
+          <p className="max-w-[1000px] mx-auto text-center text-[14px] tracking-[0.5px] text-[#8d8d8d]">
             {data.subPara}
           </p>
         </ClipPathAnimation>
