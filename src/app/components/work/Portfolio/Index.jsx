@@ -51,11 +51,11 @@ const Portfolio = ({ className, data }) => {
   return (
     <section className={className}>
       <div className="container mx-auto">
-        <ClipPathAnimation>
+        <ClipPathAnimation reverse="false">
           <CommonHeading1 data={headingData} />
         </ClipPathAnimation>
 
-        <ClipPathAnimation>
+        <ClipPathAnimation reverse="false">
           <p className="text-center text-[15px] leading-[25px] text-[#5B5B5B] font-[350] opacity-1 mt-[30px] max-w-[800px] mx-auto">
             Step into a world where bold ideas transform into impactful designs.
             Our portfolio is a reflection of creativity, innovation, and the art

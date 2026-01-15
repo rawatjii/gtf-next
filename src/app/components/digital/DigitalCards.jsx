@@ -157,11 +157,11 @@ const DigitalCards = () => {
   return (
     <section className="mt-[150px]">
       <div className="container mx-auto">
-        <ClipPathAnimation>
+        <ClipPathAnimation reverse="false">
           <CommonHeading1 data={headingData} />
         </ClipPathAnimation>
 
-        <ClipPathAnimation>
+        <ClipPathAnimation reverse="false">
           <p className="text-center text-[15px] leading-[25px] text-[#5B5B5B] font-[350] opacity-1 mt-[30px] max-w-[800px] mx-auto">
             We use our insight, experience, and rich industry knowledge to
             formulate and drive a distinct and differentiating positioning for

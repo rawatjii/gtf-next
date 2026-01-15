@@ -449,14 +449,14 @@ const Header = () => {
                         {item.subMenus ? (
                           <button
                             onClick={() => toggleSubmenu(item.label)}
-                            className="text-left w-full"
+                            className="text-left w-full text-black"
                           >
                             {item.label}
                           </button>
                         ) : (
                           <Link
                             href={item.href}
-                            className="text-left w-full"
+                            className="text-left w-full text-black"
                             onClick={handleLinkClick}
                           >
                             {item.label}
@@ -485,7 +485,7 @@ const Header = () => {
                               {submenu.href ? (
                                 <Link
                                   href={submenu.href}
-                                  className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline"
+                                  className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline text-black"
                                   onClick={handleLinkClick}
                                 >
                                   {submenu.label}
