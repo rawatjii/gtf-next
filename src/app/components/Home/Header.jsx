@@ -124,7 +124,7 @@ const mainNavItems = [
       },
       {
         label: "Clients",
-        href: "/clients",
+        href: "/work/clients",
       },
       {
         label: "Client Testimonials",
