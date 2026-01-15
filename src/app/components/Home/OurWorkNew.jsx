@@ -9,22 +9,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    image:"/assets/home/projects/signature/thumbnail.jpg",
+    image:"/assets/home/projects/trump/thumbnail.jpg",
     category:"website",
-    title:"Align",
-    video:"assets/home/projects/signature/signature.mp4"
+    title:"Trump",
+    video:"assets/home/projects/trump/trump.mp4"
   },
   {
-    image:"/assets/home/projects/dn-homes/thumbnail.jpg",
+    image:"/assets/home/projects/anant-raj/thumbnail.webp",
     category:"website",
-    title:"Align",
-    video:"assets/home/projects/dn-homes/dn-homes.mp4"
+    title:"Anant Raj",
+    video:"assets/home/projects/anant-raj/anantraj.mp4"
   },
   {
-    image:"/assets/home/projects/aranya/thumbnail.jpg",
+    image:"/assets/home/projects/ekanam/thumbnail.webp",
     category:"website",
-    title:"Align",
-    video:"assets/home/projects/aranya/aranya.mp4"
+    title:"Ekanam",
+    video:"assets/home/projects/ekanam/ekanam.mp4"
   },
   {
     image:"/assets/home/projects/ekayam/thumbnail.jpg",
@@ -210,6 +210,11 @@ const OurWork = () => {
                   <h3 className="text-[30px]">{project.title}</h3>
                   <h5 className="font-medium text-[18px]">{project.category}</h5>
                 </div> */}
+
+                <div className="absolute text-white w-[93%] left-[50%] translate-x-[-50%] top-[20px]">
+                  <h3 className="text-[24px]">{project.title}</h3>
+                  <p className="text-[16px] tracking-[0.5px]">{project.category}</p>
+                </div>
 
                 <div className="video absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[93%] h-auto origin-top transition-clip-path duration-700 ease-in-out [clip-path:inset(0_0_100%_0)] group-hover:[clip-path:inset(0_0_0%_0)]" >
                   <video

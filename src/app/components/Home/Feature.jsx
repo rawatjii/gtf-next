@@ -9,13 +9,37 @@ import Line from "../Line";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
+// const dotLabels = [
+//   "Brand Strategy",
+//   "Performance Marketing",
+//   "Website Development",
+//   "Social Media Marketing",
+//   "Search Engine Optimization",
+// ];
+
 const dotLabels = [
-  "Brand Strategy", // for slide 1
-  "Performance Marketing",      // for slide 2
-  "Website Development",      // for slide 3
-  "Social Media Marketing",
-  "Search Engine Optimization",
+  {
+    title: "Brand Strategy",
+    video: "/assets/home/who_we_are/pandas/1.mp4",
+  },
+  {
+    title: "Performance Marketing",
+    video: "/assets/home/who_we_are/pandas/2.mp4",
+  },
+  {
+    title: "Website Development",
+    video: "/assets/home/who_we_are/pandas/3.mp4",
+  },
+  {
+    title: "Social Media Marketing",
+    video: "/assets/home/who_we_are/pandas/1.mp4",
+  },
+  {
+    title: "Search Engine Optimization",
+    video: "/assets/home/who_we_are/pandas/2.mp4",
+  },
 ];
+
 
 const Feature = () => {
   const textRef = useRef([]);
@@ -301,17 +325,28 @@ const Feature = () => {
             {Array.from({ length: dotCount || 0 }).map((_, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center gap-2 pointer-events-none"
+                className="relative flex flex-col items-center gap-2 pointer-events-none"
               >
                 <div
                   key={index}
                   ref={(el) => (dotsRef.current[index] = el)}
-                  className={`w-[8px] h-[8px] rounded-full bg-black-200 ${activeDotIndex === index ? 'scale-150 text-xl' : ''}`}
+                  className={`w-[8px] h-[8px] rounded-full bg-black-200 ${activeDotIndex === index ? 'scale-130' : ''}`}
                 />
 
+                {/* Show panda video when active */}
+                  <div className={`absolute top-[-90px] w-[50px]  transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'opacity-1' : 'opacity-0'}`}>
+                    <video
+                      src={dotLabels[index].video}
+                      autoPlay
+                      loop
+                      muted
+                      className="w-[50px] h-[50px]"
+                    />
+                  </div>
+
                 {/* Label */}
-                <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'text-[22px] font-semibold tracking-[-1px]' : ''}`}>
-                  {dotLabels[index] || `Stage ${index + 1}`}
+                <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out  w-[max-content] ${activeDotIndex === index ? 'text-[18px] font-semibold tracking-[-1px]' : ''}`}>
+                  {dotLabels[index]?.title || `Stage ${index + 1}`}
                 </span>
 
               </div>

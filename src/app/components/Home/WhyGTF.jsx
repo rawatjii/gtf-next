@@ -23,11 +23,12 @@ const WhyGTF = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
-      className="relative text-center py-[100px]"
+      className="relative py-[100px] px-[50px]"
     >
-      <h3 className="neue_font font-bold uppercase mb-[1.5rem] md:text-left text-center max-h-content inline-block relative md:pl-[35px] px-5 md:leading-[70px] tracking-[2px] 2xl:text-[72px] lg:text-[62px] md:text-[50px] text-[32px] relative z-0">
-        <span>WHY </span>
-        <span className="block">gtf technologies ?</span>
+      <h3 className="neue_font font-bold uppercase mb-[1.5rem] md:text-left text-center max-h-content inline-block relative md:leading-[160px] tracking-[2px] lg:text-[100px] md:text-[50px] text-[32px] relative z-0">
+        <span className="block text-[80px] font-normal leading-[100px]">WHY </span>
+        <span className="block text-[150px]">GTF </span>
+        <span className="block text-[150px]">technologies ?</span>
         <Line
           bgColor="bg-gtf-pink"
           top="lg:bottom-[0]"
@@ -37,9 +38,9 @@ const WhyGTF = () => {
         />
       </h3>
 
-      <div ref={containerRef} className="flex justify-center mt-[80px]">
+      <div ref={containerRef} className=" absolute flex justify-center right-[100px] top-[60px]">
         <video
-          width="300"
+          width="250"
           height="auto"
           autoPlay
           muted
@@ -53,7 +54,7 @@ const WhyGTF = () => {
 
         {/* loader2 */}
         <video
-          width="300"
+          width="250"
           height="auto"
           autoPlay
           muted
@@ -67,7 +68,7 @@ const WhyGTF = () => {
 
         {/* loader3 */}
         <video
-          width="300"
+          width="250"
           height="auto"
           autoPlay
           muted
