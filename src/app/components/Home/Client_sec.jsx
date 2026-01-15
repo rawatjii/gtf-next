@@ -8,7 +8,7 @@ const totalSlots = 10;
 const batchSize = 2;
 const interval = 2000;
 
-export default function StaggeredLogoSwitcher({logoSets}) {
+export default function StaggeredLogoSwitcher({ logoSets, type }) {
   const [visibleIndexes, setVisibleIndexes] = useState(
     Array.from({ length: totalSlots }, (_, i) => i)
   );
@@ -27,30 +27,30 @@ export default function StaggeredLogoSwitcher({logoSets}) {
     return () => window.removeEventListener("resize", handleResize);
   }, [breakpoint]);
 
-  useEffect(()=>{
-    const gridItems = document.querySelectorAll('.grid-item');
+  useEffect(() => {
+    const gridItems = document.querySelectorAll(".grid-item");
 
-    gridItems.forEach((item, index)=>{
+    gridItems.forEach((item, index) => {
       gsap.fromTo(
         item,
         {
-          opacity:0,
-          y:100
+          opacity: 0,
+          y: 100,
         },
         {
-          opacity:1,
-          y:0,
-          duration:1,
-          ease:"power4.out",
-          scrollTrigger:{
-            trigger:item,
-            start:"top 80%",
-            toggleActions:"play none none reverse"
-          }
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: item,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
         }
-      )
-    })
-  })
+      );
+    });
+  });
 
   // useEffect(() => {
   //   let batch = 0;
@@ -75,166 +75,289 @@ export default function StaggeredLogoSwitcher({logoSets}) {
   //   return () => clearInterval(timer);
   // }, []);
 
-  return(
+  return (
     <div className="grid grid-cols-5 gap-[30px] max-w-[1100px] mx-auto">
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-1 col-end-2 row-start-3 row-end-6`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-1 col-end-2 row-start-3 row-end-6 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <div className="w-full h-full absolute left-0 top-0" style={{
-          background:"linear-gradient(41.06deg,rgba(0,91,255,0) 50%,#c8dbff)",
-          mask:"linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0)",
-          maskComposite: "exclude",
-          
-        }}></div>
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[0].title}</h6>
-        <p className="text-[15px]">{logoSets[0].txt}</p>
-        <img
-          src={logoSets[0].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[0].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[0].title}
+          </h6>
+        )}
+        {logoSets[0].txt && <p className="text-[15px]">{logoSets[0].txt}</p>}
+        {logoSets[0].src && (
+          <img
+            src={logoSets[0].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-2 col-end-3 row-start-2 row-end-5`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-2 col-end-3 row-start-2 row-end-5 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[1].title}</h6>
-        <p className="text-[15px]">{logoSets[1].txt}</p>
-        <img
-          src={logoSets[1].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[1].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[1].title}
+          </h6>
+        )}
+        {logoSets[1].txt && <p className="text-[15px]">{logoSets[1].txt}</p>}
+        {logoSets[1].src && (
+          <img
+            src={logoSets[1].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-3 col-end-4 row-start-3 row-end-6`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-3 col-end-4 row-start-3 row-end-6 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[2].title}</h6>
-        <p className="text-[15px]">{logoSets[2].txt}</p>
-        <img
-          src={logoSets[2].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[180px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[2].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[2].title}
+          </h6>
+        )}
+        {logoSets[2].txt && <p className="text-[15px]">{logoSets[2].txt}</p>}
+        {logoSets[2].src && (
+          <img
+            src={logoSets[2].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[180px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-4 col-end-5 row-start-1 row-end-4`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-4 col-end-5 row-start-1 row-end-4 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[3].title}</h6>
-        <p className="text-[15px]">{logoSets[3].txt}</p>
-        <img
-          src={logoSets[3].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[3].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[3].title}
+          </h6>
+        )}
+        {logoSets[3].txt && <p className="text-[15px]">{logoSets[3].txt}</p>}
+        {logoSets[3].src && (
+          <img
+            src={logoSets[3].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-5 col-end-6 row-start-3 row-end-6`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-5 col-end-6 row-start-3 row-end-6 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[4].title}</h6>
-        <p className="text-[15px]">{logoSets[4].txt}</p>
-        <img
-          src={logoSets[4].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[4].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[4].title}
+          </h6>
+        )}
+        {logoSets[4].txt && <p className="text-[15px]">{logoSets[4].txt}</p>}
+        {logoSets[4].src && (
+          <img
+            src={logoSets[4].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-1 col-end-2 row-start-6 row-end-9 `}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-1 col-end-2 row-start-6 row-end-9 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[5].title}</h6>
-        <p className="text-[15px]">{logoSets[5].txt}</p>
-        <img
-          src={logoSets[5].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[5].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[5].title}
+          </h6>
+        )}
+        {logoSets[5].txt && <p className="text-[15px]">{logoSets[5].txt}</p>}
+        {logoSets[5].src && (
+          <img
+            src={logoSets[5].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-2 col-end-3 row-start-5 row-end-8`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-2 col-end-3 row-start-5 row-end-8 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[6].title}</h6>
-        <p className="text-[15px]">{logoSets[6].txt}</p>
-        <img
-          src={logoSets[6].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[6].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[6].title}
+          </h6>
+        )}
+        {logoSets[6].txt && <p className="text-[15px]">{logoSets[6].txt}</p>}
+        {logoSets[6].src && (
+          <img
+            src={logoSets[6].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-3 col-end-4 row-start-6 row-end-9`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-3 col-end-4 row-start-6 row-end-9 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[7].title}</h6>
-        <p className="text-[15px]">{logoSets[7].txt}</p>
-        <img
-          src={logoSets[7].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[180px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[7].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[7].title}
+          </h6>
+        )}
+        {logoSets[7].txt && <p className="text-[15px]">{logoSets[7].txt}</p>}
+        {logoSets[7].src && (
+          <img
+            src={logoSets[7].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[180px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-4 col-end-5 row-start-4 row-end-7`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-4 col-end-5 row-start-4 row-end-7 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[8].title}</h6>
-        <p className="text-[15px]">{logoSets[8].txt}</p>
-        <img
-          src={logoSets[8].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[8].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[8].title}
+          </h6>
+        )}
+        {logoSets[8].txt && <p className="text-[15px]">{logoSets[8].txt}</p>}
+        {logoSets[8].src && (
+          <img
+            src={logoSets[8].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
 
       <div
-        className={`grid-item relative pt-[40px] pb-[70px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-5 col-end-6 row-start-6 row-end-9`}
+        className={`grid-item relative pt-[40px] pb-[40px] px-[30px] text-center rounded-[15px] overflow-hidden col-start-5 col-end-6 row-start-6 row-end-9 ${
+          type == "client" ? "border border-black-100" : ""
+        }`}
         style={{
-          background: "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)"
+          background:
+            "linear-gradient(0deg, hsla(0, 0%, 100%, .04), hsla(0, 0%, 100%, .04)), linear-gradient(210.1deg, rgb(255 235 62 / 15%), rgba(31, 117, 255, 0) 77.12%)",
         }}
       >
-        <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">{logoSets[9].title}</h6>
-        <p className="text-[15px]">{logoSets[9].txt}</p>
-        <img
-          src={logoSets[9].src}
-          alt={`logo`}
-          className={`absolute bottom-[-5px] left-[-20px] w-[150px] object-contain transition-opacity duration-1000 opacity-30`}
-        />
+        {logoSets[9].title && (
+          <h6 className="mb-[20px] neue_font text-[15px] tracking-[0.5px]">
+            {logoSets[9].title}
+          </h6>
+        )}
+        {logoSets[9].txt && <p className="text-[15px]">{logoSets[9].txt}</p>}
+        {logoSets[9].src && (
+          <img
+            src={logoSets[9].src}
+            alt={`logo`}
+            className={`${
+              type !== "client"
+                ? "absolute bottom-[-5px] left-[-20px] opacity-30"
+                : ""
+            } w-[150px] object-contain transition-opacity duration-1000`}
+          />
+        )}
       </div>
-
     </div>
-  )
+  );
 
   // return visibleIndexes.map((logoIndex, i) => {
   //   const isFifth = i === 4;

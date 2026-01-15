@@ -109,7 +109,7 @@ const HorizontalScroll = ({ data, className }) => {
           <div key={idx} className="relative w-[500px] py-[40px] px-[70px]">
             {idx < data.length - 1 && (
               <span
-                class="absolute top-0 right-0 h-full w-px 
+                className="absolute top-0 right-0 h-full w-px 
                   bg-[linear-gradient(180deg,hsla(0,0%,85%,0),#d9d9d9_50%,hsla(0,0%,85%,0))]"
               />
             )}

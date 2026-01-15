@@ -3,6 +3,7 @@ import DigitalBanner from '@/app/components/digital/DigitalBanner';
 import DigitalCards from '@/app/components/digital/DigitalCards';
 import Portfolio from '@/app/components/work/Portfolio/Index';
 import CaseStudies from '@/app/components/work/caseStudies/Index';
+import Clients from '@/app/components/work/clients/Index';
 
 const bannerData={
     heading:"Showcasing Innovation and Expertise",
@@ -57,7 +58,7 @@ const DigitalMarketing = () => {
     return (
         <div className='pt-[110px]'>
             <DigitalBanner data={bannerData} />
-            <CaseStudies className="pb-[200px]" data={pageData} />
+            <Clients className="py-[150px]" data={pageData} />
         </div>
     );
 }

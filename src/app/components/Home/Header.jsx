@@ -120,7 +120,7 @@ const mainNavItems = [
       },
       {
         label: "Case Studies",
-        href: "/casestudy",
+        href: "/work/case-studies",
       },
       {
         label: "Clients",
@@ -382,7 +382,7 @@ const Header = () => {
         <div className="relative grid grid-cols-12 h-full">
           <img
             src="/assets/sidemenu/cross-svgrepo-com.svg"
-            class="absolute cursor-pointer w-[25px] top-[20px] z-[99] right-[25px] z-99 invert"
+            className="absolute cursor-pointer w-[25px] top-[20px] z-[99] right-[25px] z-99 invert"
             alt=""
             onClick={toggleMenu}
           />
