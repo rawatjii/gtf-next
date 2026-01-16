@@ -43,7 +43,6 @@ const mainNavItems = [
   {
     label: "How We Work",
     subMenus: [
-      
       {
         label: "Digital Media Planning",
         href: "/digital",
@@ -51,7 +50,7 @@ const mainNavItems = [
       {
         label: "Concept Content & Creative",
         href: "/concept-content-creative",
-      }
+      },
     ],
   },
   {
@@ -202,6 +201,12 @@ const socialLinks = [
   },
 ];
 
+const videoSources = [
+  "/assets/header/video1.mp4",
+  "/assets/header/video2.mp4",
+  "/assets/header/video3.mp4",
+];
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
@@ -217,6 +222,8 @@ const Header = () => {
   const [showHeader, setShowHeader] = useState(true);
   const headerRef = useRef(null);
   const logoRef = useRef(null);
+  const headerContentRef = useRef(null);
+  const navItemsRef = useRef([]);
 
   const toggleSubmenu = (itemLabel) => {
     setActiveItem(activeItem === itemLabel ? null : itemLabel);
@@ -226,9 +233,9 @@ const Header = () => {
   const toggleMenu = () => {
     setIsContentHide(!isContentHide);
 
-    setTimeout(() => {
+    // setTimeout(() => {
       setIsMenuOpen(!isMenuOpen);
-    }, 100);
+    // }, 100);
 
     if (!isMenuOpen) {
       document.documentElement.style.overflow = "hidden";
@@ -257,9 +264,8 @@ const Header = () => {
     //   ease: "power2.inOut",
     // });
 
-    
     setIsMenuOpen(false);
-    
+
     document.documentElement.style.overflow = "auto";
     document.body.style.overflow = "auto";
 
@@ -314,12 +320,11 @@ const Header = () => {
   }, [prevScrollPos]);
 
   useEffect(() => {
-    // Use GSAP for smooth transition when showing or hiding the header
     if (headerRef.current) {
       gsap.to(headerRef.current, {
         opacity: showHeader ? 1 : 0,
-        y: showHeader ? 0 : -100, // Slide up when hidden
-        duration: 0.3, // Animation duration
+        // y: showHeader ? 0 : -100, // Slide up when hidden
+        // duration: 0.3,
       });
     }
   }, [showHeader]);
@@ -342,12 +347,62 @@ const Header = () => {
     }
   }, [activeItem]);
 
+  // useEffect(() => {
+  //   if (!loading) {
+  //     gsap.set(topRef.current, { height: "0%" });
+  //     gsap.set(bottomRef.current, { height: "0%" });
+  //   }
+  // }, [loading]);
+
   useEffect(() => {
-    if (!loading) {
-      gsap.set(topRef.current, { height: "0%" });
-      gsap.set(bottomRef.current, { height: "0%" });
+    if (isMenuOpen) {
+      gsap.to(
+        headerContentRef.current,
+        {
+          top: 0,
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
+        }
+      );
+
+      gsap.fromTo(
+        navItemsRef.current,
+        {
+          opacity:0,
+          x:-30,
+        },
+        {
+          opacity:1,
+          x:0,
+          stagger:0.1,
+          duration:0.5,
+          ease:"power2.out",
+        }
+      )
+    }else{
+      gsap.to(
+        headerContentRef.current,
+        {
+          top: "100px",
+          opacity: 0,
+          duration: 0.4,
+          ease: "power2.out",
+        }
+      )
+
+      gsap.to(
+        navItemsRef.current,
+        {
+          opacity:0,
+          x:-30,
+          stagger:0.1,
+          duration:0.5,
+          ease:"power2.out",
+        }
+      )
     }
-  }, [loading]);
+  }, [isMenuOpen]);
 
   return (
     <>
@@ -363,7 +418,6 @@ const Header = () => {
             alt="logo"
           />
         </Link>
-        
 
         <div className="hamburger_menu cursor-pointer" onClick={toggleMenu}>
           <span className="bg-black w-[40px] h-[2px] block my-2.5"></span>
@@ -373,131 +427,113 @@ const Header = () => {
 
       {/* Fullscreen Menu */}
       <section
-        className={`fixed w-full h-screen z-[9999] transition-all duration-800 ${
+        className={`fixed w-full h-screen z-[9999] transition-all duration-800 flex items-center ${
           isMenuOpen ? "opacity-1 visible" : " delay-500 opacity-0 invisible"
         }`}
       >
-        <div className="absolute h-full w-full bg-[#efeee7]"></div>
+        <div className="absolute h-full w-full bg-[#ffffff80] backdrop-blur-[10px]"></div>
 
-        <div className="relative grid grid-cols-12 h-full">
-          <img
-            src="/assets/sidemenu/cross-svgrepo-com.svg"
-            className="absolute cursor-pointer w-[25px] top-[20px] z-[99] right-[25px] z-99 invert"
-            alt=""
-            onClick={toggleMenu}
-          />
+        <div className="container mx-auto">
+          <div className="relative">
+            <img
+              src="/assets/sidemenu/cross-svgrepo-com.svg"
+              className="absolute cursor-pointer w-[25px] top-[20px] z-[99] right-[25px] z-99 invert"
+              alt=""
+              onClick={toggleMenu}
+            />
 
-          <div className="relative left col-span-4">
             <div
-              className={`transition-all duration-300 ${
-                isMenuOpen ? "delay-400 opacity-1" : "opacity-0"
-              }`}
+              ref={headerContentRef}
+              className={`right relative transition-all duration-500 top-[100px]`}
             >
-              <div className="clouds absolute w-full h-full overflow-hidden z-0">
-                <img
-                  src="/assets/header/cloud.png"
-                  alt=""
-                  className="absolute top-[55%] w-[80px] animate-moveCloud1"
-                />
+              <div className="relative top  bg-[#fff] grid grid-cols-12 rounded-[30px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.1)]">
+                {/* Parent Menu */}
+                <div
+                  className={`grid-item col-span-7 transition-all transition-300  max-h-[calc(100vh-300px)] ${
+                    isContentHide ? " opacity-0" : "opacity-100"
+                  }`}
+                >
+                  <div className="parent_menu h-full overflow-auto px-[80px] py-[50px]">
+                    <ul className="text-[40px] neue_font font-medium">
+                      {mainNavItems.map((item, index) => (
+                        <li
+                          ref={(el)=>{navItemsRef.current[index] = el}}
+                          key={index}
+                          className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out ${
+                            mainNavItems.length - 1 !== index ? "mb-[20px]" : ""
+                          } ${
+                            activeItem === item.label
+                              ? "opacity-100 pl-4"
+                              : isDefault
+                              ? "opacity-100"
+                              : "opacity-20"
+                          }`}
+                        >
+                          {item.subMenus ? (
+                            <button
+                              onClick={() => toggleSubmenu(item.label)}
+                              className="text-left w-full text-black font-normal"
+                            >
+                              {item.label}
+                            </button>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              className="text-left w-full text-black font-normal"
+                              onClick={handleLinkClick}
+                            >
+                              {item.label}
+                            </Link>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                <img
-                  src="/assets/header/cloud2.png"
-                  alt=""
-                  className="absolute top-[45%] left-[30%] w-[100px] animate-moveCloud2"
-                />
-              </div>
-
-              <img
-                src="/assets/header/building_img.png"
-                className={`transition-all duration-300 w-full h-[calc(100vh)] object-cover z-[9] relative`}
-              />
-            </div>
-            {/* <div className="absolute bottom-[50px]">
-              <img
-                src="/assets/home/who_we_are/creative1/img1-sm.webp"
-                width={400}
-                className={`transition-all duration-300 ${isMenuOpen ? "delay-500 opacity-1" : "opacity-0"}`}
-              />
-            </div> */}
-          </div>
-
-          <div
-            className={`right bg-[#fff] col-span-8 transition-all duration-500 border-l ${
-              isMenuOpen ? "ml-0" : "ml-[100%]"
-            }`}
-          >
-            <div className="relative top  pt-[100px] px-[50px] h-[calc(100%-100px)]">
-              {/* Parent Menu */}
-              <div
-                className={`grid items-center grid-cols-2 h-full transition-all transition-300 ${
-                  isContentHide ? " opacity-0" : "opacity-100"
-                }`}
-              >
-                <div className="parent_menu">
-                  <ul className="text-[40px] neue_font font-medium">
+                  {/* Submenu */}
+                  <div className="sub_menus">
                     {mainNavItems.map((item, index) => (
-                      <li
+                      <div
                         key={index}
-                        className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out mb-[10px] ${
-                          activeItem === item.label
-                            ? "opacity-100 pl-4"
-                            : isDefault
-                            ? "opacity-100"
-                            : "opacity-20"
+                        ref={(el) => (submenuRefs.current[item.label] = el)}
+                        className={`pl-4 mt-2 ${
+                          activeItem === item.label ? "block" : "hidden"
                         }`}
                       >
-                        {item.subMenus ? (
-                          <button
-                            onClick={() => toggleSubmenu(item.label)}
-                            className="text-left w-full text-black"
-                          >
-                            {item.label}
-                          </button>
-                        ) : (
-                          <Link
-                            href={item.href}
-                            className="text-left w-full text-black"
-                            onClick={handleLinkClick}
-                          >
-                            {item.label}
-                          </Link>
-                        )}
-                      </li>
+                        {activeItem === item.label &&
+                          item.subMenus &&
+                          item.subMenus.map((submenu, subIndex) => (
+                            <ul key={subIndex}>
+                              <li className="text-[18px] just_font mb-[10px]">
+                                {submenu.href ? (
+                                  <Link
+                                    href={submenu.href}
+                                    className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline text-black"
+                                    onClick={handleLinkClick}
+                                  >
+                                    {submenu.label}
+                                  </Link>
+                                ) : (
+                                  <span>{submenu}</span>
+                                )}
+                              </li>
+                            </ul>
+                          ))}
+                      </div>
                     ))}
-                  </ul>
+                  </div> 
                 </div>
 
-                {/* Submenu */}
-                <div className="sub_menus">
-                  {mainNavItems.map((item, index) => (
-                    <div
-                      key={index}
-                      ref={(el) => (submenuRefs.current[item.label] = el)}
-                      className={`pl-4 mt-2 ${
-                        activeItem === item.label ? "block" : "hidden"
-                      }`}
-                    >
-                      {activeItem === item.label &&
-                        item.subMenus &&
-                        item.subMenus.map((submenu, subIndex) => (
-                          <ul key={subIndex}>
-                            <li className="text-[18px] just_font mb-[10px]">
-                              {submenu.href ? (
-                                <Link
-                                  href={submenu.href}
-                                  className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline text-black"
-                                  onClick={handleLinkClick}
-                                >
-                                  {submenu.label}
-                                </Link>
-                              ) : (
-                                <span>{submenu}</span>
-                              )}
-                            </li>
-                          </ul>
-                        ))}
-                    </div>
-                  ))}
+                <div className="grid-item col-span-5 relative">
+                  <video
+                    autoPlay
+                    muted
+                    playsInline
+                    loop
+                    className="h-full object-cover absolute inset-0 w-full"
+                  >
+                    <source src="/assets/header/Video1.mp4" className="" />
+                  </video>
                 </div>
               </div>
 
@@ -509,25 +545,25 @@ const Header = () => {
                 }`}
                 alt="logo"
               />
-            </div>
 
-            <div
-              className={`bottom flex h-[100px] border-t items-center justify-end px-[50px] ${
-                isContentHide ? " opacity-0" : "opacity-100"
-              }`}
-            >
-              <h5 className="mr-3 uppercase text-[14px] font-medium">
-                Social Media :
-              </h5>
-              <ul className="flex gap-3">
-                {socialLinks?.map((link, idx) => (
-                  <li key={idx}>
-                    <Link href={link.url} target="_blank">
-                      {link.icon}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div
+                className={`bottom flex h-[100px] items-center justify-end px-[50px] ${
+                  isContentHide ? " opacity-0" : "opacity-100"
+                }`}
+              >
+                <h5 className="mr-3 uppercase text-[14px] font-medium">
+                  Social Media :
+                </h5>
+                <ul className="flex gap-3">
+                  {socialLinks?.map((link, idx) => (
+                    <li key={idx}>
+                      <Link href={link.url} target="_blank">
+                        {link.icon}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -559,7 +595,6 @@ const Header = () => {
           </div>
         )}
       </div> */}
-
     </>
   );
 };
