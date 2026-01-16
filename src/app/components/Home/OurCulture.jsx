@@ -61,10 +61,16 @@ const OurCulture = () => {
 
   return (
     <section ref={sectionRef} className="relative our_culture_section min-h-screen flex flex-col items-center justify-center">
+      <div className="gifs">
+        <img src="/assets/home/culture/gif1.gif" className="absolute left-[10vw] top-[23%] w-[180px] h-[180px] z-[1]" />
+        <img src="/assets/home/culture/gif2.gif" className="absolute right-[12vw] top-[23%] w-[180px] h-[180px] z-[1]" />
+        <img src="/assets/home/culture/gif3.gif" className="absolute right-[10vw] top-[50%] w-[180px] h-[180px] z-[1]" />
+      </div>
+
       <div className="absolute w-full h-full left-0 top-0 before:absolute before:h-full before:w-full before:bg-[#000] before:opacity-50">
         <img
           ref={imageRef}
-          src="/assets/culture/culture.jpg"
+          src="/assets/culture/culture_bg.webp"
           className=" w-full h-full left-0 top-0 object-cover"
           style={{
             transform:"scale(1.2)"

@@ -38,7 +38,7 @@ const WhyGTF = () => {
         />
       </h3>
 
-      <div ref={containerRef} className=" absolute flex justify-center right-[100px] top-[60px]">
+      <div ref={containerRef} className=" absolute flex justify-center right-[15vw] top-[60px]">
         <video
           width="250"
           height="auto"

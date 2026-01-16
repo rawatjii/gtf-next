@@ -9,33 +9,33 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    image:"/assets/home/projects/trump/thumbnail.jpg",
-    category:"website",
-    title:"Trump",
-    video:"assets/home/projects/trump/trump.mp4"
-  },
-  {
-    image:"/assets/home/projects/anant-raj/thumbnail.webp",
-    category:"website",
-    title:"Anant Raj",
-    video:"assets/home/projects/anant-raj/anantraj.mp4"
-  },
-  {
     image:"/assets/home/projects/ekanam/thumbnail.webp",
-    category:"website",
-    title:"Ekanam",
+    category:"Website | Social Media | Paid Ads",
+    title:"Ekanam by Great Value Realty",
     video:"assets/home/projects/ekanam/ekanam.mp4"
   },
   {
-    image:"/assets/home/projects/ekayam/thumbnail.jpg",
-    category:"website",
-    title:"Align",
+    image:"/assets/home/projects/trump/thumbnail.jpg",
+    category:"Performance Marketing | Brand Video",
+    title:"Trump Towers",
+    video:"assets/home/projects/trump/trump.mp4"
+  },
+  {
+    image:"/assets/home/projects/eldeco/thumbnail.webp",
+    category:"Performance Marketing | Social Media | Branding | Website",
+    title:"Eldeco ",
     video:"assets/home/projects/ekayam/ekayam.mp4"
   },
   {
-    image:"/assets/home/projects/eternia/thumbnail.jpg",
-    category:"website",
-    title:"Align",
+    image:"/assets/home/projects/anant-raj/thumbnail.webp",
+    category:"Brand Refresh | Website | Social Media",
+    title:"Anant Raj Limited",
+    video:"assets/home/projects/anant-raj/anantraj.mp4"
+  },
+  {
+    image:"/assets/home/projects/signature-global/thumbnail.webp",
+    category:"Branding | Social Media | Paid Ads",
+    title:"Signature Global Infinity Mall",
     video:"assets/home/projects/eternia/eternia.mp4"
   },
 ]
@@ -221,7 +221,9 @@ const OurWork = () => {
                     src={project.video}
                     className="h-full w-full object-contain"
                     controls
+                    loop
                     autoPlay
+                    playsInline
                     muted
                   />
                 </div>
