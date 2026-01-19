@@ -230,6 +230,11 @@ const Header = () => {
     setIsDefault(false);
   };
 
+  const handleBack = () => {
+    setActiveItem(null);
+    setIsDefault(true);
+  };
+
   const toggleMenu = () => {
     setIsContentHide(!isContentHide);
 
@@ -433,7 +438,7 @@ const Header = () => {
       >
         <div className="absolute h-full w-full bg-[#ffffff80] backdrop-blur-[10px]"></div>
 
-        <div className="container mx-auto">
+        <div className="container mx-auto px-[50px]">
           <div className="relative">
             <img
               src="/assets/sidemenu/cross-svgrepo-com.svg"
@@ -449,17 +454,23 @@ const Header = () => {
               <div className="relative top  bg-[#fff] grid grid-cols-12 rounded-[30px] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.1)]">
                 {/* Parent Menu */}
                 <div
-                  className={`grid-item col-span-7 transition-all transition-300  max-h-[calc(100vh-300px)] ${
-                    isContentHide ? " opacity-0" : "opacity-100"
+                  className={`grid-item col-span-7 transition-all transition-300 max-h-[calc(100vh-300px)] relative ${
+                    isContentHide ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  <div className="parent_menu h-full overflow-auto px-[80px] py-[50px]">
+                  {/* Parent Menu */}
+                  <div
+                    className={`parent_menu h-full overflow-auto px-[80px] py-[50px] transition-all duration-300 ease-in-out
+                      ${activeItem ? "opacity-0 invisible pointer-events-none" : "opacity-100 visible pointer-events-auto"}`}
+                  >
                     <ul className="text-[40px] neue_font font-medium">
                       {mainNavItems.map((item, index) => (
                         <li
-                          ref={(el)=>{navItemsRef.current[index] = el}}
+                          ref={(el) => {
+                            navItemsRef.current[index] = el;
+                          }}
                           key={index}
-                          className={`relative transition-all hover:pl-4 transition-all duration-300 ease-in-out ${
+                          className={`relative hover:pl-4 transition-all duration-300 ease-in-out ${
                             mainNavItems.length - 1 !== index ? "mb-[20px]" : ""
                           } ${
                             activeItem === item.label
@@ -491,38 +502,52 @@ const Header = () => {
                   </div>
 
                   {/* Submenu */}
-                  <div className="sub_menus">
+                  <div
+                    className={`sub_menus h-full overflow-auto px-[80px] py-[50px] absolute top-0 left-0 w-full transition-all duration-300 ease-in-out
+                      ${activeItem ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"}`}
+                  >
+                    {/* Back Button */}
+                    <button
+                      onClick={handleBack}
+                      className="flex items-center gap-2 mb-6 text-black text-[16px] just_font hover:opacity-70 transition-opacity"
+                      aria-label="Back to main menu"
+                    >
+                      <span className="text-[20px] leading-none">←</span>
+                      <span>Back</span>
+                    </button>
+
                     {mainNavItems.map((item, index) => (
                       <div
                         key={index}
                         ref={(el) => (submenuRefs.current[item.label] = el)}
-                        className={`pl-4 mt-2 ${
-                          activeItem === item.label ? "block" : "hidden"
+                        className={`transition-all duration-300 ease-in-out ${
+                          activeItem === item.label
+                            ? "opacity-100 visible pointer-events-auto"
+                            : "opacity-0 invisible pointer-events-none absolute top-0 left-0 w-full"
                         }`}
                       >
-                        {activeItem === item.label &&
-                          item.subMenus &&
-                          item.subMenus.map((submenu, subIndex) => (
-                            <ul key={subIndex}>
-                              <li className="text-[18px] just_font mb-[10px]">
-                                {submenu.href ? (
-                                  <Link
-                                    href={submenu.href}
-                                    className=" hover:ml-4 transition-all duration-300 ease-in-out hover:underline text-black"
-                                    onClick={handleLinkClick}
-                                  >
-                                    {submenu.label}
-                                  </Link>
-                                ) : (
-                                  <span>{submenu}</span>
-                                )}
-                              </li>
-                            </ul>
-                          ))}
+                        {item.subMenus?.map((submenu, subIndex) => (
+                          <ul key={subIndex}>
+                            <li className="text-[24px] just_font mb-[15px]">
+                              {submenu.href ? (
+                                <Link
+                                  href={submenu.href}
+                                  className="hover:ml-4 transition-all duration-300 ease-in-out hover:underline text-black"
+                                  onClick={handleLinkClick}
+                                >
+                                  {submenu.label}
+                                </Link>
+                              ) : (
+                                <span>{submenu}</span>
+                              )}
+                            </li>
+                          </ul>
+                        ))}
                       </div>
                     ))}
-                  </div> 
+                  </div>
                 </div>
+
 
                 <div className="grid-item col-span-5 relative">
                   <video
@@ -532,7 +557,7 @@ const Header = () => {
                     loop
                     className="h-full object-cover absolute inset-0 w-full"
                   >
-                    <source src="/assets/header/Video1.mp4" className="" />
+                    <source src="/assets/header/video1.mp4" className="" />
                   </video>
                 </div>
               </div>
