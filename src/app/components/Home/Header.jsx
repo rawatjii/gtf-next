@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import SlideTxtAn1 from "@/app/utils/SlideTxtAn1";
 import ScrambleHoverText from "@/app/utils/ScrambleHoverText";
 
@@ -24,11 +25,11 @@ const mainNavItems = [
     label: "Home",
     subMenus: null,
     href: "/",
-    shortPara:"We create digital strategies that drive real growth.",
+    shortPara:"Strategy. Digital. Growth.",
   },
   {
     label: "Who We Are",
-    shortPara:"We help brands grow with clarity and purpose.",
+    shortPara:"Clarity. Purpose. Growth.",
     subMenus: [
       // {
       //   label: "Brand Strategy",
@@ -46,7 +47,7 @@ const mainNavItems = [
   },
   {
     label: "How We Work",
-    shortPara:"We work with clarity, collaboration, and a focus on results.",
+    shortPara:"Clarity. Collaboration. Results.",
     subMenus: [
       {
         label: "Digital Media Planning",
@@ -60,7 +61,7 @@ const mainNavItems = [
   },
   {
     label: "Services",
-    shortPara:"Smart services designed to drive growth and deliver results.",
+    shortPara:"Smart services. Real results.",
     subMenus: [
       {
         label: "Brand Strategy",
@@ -118,7 +119,7 @@ const mainNavItems = [
   },
   {
     label: "Work",
-    shortPara:"Work that speaks through impact, results, and growth.",
+    shortPara:"Impact. Results. Growth.",
     subMenus: [
       {
         label: "Portfolio",
@@ -138,27 +139,27 @@ const mainNavItems = [
       },
     ],
   },
-  {
-    label: "Human Resource",
-    shortPara:"People-first teams built on trust, growth, and collaboration.",
-    subMenus: [
-      {
-        label: "Work Culture",
-        href: "/work-culture",
-      },
-      {
-        label: "Work With Us",
-        href: "/career",
-      },
-      {
-        label: "Life at GTF Technologies",
-        href: "/rewards",
-      },
-    ],
-  },
+  // {
+  //   label: "Human Resource",
+  //   shortPara:"People-first teams built on trust, growth, and collaboration.",
+  //   subMenus: [
+  //     {
+  //       label: "Work Culture",
+  //       href: "/work-culture",
+  //     },
+  //     {
+  //       label: "Work With Us",
+  //       href: "/career",
+  //     },
+  //     {
+  //       label: "Life at GTF Technologies",
+  //       href: "/rewards",
+  //     },
+  //   ],
+  // },
   {
     label: "Contact",
-    shortPara:"Let’s start a conversation that moves your brand forward.",
+    shortPara:"Let’s move forward. Together.",
     subMenus: null,
     href: "/contactus",
   },
@@ -184,31 +185,31 @@ const serviceItems = [
 // Social Media Links
 const socialLinks = [
   {
-    icon: <FaLinkedinIn />,
+    icon: <FaLinkedinIn size={16}  className="text-[#0A66C2]" />,
     title: "LinkedIn",
     alt: "linkedin",
     url: "https://in.linkedin.com/company/gtftechnologies",
   },
   {
-    icon: <FaXTwitter />,
+    icon: <FaXTwitter size={16} className="text-black" />,
     title: "Twitter",
     alt: "twitter",
     url: "https://x.com/gtfTechnologies",
   },
   {
-    icon: <FaFacebookF />,
-    title: "Facebook",
-    alt: "facebook",
-    url: "https://www.facebook.com/Gtftechnologiesindia/",
-  },
-  {
-    icon: <FaInstagram />,
+    icon: <FaInstagram size={16} className="text-[#E4405F]" />,
     title: "Instagram",
     alt: "instagram",
     url: "https://www.instagram.com/gtf_technologies/",
   },
   {
-    icon: <FaPinterestP />,
+    icon: <FaFacebookF size={16}  className="text-[#1877F2]" />,
+    title: "Facebook",
+    alt: "facebook",
+    url: "https://www.facebook.com/Gtftechnologiesindia/",
+  },
+  {
+    icon: <FaPinterestP size={16} className="text-[#E60023]" />,
     title: "Pinterest",
     alt: "pinterest",
     url: "https://in.pinterest.com/GTFTechnologies/",
@@ -228,6 +229,7 @@ const videoSources = [
 
 
 const Header = () => {
+  const pathname = usePathname();
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
@@ -257,6 +259,29 @@ const Header = () => {
     return logoColors[index % 3];
   };
 
+  // Check if a nav item is active based on current route
+  const isNavItemActive = (item) => {
+    // If item has submenus, check if any submenu href matches current pathname
+    if (item.subMenus && item.subMenus.length > 0) {
+      return item.subMenus.some(submenu => submenu.href === pathname);
+    }
+    // If item has direct href, check if it matches current pathname
+    if (item.href) {
+      return item.href === pathname;
+    }
+    return false;
+  };
+
+  // Get the active nav item based on route (not hover)
+  const getActiveNavItemByRoute = () => {
+    return mainNavItems.find(item => isNavItemActive(item))?.label || null;
+  };
+
+  // Check if any route is currently active
+  const hasActiveRoute = () => {
+    return mainNavItems.some(item => isNavItemActive(item));
+  };
+
   const toggleSubmenu = (itemLabel) => {
     setActiveItem(activeItem === itemLabel ? null : itemLabel);
     setIsDefault(false);
@@ -275,6 +300,8 @@ const Header = () => {
     // }, 100);
 
     if (!isMenuOpen) {
+      // When menu opens, reset to parent menu
+      setActiveItem(null);
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
@@ -522,6 +549,44 @@ const Header = () => {
 
   }, []);
 
+  // Reset to parent menu when pathname changes (page navigation)
+  useEffect(() => {
+    setActiveItem(null);
+  }, [pathname]);
+
+  // Update isDefault based on active route
+  useEffect(() => {
+    if (hasActiveRoute() && hoveredItem === null) {
+      setIsDefault(false);
+    } else if (!hasActiveRoute() && hoveredItem === null) {
+      setIsDefault(true);
+    }
+  }, [pathname, hoveredItem]);
+
+  // Set initial video based on active route when menu opens
+  useEffect(() => {
+    if (isMenuOpen) {
+      const activeNavItem = getActiveNavItemByRoute();
+      if (activeNavItem) {
+        const activeIndex = mainNavItems.findIndex(item => item.label === activeNavItem);
+        if (activeIndex !== -1 && activeIndex !== activeVideoIdx) {
+          const videoIdx = activeIndex % videoSources.length;
+          setActiveVideoIdx(videoIdx);
+          // Initialize video visibility
+          videoRefs.current.forEach((vid, idx) => {
+            if (!vid) return;
+            gsap.set(vid, {
+              zIndex: idx === videoIdx ? 2 : 1,
+              clipPath: idx === videoIdx
+                ? "inset(0% 0% 0% 0%)"
+                : "inset(0% 0% 0% 100%)",
+            });
+          });
+        }
+      }
+    }
+  }, [isMenuOpen, pathname]);
+
   return (
     <>
       <header
@@ -573,17 +638,41 @@ const Header = () => {
                   <h5 className="mr-3 uppercase text-[13px] font-medium opacity-40 mb-[25px] tracking-[0.5px]">
                     Social Media :
                   </h5>
+
                   <ul className="">
                     {socialLinks?.map((link, idx) => (
                       <li
                         key={idx}
                         className="mb-[12px] text-[16px] font-light"
                       >
-                        <Link href={link.url} target="_blank" className="group">
-                        <SlideTxtAn1>
-                          {link.title}
-                        </SlideTxtAn1>
+                        <Link href={link.url} target="_blank" className="group inline-flex">
+                          <SlideTxtAn1 textClassName="flex items-center gap-[8px]">
+                            {/* Icon */}
+                            <span
+                              className="
+                                opacity-0 translate-x-[-10px] scale-95
+                                group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100
+                                transition-all duration-300 ease-out
+                                will-change-transform
+                              "
+                            >
+                              {link.icon}
+                            </span>
+
+                            {/* Title */}
+                            <span
+                              className="
+                                translate-x-[-14px]
+                                group-hover:translate-x-0
+                                transition-transform duration-300 ease-out
+                                will-change-transform
+                              "
+                            >
+                              {link.title}
+                            </span>
+                          </SlideTxtAn1>
                         </Link>
+
                       </li>
                     ))}
                   </ul>
@@ -642,11 +731,20 @@ const Header = () => {
                         }}
                         className={`group relative hover:pl-1 transition-all duration-300 ease-in-out
                            ${
+                              // If hovering this item, show as active
                               hoveredItem === item.label
-                                ? "!opacity-100 text-[40px] font-bold"
-                                : isDefault
-                                ? "opacity-100 text-[36px] font-normal"
-                                : "!opacity-20 text-[36px] font-normal"
+                                ? "!opacity-100 text-[44px] font-bold"
+                                // If not hovering anything and route matches this item, show as active
+                                : hoveredItem === null && isNavItemActive(item)
+                                ? "!opacity-100 text-[44px] font-bold"
+                                // If not hovering anything and in default state (no active route), show normal
+                                : hoveredItem === null && isDefault
+                                ? "opacity-100 text-[40px] font-medium"
+                                // If not hovering but there's an active route and this item is not active, show dimmed
+                                : hoveredItem === null && hasActiveRoute() && !isNavItemActive(item)
+                                ? "!opacity-20 text-[40px] font-medium"
+                                // Otherwise (hovering another item), show dimmed
+                                : "!opacity-20 text-[40px] font-medium"
                             } ${
                           mainNavItems.length - 1 !== index ? "mb-[10px]" : ""
                         } `}
@@ -660,7 +758,7 @@ const Header = () => {
                             {item.label}
                             </SlideTxtAn1>
                             
-                            <small className="block !text-[12px] !font-normal mt-[-10px]" style={{ color: getColor(index) }}><ScrambleHoverText ref={(el) => (scrambleRefs.current[index] = el)} text={item.shortPara} duration={0.7}>{item.shortPara}</ScrambleHoverText></small>
+                            <small className="block !text-[12px] !font-[100] mt-[-5px]" style={{ color: getColor(index) }}><ScrambleHoverText ref={(el) => (scrambleRefs.current[index] = el)} text={item.shortPara} duration={0.7}>{item.shortPara}</ScrambleHoverText></small>
                           </button>
                         ) : (
                           <Link
@@ -671,7 +769,7 @@ const Header = () => {
                             <SlideTxtAn1>
                             {item.label}
                             </SlideTxtAn1>
-                            <small className="block !text-[12px] !font-normal mt-[-10px]" style={{ color: getColor(index) }}><ScrambleHoverText ref={(el) => (scrambleRefs.current[index] = el)} text={item.shortPara} duration={0.7}>{item.shortPara}</ScrambleHoverText></small>
+                            <small className="block !text-[12px] !font-[100] mt-[-5px] tracking-[]" style={{ color: getColor(index) }}><ScrambleHoverText ref={(el) => (scrambleRefs.current[index] = el)} text={item.shortPara} duration={0.7}>{item.shortPara}</ScrambleHoverText></small>
                           </Link>
                         )}
                       </li>

@@ -4,39 +4,42 @@ import Line from "../Line";
 import { MdArrowOutward } from "react-icons/md";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    image:"/assets/home/projects/ekanam/thumbnail.webp",
+    thumbnail:"/assets/home/projects/ekanam/thumbnail.webp",
     category:"Website | Social Media | Paid Ads",
     title:"Ekanam by Great Value Realty",
     video:"assets/home/projects/ekanam/ekanam.mp4"
   },
   {
-    image:"/assets/home/projects/trump/thumbnail.jpg",
+    thumbnail:"/assets/home/projects/trump/thumbnail.jpg",
     category:"Performance Marketing | Brand Video",
     title:"Trump Towers",
     video:"assets/home/projects/trump/trump.mp4"
   },
   {
-    image:"/assets/home/projects/eldeco/thumbnail.webp",
+    thumbnail:"/assets/home/projects/eldeco/thumbnail.webp",
     category:"Performance Marketing | Social Media | Branding | Website",
     title:"Eldeco ",
-    video:"assets/home/projects/ekayam/ekayam.mp4"
+    video:null,
+    image:"assets/home/projects/eldeco/eldeco.webp",
   },
   {
-    image:"/assets/home/projects/anant-raj/thumbnail.webp",
+    thumbnail:"/assets/home/projects/anant-raj/thumbnail.webp",
     category:"Brand Refresh | Website | Social Media",
     title:"Anant Raj Limited",
     video:"assets/home/projects/anant-raj/anantraj.mp4"
   },
   {
-    image:"/assets/home/projects/signature-global/thumbnail.webp",
+    thumbnail:"/assets/home/projects/signature-global/thumbnail.webp",
     category:"Branding | Social Media | Paid Ads",
     title:"Signature Global Infinity Mall",
-    video:"assets/home/projects/eternia/eternia.mp4"
+    video:null,
+    image:"assets/home/projects/signature/signature.webp",
   },
 ]
 
@@ -191,7 +194,7 @@ const OurWork = () => {
               <div className="group relative h-[600px] w-[45%] overflow-hidden cursor-pointer cursor-hover">
                 <div className="thumbnail absolute h-full w-full group-hover:[filter:blur(10px)] ease-in-out duration-1000">
                   <img
-                    src={project.image}
+                    src={project.thumbnail}
                     alt="project image"
                     className={`img-fluid h-full w-full object-cover  group-hover:[transform:scale(1.2)] ease-in-out duration-1000`}
                   />
@@ -217,15 +220,25 @@ const OurWork = () => {
                 </div>
 
                 <div className="video absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[93%] h-auto origin-top transition-clip-path duration-700 ease-in-out [clip-path:inset(0_0_100%_0)] group-hover:[clip-path:inset(0_0_0%_0)]" >
-                  <video
-                    src={project.video}
-                    className="h-full w-full object-contain"
-                    controls
-                    loop
-                    autoPlay
-                    playsInline
-                    muted
-                  />
+                  {project.video ? (
+                    <video
+                      src={project.video}
+                      className="h-full w-full object-contain"
+                      controls
+                      loop
+                      autoPlay
+                      playsInline
+                      muted
+                    />
+                  ) : (
+                    <Image
+                      src={project.image}
+                      className="h-full w-full object-contain"
+                      width="1920"
+                      height="1080"
+                    />
+                  )}
+                  
                 </div>
               </div>
             </div>
