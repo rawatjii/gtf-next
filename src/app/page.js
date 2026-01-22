@@ -16,7 +16,7 @@ import OurCulture from "./components/Home/OurCulture";
 const Home = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
  
-  return (
+  return ( 
     <div>
       <HeroSection />
       {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
