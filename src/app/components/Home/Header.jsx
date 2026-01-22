@@ -649,24 +649,19 @@ const Header = () => {
                           <SlideTxtAn1 textClassName="flex items-center gap-[8px]">
                             {/* Icon */}
                             <span
-                              className="
-                                opacity-0 translate-x-[-10px] scale-95
-                                group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100
-                                transition-all duration-300 ease-out
-                                will-change-transform
-                              "
+                              // className="
+                              //   opacity-0 translate-x-[-10px] scale-95
+                              //   group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-100
+                              //   transition-all duration-300 ease-out
+                              //   will-change-transform
+                              // "
                             >
                               {link.icon}
                             </span>
 
                             {/* Title */}
                             <span
-                              className="
-                                translate-x-[-14px]
-                                group-hover:translate-x-0
-                                transition-transform duration-300 ease-out
-                                will-change-transform
-                              "
+                              
                             >
                               {link.title}
                             </span>
