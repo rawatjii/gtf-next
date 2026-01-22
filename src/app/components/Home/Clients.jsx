@@ -191,7 +191,7 @@ const Clients = () => {
   return (
     <section
       ref={sectionRef}
-      className=" bg-[#141414] relative h-screen md:mb-[0] mb-[30px] flex items-center border-t border-[#ddd]-200"
+      className=" bg-[#f5f5f5] relative h-screen md:mb-[0] mb-[30px] flex items-center"
     >
       <div
         ref={titleWrapperRef}
@@ -250,7 +250,7 @@ const Clients = () => {
                     return (
                       <div
                         key={`${setIndex}-${colIndex}-${rowIndex}`}
-                        className="flex items-center justify-center h-[150px] bg-[#f9f9f9] hover:grayscale transition-all duration-300 rounded-lg shadow-sm"
+                        className="flex items-center justify-center h-[150px] bg-[#fff] hover:grayscale transition-all duration-300 rounded-lg border border-[#eaeaea]"
                       >
                         <Image
                           src={logo.src}

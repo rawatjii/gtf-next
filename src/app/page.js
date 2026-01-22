@@ -1,4 +1,3 @@
-"use client";
 import Expertise from "./components/Home/Expertise";
 import HeroSection from "./components/Home/HeroSection";
 import WhoWeAre from "./components/Home/WhoWeAre";

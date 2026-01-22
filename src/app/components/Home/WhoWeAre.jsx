@@ -27,7 +27,7 @@ const lines = [
     {
       word: "Made-in-India",
       className: "highlightWord !font-bold",
-      sibling: "/assets/home/who_we_are/line.png",
+      sibling: "/assets/home/who_we_are/line3.png",
       imgClass: "!h-[170%] !top-[-40%]",
     },
     " ",
@@ -201,7 +201,7 @@ const WhoWeAre = () => {
             }}
           >
             {/* bg-gtf-pink */}
-            <div className="first_slide flex flex-row justify-between h-full bg-[#000] min-w-[100vw]">
+            <div className="first_slide flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
               <div className="grid items-center grid-cols-12 gap-[40px]">
                 <div
                   ref={mainContentRef}

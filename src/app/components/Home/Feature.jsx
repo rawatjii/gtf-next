@@ -51,6 +51,7 @@ const Feature = () => {
   const mainContentRef = useRef(null);
   const timelineRef = useRef(null); // Ref for the timeline container
   const dotsRef = useRef([]); // Ref to hold dot elements
+  const timelineGroupRef = useRef();
 
   const overviewData = useRef(null);
   const backgroundColorRef = useRef(null);
@@ -91,7 +92,7 @@ const Feature = () => {
       // console.log('testing',100/2);
 
       gsap.set(section, {
-        transform:`translateX(${window.innerWidth * 0.5 + 350}px)`,
+        transform: `translateX(${window.innerWidth * 0.5 + 350}px)`,
       })
 
       // All slides that should drive timeline/dots/images
@@ -189,7 +190,7 @@ const Feature = () => {
                   zIndex: prevIndex === 0 ? 5 : prevIndex === 1 ? 4 : prevIndex === 2 ? 3 : prevIndex === 3 ? 2 : 1,
                 });
               }
-              
+
             });
 
             // -------- TIMELINE WIDTH FROM SLIDE PROGRESS --------
@@ -237,6 +238,11 @@ const Feature = () => {
 
             // -------- COUNTER + CIRCLE ANIMATIONS (unchanged) --------
             if (counterSecRect.left <= counterTriggerPoint) {
+              gsap.to(timelineGroupRef.current, {
+                opacity:0,
+                duration:0.4,
+              });
+
               gsap.to(circleRef.current, {
                 scale: 1,
                 opacity: 1,
@@ -262,6 +268,11 @@ const Feature = () => {
                   setCounts({ ...counts });
                 },
                 delay: 0.6,
+              });
+            }else{
+              gsap.to(timelineGroupRef.current, {
+                opacity:1,
+                duration:0.4,
               });
             }
 
@@ -310,30 +321,37 @@ const Feature = () => {
 
   return (
     <>
-      <section className="w-full relative  mix-blend-multiply overflow-hidden bg-[#fff]">
+      <section className="w-full relative  mix-blend-multiply overflow-hidden bg-[#f5f5f5]">
+
         <div ref={containerRef} className="pin-container relative">
+          <img
+            src="/assets/home/netblob.png"
+            alt="Years of Expertise"
+            className="absolute md:h-[auto] h-[100%] w-[70vw] translate-x-[-50%] md:block hidden left-[0%] z-index: [1px]"
+          />
 
-          {/* Timeline Bar */}
-          <div className="absolute w-full h-[3px] bg-gray-300 bottom-[38px]">
-            {/* Timeline fill */}
-            <div className="absolute left-0 w-full h-full bg-black-200"></div>
-            <div ref={timelineRef} className="absolute left-0 h-full bg-[#e24397]" style={{ width: "0%" }} />
-          </div>
+          <div ref={timelineGroupRef}>
+            {/* Timeline Bar */}
+            <div className="absolute w-full h-[3px] bg-gray-300 bottom-[38px]">
+              {/* Timeline fill */}
+              <div className="absolute left-0 w-full h-full bg-black-200"></div>
+              <div ref={timelineRef} className="absolute left-0 h-full bg-[#e24397]" style={{ width: "0%" }} />
+            </div>
 
-          {/* Dots on Timeline */}
-          <div className="absolute pointer-events-none w-full bottom-[35px]  flex items-center justify-evenly">
-            {Array.from({ length: dotCount || 0 }).map((_, index) => (
-              <div
-                key={index}
-                className="relative flex flex-col items-center gap-2 pointer-events-none"
-              >
+            {/* Dots on Timeline */}
+            <div className="absolute pointer-events-none w-full bottom-[35px]  flex items-center justify-evenly">
+              {Array.from({ length: dotCount || 0 }).map((_, index) => (
                 <div
                   key={index}
-                  ref={(el) => (dotsRef.current[index] = el)}
-                  className={`w-[8px] h-[8px] rounded-full bg-black-200 ${activeDotIndex === index ? 'scale-130' : ''}`}
-                />
+                  className="relative flex flex-col items-center gap-2 pointer-events-none"
+                >
+                  <div
+                    key={index}
+                    ref={(el) => (dotsRef.current[index] = el)}
+                    className={`w-[8px] h-[8px] rounded-full bg-black-200 ${activeDotIndex === index ? 'scale-130' : ''}`}
+                  />
 
-                {/* Show panda video when active */}
+                  {/* Show panda video when active */}
                   <div className={`absolute top-[-90px] w-[50px]  transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'opacity-1' : 'opacity-0'}`}>
                     <video
                       src={dotLabels[index].video}
@@ -344,14 +362,15 @@ const Feature = () => {
                     />
                   </div>
 
-                {/* Label */}
-                <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out  w-[max-content] ${activeDotIndex === index ? 'text-[18px] font-semibold tracking-[-1px]' : ''}`}>
-                  {dotLabels[index]?.title || `Stage ${index + 1}`}
-                </span>
+                  {/* Label */}
+                  <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out  w-[max-content] ${activeDotIndex === index ? 'text-[18px] font-semibold tracking-[-1px]' : ''}`}>
+                    {dotLabels[index]?.title || `Stage ${index + 1}`}
+                  </span>
 
-              </div>
+                </div>
 
-            ))}
+              ))}
+            </div>
           </div>
 
 
@@ -362,14 +381,14 @@ const Feature = () => {
               left: "50%", // Start from center of viewport
               height: "500px",
               width: "500px",
-              transform:"translate(-50%, -50%)"
+              transform: "translate(-50%, -50%)"
             }}
           >
             <div className="absolute left-0 top-0 h-full w-full">
               <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[0] = el)}
-                  className="object-cover relative inline-block z-[1] w-full h-full "
+                  className="object-contain relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -381,7 +400,7 @@ const Feature = () => {
               <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
-                  className="object-cover relative inline-block z-[1] w-full h-full "
+                  className="object-contain relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative2/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -392,7 +411,7 @@ const Feature = () => {
               <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[2] = el)}
-                  className="object-cover relative inline-block z-[1] w-full h-full "
+                  className="object-contain relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -403,7 +422,7 @@ const Feature = () => {
               <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[1] = el)}
-                  className="object-cover relative inline-block z-[1] w-full h-full "
+                  className="object-contain relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative2/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -415,7 +434,7 @@ const Feature = () => {
               <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[4] = el)}
-                  className="object-cover relative inline-block z-[1] w-full h-full "
+                  className="object-contain relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -426,7 +445,7 @@ const Feature = () => {
               <div className="relative flex justify-center h-full">
                 <img
                   ref={(el) => (imagesRef.current[4] = el)}
-                  className="object-cover relative inline-block z-[1] w-full h-full "
+                  className="object-contain relative inline-block z-[1] w-full h-full "
                   src="/assets/home/who_we_are/creative1/img1-sm.webp"
                   alt="GTF Technologies office environment"
                 />
@@ -476,7 +495,7 @@ const Feature = () => {
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Engineered to turn.{" "}
                     <span className="block text-[50px] uppercase font-bold">
-                    clicks into conviction.{" "}
+                      clicks into conviction.{" "}
                     </span>
                   </h5>
                 </div>
@@ -488,9 +507,9 @@ const Feature = () => {
               >
                 <div className="basis-[50%]">
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
-                  Designed to make noise{" "}
+                    Designed to make noise{" "}
                     <span className="block text-[50px] uppercase font-bold">
-                    impossible to ignore.{" "}
+                      impossible to ignore.{" "}
                     </span>
                   </h5>
                 </div>
@@ -505,7 +524,7 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] bg-[#f5f5f5] ml-[calc(100vw/2)] overflow-hidden">
+              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] ml-[calc(100vw/2)] overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
                     <h2 className="neue_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
@@ -536,11 +555,11 @@ const Feature = () => {
                   <div className="flex justify-between flex-wrap relative md:pt-[0] pt-[30px] px-[100px]">
                     <div className="md:basis-[60%] basis-[100%] relative">
                       {/* 1 */}
-                      <img
+                      {/* <img
                         src="/assets/home/netblob.png"
                         alt="Years of Expertise"
                         className="absolute md:h-[auto] h-[100%] w-[100%] md:translate-y-[-50%] translate-x-[-50%] md:block hidden left-[0%] z-index: [1px]"
-                      />
+                      /> */}
                       <div
                         ref={lineRef}
                         className="relative w-0 top-[50%] left-[29%] z-[1]"
@@ -561,7 +580,7 @@ const Feature = () => {
                         ref={circleRef}
                         className="md:h-[250px] md:w-[250px] h-[120px] w-[120px] md:left-[8%]  md:top-[50%] bg-[#FDE93D] translate-y-[-50%] md:relative absolute rounded-full"
                       ></div>
-                      
+
                       <p className="md:absolute bottom-[50px] left-[0]  md:text-start  px-[50px] z-[9]">
                         <span className="neue_font text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
                           17 +
