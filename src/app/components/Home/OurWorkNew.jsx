@@ -53,6 +53,7 @@ const OurWork = () => {
   const iconsRef = useRef(null);
   const projectsRef = useRef(null);
   const headingTxtRef = useRef(null);
+  const netRef = useRef(null);
   const [headingHeight, setHeadingHeight] = useState(0);
 
   useLayoutEffect(()=>{
@@ -74,6 +75,9 @@ const OurWork = () => {
 
 
       // Ensure images are loaded before calculating height
+      gsap.set(netRef.current, {
+        opacity:0,
+      })
       const images = projectsContainer.querySelectorAll("img");
       let loadedCount = 0;
 
@@ -112,7 +116,13 @@ const OurWork = () => {
           id: "our-work-pin1",
           anticipatePin: 1,
           invalidateOnRefresh: true,
-
+          onEnter:()=>{
+            gsap.set(netRef.current, {
+              opacity:0.6,
+              duration:1,
+              ease:"power4.out"
+            })
+          }
         }
       });
 
@@ -143,7 +153,7 @@ const OurWork = () => {
   }, [])
 
   return (
-    <section ref={sectionRef} className="border-t  border-[#ddd] relative pb-[150px] pt-[100px] bg-[#fff]">
+    <section ref={sectionRef} className="relative pb-[150px] pt-[100px] border-t border-gray-300">
       <div className="md:px-[50px]">
         <div ref={headingRef} className="heading relative z-[9] table "
          style={{
@@ -153,7 +163,14 @@ const OurWork = () => {
           opacity: 0,
           // transform:`translateY(-${transformValue}px)`
         }}>
-          <div className="grid">
+          
+      {/* <img
+        ref={netRef}
+            src="/assets/home/netblob.png"
+            alt="Years of Expertise"
+            className="absolute md:h-[auto] h-[100%] w-[80vw] top-[70%] left-[50%] -translate-x-1/2 -translate-y-1/2"  
+          /> */}
+          <div className="grid relative" >
             {/* <div ref={iconsRef} className="icons inline-flex items-center justify-center" style={{
               // clipPath:"inset(100% 0% 0% 0%)"
             }}>

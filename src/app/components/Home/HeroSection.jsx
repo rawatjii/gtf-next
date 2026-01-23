@@ -271,57 +271,6 @@ const HeroSection = () => {
       },
     });
 
-    // startCounters();
-
-    gsap.delayedCall(3.5, () => {
-      if (!zoomTextRef.current || !bgZoomColorRef.current) return;
-
-
-      zoomTl.to(zoomDotRef.current, {
-        opacity:0,
-        ease:'none'
-      })
-
-      zoomTl.to(zoomTextRef.current, {
-        scale: 65,
-        y: "-200px",
-        duration:'0.2',
-      });
-
-      // zoomTl.to(
-      //   bgZoomColorRef.current,
-      //   {
-      //     opacity:1,
-      //     // transformX:'0',
-      //     // top:0,
-      //     // transform:"auto",
-      //     // left:0,
-      //   },
-      //   "-=0.51"
-      // );
-
-      zoomTl.to(
-        bgZoomColorRef.current,
-        {
-          top: 0,
-          height: "100%",
-          // transformX:'0',
-          // top:0,
-          // transform:"auto",
-          // left:0,
-        },
-        "-=0.50"
-      );
-
-      zoomTl.to(bgZoomColorRef.current, {
-        transform: "translateX(0)",
-        left: "0",
-        width: "100%",
-        // scale:'10'
-      });
-
-      ScrollTrigger.refresh();
-    });
   }, [mounted, videoCompleted]);
 
   const closeModal = () => {
@@ -580,7 +529,7 @@ const HeroSection = () => {
         id="rotating-pink-glow"
         style={{
           background: `linear-gradient(90deg,
-          rgba(0 0 0 / 0.8) 10%,
+          rgb(226, 67, 151) 10%,
             transparent 50%,
             transparent 70%,
             transparent 100%

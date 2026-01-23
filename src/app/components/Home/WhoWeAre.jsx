@@ -27,7 +27,7 @@ const lines = [
     {
       word: "Made-in-India",
       className: "highlightWord !font-bold",
-      sibling: "/assets/home/who_we_are/line3.png",
+      sibling: "/assets/home/who_we_are/line.png",
       imgClass: "!h-[170%] !top-[-40%]",
     },
     " ",
@@ -188,7 +188,7 @@ const WhoWeAre = () => {
   }, []);
 
   return (
-    <section className="w-full relative mt-[-100px]">
+    <section className="w-full relative border-t  bg-[#f5f5f5]">
       <div ref={containerRef} className="pin-container">
         <div className="flex flex-row h-screen  main-container-scroll no-scrollbar relative">
           <div
@@ -200,8 +200,13 @@ const WhoWeAre = () => {
               willChange: "transform",
             }}
           >
+          <img
+                src="/assets/home/netblob.png"
+                alt="Years of Expertise"
+                className="fixed  md:h-[auto] h-[100%] w-[70vw] translate-x-[-50%] md:block hidden left-[0%]"
+              />
             {/* bg-gtf-pink */}
-            <div className="first_slide flex flex-row justify-between h-full bg-[#e24397] min-w-[100vw]">
+            <div className="first_slide flex flex-row justify-between h-full min-w-[100vw]">
               <div className="grid items-center grid-cols-12 gap-[40px]">
                 <div
                   ref={mainContentRef}
@@ -209,7 +214,7 @@ const WhoWeAre = () => {
                 >
                   <h2
                     ref={mainHeadingRef}
-                    className="relative mb-[30px]  neue_font font-bold tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px]"
+                    className="relative mb-[30px]  neue_font font-bold tracking-[2px] 2xl:text-[100px] md:text-[80px] text-[32px] inline-block leading-[150px] text-[#e24397]"
                   >
                     {/* left-[50%] -translate-x-1/2 */}
                     Who We Are<span className="text-[#fdda39]">?</span>
@@ -224,7 +229,7 @@ const WhoWeAre = () => {
                         <div
                           key={lineIndex}
                           ref={(el) => (textRef.current[lineIndex] = el)} // One ref per line
-                          className="flex flex-wrap justify-left text-left"
+                          className="flex flex-wrap justify-left text-left text-black"
                         >
                           {line.map((word, wordIndex) =>
                             typeof word === "string" ? (

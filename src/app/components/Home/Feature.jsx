@@ -321,13 +321,13 @@ const Feature = () => {
 
   return (
     <>
-      <section className="w-full relative  mix-blend-multiply overflow-hidden bg-[#f5f5f5]">
+      <section className="w-full relative  mix-blend-multiply border-t border-gray-300">
 
         <div ref={containerRef} className="pin-container relative">
           <img
             src="/assets/home/netblob.png"
             alt="Years of Expertise"
-            className="absolute md:h-[auto] h-[100%] w-[70vw] translate-x-[-50%] md:block hidden left-[0%] z-index: [1px]"
+            className="absolute md:h-[auto] h-[100%] w-[80vw] translate-y-[10vh] translate-x-[30%] md:block hidden right-[0%] left-[unset] opacity-70"  
           />
 
           <div ref={timelineGroupRef}>
@@ -372,6 +372,19 @@ const Feature = () => {
               ))}
             </div>
           </div>
+
+          <div className="fixed left-0 w-[50%] top-[45%] -translate-y-1/2 bg-[#fff] p-[10px] z-[9] h-[500px] pl-[50px] flex items-center">
+            <video
+              autoPlay
+              loop
+              muted
+              className="w-[400px]"
+            >
+              <source
+                src="/assets/home/who_we_are/pandas/1.mp4"
+              />
+            </video>
+          </div>  
 
 
           <div

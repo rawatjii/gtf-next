@@ -19,18 +19,22 @@ const Home = () => {
   return ( 
     <div>
       <HeroSection />
-      {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
-      <Feature />
-      {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
-      {/* <Expertise /> */}
-      <OurWorkNew />
-      <Clients />
-      {/* <LocationMap /> */}
-      <WhyGTF />
-      <OurWork />
-      {/* <Solutions /> */}
-      <OurCulture />
-      <Contact />
+      <div className="bg-[#f5f5f5]">
+          
+          
+        {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
+        <Feature />
+        {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
+        {/* <Expertise /> */}
+        <OurWorkNew />
+        <Clients />
+        {/* <LocationMap /> */}
+        <WhyGTF />
+        <OurWork />
+        {/* <Solutions /> */}
+        <OurCulture />
+        <Contact />
+      </div>
     </div>
   );
 };

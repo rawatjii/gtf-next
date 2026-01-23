@@ -191,8 +191,13 @@ const Clients = () => {
   return (
     <section
       ref={sectionRef}
-      className=" bg-[#f5f5f5] relative h-screen md:mb-[0] mb-[30px] flex items-center"
+      className="relative h-screen md:mb-[0] mb-[30px] flex items-center border-t  border-[#ddd] "
     >
+      <img
+            src="/assets/home/netblob.png"
+            alt="Years of Expertise"
+            className="absolute md:h-[auto] h-[100%] w-[70vw]  left-[50%] translate-x-[-50%] top-[-60%] opacity-50"  
+          />
       <div
         ref={titleWrapperRef}
         className="absolute md:px-[35px] px-[15px] z-[9] md:flex justify-center md:text-start w-full h-full"
