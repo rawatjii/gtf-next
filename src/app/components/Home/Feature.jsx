@@ -94,7 +94,7 @@ const Feature = () => {
       // console.log('testing',100/2);
 
       gsap.set(section, {
-        transform: `translateX(${window.innerWidth * 0.5 + 350}px)`,
+        transform: `translateX(${window.innerWidth * 0.4}px)`,
       })
 
       // All slides that should drive timeline/dots/images
@@ -396,7 +396,7 @@ const Feature = () => {
             </div>
           </div>
 
-          <div ref={pandaRef} className="fixed left-0 w-[50%] top-[45%] -translate-y-1/2 bg-[#fff] p-[10px] z-[9] h-[500px] pl-[100px] flex items-center">
+          {/* <div ref={pandaRef} className="fixed left-0 w-[50%] top-[45%] -translate-y-1/2 bg-[#fff] p-[10px] z-[9] h-[500px] pl-[100px] flex items-center">
               <div className="relative w-[400px] h-full">
                 {dotLabels.map((dot, index) => (
                   <video
@@ -415,17 +415,16 @@ const Feature = () => {
                   </video>
                 ))}
               </div>
-          </div>  
+          </div>   */}
 
+{/* left-1/2  -translate-x-1/2 */}
 
           <div
             ref={pinImageRef}
-            className="fixed top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[fit-content] z-[9]"
+            className="fixed top-[50%] left-[100px] -translate-y-1/2 w-[fit-content] z-[9] before:absolute before:content-[''] before:w-[calc(100%+300px)] before:right-0 before:h-full before:bg-white"
             style={{
-              left: "50%", // Start from center of viewport
               height: "500px",
               width: "500px",
-              transform: "translate(-50%, -50%)"
             }}
           >
             <div className="absolute left-0 top-0 h-full w-full">
@@ -510,7 +509,17 @@ const Feature = () => {
               {/* First Image Section */}
 
               <div className="flex flex-row items-center relative w-[calc((100vw/2))]">
-                <div className="basis-[50%]">
+                <div className="basis-[100%] flex items-center gap-[50px]">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    className={`w-[400px] transition-transform duration-300`}
+                  >
+                    <source
+                      src="/assets/home/who_we_are/pandas/1.mp4"
+                    />
+                  </video>
                   <h3 className="neue_font uppercase text-[50px] font-bold mb-[1rem] font-[600] w-[max-content]">
                     Built to Disrupt <span className="block">the Ordinary.</span>
                   </h3>
@@ -521,7 +530,17 @@ const Feature = () => {
                 ref={imageContentRef}
                 className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
-                <div className="basis-[50%]">
+                <div className="basis-[100%] flex items-center gap-[50px]">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    className={`w-[400px] transition-transform duration-300`}
+                  >
+                    <source
+                      src="/assets/home/who_we_are/pandas/2.mp4"
+                    />
+                  </video>
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Not a Team.{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -535,7 +554,17 @@ const Feature = () => {
                 ref={imageContentRef}
                 className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
-                <div className="basis-[50%]">
+                <div className="basis-[100%] flex items-center gap-[50px]">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    className={`w-[400px] transition-transform duration-300`}
+                  >
+                    <source
+                      src="/assets/home/who_we_are/pandas/3.mp4"
+                    />
+                  </video>
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Engineered to turn.{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -549,7 +578,17 @@ const Feature = () => {
                 ref={imageContentRef}
                 className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
-                <div className="basis-[50%]">
+                <div className="basis-[100%] flex items-center gap-[50px]">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    className={`w-[400px] transition-transform duration-300`}
+                  >
+                    <source
+                      src="/assets/home/who_we_are/pandas/1.mp4"
+                    />
+                  </video>
                   <h5 className="neue_font text-[34px] mb-[1rem] font-[600]">
                     Designed to make noise{" "}
                     <span className="block text-[50px] uppercase font-bold">
@@ -560,7 +599,17 @@ const Feature = () => {
               </div>
 
               <div ref={lastSlideRef} className="flex flex-row items-center relative last_slide w-[calc((100vw/2))] ml-[13rem]">
-                <div className="basis-[50%]">
+              <div className="basis-[100%] flex items-center gap-[50px]">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    className={`w-[400px] transition-transform duration-300`}
+                  >
+                    <source
+                      src="/assets/home/who_we_are/pandas/2.mp4"
+                    />
+                  </video>
                   <h5 className="neue_font text-[50px] mb-[1rem]  text-[50px] font-semibold leading-[60px]">
                     Wired to help brands{" "}
                     <span className="block">move ahead of the market.</span>
@@ -568,7 +617,7 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw]  overflow-hidden">
+              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] ml-[calc(100vw/4)] overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
                     <h2 className="neue_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
