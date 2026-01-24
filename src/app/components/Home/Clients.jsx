@@ -255,7 +255,7 @@ const Clients = () => {
                     return (
                       <div
                         key={`${setIndex}-${colIndex}-${rowIndex}`}
-                        className="flex items-center justify-center h-[150px] bg-[#fff] hover:grayscale transition-all duration-300 rounded-lg border border-[#eaeaea]"
+                        className="flex items-center justify-center h-[150px] bg-[#f5f5f5] hover:grayscale transition-all duration-300 rounded-lg border border-[#eaeaea]"
                       >
                         <Image
                           src={logo.src}

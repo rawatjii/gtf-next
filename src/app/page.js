@@ -19,7 +19,7 @@ const Home = () => {
   return ( 
     <div>
       <HeroSection />
-      <div className="bg-[#f5f5f5]">
+      <div className="bg-[#fff]">
           
           
         {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}

@@ -67,8 +67,10 @@ const Feature = () => {
   const counterSecRef = useRef(null);
   const imageContentRef = useRef(null);
   const lastSlideRef = useRef(null);
+  const pandaRef = useRef(null);
+  
   const [dotCount, setDotCount] = useState(0);
-  const [activeDotIndex, setActiveDotIndex] = useState(-1); // Track active dot
+  const [activeDotIndex, setActiveDotIndex] = useState(0); // Track active dot
 
 
   const [counts, setCounts] = useState({
@@ -114,13 +116,13 @@ const Feature = () => {
       // DYNAMIC BASE PERCENT (100 / (slides + 1))
       const slidesLen = slides.length;
       // const basePercent = slidesLen > 0 ? 100 / (slidesLen + 1) : 0;
-      const basePercent = slidesLen > 0 ? 0 : 0;
+      const basePercent = slidesLen > 0 ? 20 : 0;
       // Each slide gets one equal segment
       const segmentSize = slidesLen > 0 ? (100 - basePercent) / slidesLen : 0;
 
       // Set initial timeline fill on load (e.g. 16.66% for 5 slides)
       gsap.set(timeline, {
-        width: basePercent + "%",
+        width:  `17%`,
       });
 
 
@@ -150,9 +152,10 @@ const Feature = () => {
               ? counterSec.getBoundingClientRect()
               : { left: Infinity };
             var vw = window.innerWidth;
-            var triggerPoint = vw * 0.7;        // 70% from left
+            var triggerPoint = vw * 0.7;        // For timeline and dots (70% from the left)
+            var clipTriggerPoint = vw * 1;     // For clip animation (100% from the left)
             var counterTriggerPoint = vw * 0.5;
-            var lastSlidePoint = 0;
+            var lastSlidePoint = triggerPoint;
 
             // -------- PER-SLIDE PROGRESS, IMAGE REVEAL, ETC. --------
             slides.forEach(function (slide, index) {
@@ -162,6 +165,8 @@ const Feature = () => {
 
               // Local progress for this slide based on 70% line
               var progress = 0;
+              var clipProgress = 0;
+
               if (rect.left <= triggerPoint && rect.left >= 0) {
                 // from 70% → 0% of viewport
                 progress = 1 - rect.left / triggerPoint; // 0 → 1
@@ -170,6 +175,17 @@ const Feature = () => {
               }
               progress = gsap.utils.clamp(0, 1, progress);
               slideProgresses[index] = progress;
+
+              // clip progress
+
+              if (rect.left <= clipTriggerPoint && rect.left >= 0) {
+                // from 70% → 0% of viewport
+                clipProgress = 1 - rect.left / clipTriggerPoint; // 0 → 1
+              } else if (rect.left < 0) {
+                clipProgress = 1;
+              }
+              clipProgress = gsap.utils.clamp(0, 1, clipProgress);
+
 
               // IMAGE CLIP REVEAL PER SLIDE
               var targetSet = imageSets[index];
@@ -183,10 +199,11 @@ const Feature = () => {
                 });
               }
 
+              // Use the separate clipTriggerPoint for clip animation
               var prevSet = imageSets[prevIndex];
               if (prevSet) {
                 gsap.set(prevSet, {
-                  clipPath: "inset(" + progress * 300 + "% 0% 0% 0%)",
+                  clipPath: "inset(" + clipProgress * 300 + "% 0% 0% 0%)",
                   zIndex: prevIndex === 0 ? 5 : prevIndex === 1 ? 4 : prevIndex === 2 ? 3 : prevIndex === 3 ? 2 : 1,
                 });
               }
@@ -211,7 +228,7 @@ const Feature = () => {
             // -------- DOTS STATE FROM SLIDE PROGRESS --------
             dotsRef.current.forEach(function (dot, idx) {
               if (!dot) return;
-              var active = slideProgresses[idx] > 0.75;
+              var active = slideProgresses[idx] > 0;
 
               // Change active dot index when active
 
@@ -231,6 +248,11 @@ const Feature = () => {
               var distanceToScroll = lastSlidePoint - lastRect.left;
 
               gsap.set(pinned, {
+                x: "-" + distanceToScroll + "px",
+                overwrite: true,
+              });
+
+              gsap.set(pandaRef.current, {
                 x: "-" + distanceToScroll + "px",
                 overwrite: true,
               });
@@ -310,14 +332,14 @@ const Feature = () => {
 
 
 
-  useEffect(() => {
-    if (dotsRef.current[0]) {
-      gsap.set(dotsRef.current[0], {
-        scale: 1.2,
-        backgroundColor: "#4CAF50",
-      });
-    }
-  }, [dotCount]);
+  // useEffect(() => {
+  //   if (dotsRef.current[0]) {
+  //     gsap.set(dotsRef.current[0], {
+  //       scale: 1.2,
+  //       backgroundColor: "#4CAF50",
+  //     });
+  //   }
+  // }, [dotCount]);
 
   return (
     <>
@@ -345,14 +367,15 @@ const Feature = () => {
                   key={index}
                   className="relative flex flex-col items-center gap-2 pointer-events-none"
                 >
+                  {/* "#e24397" : "#777679" */}
                   <div
                     key={index}
                     ref={(el) => (dotsRef.current[index] = el)}
-                    className={`w-[8px] h-[8px] rounded-full bg-black-200 ${activeDotIndex === index ? 'scale-130' : ''}`}
+                    className={`w-[8px] h-[8px] rounded-full  ${activeDotIndex === index ? 'scale-130 bg-[#e24397]' : 'bg-[#777679]'}`}
                   />
 
                   {/* Show panda video when active */}
-                  <div className={`absolute top-[-90px] w-[50px]  transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'opacity-1' : 'opacity-0'}`}>
+                  {/* <div className={`absolute top-[-90px] w-[50px]  transition-all duration-300 ease-in-out ${activeDotIndex === index ? 'opacity-1' : 'opacity-0'}`}>
                     <video
                       src={dotLabels[index].video}
                       autoPlay
@@ -360,7 +383,7 @@ const Feature = () => {
                       muted
                       className="w-[50px] h-[50px]"
                     />
-                  </div>
+                  </div> */}
 
                   {/* Label */}
                   <span className={`absolute bottom-[20px] text-[16px] leading-tight text-gray-700 text-center px-2 just_font transition-all duration-300 ease-in-out  w-[max-content] ${activeDotIndex === index ? 'text-[18px] font-semibold tracking-[-1px]' : ''}`}>
@@ -373,17 +396,25 @@ const Feature = () => {
             </div>
           </div>
 
-          <div className="fixed left-0 w-[50%] top-[45%] -translate-y-1/2 bg-[#fff] p-[10px] z-[9] h-[500px] pl-[50px] flex items-center">
-            <video
-              autoPlay
-              loop
-              muted
-              className="w-[400px]"
-            >
-              <source
-                src="/assets/home/who_we_are/pandas/1.mp4"
-              />
-            </video>
+          <div ref={pandaRef} className="fixed left-0 w-[50%] top-[45%] -translate-y-1/2 bg-[#fff] p-[10px] z-[9] h-[500px] pl-[100px] flex items-center">
+              <div className="relative w-[400px] h-full">
+                {dotLabels.map((dot, index) => (
+                  <video
+                    key={index}
+                    autoPlay
+                    loop
+                    muted
+                    className={`absolute inset-0 h-full transition-transform duration-300 ${activeDotIndex === index ? 'opacity-100 translate-x-[0px]' : 'opacity-0 translate-x-[100px]'}`}
+                    // style={{
+                    //   display: activeDotIndex === index ? 'block' : 'none', // Hide non-active pandas
+                    // }}
+                  >
+                    <source
+                      src={dot.video}
+                    />
+                  </video>
+                ))}
+              </div>
           </div>  
 
 
@@ -537,7 +568,7 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] ml-[calc(100vw/2)] overflow-hidden">
+              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw]  overflow-hidden">
                 <div className="basis-[100%]">
                   <div className="flex justify-between flex-wrap">
                     <h2 className="neue_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">

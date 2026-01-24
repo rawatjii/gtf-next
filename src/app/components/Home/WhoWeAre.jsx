@@ -188,7 +188,7 @@ const WhoWeAre = () => {
   }, []);
 
   return (
-    <section className="w-full relative border-t  bg-[#f5f5f5]">
+    <section className="w-full relative border-t ">
       <div ref={containerRef} className="pin-container">
         <div className="flex flex-row h-screen  main-container-scroll no-scrollbar relative">
           <div

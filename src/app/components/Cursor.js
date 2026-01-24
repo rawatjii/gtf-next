@@ -187,7 +187,7 @@ export default function Cursor() {
           transform: 'translate(-50%, -50%)',
           background: 'radial-gradient(circle, rgba(255,0,0,0.35) 0%, rgba(255,0,0,0) 70%)',
           filter: 'blur(40px)',
-          opacity: 0.28,
+          opacity: 0.20,
         }}
       />
 

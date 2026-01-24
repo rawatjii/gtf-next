@@ -524,7 +524,7 @@ const HeroSection = () => {
       }`}
     >
       {/* Pink Edge Glow – Infinite rotation around the viewport (finally visible!) */}
-      <div
+      {/* <div
         className="absolute -inset-[100px] h-full animate-gradient-rotation"
         id="rotating-pink-glow"
         style={{
@@ -538,7 +538,7 @@ const HeroSection = () => {
           filter: "blur(90px)",
           opacity: 0.25,
         }}
-      />
+      /> */}
 
       {/* <div ref={bgZoomColorRef} className="bg_color_zoom bg-[#e24397] absolute h-full w-0 left-0 top-0 z-[9]"
     ></div> */}
