@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Mousewheel,
@@ -625,7 +625,7 @@ const HeroSection = () => {
               const suffix = match && match[2] ? match[2].trim() : item; // "Minds", "Locations", or full "One Team"
 
               return (
-                <>
+                <React.Fragment key={index}>
                   <h3
                     key={index}
                     // ref={index === 2 ? zoomTextRef : null}
@@ -676,7 +676,7 @@ const HeroSection = () => {
                   {index < data.length - 1 && (
                     <span className="divider h-[300px] w-[1px]  inline-block mx-[60px] border-r border-dashed border-[1px] border-[#ccc]"></span>
                   )}
-                </>
+                </React.Fragment>
               );
             })}
           </div>

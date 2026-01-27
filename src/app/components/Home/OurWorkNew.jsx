@@ -253,6 +253,7 @@ const OurWork = () => {
                       className="h-full w-full object-contain"
                       width="1920"
                       height="1080"
+                      alt=""
                     />
                   )}
                   

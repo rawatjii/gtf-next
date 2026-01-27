@@ -12,6 +12,7 @@ import OurWorkNew from "./components/Home/OurWorkNew";
 import WhyGTF from "./components/Home/WhyGTF";
 import Feature from "./components/Home/Feature";
 import OurCulture from "./components/Home/OurCulture";
+import Expertise1 from "./components/Home/Expertise1";
 
 const Home = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
@@ -26,6 +27,7 @@ const Home = () => {
         <Feature />
         {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
         <Expertise />
+        <Expertise1 />
         <OurWorkNew />
         <Clients />
         {/* <LocationMap /> */}

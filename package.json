@@ -27,7 +27,7 @@
     "react-redux": "^9.2.0",
     "react-slot-counter": "^3.3.1",
     "styled-components": "^6.3.6",
-    "swiper": "^11.2.6",
+    "swiper": "^11.2.10",
     "three": "^0.180.0"
   },
   "devDependencies": {

@@ -210,7 +210,7 @@ const WhoWeAre = () => {
               <div className="grid items-center grid-cols-12 gap-[40px]">
                 <div
                   ref={mainContentRef}
-                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[80%] mx-auto text-white"
+                  className="relative w-[100vw] md:px-[50px] px-[15px] col-span-12 max-w-[70%] mx-auto text-white"
                 >
                   <h2
                     ref={mainHeadingRef}
@@ -235,14 +235,14 @@ const WhoWeAre = () => {
                             typeof word === "string" ? (
                               <span
                                 key={wordIndex}
-                                className="just_font font-regular pr-[8px] 2xl:leading-[1.4] 2xl:text-[60px]  text-[28px] inline-block text-left"
+                                className="just_font font-regular pr-[8px] 2xl:leading-[1.4] 2xl:text-[54px]  text-[28px] inline-block text-left"
                               >
                                 {word}
                               </span>
                             ) : (
                               <span
                                 key={wordIndex}
-                                className={`relative just_font font-regular 2xl:leading-[1.4] 2xl:text-[60px] text-[28px] inline-block text-left ${word.className}`}
+                                className={`relative just_font font-regular 2xl:leading-[1.4] 2xl:text-[54px] text-[28px] inline-block text-left ${word.className}`}
                               >
                                 {word.word}
                                 {word.sibling ? (
