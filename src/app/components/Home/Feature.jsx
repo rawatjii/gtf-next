@@ -68,9 +68,10 @@ const Feature = () => {
   const imageContentRef = useRef(null);
   const lastSlideRef = useRef(null);
   const pandaRef = useRef(null);
-
+  
   const [dotCount, setDotCount] = useState(0);
   const [activeDotIndex, setActiveDotIndex] = useState(0); // Track active dot
+
 
   const [counts, setCounts] = useState({
     projects: 0,
@@ -78,75 +79,267 @@ const Feature = () => {
     facebookQueries: 0,
   });
 
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const [isPinned, setIsPinned] = useState(false);
-  const pinTriggerRef = useRef(null);
-  const isScrollingRef = useRef(false);
-  const isPinnedRef = useRef(false);
-
-
-  // Handle scroll function
-  const handleScroll = (event) => {
-    if ( !isPinnedRef.current) return; // Check if scrolling is allowed
-
-    isScrollingRef.current = true; // Prevent multiple scroll triggers
-
-    const slides = Array.from(sectionRef.current.children); // Get all slides
-    const slideWidth = slides[0]?.offsetWidth || 0; // Get width of each slide
-
-    let newSlideIndex = currentSlideIndex;
-
-    if (event.deltaY > 0) {
-      // Scroll down, move to the next slide
-      newSlideIndex = Math.min(currentSlideIndex + 1, slides.length - 1);
-    } else if (event.deltaY < 0) {
-      // Scroll up, move to the previous slide
-      newSlideIndex = Math.max(currentSlideIndex - 1, 0);
-    }
-
-    // Scroll to the new slide with animation
-    gsap.to(sectionRef.current, {
-      x: -newSlideIndex * slideWidth,
-      duration: 1, // Animation duration
-      ease: "power3.out", // Smooth easing
-      onComplete: () => {
-        setCurrentSlideIndex(newSlideIndex); // Update the slide index
-        isScrollingRef.current = false; // Reset scrolling flag
-      },
-    });
-  };
-
   useEffect(() => {
-    const section = sectionRef.current;
-    const container = containerRef.current;
+    const ctx = gsap.context(() => {
+      const container = containerRef.current;
+      const section = sectionRef.current;
+      const pinned = pinImageRef.current;
+      const lastSlide = lastSlideRef.current;
+      const counterSec = counterSecRef.current;
+      const circle = circleRef.current;
+      const timeline = timelineRef.current;
 
-    // Initialize ScrollTrigger to pin the section
-    pinTriggerRef.current = ScrollTrigger.create({
-      trigger: container,
-      start: "top top", // Start when the container hits the top
-      pin: true, // Pin the container
-      scrub: 0.2, // Smooth scroll scrubbing
-      markers: false, // Optional: Enable markers for debugging
-      onEnter: () => {
-        isPinnedRef.current = true; // Mark as pinned when the section is pinned
-      },
-      onLeave: () => {
-        isPinnedRef.current = false; // Mark as unpinned when leaving the pinned area
-      },
-    });
+      if (!section || !pinned) return;
 
-    // Add the scroll event listener
-    window.addEventListener("wheel", handleScroll);
+      // console.log('testing',100/2);
 
-    // Cleanup the event listener and ScrollTrigger on component unmount
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-      if (pinTriggerRef.current) {
-        pinTriggerRef.current.kill(); // Kill ScrollTrigger instance on cleanup
-      }
-    };
-  }, [currentSlideIndex])
+      gsap.set(section, {
+        transform: `translateX(${window.innerWidth * 0.4}px)`,
+      })
+
+      // All slides that should drive timeline/dots/images
+      // = all section children except the counter section
+      const slides = Array.from(section.children).filter(function (child) {
+        return child !== counterSec;
+      });
+
+      // Number of dots = number of slides
+      setDotCount(slides.length);
+
+      // All image layers inside pinned image container
+      const imageSets = pinned.children;
+
+
+      // Horizontal scroll distance
+      const getMaxX = () => section.scrollWidth - window.innerWidth;
+
+      // DYNAMIC BASE PERCENT (100 / (slides + 1))
+      const slidesLen = slides.length;
+      // const basePercent = slidesLen > 0 ? 100 / (slidesLen + 1) : 0;
+      const basePercent = slidesLen > 0 ? 20 : 0;
+      // Each slide gets one equal segment
+      const segmentSize = slidesLen > 0 ? (100 - basePercent) / slidesLen : 0;
+
+      // Set initial timeline fill on load (e.g. 16.66% for 5 slides)
+      gsap.set(timeline, {
+        width:  `17%`,
+      });
+
+
+      // INITIAL STATE
+      // gsap.set(imageSets, { clipPath: "inset(100% -100% 0 0)", opacity: 1 });
+      // gsap.set(imageSets[0], { clipPath: "inset(0% -100% 0% 0)" }); // First set visible
+
+      // MAIN HORIZONTAL SCROLL
+      gsap.to(section, {
+        x: () => -getMaxX(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: "top top",
+          end: () => `+=${getMaxX() - window.innerWidth}`,
+          pin: true,
+          scrub: 0.2,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            // Base + dynamic segments based on number of slides
+            var slideProgresses = new Array(slidesLen).fill(0);
+
+            // Common values
+            var lastRect = lastSlide ? lastSlide.getBoundingClientRect() : null;
+            var counterSecRect = counterSec
+              ? counterSec.getBoundingClientRect()
+              : { left: Infinity };
+            var vw = window.innerWidth;
+            var triggerPoint = vw * 0.7;        // For timeline and dots (70% from the left)
+            var clipTriggerPoint = vw * 1;     // For clip animation (100% from the left)
+            var counterTriggerPoint = vw * 0.5;
+            var lastSlidePoint = triggerPoint;
+
+            // -------- PER-SLIDE PROGRESS, IMAGE REVEAL, ETC. --------
+            slides.forEach(function (slide, index) {
+              if (!slide) return;
+
+              var rect = slide.getBoundingClientRect();
+
+              // Local progress for this slide based on 70% line
+              var progress = 0;
+              var clipProgress = 0;
+
+              if (rect.left <= triggerPoint && rect.left >= 0) {
+                // from 70% → 0% of viewport
+                progress = 1 - rect.left / triggerPoint; // 0 → 1
+              } else if (rect.left < 0) {
+                progress = 1;
+              }
+              progress = gsap.utils.clamp(0, 1, progress);
+              slideProgresses[index] = progress;
+
+              // clip progress
+
+              if (rect.left <= clipTriggerPoint && rect.left >= 0) {
+                // from 70% → 0% of viewport
+                clipProgress = 1 - rect.left / clipTriggerPoint; // 0 → 1
+              } else if (rect.left < 0) {
+                clipProgress = 1;
+              }
+              clipProgress = gsap.utils.clamp(0, 1, clipProgress);
+
+
+              // IMAGE CLIP REVEAL PER SLIDE
+              var targetSet = imageSets[index];
+              var prevIndex =
+                index === 0 ? imageSets.length - 1 : index - 1;
+
+              if (targetSet) {
+                gsap.set(targetSet, {
+                  clipPath: "inset(0% 0% 0% 0%)",
+                  zIndex: index === 0 ? 5 : index === 1 ? 4 : index === 2 ? 3 : index === 3 ? 2 : 1,
+                });
+              }
+
+              // Use the separate clipTriggerPoint for clip animation
+              var prevSet = imageSets[prevIndex];
+              if (prevSet) {
+                gsap.set(prevSet, {
+                  clipPath: "inset(" + clipProgress * 300 + "% 0% 0% 0%)",
+                  zIndex: prevIndex === 0 ? 5 : prevIndex === 1 ? 4 : prevIndex === 2 ? 3 : prevIndex === 3 ? 2 : 1,
+                });
+              }
+
+            });
+
+            // -------- TIMELINE WIDTH FROM SLIDE PROGRESS --------
+            // 25% base + equal share for each slide
+            var timelineWidth = basePercent;
+
+            slideProgresses.forEach(function (p) {
+              timelineWidth += p * segmentSize;
+            });
+
+            timelineWidth = Math.min(100, Math.max(0, timelineWidth));
+
+            gsap.to(timeline, {
+              width: Math.min(100, Math.max(0, timelineWidth)) + "%", // Ensure it stays between 0% and 100%
+              ease: "none", // Ensure it stays linear
+            });
+
+            // -------- DOTS STATE FROM SLIDE PROGRESS --------
+            dotsRef.current.forEach(function (dot, idx) {
+              if (!dot) return;
+              var active = slideProgresses[idx] > 0;
+
+              // Change active dot index when active
+
+              if (active) {
+                setActiveDotIndex(idx);
+              }
+
+              gsap.to(dot, {
+                scale: active ? 1.5 : 1,
+                backgroundColor: active ? "#e24397" : "#777679",
+                duration: 0.3,
+              });
+            });
+
+            // -------- PINNED IMAGE X SCROLL (unchanged) --------
+            if (lastRect && lastRect.left <= lastSlidePoint) {
+              var distanceToScroll = lastSlidePoint - lastRect.left;
+
+              gsap.set(pinned, {
+                x: "-" + distanceToScroll + "px",
+                overwrite: true,
+              });
+
+              gsap.set(pandaRef.current, {
+                x: "-" + distanceToScroll + "px",
+                overwrite: true,
+              });
+            }
+
+            // -------- COUNTER + CIRCLE ANIMATIONS (unchanged) --------
+            if (counterSecRect.left <= counterTriggerPoint) {
+              gsap.to(timelineGroupRef.current, {
+                opacity:0,
+                duration:0.4,
+              });
+
+              gsap.to(circleRef.current, {
+                scale: 1,
+                opacity: 1,
+                duration: 1.4,
+                ease: "power4.out",
+              });
+
+              gsap.to(lineRef.current, {
+                width: "100%",
+                duration: 1.6,
+                ease: "power3.out",
+                delay: 0.3,
+              });
+
+              gsap.to(counts, {
+                projects: 1500,
+                googleQueries: 50,
+                facebookQueries: 1000,
+                duration: 2.8,
+                ease: "power2.out",
+                snap: { projects: 1, googleQueries: 10, facebookQueries: 10 },
+                onUpdate: function () {
+                  setCounts({ ...counts });
+                },
+                delay: 0.6,
+              });
+            }else{
+              gsap.to(timelineGroupRef.current, {
+                opacity:1,
+                duration:0.4,
+              });
+            }
+
+          }
+
+
+
+        },
+      });
+
+      // Your existing image reveal code...
+      // imagesRef.current.forEach((img) => {
+      //   if (img) {
+      //     ScrollTrigger.create({
+      //       trigger: img,
+      //       start: "top 90%",
+      //       once: true,
+      //       onEnter: () => {
+      //         gsap.to(img, {
+      //           opacity: 1,
+      //           y: 0,
+      //           clipPath: "inset(0% 0 0% 0)",
+      //           duration: 1.6,
+      //           ease: "power3.out",
+      //         });
+      //       },
+      //     });
+      //   }
+      // });
+
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+
+
+  // useEffect(() => {
+  //   if (dotsRef.current[0]) {
+  //     gsap.set(dotsRef.current[0], {
+  //       scale: 1.2,
+  //       backgroundColor: "#4CAF50",
+  //     });
+  //   }
+  // }, [dotCount]);
 
   return (
     <>
@@ -156,7 +349,7 @@ const Feature = () => {
           <img
             src="/assets/home/netblob.png"
             alt="Years of Expertise"
-            className="absolute md:h-[auto] h-[100%] w-[80vw] translate-y-[10vh] translate-x-[30%] md:block hidden right-[0%] left-[unset] opacity-70"
+            className="absolute md:h-[auto] h-[100%] w-[80vw] translate-y-[10vh] translate-x-[30%] md:block hidden right-[0%] left-[unset] opacity-70"  
           />
 
           <div ref={timelineGroupRef}>
@@ -224,11 +417,11 @@ const Feature = () => {
               </div>
           </div>   */}
 
-          {/* left-1/2  -translate-x-1/2 */}
+{/* left-1/2  -translate-x-1/2 */}
 
           <div
             ref={pinImageRef}
-            className="fixed w-[fit-content] z-[9] before:absolute before:content-[''] before:w-[calc(100%+300px)] before:right-0 before:h-full before:bg-white"
+            className="fixed top-[50%] left-[100px] -translate-y-1/2 w-[fit-content] z-[9] before:absolute before:content-[''] before:w-[calc(100%+300px)] before:right-0 before:h-full before:bg-white"
             style={{
               height: "500px",
               width: "500px",
@@ -315,7 +508,7 @@ const Feature = () => {
             >
               {/* First Image Section */}
 
-              <div className="flex flex-row items-center relative w-[calc((100vw))] pl-[700px]">
+              <div className="flex flex-row items-center relative w-[calc((100vw/2))]">
                 <div className="basis-[100%] flex items-center gap-[50px]">
                   <video
                     autoPlay
@@ -335,7 +528,7 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative w-[calc((100vw))]  pl-[700px]"
+                className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
                 <div className="basis-[100%] flex items-center gap-[50px]">
                   <video
@@ -359,7 +552,7 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative w-[calc((100vw))]  pl-[700px]"
+                className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
                 <div className="basis-[100%] flex items-center gap-[50px]">
                   <video
@@ -383,7 +576,7 @@ const Feature = () => {
 
               <div
                 ref={imageContentRef}
-                className="flex flex-row items-center relative w-[calc((100vw))]  pl-[700px]"
+                className="flex flex-row items-center relative w-[calc((100vw/2))] ml-[13rem]"
               >
                 <div className="basis-[100%] flex items-center gap-[50px]">
                   <video
@@ -405,8 +598,8 @@ const Feature = () => {
                 </div>
               </div>
 
-              <div ref={lastSlideRef} className="flex flex-row items-center relative last_slide w-[calc((100vw/2))] pl-[700px]">
-                <div className="basis-[100%] flex items-center gap-[50px]">
+              <div ref={lastSlideRef} className="flex flex-row items-center relative last_slide w-[calc((100vw/2))] ml-[13rem]">
+              <div className="basis-[100%] flex items-center gap-[50px]">
                   <video
                     autoPlay
                     loop
@@ -424,7 +617,105 @@ const Feature = () => {
                 </div>
               </div>
 
+              <div ref={counterSecRef} className="flex flex-row items-center relative w-[100vw] ml-[calc(100vw/4)] overflow-hidden">
+                <div className="basis-[100%]">
+                  <div className="flex justify-between flex-wrap">
+                    <h2 className="neue_font font-medium relative capitalize 2xl:leading-[80px] px-[100px]  xl:leading-[70px]  leading-[35px] md:basis-[50%] max-h-fit text-[30px] xl:text-[40px] md:text-[50px] 2xl:text-[64px] z-[1] tracking-0 mb-[80px]">
+                      <span className="block">We create</span>
+                      <span className="block relative pl-[100px] w-[max-content] before:absolute before:h-[3px] before:w-[80px] before:bg-[#000] before:block before:left-[0] before:top-[50%] before:translate-y-[-1/2]">
+                        what others only imagine.
+                      </span>
+                      <Line
+                        ref={coloredLineRef}
+                        left={"xl:left-[25%] left-[50%] 2xl:left-[37%]"}
+                        bgColor="bg-gtf-pink"
+                      />
+                    </h2>
+                    {/* <div className="md:basis-[35%] border-b-[1px] border-b-solid border-b-[#666666] md:pb-[50px] pb-[35px] montserrat">
+                    <p className="text-[16px] font-[400] md:mt-0 mt-[20px] tracking-[0.5px]">
+                      GTF Technologies, born from Gurukul The Foundation and built in
+                      India, brings 17 years + of absolute mastery in branding and digital
+                      media.
+                    </p>
+                    <div className="flex mt-[50px] items-center">
+                      <p className=" mr-[10px] uppercase bebas tracking-[0.5px]">
+                        meet now
+                      </p>
+                      <MdArrowOutward className="bg-[#ddd]" />
+                    </div>
+                  </div> */}
+                  </div>
+                  <div className="flex justify-between flex-wrap relative md:pt-[0] pt-[30px] px-[100px]">
+                    <div className="md:basis-[60%] basis-[100%] relative">
+                      {/* 1 */}
+                      {/* <img
+                        src="/assets/home/netblob.png"
+                        alt="Years of Expertise"
+                        className="absolute md:h-[auto] h-[100%] w-[100%] md:translate-y-[-50%] translate-x-[-50%] md:block hidden left-[0%] z-index: [1px]"
+                      /> */}
+                      <div
+                        ref={lineRef}
+                        className="relative w-0 top-[50%] left-[29%] z-[1]"
+                      >
+                        {/* top */}
+                        <div className="origin-left md:block hidden  rotate-[-14deg] h-[1px] w-[75%] border-dashed border-b-[1px] border-black  absolute bottom-0 "></div>
+                        <div className="origin-left md:block hidden rotate-[-12deg] h-[1px] w-[75%] border-dashed border-b-[1px] border-black  absolute bottom-[0px]"></div>
 
+                        {/* middle */}
+                        <div className="h-[1px] md:block hidden w-[73%] border-dashed border-b-[1px] border-black origin-left rotate-[0deg] absolute  "></div>
+                        <div className="h-[1px] md:block hidden w-[73%] border-dashed border-b-[1px] border-black  absolute origin-left rotate-[-3deg] "></div>
+
+                        {/* third */}
+                        <div className="h-[1px] md:block hidden w-[75%] origin-left rotate-[10deg] border-dashed border-b-[1px] border-black  absolute  "></div>
+                        <div className="h-[1px] md:block hidden w-[75%] origin-left rotate-[12deg] border-dashed border-b-[1px] border-black  absolute  "></div>
+                      </div>
+                      <div
+                        ref={circleRef}
+                        className="md:h-[250px] md:w-[250px] h-[120px] w-[120px] md:left-[8%]  md:top-[50%] bg-[#FDE93D] translate-y-[-50%] md:relative absolute rounded-full"
+                      ></div>
+
+                      <p className="md:absolute bottom-[50px] left-[0]  md:text-start  px-[50px] z-[9]">
+                        <span className="neue_font text-[35px] 2xl:text-[75px] lg:text-[65px] font-medium me-0 me-[10px] md:">
+                          17 +
+                        </span>
+                        <br />
+                        <span className="neue_font md:leading-[60px] 2xl:text-[50px] text-[35px] lg:text-[50px] tracking-[2px] font-medium">
+                          Years Of <br className="md:block hidden" /> Expertise
+                        </span>
+                      </p>
+                    </div>
+                    <div className="md:basis-[40%] pl-[60px] flex flex-wrap gap-[100px]">
+                      <p className="flex items-center md:justify-start justify-center">
+                        <span
+                          ref={counterRef}
+                          className="just_font text-[30px] md:text-start 2xl:text-[50px] lg:text-[36px] font-semibold text-[#e34090] w-[200px] leading-[30px]"
+                        >
+                          {counts.projects}+
+                        </span>
+                        <span className="text-[22px] font-[400] tracking-wide just_font">
+                          Projects Done
+                        </span>
+                      </p>
+                      <p className="flex items-center md:justify-start justify-center">
+                        <span className="just_font text-[30px] md:text-start 2xl:text-[50px] lg:text-[36px] font-semibold text-[#e3b320] w-[200px]">
+                          {counts.googleQueries}k+
+                        </span>
+                        <span className="text-[22px] font-[400] tracking-wide just_font">
+                          Queries generated from Google per month
+                        </span>
+                      </p>
+                      <p className="flex items-center md:justify-start justify-center">
+                        <span className="just_font text-[30px] md:text-start 2xl:text-[50px] lg:text-[36px] font-semibold text-[#2999cd] w-[200px]">
+                          {counts.facebookQueries}k+
+                        </span>
+                        <span className="text-[22px] font-[400] tracking-wide just_font flex-1">
+                          Queries generated from Facebook & Instagram per month
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -1,18 +1,18 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
-import { Swiper, SwiperSlide } from "swiper/react";  // Import Swiper for React
-import "swiper/css";  // Import Swiper styles
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Feature = () => {
-  const [isPinned, setIsPinned] = useState(false); // State for pinning status
-  const sectionRef = useRef(null); // Ref for the section
-  const containerRef = useRef(null); // Ref for the container
-  const swiperRef = useRef(null); // Ref for the Swiper component
-  const scrollingRef = useRef(false); 
+  const [isPinned, setIsPinned] = useState(false);
+  const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const swiperRef = useRef(null);
+  const scrollingRef = useRef(false);
 
   const handleWheel = (event) => {
     if (!isPinned || scrollingRef.current) return;
@@ -35,18 +35,25 @@ const Feature = () => {
     setTimeout(() => {
       scrollingRef.current = false;
     }, 200); // Timeout should match the swiper slide transition time
-
   };
 
   useEffect(() => {
+    const updateEndValue = () => {
+      const totalSlides = swiperRef.current.swiper.slides.length;
+      const slideHeight = swiperRef.current.swiper.slides[0].offsetHeight;
+      const totalHeight = slideHeight * totalSlides;
+      return `+=${totalHeight}`; // Dynamically set end value based on total height of slides
+    };
+
     // Pin the container when scrolling
     const pinTrigger = ScrollTrigger.create({
       trigger: containerRef.current,
       start: "top top", // Start when the container hits the top of the viewport
-      end: () => `+=3000`, // End when we reach the last slide
+      end: updateEndValue, // Dynamically calculate the end value based on slides
       pin: true, // Pin the container
       scrub: 0.2, // Smooth scroll scrubbing
       markers: true, // Optional: Add markers for testing
+      anticipatePin: 1,
       onEnter: () => {
         setIsPinned(true);
       },
@@ -71,9 +78,8 @@ const Feature = () => {
           spaceBetween={50}
           slidesPerView={1}
           loop={false}
-          mousewheel={false} // Disable Swiper's mouse wheel handling to avoid conflict
+          mousewheel={false}
         >
-          {/* First Slide */}
           <SwiperSlide>
             <div className="flex flex-row items-center justify-center w-full">
               <video autoPlay loop muted className="w-[400px] transition-transform duration-300">
@@ -85,7 +91,6 @@ const Feature = () => {
             </div>
           </SwiperSlide>
 
-          {/* Second Slide */}
           <SwiperSlide>
             <div className="flex flex-row items-center justify-center w-full">
               <video autoPlay loop muted className="w-[400px] transition-transform duration-300">
@@ -98,7 +103,6 @@ const Feature = () => {
             </div>
           </SwiperSlide>
 
-          {/* Third Slide */}
           <SwiperSlide>
             <div className="flex flex-row items-center justify-center w-full">
               <video autoPlay loop muted className="w-[400px] transition-transform duration-300">
@@ -111,7 +115,6 @@ const Feature = () => {
             </div>
           </SwiperSlide>
 
-          {/* Fourth Slide */}
           <SwiperSlide>
             <div className="flex flex-row items-center justify-center w-full">
               <video autoPlay loop muted className="w-[400px] transition-transform duration-300">

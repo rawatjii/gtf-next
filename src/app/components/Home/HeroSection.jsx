@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useLayoutEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Mousewheel,
@@ -254,24 +254,6 @@ const HeroSection = () => {
     };
   }, [mounted, videoCompleted, isMobile]);
 
-  useEffect(() => {
-    if (!mainSectionRef.current || !mounted || !videoCompleted) return;
-
-    // Wait until everything is rendered and video is done
-    const zoomTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: mainSectionRef.current,
-        start: "top top",
-        end: "+=30%",
-        pin: true,
-        pinSpacing: true,
-        scrub: 1,
-        anticipatePin: 1,
-        id: "hero-zoom",
-      },
-    });
-
-  }, [mounted, videoCompleted]);
 
   const closeModal = () => {
     if (modalRef.current) {
@@ -515,6 +497,16 @@ const HeroSection = () => {
 
     return () => observer.disconnect();
   }, [videoCompleted]);
+
+  useEffect(()=>{
+    const opacityContext = gsap.context(()=>{
+      gsap.to(mainSectionRef.current, {
+        
+      });
+    }, mainSectionRef);
+
+    return ()=>opacityContext.revert();
+  }, [])
 
   return (
     <section

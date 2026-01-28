@@ -26,8 +26,7 @@ const Home = () => {
         {isMobile ? <WhoWeAreMob /> : <WhoWeAre />}
         <Feature />
         {/* {isMobile ? <WhoWeAreMob /> : <WhoWeAre1 />} */}
-        <Expertise />
-        <Expertise1 />
+        {/* <Expertise /> */}
         <OurWorkNew />
         <Clients />
         {/* <LocationMap /> */}
